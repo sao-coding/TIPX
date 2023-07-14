@@ -1,0 +1,4 @@
+{
+    "rows": "table[bgcolor=\"#CCCCCC\"] tbody tr:not(:first-child)",
+    "cells": "td:not(:first-child)"
+}

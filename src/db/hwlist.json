@@ -1,0 +1,4 @@
+{
+    "rows": "form table tr td table tr:not(:nth-child(-n+2))",
+    "cells": "td[bgcolor=\"#FFFFCC\"]  font"
+}

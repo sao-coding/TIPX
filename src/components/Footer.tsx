@@ -1,0 +1,82 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
+import { useRouter } from "next/navigation"
+import Cookies from "js-cookie"
+import clsx from "clsx"
+
+const Footer = () => {
+    const [prevScrollPos, setPrevScrollPos] = useState(0)
+    const [navbarHidden, setNavbarHidden] = useState(false)
+    const router = useRouter()
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.scrollY
+
+            if (prevScrollPos > currentScrollPos) {
+                setNavbarHidden(false) // 往上滾動，顯示導覽列
+            } else {
+                setNavbarHidden(true) // 往下滾動，隱藏導覽列
+            }
+
+            setPrevScrollPos(currentScrollPos)
+        }
+
+        window.addEventListener("scroll", handleScroll, { passive: true })
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [prevScrollPos])
+
+    // const checkGo = (path: string) => {
+    //     const token = Cookies.get("token")
+    //     if (token) {
+    //         go(path)
+    //     } else {
+    //         go("/login")
+    //     }
+    // }
+
+    return (
+        <div
+            className={clsx(
+                "h-16 fixed bottom-0 z-10 flex w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
+                { hidden: navbarHidden }
+            )}
+        >
+                        <div
+                className='flex flex-col items-center justify-center'
+                onClick={() => router.push("/")}
+            >
+                <IconHome />
+                <div className='mt-1'>首頁</div>
+            </div>
+            <div
+                className='flex flex-col items-center justify-center'
+                onClick={() => router.push("/timetable")}
+            >
+                <IconCalendarEvent />
+                <div className='mt-1'>課表</div>
+            </div>
+            <div
+                className='flex flex-col items-center justify-center'
+                onClick={() => router.push("/course")}
+            >
+                <IconBook2 />
+                <div className='mt-1'>修課</div>
+            </div>
+            <div
+                className='flex flex-col items-center justify-center'
+                onClick={() => router.push("/user")}
+            >
+                <IconUser />
+                <div className='mt-1'>個人</div>
+            </div>
+        </div>
+    )
+}
+
+export default Footer

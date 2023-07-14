@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from "next/server"
+import { JSDOM } from "jsdom"
+import db from "@/db/timetable.json"
+import { TimeTable } from "@/types"
+
+export const dynamic = "force-dynamic"
+
+export const GET = async (req: NextRequest) => {
+    // const fetchData = async () => {
+    const year = req.cookies.get("cookie_year")?.value
+    const sem = req.cookies.get("cookie_sem")?.value
+    const userid = req.cookies.get("cookie_userid")?.value
+
+    const timeTable: TimeTable = {
+        星期一: [],
+        星期二: [],
+        星期三: [],
+        星期四: [],
+        星期五: [],
+        星期六: [],
+        星期日: [],
+    }
+
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
+        headers: {
+            cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+        },
+    })
+
+    const buffer = await res.arrayBuffer()
+    const html = new TextDecoder("big5").decode(buffer)
+    const dom = new JSDOM(html)
+    const document = dom.window.document
+
+    const rows = Array.from(document.querySelectorAll(db.rows))
+
+    rows.forEach((row) => {
+        const cells = Array.from(row.querySelectorAll(db.cells))
+
+        cells.forEach((cell, index) => {
+            const day = Object.keys(timeTable)[index] as keyof TimeTable
+            const daylist = cell.innerHTML.replace(/<font size="2">|<\/font>/g, "").split("<br>")
+            if (daylist[0] === ".") {
+                timeTable[day].push(["", "", "", ""])
+            } else {
+                timeTable[day].push(daylist)
+            }
+        })
+    })
+
+    // console.log(weekList)
+    return NextResponse.json(timeTable)
+    // }
+
+    // fetchData()
+}
