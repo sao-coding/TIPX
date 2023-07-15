@@ -89,6 +89,7 @@ const LoginPage = () => {
             alert("請輸入學號")
             return
         }
+        Cookie.set("cookie_rgno", (document.getElementById("username") as HTMLInputElement)?.value)
         Cookie.set(
             "cookie_userid",
             (document.getElementById("username") as HTMLInputElement)?.value
