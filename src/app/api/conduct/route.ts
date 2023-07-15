@@ -38,7 +38,6 @@ export const GET = async (req: NextRequest) => {
         score = []
         cells.forEach((cell) => {
             const list = cell.textContent
-            console.log(list)
             score.push(Number(list))
         })
         conduct.score[index] = [...score]
