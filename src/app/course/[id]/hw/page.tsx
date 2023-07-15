@@ -1,12 +1,24 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import Cookie from "js-cookie"
 import Card from "@/components/hw/card"
 import { HwList } from "@/types"
 
-export default function Hw({ params }: { params: { id: string } }) {
+// export default function Hw({ params }: { params: { id: string } }) {
+const HwPage = ({ params }: { params: { id: string } }) => {
     const [data, setData] = useState<HwList[]>([])
-    const [cookie, setCookie] = useState("")
+    const router = useRouter()
+
+    useEffect(() => {
+        const cookie = Cookie.get()
+        console.log(cookie)
+        // cookie = {} 跳轉到登入頁面
+        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+            router.push("/login")
+        }
+    }, [])
 
     useEffect(() => {
         const fetchDate = async () => {
@@ -28,3 +40,5 @@ export default function Hw({ params }: { params: { id: string } }) {
         </>
     )
 }
+
+export default HwPage

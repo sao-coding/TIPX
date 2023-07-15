@@ -6,10 +6,11 @@ import { TimeTable } from "@/types"
 export const dynamic = "force-dynamic"
 
 export const GET = async (req: NextRequest) => {
-    // const fetchData = async () => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
     const userid = req.cookies.get("cookie_userid")?.value
+    const dept = req.cookies.get("cookie_dept")?.value
+    const es = req.cookies.get("cookie_es")?.value
 
     const timeTable: TimeTable = {
         星期一: [],
@@ -23,7 +24,7 @@ export const GET = async (req: NextRequest) => {
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
         headers: {
-            cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

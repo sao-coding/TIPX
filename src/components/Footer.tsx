@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
 import { useRouter } from "next/navigation"
-import Cookies from "js-cookie"
+import Cookie from "js-cookie"
 import clsx from "clsx"
 
 const Footer = () => {
@@ -43,11 +43,11 @@ const Footer = () => {
     return (
         <div
             className={clsx(
-                "h-16 fixed bottom-0 z-10 flex w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
+                "fixed bottom-0 z-10 flex h-16 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
                 { hidden: navbarHidden }
             )}
         >
-                        <div
+            <div
                 className='flex flex-col items-center justify-center'
                 onClick={() => router.push("/")}
             >

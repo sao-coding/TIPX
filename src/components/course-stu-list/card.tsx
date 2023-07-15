@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import clsx from "clsx"
+import Fancybox from "@/components/fancybox"
 import { IconUserCircle, IconStar, IconGenderBigender, IconMail } from "@tabler/icons-react"
 import { CourseStuList } from "@/types"
 const Card = ({ data }: { data: CourseStuList }) => {
@@ -16,17 +17,28 @@ const Card = ({ data }: { data: CourseStuList }) => {
                                 <IconUserCircle size={75} />
                             </div>
                         ) : (
-                            <Image
-                                src={data.img}
-                                alt='大頭貼'
-                                width={75}
-                                height={100}
-                                loading='lazy'
-                                placeholder='blur'
-                                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
-                                onError={() => setIsImgError(true)}
-                                className='rounded-md shadow-md'
-                            />
+                            <Fancybox
+                                options={{
+                                    Carousel: {
+                                        infinite: false,
+                                    },
+                                }}
+                            >
+                                <a href={data.img} data-fancybox data-caption='大頭貼'>
+                                    <Image
+                                        src={data.img}
+                                        alt='大頭貼'
+                                        width='0'
+                                        height='0'
+                                        sizes='fill'
+                                        loading='lazy'
+                                        placeholder='blur'
+                                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
+                                        onError={() => setIsImgError(true)}
+                                        className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
+                                    />
+                                </a>
+                            </Fancybox>
                         )}
                     </div>
                     <div className='flex items-center p-2'>

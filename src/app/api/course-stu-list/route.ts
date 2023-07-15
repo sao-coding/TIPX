@@ -9,6 +9,8 @@ export const GET = async (req: NextRequest) => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
     const userid = req.cookies.get("cookie_userid")?.value
+    const dept = req.cookies.get("cookie_dept")?.value
+    const es = req.cookies.get("cookie_es")?.value
 
     const courseStuList: CourseStuList[] = []
     let stuList: string[] = []
@@ -19,7 +21,7 @@ export const GET = async (req: NextRequest) => {
         )}`,
         {
             headers: {
-                cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         }

@@ -66,3 +66,42 @@ body {
 ::-webkit-scrollbar-button {
     display: none;
 }
+
+.user-info {
+    position: relative;
+    perspective: 150rem;
+    width: theme("width.full");
+    height: 120px;
+}
+
+@media screen and (min-width: 768px) {
+    .user-info {
+        perspective: 300rem;
+    }
+}
+
+.user-info-front,
+.user-info-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.8s ease;
+}
+
+.user-info-front {
+}
+
+.user-info-back {
+    transform: rotateY(180deg);
+}
+
+.user-info.active .user-info-front {
+    transform: rotateY(-180deg);
+}
+
+.user-info.active .user-info-back {
+    transform: rotateY(0);
+}

@@ -10,7 +10,6 @@ import {
 
 const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
     const formatDate = (date: string) => {
-        // 1120515
         const year = date.slice(0, 3)
         const month = date.slice(3, 5)
         const day = date.slice(5, 7)

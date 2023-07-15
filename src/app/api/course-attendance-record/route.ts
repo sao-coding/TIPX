@@ -9,6 +9,8 @@ export const GET = async (req: NextRequest) => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
     const userid = req.cookies.get("cookie_userid")?.value
+    const dept = req.cookies.get("cookie_dept")?.value
+    const es = req.cookies.get("cookie_es")?.value
 
     const courseAttendanceRecord: CourseAttendanceRecord = {
         list: [],
@@ -18,23 +20,32 @@ export const GET = async (req: NextRequest) => {
     let attendanceRecord: string[] = []
     let total: number[] = []
 
-    const res = await fetch(
-        `https://netinfo.takming.edu.tw/tip/list_course_absrec.php?opno=${req.nextUrl.searchParams.get(
-            "id"
-        )}`,
-        {
+    let res
+    if (!req.nextUrl.searchParams.has("id")) {
+        res = await fetch("https://netinfo.takming.edu.tw/tip/stu_stg01.php", {
             headers: {
-                cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
-        }
-    )
+        })
+    } else {
+        res = await fetch(
+            `https://netinfo.takming.edu.tw/tip/list_course_absrec.php?opno=${req.nextUrl.searchParams.get(
+                "id"
+            )}`,
+            {
+                headers: {
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                    Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+                },
+            }
+        )
+    }
 
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder("big5").decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
-    // body > table:nth-child(6) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr:nth-child(2)
     const rows = Array.from(
         document.querySelectorAll('table[bgcolor="#CCCCCC" ] tr:not(:first-child)')
     )

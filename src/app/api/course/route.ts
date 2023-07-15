@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { JSDOM } from "jsdom"
-import db from "@/db/stu_weeklist.json"
-import { TimeTable } from "@/types"
-import row from "@/components/timetable/row"
 
 export const GET = async (req: NextRequest) => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
     const userid = req.cookies.get("cookie_userid")?.value
+    const dept = req.cookies.get("cookie_dept")?.value
+    const es = req.cookies.get("cookie_es")?.value
     // const list = [
     //     {
     //         item: "item",
@@ -21,7 +20,7 @@ export const GET = async (req: NextRequest) => {
     if (req.nextUrl.searchParams.get("id") === null) {
         res = await fetch("https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php", {
             headers: {
-                cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         })
@@ -32,7 +31,7 @@ export const GET = async (req: NextRequest) => {
             )}`,
             {
                 headers: {
-                    cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${userid}; cookie_userid=${userid};`,
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
                     Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
                 },
             }

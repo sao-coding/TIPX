@@ -1,15 +1,24 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import Cookie from "js-cookie"
 import Card from "@/components/course-attendance-record/card"
-import {
-    CourseAttendanceRecord,
-    CourseAttendanceRecordList,
-    CourseAttendanceRecordTotal,
-} from "@/types"
-export default function Hw({ params }: { params: { id: string } }) {
+import { CourseAttendanceRecord } from "@/types"
+
+// export default function Hw({ params }: { params: { id: string } }) {
+const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
     const [data, setData] = useState<CourseAttendanceRecord>()
-    const [cookie, setCookie] = useState("")
+    const router = useRouter()
+
+    useEffect(() => {
+        const cookie = Cookie.get()
+        console.log(cookie)
+        // cookie = {} 跳轉到登入頁面
+        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+            router.push("/login")
+        }
+    }, [])
 
     useEffect(() => {
         const fetchDate = async () => {
@@ -50,3 +59,5 @@ export default function Hw({ params }: { params: { id: string } }) {
         </>
     )
 }
+
+export default CourseAttendanceRecordPage

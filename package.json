@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.20",
+    "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@tabler/icons-react": "^2.25.0",
     "@types/jsdom": "^21.1.1",
@@ -19,6 +21,7 @@
     "clsx": "^1.2.1",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "iconv-lite": "^0.6.3",
     "js-cookie": "^3.0.5",
     "jsdom": "^22.1.0",
     "next": "13.4.9",

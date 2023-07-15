@@ -6,20 +6,18 @@ import { TimeTable } from "@/types"
 export const dynamic = "force-dynamic"
 
 export const GET = async (req: NextRequest) => {
-    // const fetchData = async () => {
-    const year = "111" // 學年
-    const sem = "2" // 學期
-    const rgno = "D11019139" // 學號
+    const year = req.cookies.get("cookie_year")?.value
+    const sem = req.cookies.get("cookie_sem")?.value
+    const userid = req.cookies.get("cookie_userid")?.value
+    const dept = req.cookies.get("cookie_dept")?.value
+    const es = req.cookies.get("cookie_es")?.value
 
-    const res = await fetch(
-        "https://netinfo.takming.edu.tw/tip/list_course_absrec.php?opno=D192108",
-        {
-            headers: {
-                cookie: `cookie_year=${year}; cookie_sem=${sem}; cookie_rgno=${rgno}; cookie_userid=${rgno}`,
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        }
-    )
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_stg04.php", {
+        headers: {
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+        },
+    })
 
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
