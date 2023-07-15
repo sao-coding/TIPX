@@ -192,5 +192,5 @@ export const GET = async (req: NextRequest) => {
     infolist.credit.total = total
     infolist.credit.get = get
 
-    return NextResponse.json(html)
+    return NextResponse.json(infolist)
 }
