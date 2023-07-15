@@ -29,6 +29,7 @@ const UserPage = () => {
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
     const router = useRouter()
+    const [html, setHtml] = useState("")
 
     useEffect(() => {
         const cookie = Cookie.get()
@@ -37,6 +38,15 @@ const UserPage = () => {
         if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
             router.push("/login")
         }
+    }, [])
+
+    useEffect(() => {
+        const fetchHtml = async () => {
+            const res = await fetch("/api/user")
+            const data = await res.text()
+            setHtml(data)
+        }
+        fetchHtml()
     }, [])
 
     useEffect(() => {
@@ -94,6 +104,7 @@ const UserPage = () => {
 
     return (
         <>
+            <iframe srcDoc={html} className='h-screen w-full'></iframe>
             {userData && (
                 <>
                     <div className='w-full p-2'>
