@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { JSDOM } from "jsdom"
 
+export const dynamic = "force-dynamic"
+
 export const GET = async (req: NextRequest) => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
