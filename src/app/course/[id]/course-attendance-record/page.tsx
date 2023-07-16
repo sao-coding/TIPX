@@ -12,20 +12,28 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
     const router = useRouter()
 
     useEffect(() => {
-        const cookie = Cookie.get()
-        console.log(cookie)
-        // cookie = {} 跳轉到登入頁面
-        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+        const cookie = Cookie.get("token")
+        if (!cookie) {
             router.push("/login")
         }
     }, [])
 
     useEffect(() => {
         const fetchDate = async () => {
-            const res = await fetch(`/api/course-attendance-record?course=${params.id}`)
+            const res = await fetch(`/api/course-attendance-record?course=${params.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.json()
 
-            setData(data)
+            if (data.error === "Unauthorized") {
+                setData(undefined)
+            } else {
+                setData(data)
+            }
         }
         fetchDate()
     }, [])

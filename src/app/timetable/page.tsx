@@ -8,22 +8,29 @@ import Cookie from "js-cookie"
 
 const TimeTablePage = () => {
     const [data, setData] = useState<OutTimeTable>()
-    const [cookie, setCookie] = useState("")
     const router = useRouter()
 
     useEffect(() => {
-        const cookie = Cookie.get()
-        console.log(cookie)
-        // cookie = {} 跳轉到登入頁面
-        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+        const cookie = Cookie.get("token")
+        if (!cookie) {
             router.push("/login")
         }
     }, [])
 
     useEffect(() => {
         const fetchDate = async () => {
-            const res = await fetch("/api/timetable")
+            const res = await fetch("/api/timetable", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.json()
+
+            if (data.error === "Unauthorized") {
+                router.push("/login")
+            }
             // const s = {
             //     "星期一": [
             //         [
@@ -52,14 +59,17 @@ const TimeTablePage = () => {
                 week: [],
                 timetable: [],
             }
-            for (let i = 0; i < 7; i++) {
-                timeTable.week.push(Object.keys(data)[i])
-            }
 
-            for (let i = 0; i < 14; i++) {
-                timeTable.timetable.push([])
-                for (let j = 0; j < 7; j++) {
-                    timeTable.timetable[i].push(data[timeTable.week[j]][i])
+            if (!data.error) {
+                for (let i = 0; i < 7; i++) {
+                    timeTable.week.push(Object.keys(data)[i])
+                }
+
+                for (let i = 0; i < 14; i++) {
+                    timeTable.timetable.push([])
+                    for (let j = 0; j < 7; j++) {
+                        timeTable.timetable[i].push(data[timeTable.week[j]][i])
+                    }
                 }
             }
 

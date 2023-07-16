@@ -31,25 +31,39 @@ const UserPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        const cookie = Cookie.get()
-        console.log(cookie)
-        // cookie = {} 跳轉到登入頁面
-        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+        const cookie = Cookie.get("token")
+        if (!cookie) {
             router.push("/login")
         }
     }, [])
 
     useEffect(() => {
         const fetchUserDate = async () => {
-            const res = await fetch("/api/user")
+            const res = await fetch("/api/user", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.json()
+
+            if (data.error === "Unauthorized") {
+                router.push("/login")
+            }
 
             setUserData(data)
         }
         fetchUserDate()
 
         const fetchCourseAttendanceRecord = async () => {
-            const res = await fetch("/api/course-attendance-record")
+            const res = await fetch("/api/course-attendance-record", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.json()
 
             setCourseAttendanceRecordData(data)
@@ -59,7 +73,14 @@ const UserPage = () => {
         const fetchConduct = async () => {
             // const res = await fetch("/api/conduct?year=111&sem=2")
             const res = await fetch(
-                `/api/conduct?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`
+                `/api/conduct?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + Cookie.get("token"),
+                    },
+                }
             )
             const data = await res.json()
 
@@ -126,14 +147,14 @@ const UserPage = () => {
                                     </div>
                                     <div className='py-[3px] pl-4'>
                                         <div className='flex items-center'>
-                                            <div className='pr-1'>{userData?.name}</div>
-                                            <div className='pl-1'>{userData?.enName}</div>
+                                            <div className='pr-1'>{userData.name}</div>
+                                            <div className='pl-1'>{userData.enName}</div>
                                         </div>
-                                        <div className=''>{userData?.IDnumber}</div>
-                                        <div className=''>{userData?.major}</div>
+                                        <div className=''>{userData.IDnumber}</div>
+                                        <div className=''>{userData.major}</div>
                                         <div className='flex items-center'>
-                                            <div className='pr-1'>{userData?.dept}</div>
-                                            <div className='pl-1'>{userData?.es}</div>
+                                            <div className='pr-1'>{userData.dept}</div>
+                                            <div className='pl-1'>{userData.es}</div>
                                         </div>
                                     </div>
                                     <div className='absolute right-0 top-0 rounded-md bg-amber-500 px-1 font-bold text-neutral-200'>
@@ -148,19 +169,21 @@ const UserPage = () => {
                                 <div className='py-[3px] pl-4'>
                                     <div className='flex items-center'>
                                         <IconGenderBigender />
-                                        {userData?.gender}
+                                        {userData.gender}
                                     </div>
                                     <div className='flex items-center'>
                                         <IconCake />
-                                        {formatDate(userData?.birthday)}
+                                        {userData.birthday
+                                            ? formatDate(userData.birthday)
+                                            : "未填寫"}
                                     </div>
                                     <div className='flex items-center'>
                                         <IconBuildingSkyscraper />
-                                        {userData?.birthplace}
+                                        {userData.birthplace}
                                     </div>
                                     <div className='flex items-center'>
                                         <IconDeviceMobile />
-                                        {userData?.phone}
+                                        {userData.phone}
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +197,7 @@ const UserPage = () => {
                                     </div>
                                 </div>
                                 <div className='text-2xl'>
-                                    {courseAttendanceRecordData?.total.reduce(
+                                    {courseAttendanceRecordData?.total?.reduce(
                                         (total, item) => total + item
                                     )}
                                     次
@@ -188,7 +211,7 @@ const UserPage = () => {
                                     </div>
                                 </div>
                                 <div className='text-2xl'>
-                                    {courseAttendanceRecordData?.total.reduce((total, item) => {
+                                    {courseAttendanceRecordData?.total?.reduce((total, item) => {
                                         return total + Math.round(((item * 50) / 60) * 10) / 10
                                     }, 0)}
                                     小時

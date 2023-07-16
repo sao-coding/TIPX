@@ -11,20 +11,28 @@ const CourseListPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        const cookie = Cookie.get()
-        console.log(cookie)
-        // cookie = {} 跳轉到登入頁面
-        if (Object.keys(cookie).length <= 3 && cookie.constructor === Object) {
+        const cookie = Cookie.get("token")
+        if (!cookie) {
             router.push("/login")
         }
     }, [])
 
     useEffect(() => {
         const fetchDate = async () => {
-            const res = await fetch("/api/course")
+            const res = await fetch("/api/course", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.json()
 
-            setData(data)
+            if (data.error === "Unauthorized") {
+                setData([])
+            } else {
+                setData(data)
+            }
         }
         fetchDate()
     }, [])

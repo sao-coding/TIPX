@@ -5,10 +5,7 @@ import CourseAttendanceRecord from "@/app/course/[id]/course-attendance-record/p
 
 const CourseTabs = ({ data, id }: { data: any; id: string }) => (
     <Tabs.Root className='' defaultValue='作業'>
-        <Tabs.List
-            className='flex justify-around border-b border-main-color-3'
-            aria-label='Manage your account'
-        >
+        <Tabs.List className='flex justify-around border-b border-main-color-3'>
             {data?.map((item: any) => (
                 <Tabs.Trigger
                     key={item.item}

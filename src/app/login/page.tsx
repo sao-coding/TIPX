@@ -10,7 +10,6 @@ import iconv from "iconv-lite"
 const LoginPage = () => {
     const [deptValue, setDeptValue] = useState("1")
     const [esValue, setEsValue] = useState("日四技")
-    const [cookie, setCookie] = useState([])
     const router = useRouter()
 
     // 部別資料
@@ -85,15 +84,37 @@ const LoginPage = () => {
     }
 
     const fetchLogin = async () => {
+        const res = await fetch("/api/authorize", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                token: (document.getElementById("authcode") as HTMLInputElement)?.value,
+            }),
+        })
+
+        const data = await res.json()
+
         if ((document.getElementById("username") as HTMLInputElement)?.value === "") {
             alert("請輸入學號")
             return
         }
+
+        if ((document.getElementById("authcode") as HTMLInputElement)?.value === "") {
+            alert("請輸入授權碼")
+            return
+        }
+
         Cookie.set(
             "cookie_userid",
             (document.getElementById("username") as HTMLInputElement)?.value
         )
+
+        Cookie.set("token", data.token)
+
         Cookie.set("cookie_dept", deptValue)
+
         Cookie.set(
             "cookie_es",
             iconv
@@ -115,6 +136,14 @@ const LoginPage = () => {
                             <input
                                 type='text'
                                 id='username'
+                                className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                            />
+                        </div>
+                        <div className='p-2'>
+                            <div className='p-2'>授權碼</div>
+                            <input
+                                type='text'
+                                id='authcode'
                                 className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                             />
                         </div>
