@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-// import db from "@/db/timetable.json"
 import { Post } from "@/types"
 
-export const dynamic = "force-dynamic"
-
 export const GET = async (req: NextRequest) => {
-    const year = req.cookies.get("cookie_year")?.value
-    const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
-    const dept = req.cookies.get("cookie_dept")?.value
-    const es = req.cookies.get("cookie_es")?.value
+    const year = cookies().get("cookie_year")?.value
+    const sem = cookies().get("cookie_sem")?.value
+    const userid = cookies().get("cookie_userid")?.value
+    const dept = cookies().get("cookie_dept")?.value
+    const es = cookies().get("cookie_es")?.value
 
     let post: Post = {
         category: "",
@@ -85,10 +83,10 @@ export const GET = async (req: NextRequest) => {
     if (req.nextUrl.searchParams.get("id") && req.nextUrl.searchParams.get("limit")) {
         const id = Number(req.nextUrl.searchParams.get("id"))
         const limit = Number(req.nextUrl.searchParams.get("limit"))
-        console.log("id", id, "limit", limit)
+        // console.log("id", id, "limit", limit)
         for (let i = id; i < id + limit; i++) {
-            console.log("起始值", id, "結束值", id + limit)
-            console.log(postListAll[i])
+            // console.log("起始值", id, "結束值", id + limit)
+            // console.log(postListAll[i])
             if (postListAll[i]) {
                 postList.push(postListAll[i])
             }

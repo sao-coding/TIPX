@@ -10,9 +10,9 @@ export const GET = async (req: NextRequest) => {
     const dept = req.cookies.get("cookie_dept")?.value
     const es = req.cookies.get("cookie_es")?.value
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_score.php", {
         headers: {
-            cookie: `cookie_programname=%A4%E9%A5%7C%A7%DE;cookie_rgno=D11019139;cookie_sem=2;cookie_userid=D11019139;cookie_divcode=1;cookie_year=111`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })
@@ -22,11 +22,11 @@ export const GET = async (req: NextRequest) => {
     const dom = new JSDOM(html)
     const document = dom.window.document
     const verify = Array.from(document.querySelectorAll("script"))
-    // console.log(verify[0].innerHTML)
+    console.log(verify[0].innerHTML)
     // 去除 所有 \r, \n, \t
-    // const cap = verify[0].innerHTML.replace(/\r|\n|\t/g, "")
+    const cap = verify[0].innerHTML.replace(/\r|\n|\t/g, "")
     html = html.replace(/\r|\n|\t/g, "")
-    // html = html.replace(cap, "")
+    html = html.replace(cap, "")
 
     return NextResponse.json(html)
 }

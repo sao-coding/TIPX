@@ -5,7 +5,7 @@ import { Post } from "@/types"
 const Card = ({ data }: { data: Post }) => {
     return (
         <>
-            <div className='mt-2 h-36 w-full rounded-xl bg-main-color p-2'>
+            <div className='mt-2 h-36 w-full rounded-xl bg-main-color p-2 shadow-md'>
                 <div className='relative h-full'>
                     <div
                         className={clsx(

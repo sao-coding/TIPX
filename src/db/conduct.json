@@ -1,0 +1,4 @@
+{
+    "rows": "table[bgcolor='#CCCCCC' ] tr:not(:first-child)",
+    "cells": "td:not(:last-child)"
+}

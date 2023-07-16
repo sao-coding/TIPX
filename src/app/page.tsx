@@ -27,7 +27,7 @@ const HomePage = () => {
     }, [data])
 
     return (
-        <div className='w-full'>
+        <div className='w-full p-3'>
             <div className='rounded-xl border bg-white text-center text-2xl font-bold shadow-md'>
                 學校公告
             </div>

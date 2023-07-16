@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
 import db from "@/db/timetable.json"
 import { TimeTable } from "@/types"
 
-export const dynamic = "force-dynamic"
-
 export const GET = async (req: NextRequest) => {
-    const year = req.cookies.get("cookie_year")?.value
-    const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
-    const dept = req.cookies.get("cookie_dept")?.value
-    const es = req.cookies.get("cookie_es")?.value
+    const year = cookies().get("cookie_year")?.value
+    const sem = cookies().get("cookie_sem")?.value
+    const userid = cookies().get("cookie_userid")?.value
+    const dept = cookies().get("cookie_dept")?.value
+    const es = cookies().get("cookie_es")?.value
 
     const timeTable: TimeTable = {
         星期一: [],

@@ -22,7 +22,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchDate = async () => {
-            const res = await fetch(`/api/hw?id=${params.id}`)
+            const res = await fetch(`/api/hw?course=${params.id}`)
             const data = await res.json()
 
             setData(data)

@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-// import db from "@/db/timetable.json"
+import db from "@/db/conduct.json"
 import { Conduct } from "@/types"
 
-export const dynamic = "force-dynamic"
-
 export const GET = async (req: NextRequest) => {
-    const year = req.cookies.get("cookie_year")?.value
-    const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
-    const dept = req.cookies.get("cookie_dept")?.value
-    const es = req.cookies.get("cookie_es")?.value
+    const year = cookies().get("cookie_year")?.value
+    const sem = cookies().get("cookie_sem")?.value
+    const userid = cookies().get("cookie_userid")?.value
+    const dept = cookies().get("cookie_dept")?.value
+    const es = cookies().get("cookie_es")?.value
 
     const conduct: Conduct = {
         score: [],
@@ -29,12 +28,10 @@ export const GET = async (req: NextRequest) => {
     let html = new TextDecoder("big5").decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
-    const rows = Array.from(
-        document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
-    )
+    const rows = Array.from(document.querySelectorAll(db.rows))
 
     rows.forEach((row, index) => {
-        const cells = Array.from(row.querySelectorAll("td:not(:last-child)"))
+        const cells = Array.from(row.querySelectorAll(db.cells))
         score = []
         cells.forEach((cell) => {
             const list = cell.textContent

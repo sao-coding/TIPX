@@ -13,14 +13,7 @@
 // }
 
 export type CourseAttendanceRecord = {
-    list: {
-        date: string
-        week: string
-        period: string
-        type: string
-        course: string
-        courseID: string
-    }[]
+    list: CourseAttendanceRecordList[]
     total: number[]
 }
 

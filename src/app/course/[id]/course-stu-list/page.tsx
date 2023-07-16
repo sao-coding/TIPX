@@ -22,7 +22,7 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchDate = async () => {
-            const res = await fetch(`/api/course-stu-list?id=${params.id}`)
+            const res = await fetch(`/api/course-stu-list?course=${params.id}`)
             const data = await res.json()
 
             setData(data)

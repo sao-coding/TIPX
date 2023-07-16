@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
 
-export const dynamic = "force-dynamic"
-
 export const GET = async (req: NextRequest) => {
-    const year = req.cookies.get("cookie_year")?.value
-    const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
-    const dept = req.cookies.get("cookie_dept")?.value
-    const es = req.cookies.get("cookie_es")?.value
+    const year = cookies().get("cookie_year")?.value
+    const sem = cookies().get("cookie_sem")?.value
+    const userid = cookies().get("cookie_userid")?.value
+    const dept = cookies().get("cookie_dept")?.value
+    const es = cookies().get("cookie_es")?.value
     // const list = [
     //     {
     //         item: "item",
@@ -19,7 +18,7 @@ export const GET = async (req: NextRequest) => {
     const filter = ["", "", "", "", "ok", "ok", "ok"]
 
     let res
-    if (req.nextUrl.searchParams.get("id") === null) {
+    if (req.nextUrl.searchParams.get("course") === null) {
         res = await fetch("https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php", {
             headers: {
                 cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
@@ -27,9 +26,10 @@ export const GET = async (req: NextRequest) => {
             },
         })
     } else {
+        console.log("-----------course", req.nextUrl.searchParams.get("course"))
         res = await fetch(
             `https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${req.nextUrl.searchParams.get(
-                "id"
+                "course"
             )}`,
             {
                 headers: {
@@ -50,7 +50,7 @@ export const GET = async (req: NextRequest) => {
     html = html.replace(/\r|\n|\t/g, "")
     html = html.replace(cap, "")
 
-    if (req.nextUrl.searchParams.get("id") === null) {
+    if (req.nextUrl.searchParams.get("course") === null) {
         const rows = Array.from(document.querySelectorAll("table tbody tr:not(:first-child)"))
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll("td:not(:first-child) font span a"))

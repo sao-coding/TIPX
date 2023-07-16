@@ -102,7 +102,7 @@ const UserPage = () => {
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <div className='user-info-front rounded-xl border bg-white p-2 shadow-md'>
+                            <div className='user-info-front rounded-xl border bg-slate-50 p-2 shadow-md'>
                                 <div className='relative flex items-center'>
                                     <div className='flex items-center'>
                                         {isImgError ? (
@@ -144,7 +144,7 @@ const UserPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='user-info-back rounded-xl border bg-white p-2 shadow-md'>
+                            <div className='user-info-back rounded-xl border bg-slate-50 p-2 shadow-md'>
                                 <div className='py-[3px] pl-4'>
                                     <div className='flex items-center'>
                                         <IconGenderBigender />
@@ -205,15 +205,15 @@ const UserPage = () => {
                             </div>
                         </div>
                         <div
-                            className='mt-2 w-full rounded-xl border bg-white p-2 shadow-md'
-                            onClick={() => router.push("/user/info")}
+                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            // onClick={() => router.push("/user/info")}
                         >
                             <div className='flex items-center'>
                                 <IconUser />
-                                <div className='ml-2'>個人詳細資料</div>
+                                <div className='ml-2'>個人詳細資料 (尚未推出)</div>
                             </div>
                         </div>
-                        <div className='mt-2 w-full rounded-xl border bg-white p-2 shadow-md'>
+                        <div className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'>
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
