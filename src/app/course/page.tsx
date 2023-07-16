@@ -18,7 +18,7 @@ const CourseListPage = () => {
     }, [])
 
     useEffect(() => {
-        const fetchDate = async () => {
+        const fetchData = async () => {
             const res = await fetch("/api/course", {
                 method: "GET",
                 headers: {
@@ -34,7 +34,7 @@ const CourseListPage = () => {
                 setData(data)
             }
         }
-        fetchDate()
+        fetchData()
     }, [])
 
     return (

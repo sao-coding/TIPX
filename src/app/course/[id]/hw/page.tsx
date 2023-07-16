@@ -18,7 +18,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
     }, [])
 
     useEffect(() => {
-        const fetchDate = async () => {
+        const fetchData = async () => {
             const res = await fetch(`/api/hw?course=${params.id}`, {
                 method: "GET",
                 headers: {
@@ -34,7 +34,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 setData(data)
             }
         }
-        fetchDate()
+        fetchData()
         console.log(data)
     }, [])
 

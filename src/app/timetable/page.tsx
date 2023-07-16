@@ -18,7 +18,7 @@ const TimeTablePage = () => {
     }, [])
 
     useEffect(() => {
-        const fetchDate = async () => {
+        const fetchData = async () => {
             const res = await fetch("/api/timetable", {
                 method: "GET",
                 headers: {
@@ -76,7 +76,7 @@ const TimeTablePage = () => {
             setData(timeTable)
             console.log(timeTable)
         }
-        fetchDate()
+        fetchData()
     }, [])
 
     return (

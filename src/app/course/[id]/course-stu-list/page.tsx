@@ -19,7 +19,7 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
     }, [])
 
     useEffect(() => {
-        const fetchDate = async () => {
+        const fetchData = async () => {
             const res = await fetch(`/api/course-stu-list?course=${params.id}`, {
                 method: "GET",
                 headers: {
@@ -34,7 +34,7 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
                 setData(data)
             }
         }
-        fetchDate()
+        fetchData()
     }, [])
 
     return (
