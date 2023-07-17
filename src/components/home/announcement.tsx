@@ -33,7 +33,7 @@ const HomePage = () => {
                 dataLength={data.length}
                 next={fetchData}
                 hasMore={hasMore}
-                loader={[0, 0, 0, 0, 0].map((index) => (
+                loader={[1, 2, 3, 4, 5].map((index) => (
                     <LoadingPage key={index} />
                 ))}
                 endMessage={

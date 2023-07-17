@@ -1,8 +1,4 @@
 import Announcement from "@/components/home/announcement"
-import LoadingPage from "@/app/loading"
-import InfiniteScroll from "react-infinite-scroll-component"
-import Card from "@/components/home/card"
-import { Post } from "@/types"
 
 const HomePage = () => {
     return (

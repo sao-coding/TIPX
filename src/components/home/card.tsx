@@ -16,7 +16,7 @@ const Card = ({ data }: { data: Post }) => {
                         {data.sticky ? <IconPinFilled size={20} /> : ""}
                     </div>
                     <div className='p-1'>{data.category}</div>
-                    <div className='px-1'>{data.title}</div>
+                    <div className='h-12 px-1'>{data.title}</div>
                     {/* <div className=''>{data.link}</div> */}
                     <div className='flex items-center px-1'>
                         <IconCalendarTime size={20} />

@@ -18,8 +18,8 @@ const LoadingPage = () => {
                         <div className='h-4 w-full rounded-full bg-neutral-500'></div>
                     </div>
                     <div className='flex items-center p-1'>
-                        <div className='mr-1 h-4 w-20 rounded-full bg-neutral-500'></div>
-                        <div className='ml-1 h-4 w-20 rounded-full bg-neutral-500'></div>
+                        <div className='mr-1 h-4 w-28 rounded-full bg-neutral-500'></div>
+                        <div className='ml-1 h-4 w-28 rounded-full bg-neutral-500'></div>
                     </div>
                     <div className='absolute bottom-0 right-0 rounded-lg bg-neutral-500 px-1'>
                         <div className='h-4 w-20 rounded-full bg-neutral-500'></div>
