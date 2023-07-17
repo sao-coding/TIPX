@@ -1,33 +1,13 @@
-import { IconPinFilled } from "@tabler/icons-react"
-
-const LoadingPage = () => {
+const Loading = () => {
     return (
         <>
-            <div className='mt-2 h-36 w-full rounded-xl bg-main-color p-2 shadow-md'>
-                <div className='relative h-full animate-pulse'>
-                    <div className='absolute right-0 top-0 rounded-full bg-neutral-500 p-1'>
-                        <IconPinFilled size={20} />
-                    </div>
-                    <div className='flex h-8 w-20 items-center p-1'>
-                        <div className='h-4 w-20 rounded-full bg-neutral-500'></div>
-                    </div>
-                    <div className='p-1'>
-                        <div className='h-4 w-full rounded-full bg-neutral-500'></div>
-                    </div>
-                    <div className='p-1'>
-                        <div className='h-4 w-full rounded-full bg-neutral-500'></div>
-                    </div>
-                    <div className='flex items-center p-1'>
-                        <div className='mr-1 h-4 w-28 rounded-full bg-neutral-500'></div>
-                        <div className='ml-1 h-4 w-28 rounded-full bg-neutral-500'></div>
-                    </div>
-                    <div className='absolute bottom-0 right-0 rounded-lg bg-neutral-500 px-1'>
-                        <div className='h-4 w-20 rounded-full bg-neutral-500'></div>
-                    </div>
+            <div className='w-full p-3'>
+                <div className='flex h-[34px] items-center justify-center rounded-xl border bg-white text-center text-2xl font-bold shadow-md'>
+                    <div className='h-4 w-24 rounded-full bg-neutral-500'></div>
                 </div>
             </div>
         </>
     )
 }
 
-export default LoadingPage
+export default Loading

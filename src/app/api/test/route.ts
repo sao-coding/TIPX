@@ -16,6 +16,9 @@ export const GET = async (req: NextRequest) => {
         req.headers.get("Authorization")?.split(" ")[1] !== process.env.AUTHORIZATION
     ) {
         // Unauthorized
+
+        await new Promise((resolve) => setTimeout(resolve, 5000))
+
         return NextResponse.json(
             {
                 error: "Unauthorized",

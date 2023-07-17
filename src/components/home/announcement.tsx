@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
 import Card from "@/components/home/card"
-import LoadingPage from "@/app/loading"
+import Loading from "@/components/home/loading"
 import { Post } from "@/types"
 
 const HomePage = () => {
@@ -33,8 +33,8 @@ const HomePage = () => {
                 dataLength={data.length}
                 next={fetchData}
                 hasMore={hasMore}
-                loader={[1, 2, 3, 4, 5].map((index) => (
-                    <LoadingPage key={index} />
+                loader={Array.from(Array(5).keys()).map((index) => (
+                    <Loading key={index} />
                 ))}
                 endMessage={
                     <div className='mt-2 rounded-xl border bg-white text-center text-2xl font-bold shadow-md'>
