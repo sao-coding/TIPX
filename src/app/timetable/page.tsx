@@ -4,11 +4,11 @@ import { redirect } from "next/navigation"
 
 const TimeTablePage = () => {
     // 判斷是否登入
-    const token = cookies().get("token")
+    // const token = cookies().get("token")
 
-    if (token === process.env.AUTHORIZATION) {
-        redirect("/login")
-    }
+    // if (token === process.env.AUTHORIZATION) {
+    //     redirect("/login")
+    // }
 
     return (
         <>
