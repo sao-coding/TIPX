@@ -15,6 +15,7 @@ import {
     IconListDetails,
     IconClock,
     IconStar,
+    IconLoader2,
     IconUser,
     IconClipboardList,
 } from "@tabler/icons-react"
@@ -28,6 +29,7 @@ const UserPage = () => {
     const [conductData, setConductData] = useState("")
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
+    const [LeaveLoading, setLeaveLoading] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -57,6 +59,7 @@ const UserPage = () => {
         fetchUserDate()
 
         const fetchCourseAttendanceRecord = async () => {
+            setLeaveLoading(true)
             const res = await fetch("/api/course-attendance-record", {
                 method: "GET",
                 headers: {
@@ -67,6 +70,7 @@ const UserPage = () => {
             const data = await res.json()
 
             setCourseAttendanceRecordData(data)
+            setLeaveLoading(false)
         }
         fetchCourseAttendanceRecord()
 
@@ -196,11 +200,18 @@ const UserPage = () => {
                                         <IconListDetails size={20} />
                                     </div>
                                 </div>
-                                <div className='text-2xl'>
-                                    {courseAttendanceRecordData?.total?.reduce(
+                                <div className='flex items-center text-2xl'>
+                                    {/* {courseAttendanceRecordData?.total?.reduce(
                                         (total, item) => total + item
+                                    )} */}
+                                    {LeaveLoading ? (
+                                        <IconLoader2 size={24} className='mx-1 animate-spin' />
+                                    ) : (
+                                        courseAttendanceRecordData?.total?.reduce(
+                                            (total, item) => total + item
+                                        )
                                     )}
-                                    次
+                                    <div className='ml-0.5'>次</div>
                                 </div>
                             </div>
                             <div className='mx-1 w-full rounded-xl border p-2 shadow-md'>
@@ -210,11 +221,15 @@ const UserPage = () => {
                                         <IconClock size={20} />
                                     </div>
                                 </div>
-                                <div className='text-2xl'>
-                                    {courseAttendanceRecordData?.total?.reduce((total, item) => {
-                                        return total + Math.round(((item * 50) / 60) * 10) / 10
-                                    }, 0)}
-                                    小時
+                                <div className='flex items-center text-2xl'>
+                                    {LeaveLoading ? (
+                                        <IconLoader2 size={24} className='mx-1 animate-spin' />
+                                    ) : (
+                                        courseAttendanceRecordData?.total?.reduce((total, item) => {
+                                            return total + Math.round(((item * 50) / 60) * 10) / 10
+                                        }, 0)
+                                    )}
+                                    <div className='ml-0.5'>小時</div>
                                 </div>
                             </div>
                             <div className='w-full rounded-xl border p-2 shadow-md'>
