@@ -26,7 +26,7 @@ export function middleware(req: NextRequest) {
                 }
             )
         }
-    } else if (req.nextUrl.pathname !== "/") {
+    } else if (req.nextUrl.pathname !== "/" && req.nextUrl.pathname.startsWith("/post") === false) {
         const token = req.cookies.get("token")?.value
         if (!token) {
             console.log("middleware: no token")
