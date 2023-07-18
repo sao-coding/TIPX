@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 import clsx from "clsx"
 import { User, CourseAttendanceRecord, Conduct } from "@/types"
@@ -17,6 +18,7 @@ import {
     IconLoader2,
     IconUser,
     IconClipboardList,
+    IconInfoCircle,
 } from "@tabler/icons-react"
 
 export const dynamic = "force-dynamic"
@@ -29,6 +31,7 @@ const UserPage = () => {
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
     const [LeaveLoading, setLeaveLoading] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -242,6 +245,15 @@ const UserPage = () => {
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div
+                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => router.push("/user/info")}
+                        >
+                            <div className='flex items-center'>
+                                <IconInfoCircle />
+                                <div className='ml-2'>關於 (尚未推出)</div>
                             </div>
                         </div>
                     </div>

@@ -12,11 +12,20 @@ export const metadata: Metadata = {
     description: "學生資訊系統",
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+    children,
+    modal,
+}: {
+    children: React.ReactNode
+    modal: React.ReactNode
+}) {
     return (
         <html lang='zh-hant-TW'>
             <body className={inter.className}>
-                <Container>{children}</Container>
+                <Container>
+                    {children}
+                    {modal}
+                </Container>
                 <Footer />
             </body>
         </html>
