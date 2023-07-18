@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, use } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Cookie from "js-cookie"
 import LoginSelect from "@/components/login/select"
@@ -11,6 +11,7 @@ const LoginPage = () => {
     const [deptValue, setDeptValue] = useState("1")
     const [esValue, setEsValue] = useState("日四技")
     const router = useRouter()
+    const searchParams = useSearchParams()
 
     // 部別資料
     const dept = [
@@ -99,7 +100,9 @@ const LoginPage = () => {
                 .toString("hex")
                 .replace(/(.{2})/g, "%$1")
         )
-        router.push("/")
+        const url = searchParams.get("redirect") ?? "/"
+        console.log("url", url)
+        router.push(url)
     }
 
     return (

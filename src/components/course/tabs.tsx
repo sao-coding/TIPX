@@ -9,10 +9,11 @@ const CourseTabs = ({ data, id }: { data: any; id: string }) => (
             {data?.map((item: any) => (
                 <Tabs.Trigger
                     key={item.item}
-                    className='w-full p-2 data-[state=active]:shadow-tab-line data-[state=active]:shadow-main-color-2'
+                    className='group relative w-full p-2'
                     value={item.item}
                 >
                     {item.item}
+                    <div className='absolute bottom-0 left-0 z-10 h-1 w-full group-data-[state=active]:border-b-[3px] group-data-[state=active]:border-main-color-2'></div>
                 </Tabs.Trigger>
             ))}
         </Tabs.List>

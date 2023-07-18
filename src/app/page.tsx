@@ -1,4 +1,4 @@
-import Announcement from "@/components/home/announcement"
+import AnnouncementCP from "@/components/home/announcement"
 
 const HomePage = () => {
     return (
@@ -6,7 +6,7 @@ const HomePage = () => {
             <div className='rounded-xl border bg-white text-center text-2xl font-bold shadow-md'>
                 學校公告
             </div>
-            <Announcement />
+            <AnnouncementCP />
         </div>
     )
 }

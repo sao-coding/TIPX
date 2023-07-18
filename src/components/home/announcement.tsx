@@ -3,14 +3,14 @@ import { useEffect, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
 import Card from "@/components/home/card"
 import Loading from "@/components/home/loading"
-import { Post } from "@/types"
+import { Announcement } from "@/types"
 
-const HomePage = () => {
-    const [data, setData] = useState<Post[]>([])
+const AnnouncementCP = () => {
+    const [data, setData] = useState<Announcement[]>([])
     const [hasMore, setHasMore] = useState(true)
 
     const fetchData = async () => {
-        const res = await fetch(`/api/post?id=${data.length}&limit=10`)
+        const res = await fetch(`/api/post?type=all&id=${data.length}&limit=10`)
         const json = await res.json()
         if (json.length === 0) {
             setHasMore(false)
@@ -50,4 +50,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default AnnouncementCP

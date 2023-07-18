@@ -1,7 +1,7 @@
+// 缺曠請假紀錄
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import db from "@/db/timetable.json"
 import { CourseAttendanceRecord } from "@/types"
 
 export const GET = async (req: NextRequest) => {

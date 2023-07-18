@@ -32,9 +32,6 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                         {data?.list?.map((item, index) => (
                             <Card key={index} data={item} />
                         ))}
-                        {data?.list?.map((item, index) => (
-                            <Card key={index} data={item} />
-                        ))}
                         <div className='grid grid-cols-2 gap-2'>
                             <div className='rounded-md border p-2 shadow-md'>
                                 <div className=''>曠課</div>

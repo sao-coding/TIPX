@@ -30,7 +30,9 @@ export function middleware(req: NextRequest) {
         const token = req.cookies.get("token")?.value
         if (!token) {
             console.log("middleware: no token")
-            return NextResponse.redirect(new URL("/login", req.nextUrl))
+            return NextResponse.redirect(
+                new URL(`/login?redirect=${req.nextUrl.pathname}`, req.nextUrl)
+            )
         }
     }
 }

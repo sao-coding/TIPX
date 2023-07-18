@@ -1,7 +1,7 @@
+// 修課學生名單
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import db from "@/db/timetable.json"
 import { CourseStuList } from "@/types"
 
 export const GET = async (req: NextRequest) => {

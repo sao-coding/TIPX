@@ -1,7 +1,7 @@
+// 操行成績
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import db from "@/db/conduct.json"
 import { Conduct } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -28,10 +28,12 @@ export const GET = async (req: NextRequest) => {
     let html = new TextDecoder("big5").decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
-    const rows = Array.from(document.querySelectorAll(db.rows))
+    const rows = Array.from(
+        document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
+    )
 
     rows.forEach((row, index) => {
-        const cells = Array.from(row.querySelectorAll(db.cells))
+        const cells = Array.from(row.querySelectorAll("td:not(:last-child)"))
         score = []
         cells.forEach((cell) => {
             const list = cell.textContent

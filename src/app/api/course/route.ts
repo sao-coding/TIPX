@@ -1,6 +1,8 @@
+// 課堂資訊
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
+import { Course } from "@/types"
 
 export const GET = async (req: NextRequest) => {
     const year = cookies().get("cookie_year")?.value
@@ -9,7 +11,7 @@ export const GET = async (req: NextRequest) => {
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
-    const courselist: { item: string; id: string }[] = []
+    const courselist: Course[] = []
     const filter = ["", "", "", "", "ok", "ok", "ok"]
 
     let res
@@ -21,7 +23,6 @@ export const GET = async (req: NextRequest) => {
             },
         })
     } else {
-        console.log("-----------course", req.nextUrl.searchParams.get("course"))
         res = await fetch(
             `https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${req.nextUrl.searchParams.get(
                 "course"

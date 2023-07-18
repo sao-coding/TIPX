@@ -1,7 +1,7 @@
+// 課表
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import db from "@/db/timetable.json"
 import { TimeTable } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -33,10 +33,12 @@ export const GET = async (req: NextRequest) => {
     const dom = new JSDOM(html)
     const document = dom.window.document
 
-    const rows = Array.from(document.querySelectorAll(db.rows))
+    const rows = Array.from(
+        document.querySelectorAll('table[bgcolor="#CCCCCC"] tbody tr:not(:first-child)')
+    )
 
     rows.forEach((row) => {
-        const cells = Array.from(row.querySelectorAll(db.cells))
+        const cells = Array.from(row.querySelectorAll("td:not(:first-child)"))
 
         cells.forEach((cell, index) => {
             const day = Object.keys(timeTable)[index] as keyof TimeTable

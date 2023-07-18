@@ -1,9 +1,9 @@
+// 作業清單
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
 import { v4 as uuidv4 } from "uuid"
 import { HwList } from "@/types"
-import db from "@/db/hwlist.json"
 
 export const GET = async (req: NextRequest) => {
     const year = cookies().get("cookie_year")?.value
@@ -94,12 +94,14 @@ export const GET = async (req: NextRequest) => {
         let html = new TextDecoder("big5").decode(buffer)
         const dom = new JSDOM(html)
         const document = dom.window.document
-        let rows = Array.from(document.querySelectorAll(db.rows))
+        let rows = Array.from(
+            document.querySelectorAll("form table tr td table tr:not(:nth-child(-n+2))")
+        )
         // 排除 最後一個 tr
         rows = rows.slice(0, rows.length - 1)
 
         rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll(db.cells))
+            const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
             hw = rules(id, cells)
 
             if (id === "uploadhw") {
