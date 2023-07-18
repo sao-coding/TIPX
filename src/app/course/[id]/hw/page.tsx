@@ -1,21 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 import Card from "@/components/hw/card"
 import { HwList } from "@/types"
 
 const HwPage = ({ params }: { params: { id: string } }) => {
     const [data, setData] = useState<HwList[]>([])
-    const router = useRouter()
-
-    useEffect(() => {
-        const cookie = Cookie.get("token")
-        if (!cookie) {
-            router.push("/login")
-        }
-    }, [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,12 +18,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 },
             })
             const data = await res.json()
-
-            if (data.error === "Unauthorized") {
-                setData([])
-            } else {
-                setData(data)
-            }
+            setData(data)
         }
         fetchData()
         console.log(data)
@@ -44,10 +30,10 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 {/* {data.map((item) => (
                     <Card key={item.id} data={item} />
                 ))} */}
-                {data.length === 0 ? (
-                    <div className='text-center text-2xl'>沒有作業</div>
-                ) : (
+                {data.length > 0 ? (
                     data.map((item) => <Card key={item.id} data={item} />)
+                ) : (
+                    <div className='text-center text-2xl'>沒有作業</div>
                 )}
             </div>
         </>

@@ -23,9 +23,9 @@ const Timetable = () => {
             })
             const data = await res.json()
 
-            if (data.error === "Unauthorized") {
-                router.push("/login")
-            }
+            // if (data.error === "Unauthorized") {
+            //     router.push("/login")
+            // }
 
             let timeTable: OutTimeTable = {
                 week: [],

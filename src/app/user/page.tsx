@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 import clsx from "clsx"
 import { User, CourseAttendanceRecord, Conduct } from "@/types"
@@ -30,17 +29,9 @@ const UserPage = () => {
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
     const [LeaveLoading, setLeaveLoading] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
-        const cookie = Cookie.get("token")
-        if (!cookie) {
-            router.push("/login")
-        }
-    }, [])
-
-    useEffect(() => {
-        const fetchUserDate = async () => {
+        const fetchUserData = async () => {
             const res = await fetch("/api/user", {
                 method: "GET",
                 headers: {
@@ -50,13 +41,9 @@ const UserPage = () => {
             })
             const data = await res.json()
 
-            if (data.error === "Unauthorized") {
-                router.push("/login")
-            }
-
             setUserData(data)
         }
-        fetchUserDate()
+        fetchUserData()
 
         const fetchCourseAttendanceRecord = async () => {
             setLeaveLoading(true)

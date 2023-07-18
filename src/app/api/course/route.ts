@@ -8,22 +8,6 @@ export const GET = async (req: NextRequest) => {
     const userid = cookies().get("cookie_userid")?.value
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
-    const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
-
-    if (
-        authToken === false ||
-        req.headers.get("Authorization")?.split(" ")[1] !== process.env.AUTHORIZATION
-    ) {
-        // Unauthorized
-        return NextResponse.json(
-            {
-                error: "Unauthorized",
-            },
-            {
-                status: 401,
-            }
-        )
-    }
 
     const courselist: { item: string; id: string }[] = []
     const filter = ["", "", "", "", "ok", "ok", "ok"]

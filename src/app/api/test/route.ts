@@ -9,25 +9,25 @@ export const GET = async (req: NextRequest) => {
     const userid = req.cookies.get("cookie_userid")?.value
     const dept = req.cookies.get("cookie_dept")?.value
     const es = req.cookies.get("cookie_es")?.value
-    const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
+    // const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
 
-    if (
-        authToken === false ||
-        req.headers.get("Authorization")?.split(" ")[1] !== process.env.AUTHORIZATION
-    ) {
-        // Unauthorized
+    // if (
+    //     authToken === false ||
+    //     req.headers.get("Authorization")?.split(" ")[1] !== process.env.AUTHORIZATION
+    // ) {
+    //     // Unauthorized
 
-        await new Promise((resolve) => setTimeout(resolve, 5000))
+    //     await new Promise((resolve) => setTimeout(resolve, 5000))
 
-        return NextResponse.json(
-            {
-                error: "Unauthorized",
-            },
-            {
-                status: 401,
-            }
-        )
-    }
+    //     return NextResponse.json(
+    //         {
+    //             error: "Unauthorized",
+    //         },
+    //         {
+    //             status: 401,
+    //         }
+    //     )
+    // }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_score.php", {
         headers: {

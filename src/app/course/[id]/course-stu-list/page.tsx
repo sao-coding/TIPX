@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 import Card from "@/components/course-stu-list/card"
 import { CourseStuList } from "@/types"
@@ -9,14 +8,6 @@ import { CourseStuList } from "@/types"
 // export default function Hw({ params }: { params: { id: string } }) {
 const CourseStuListPage = ({ params }: { params: { id: string } }) => {
     const [data, setData] = useState<CourseStuList[]>([])
-    const router = useRouter()
-
-    useEffect(() => {
-        const cookie = Cookie.get("token")
-        if (!cookie) {
-            router.push("/login")
-        }
-    }, [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,11 +19,7 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
                 },
             })
             const data = await res.json()
-            if (data.error === "Unauthorized") {
-                setData([])
-            } else {
-                setData(data)
-            }
+            setData(data)
         }
         fetchData()
     }, [])
@@ -40,9 +27,11 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
     return (
         <>
             <div className='w-full'>
-                {data.map((item) => (
-                    <Card key={item.id} data={item} />
-                ))}
+                {data.length > 0 ? (
+                    data.map((item) => <Card key={item.id} data={item} />)
+                ) : (
+                    <div className='text-center text-2xl'>沒有學生</div>
+                )}
             </div>
         </>
     )
