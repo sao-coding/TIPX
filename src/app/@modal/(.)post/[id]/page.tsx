@@ -40,7 +40,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                 <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'>
                     {data ? (
                         <>
-                            <Dialog.Close className='top -0 absolute right-0 flex items-center justify-end pr-4'>
+                            <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4'>
                                 <IconX size={24} />
                             </Dialog.Close>
                             <Dialog.Title asChild>
@@ -49,7 +49,14 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                 </div>
                             </Dialog.Title>
                             <div className='flex items-center justify-between'>
-                                <div className=''>{data.unit}</div>
+                                <div className='flex items-center'>
+                                    <div className='mr-1'>{data.unit}</div>
+                                    <div className='ml-1 text-blue-500'>
+                                        <a href={`mailto:${data.publisher.email}`}>
+                                            {data.publisher.name}
+                                        </a>
+                                    </div>
+                                </div>
                                 <div className='rounded-md px-1 shadow-md'>{data.category}</div>
                             </div>
                             <div className='my-1 flex items-center justify-between'>

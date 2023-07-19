@@ -96,20 +96,15 @@ export const GET = async (req: NextRequest) => {
         return NextResponse.json(announcementList)
     }
     if (req.nextUrl.searchParams.get("type") === "one" && req.nextUrl.searchParams.get("id")) {
-        // title: string
-        // date: string
-        // unit: string
-        // deadline: string
-        // category: string
-        // content: string
-        // file: string[]
-        // link: string[]
-
         const post: Post = {
             title: "",
             date: "",
             deadline: "",
             unit: "",
+            publisher: {
+                name: "",
+                email: "",
+            },
             category: "",
             content: "",
             file: [],
@@ -135,7 +130,20 @@ export const GET = async (req: NextRequest) => {
         const document = dom.window.document
         const rows = Array.from(document.querySelectorAll(".newstd"))
         rows.forEach((row, index) => {
-            if (index === 6) {
+            console.log("index", index, "row", row.textContent)
+            if (index === 2) {
+                // <td class="newstd">教務處綜合業務組　<a href="mailto:cwli@takming.edu.tw">李景文</a></td>
+                // 取教務處綜合業務組
+                postdata.push(row.textContent?.split("　")[0] ?? "")
+                // 取李景文
+                const cells = Array.from(row.querySelectorAll("a"))
+                cells.forEach((cell, index) => {
+                    const name = cell.textContent
+                    const email = cell.getAttribute("href")?.replace("mailto:", "")
+                    post.publisher.name = name ?? ""
+                    post.publisher.email = email ?? ""
+                })
+            } else if (index === 6) {
                 const cells = Array.from(row.querySelectorAll("a"))
                 cells.forEach((cell, index) => {
                     const title = cell.textContent

@@ -58,7 +58,14 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         </div>
                         <div className='w-full pt-2 md:px-24'>
                             <div className='flex w-full items-center justify-between'>
-                                <div className=''>{data.unit}</div>
+                                <div className='flex items-center'>
+                                    <div className='mr-1'>{data.unit}</div>
+                                    <div className='ml-1 text-blue-500'>
+                                        <a href={`mailto:${data.publisher.email}`}>
+                                            {data.publisher.name}
+                                        </a>
+                                    </div>
+                                </div>
                                 <div className=''>{data.category}</div>
                             </div>
                             <div className='flex w-full items-center justify-between'>
@@ -75,7 +82,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         <div className='flex w-full items-center justify-center md:px-24'>
                             <div className='whitespace-pre-line break-all'>{data?.content}</div>
                         </div>
-                        <div className='mt-1 w-full rounded-md border-2 border-dashed'>
+                        <div className='mt-1 w-full rounded-md border-2 border-dashed md:px-24'>
                             {data.file.length > 0 ? (
                                 <>
                                     {data.file.map((item) => (
