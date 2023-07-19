@@ -36,7 +36,6 @@ const PostModal = ({ params }: { params: { id: string } }) => {
         queryFn: async () => {
             const res = await fetch(`/api/post?type=one&id=${id}`)
             const json = await res.json()
-            // error
             if (!res.ok) throw new Error("沒有這篇公告")
             return json
         },
