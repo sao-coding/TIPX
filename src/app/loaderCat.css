@@ -39,7 +39,7 @@
     height: 50%;
     background-size: 200%;
     background-repeat: no-repeat;
-    background-image: url("/loaderCat.png");
+    background-image: url("/img/loaderCat.png");
 }
 
 .cat__head::before {
