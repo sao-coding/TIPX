@@ -8,9 +8,11 @@ import {
     IconPaperclip,
     IconLink,
     IconX,
+    IconExternalLink,
 } from "@tabler/icons-react"
 import { Post } from "@/types"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const PostModal = ({ params }: { params: { id: string } }) => {
     const id = params.id
@@ -35,10 +37,10 @@ const PostModal = ({ params }: { params: { id: string } }) => {
         <Dialog.Root defaultOpen onOpenChange={(open) => !open && dismiss()}>
             <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-                <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[100vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'>
+                <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'>
                     {data ? (
                         <>
-                            <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4'>
+                            <Dialog.Close className='top -0 absolute right-0 flex items-center justify-end pr-4'>
                                 <IconX size={24} />
                             </Dialog.Close>
                             <Dialog.Title asChild>
@@ -50,7 +52,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                 <div className=''>{data.unit}</div>
                                 <div className='rounded-md px-1 shadow-md'>{data.category}</div>
                             </div>
-                            <div className='flex items-center justify-between'>
+                            <div className='my-1 flex items-center justify-between'>
                                 <div className='flex items-center'>
                                     <IconCalendarTime size={20} />
                                     {data.date}
@@ -59,6 +61,9 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                     <IconCalendarOff size={20} />
                                     {data.deadline}
                                 </div>
+                                <Link href={`/post/${id}`} target='_parent'>
+                                    <IconExternalLink />
+                                </Link>
                             </div>
                             <div className='h-[50vh] w-full overflow-y-auto rounded-xl border'>
                                 <div className='whitespace-pre-line break-words p-1'>

@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import {
     IconCalendarTime,
@@ -7,16 +7,16 @@ import {
     IconDownload,
     IconPaperclip,
     IconLink,
-    IconX,
+    IconShare2,
 } from "@tabler/icons-react"
+import { useRouter, usePathname } from "next/navigation"
 import { Post } from "@/types"
-import { useRouter } from "next/navigation"
 
 const PostPage = ({ params }: { params: { id: string } }) => {
     const id = params.id
     const [data, setData] = useState<Post>()
-
     const router = useRouter()
+    const path = usePathname()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,18 +28,110 @@ const PostPage = ({ params }: { params: { id: string } }) => {
         fetchData()
     }, [id])
 
+    // itle: 一組字串，分享訊息的標題
+    // text: 一組字串，分享訊息的描述
+    // url: 一組字串，分享訊息要帶上的連結
+    const Share = (title: string, text: string, url: string) => {
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: title,
+                    text: text,
+                    url: url,
+                })
+                .then(() => {
+                    console.log("Thanks for sharing!")
+                })
+                .catch(console.error)
+        } else {
+            console.log("Web Share API not supported in your browser")
+        }
+    }
+
     return (
         <>
-            <div className='flex w-full items-center rounded-2xl p-4 md:bg-main-color'>
-                <div className='flex flex-col items-center justify-center'>
-                    <div className='sticky left-0 top-0 w-full bg-slate-50 py-3 text-center text-xl md:bg-main-color'>
-                        {data?.title}
-                    </div>
-                    <div className='flex items-center justify-center md:px-24'>
-                        <div className='whitespace-pre-line'>{data?.content}</div>
+            {data ? (
+                <div className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-main-color'>
+                    <div className='flex flex-col items-center justify-center'>
+                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-main-color md:text-xl'>
+                            {data.title}
+                        </div>
+                        <div className='w-full pt-2 md:px-24'>
+                            <div className='flex w-full items-center justify-between'>
+                                <div className=''>{data.unit}</div>
+                                <div className=''>{data.category}</div>
+                            </div>
+                            <div className='flex w-full items-center justify-between'>
+                                <div className='flex items-center'>
+                                    <IconCalendarTime size={20} />
+                                    {data.date}
+                                </div>
+                                <div className='flex items-center'>
+                                    <IconCalendarOff size={20} />
+                                    {data.deadline}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex w-full items-center justify-center md:px-24'>
+                            <div className='whitespace-pre-line break-all'>{data?.content}</div>
+                        </div>
+                        <div className='mt-1 w-full rounded-md border-2 border-dashed'>
+                            {data.file.length > 0 ? (
+                                <>
+                                    {data.file.map((item) => (
+                                        <div key={item.title} className='flex items-center'>
+                                            <IconPaperclip size={20} />
+                                            {item.title}
+                                            <a
+                                                href={item.link}
+                                                target='_blank'
+                                                rel='noreferrer'
+                                                className='p-1'
+                                            >
+                                                <IconDownload className='rounded-md bg-main-color p-1' />
+                                            </a>
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                <div className=''>沒有附件</div>
+                            )}
+                            {data.link ? (
+                                <div className='flex items-center'>
+                                    <IconLink size={20} />
+                                    <a
+                                        href={data.link}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                        className='text-blue-500'
+                                    >
+                                        點及此處前往
+                                    </a>
+                                </div>
+                            ) : (
+                                <div className=''>沒有連結</div>
+                            )}
+                        </div>
+                        <div className='mt-2 w-full border-t pt-2'>
+                            <div className='flex items-center justify-end'>
+                                <div
+                                    className='flex items-center rounded-md bg-main-color px-1'
+                                    onClick={() => {
+                                        Share(data.title, data.content, path)
+                                    }}
+                                >
+                                    <IconShare2 />
+                                    分享
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className='flex w-full items-center justify-center'>
+                    <div className=''>沒有資料</div>
+                </div>
+            )}
         </>
     )
 }
