@@ -1,7 +1,7 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-
+import Providers from "./providers"
 import Container from "@/components/Container"
 import Footer from "@/components/Footer"
 
@@ -23,8 +23,10 @@ export default function RootLayout({
         <html lang='zh-hant-TW'>
             <body className={inter.className}>
                 <Container>
-                    {children}
-                    {modal}
+                    <Providers>
+                        {children}
+                        {modal}
+                    </Providers>
                 </Container>
                 <Footer />
             </body>

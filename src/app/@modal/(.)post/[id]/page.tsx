@@ -1,5 +1,6 @@
 "use client"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback } from "react"
+import { useQuery } from "@tanstack/react-query"
 import * as Dialog from "@radix-ui/react-dialog"
 import {
     IconCalendarTime,
@@ -13,21 +14,33 @@ import {
 import { Post } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import "@/app/loaderCat.css"
 
 const PostModal = ({ params }: { params: { id: string } }) => {
     const id = params.id
-    const [data, setData] = useState<Post>()
+    // const [data, setData] = useState<Post>()
     const router = useRouter()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!open) return
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         if (!open) return
+    //         const res = await fetch(`/api/post?type=one&id=${id}`)
+    //         const json = await res.json()
+    //         setData(json)
+    //     }
+    //     fetchData()
+    // }, [id])
+
+    const { isLoading, isError, data } = useQuery<Post>({
+        queryKey: ["post", id],
+        queryFn: async () => {
             const res = await fetch(`/api/post?type=one&id=${id}`)
             const json = await res.json()
-            setData(json)
-        }
-        fetchData()
-    }, [id])
+            // error
+            if (!res.ok) throw new Error("沒有這篇公告")
+            return json
+        },
+    })
 
     const dismiss = useCallback(() => {
         router.back()
@@ -38,7 +51,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
             <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
                 <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'>
-                    {data ? (
+                    {data && (
                         <>
                             <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4'>
                                 <IconX size={24} />
@@ -115,10 +128,21 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                 )}
                             </div>
                         </>
-                    ) : (
-                        <>
-                            <div className=''>沒有公告</div>
-                        </>
+                    )}
+                    {isLoading && (
+                        <div className='flex items-center justify-center'>
+                            <div className='cat'>
+                                <div className='cat__body'></div>
+                                <div className='cat__body'></div>
+                                <div className='cat__tail'></div>
+                                <div className='cat__head'></div>
+                            </div>
+                        </div>
+                    )}
+                    {isError && (
+                        <div className='flex items-center justify-center'>
+                            <div className='text-red-500'>沒有這篇公告</div>
+                        </div>
                     )}
                 </Dialog.Content>
             </Dialog.Portal>

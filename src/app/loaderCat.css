@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 20em;
     overflow: hidden;
-    background-color: #e6dcdc;
+    /* background-color: #e6dcdc; */
 }
 .cat::before {
     content: "";
@@ -39,7 +39,7 @@
     height: 50%;
     background-size: 200%;
     background-repeat: no-repeat;
-    background-image: url("https://images.weserv.nl/?url=i.imgur.com/M1raXX3.png&il");
+    background-image: url("/loaderCat.png");
 }
 
 .cat__head::before {

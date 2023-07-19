@@ -130,7 +130,6 @@ export const GET = async (req: NextRequest) => {
         const document = dom.window.document
         const rows = Array.from(document.querySelectorAll(".newstd"))
         rows.forEach((row, index) => {
-            console.log("index", index, "row", row.textContent)
             if (index === 2) {
                 // <td class="newstd">教務處綜合業務組　<a href="mailto:cwli@takming.edu.tw">李景文</a></td>
                 // 取教務處綜合業務組

@@ -1,6 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
-import * as Dialog from "@radix-ui/react-dialog"
+import { useQuery } from "@tanstack/react-query"
 import {
     IconCalendarTime,
     IconCalendarOff,
@@ -11,22 +10,23 @@ import {
 } from "@tabler/icons-react"
 import { useRouter, usePathname } from "next/navigation"
 import { Post } from "@/types"
+import "@/app/loaderCat.css"
 
 const PostPage = ({ params }: { params: { id: string } }) => {
     const id = params.id
-    const [data, setData] = useState<Post>()
     const router = useRouter()
     const path = usePathname()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!open) return
+    const { isLoading, isError, data } = useQuery<Post>({
+        queryKey: ["post", id],
+        queryFn: async () => {
             const res = await fetch(`/api/post?type=one&id=${id}`)
             const json = await res.json()
-            setData(json)
-        }
-        fetchData()
-    }, [id])
+            // error
+            if (!res.ok) throw new Error("沒有這篇公告")
+            return json
+        },
+    })
 
     // itle: 一組字串，分享訊息的標題
     // text: 一組字串，分享訊息的描述
@@ -50,7 +50,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
 
     return (
         <>
-            {data ? (
+            {data && (
                 <div className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-main-color'>
                     <div className='flex flex-col items-center justify-center'>
                         <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-main-color md:text-xl'>
@@ -134,9 +134,22 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <div className='flex w-full items-center justify-center'>
-                    <div className=''>沒有資料</div>
+            )}
+            {isLoading && (
+                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
+                    <div className='flex h-full w-full items-center justify-center'>
+                        <div className='cat'>
+                            <div className='cat__body'></div>
+                            <div className='cat__body'></div>
+                            <div className='cat__tail'></div>
+                            <div className='cat__head'></div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {isError && (
+                <div className='flex h-full w-full items-center justify-center'>
+                    <div className='text-red-500'>沒有這篇公告</div>
                 </div>
             )}
         </>
