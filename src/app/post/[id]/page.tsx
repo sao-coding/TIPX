@@ -30,12 +30,12 @@ const PostPage = ({ params }: { params: { id: string } }) => {
 
     return (
         <>
-            <div className='flex w-full items-center rounded-2xl bg-white p-4'>
-                <div className='flex flex-1 flex-col items-center justify-center'>
-                    <div className='sticky left-0 top-0 w-full bg-white py-4 text-center text-xl'>
+            <div className='flex w-full items-center rounded-2xl p-4 md:bg-main-color'>
+                <div className='flex flex-col items-center justify-center'>
+                    <div className='sticky left-0 top-0 w-full bg-slate-50 py-3 text-center text-xl md:bg-main-color'>
                         {data?.title}
                     </div>
-                    <div className='flex items-center justify-center px-24'>
+                    <div className='flex items-center justify-center md:px-24'>
                         <div className='whitespace-pre-line'>{data?.content}</div>
                     </div>
                 </div>
