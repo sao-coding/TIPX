@@ -36,7 +36,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
             navigator
                 .share({
                     title: title,
-                    text: text,
+                    text: text.slice(0, 50),
                     url: url,
                 })
                 .then(() => {
