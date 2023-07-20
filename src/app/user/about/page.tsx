@@ -34,7 +34,7 @@ export default function UserInfoPage() {
                         <img src='/thumbnail-a.jpeg' />
                     </a>
                 </Fancybox>
-                <div className=''>{userData?.id}</div>
+                <div className=''>{userData?.userid}</div>
                 <div className=''>{userData?.name}</div>
                 <div className=''>{userData?.status}</div>
                 <div className=''>{userData?.dept}</div>
