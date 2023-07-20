@@ -18,18 +18,7 @@ import "@/app/loaderCat.css"
 
 const PostModal = ({ params }: { params: { id: string } }) => {
     const id = params.id
-    // const [data, setData] = useState<Post>()
     const router = useRouter()
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         if (!open) return
-    //         const res = await fetch(`/api/post?type=one&id=${id}`)
-    //         const json = await res.json()
-    //         setData(json)
-    //     }
-    //     fetchData()
-    // }, [id])
 
     const { isLoading, isError, data } = useQuery<Post>({
         queryKey: ["post", id],
@@ -89,7 +78,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                     {data.content}
                                 </div>
                             </div>
-                            <div className='mt-1 h-[10vh] overflow-y-auto rounded-xl border'>
+                            <div className='mt-1 h-[10vh] overflow-y-auto rounded-xl border p-1'>
                                 {data.file.length > 0 ? (
                                     <>
                                         {data.file.map((item) => (

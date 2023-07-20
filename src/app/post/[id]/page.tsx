@@ -32,6 +32,8 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     // text: 一組字串，分享訊息的描述
     // url: 一組字串，分享訊息要帶上的連結
     const Share = (title: string, text: string, url: string) => {
+        // 去除 所有 \r, \n, \t
+        text = text.replace(/[\r\n\t]/g, "")
         if (navigator.share) {
             navigator
                 .share({
@@ -40,20 +42,20 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                     url: url,
                 })
                 .then(() => {
-                    console.log("Thanks for sharing!")
+                    console.log("已分享")
                 })
                 .catch(console.error)
         } else {
-            console.log("Web Share API not supported in your browser")
+            console.log("Web Share API 不支援")
         }
     }
 
     return (
         <>
             {data && (
-                <div className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-main-color'>
+                <div className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'>
                     <div className='flex flex-col items-center justify-center'>
-                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-main-color md:text-xl'>
+                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
                             {data.title}
                         </div>
                         <div className='w-full pt-2 md:px-24'>
@@ -82,7 +84,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         <div className='flex w-full items-center justify-center md:px-24'>
                             <div className='whitespace-pre-line break-all'>{data?.content}</div>
                         </div>
-                        <div className='mt-1 w-full rounded-md border-2 border-dashed md:px-24'>
+                        <div className='mt-1 w-full rounded-md border-2 border-dashed p-1 md:px-24'>
                             {data.file.length > 0 ? (
                                 <>
                                     {data.file.map((item) => (
