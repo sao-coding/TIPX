@@ -33,7 +33,7 @@ type Credit = {
 }
 
 export type User = {
-    id: string
+    userid: string
     img: string
     name: string
     status: string

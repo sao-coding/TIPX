@@ -34,6 +34,8 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     const Share = (title: string, text: string, url: string) => {
         // 去除 所有 \r, \n, \t
         text = text.replace(/[\r\n\t]/g, "")
+        // 最後加上換行
+        text += "\n"
         if (navigator.share) {
             navigator
                 .share({

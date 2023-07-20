@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Cookie from "js-cookie"
@@ -100,9 +100,11 @@ const LoginPage = () => {
                 .toString("hex")
                 .replace(/(.{2})/g, "%$1")
         )
-        const url = searchParams.get("redirect") ?? "/"
-        console.log("url", url)
-        router.push(url)
+
+        console.log("url", searchParams.get("redirect") ?? "/")
+        // 跳轉頁面
+
+        window.location.href = searchParams.get("redirect") ?? "/"
     }
 
     return (

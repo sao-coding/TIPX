@@ -18,6 +18,7 @@ import {
     IconLoader2,
     IconUser,
     IconClipboardList,
+    IconBadges,
     IconInfoCircle,
 } from "@tabler/icons-react"
 
@@ -134,8 +135,8 @@ const UserPage = () => {
                                                 loading='lazy'
                                                 placeholder='blur'
                                                 blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
-                                                onError={() => setIsImgError(true)}
                                                 className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
+                                                onError={() => setIsImgError(true)}
                                             />
                                         )}
                                     </div>
@@ -155,7 +156,7 @@ const UserPage = () => {
                                         {userData.status}
                                     </div>
                                     <div className='absolute bottom-0 right-0 rounded-md bg-amber-500 px-1 text-neutral-200'>
-                                        {userData.id}
+                                        {userData.userid}
                                     </div>
                                 </div>
                             </div>
@@ -245,6 +246,15 @@ const UserPage = () => {
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div
+                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => router.push("/user/class-rank")}
+                        >
+                            <div className='flex items-center'>
+                                <IconBadges />
+                                <div className='ml-2'>班級排名 (beta)</div>
                             </div>
                         </div>
                         <div
