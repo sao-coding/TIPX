@@ -81,7 +81,6 @@ export const GET = async (req: NextRequest) => {
 
                 const data2 = await res3.json()
                 const className = data2.className
-                console.log(className, classNameown)
 
                 if (className !== classNameown) {
                     return null // If className doesn't match, return null
