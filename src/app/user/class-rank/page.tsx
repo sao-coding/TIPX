@@ -25,6 +25,8 @@ const ClassRankPage = () => {
                 "src",
                 "https://tabler-icons.io/static/tabler-icons/icons-png/user-circle.png"
             )
+            img.classList.remove("object-cover")
+            img.classList.add("object-contain")
         }
     }
 
@@ -32,9 +34,17 @@ const ClassRankPage = () => {
         <>
             {data && (
                 <div className='flex w-full flex-col items-center justify-center p-4'>
-                    {/* 依排名排序 */}
+                    {/* 依排名排序 如果是 0 就排在最後 */}
                     {data
-                        ?.sort((a, b) => a.data.rank - b.data.rank)
+                        .sort((a, b) => {
+                            if (a.data.rank === 0) {
+                                return 1
+                            } else if (b.data.rank === 0) {
+                                return -1
+                            } else {
+                                return a.data.rank - b.data.rank
+                            }
+                        })
                         .map((item, index) => (
                             <div
                                 className='relative mb-2 flex w-full items-center justify-between rounded-md bg-white p-2 shadow-md'

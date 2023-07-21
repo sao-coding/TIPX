@@ -51,9 +51,7 @@ export const GET = async (req: NextRequest) => {
             const majordata = await res.json()
             const majorown = majordata.major
 
-            for (let i = 0; i < 70; i++) {
-                // 1~9號補0
-                const userid = classId + i.toString().padStart(2, "0")
+            const fetchData = async (userid: string) => {
                 const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
                     headers: {
                         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${searchYear}; cookie_sem=${searchSem}; cookie_divcode=${dept}; cookie_programname=${es};`,
@@ -61,7 +59,6 @@ export const GET = async (req: NextRequest) => {
                     },
                 })
 
-                // 從"api/user" 取得學生姓名
                 const res2 = await fetch(`${url}/api/user?userid=${userid}`, {
                     method: "GET",
                     headers: {
@@ -75,19 +72,26 @@ export const GET = async (req: NextRequest) => {
                 const img = data.img
                 const major = data.major
                 if (major !== majorown) {
-                    continue
+                    return null // If major doesn't match, return null
                 }
+
                 const buffer = await res.arrayBuffer()
-                let html = new TextDecoder("big5").decode(buffer)
+                const html = new TextDecoder("big5").decode(buffer)
                 const dom = new JSDOM(html)
                 const document = dom.window.document
                 const rows = Array.from(
                     document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
                 )
 
+                const finalGradeRank = {
+                    year: "",
+                    sem: "",
+                    avg: 0,
+                    rank: 0,
+                }
+
                 rows.forEach((row, index) => {
                     const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
-                    // 判斷當前學年學期
                     if (cells[0].textContent === searchYear && cells[1].textContent === searchSem) {
                         cells.forEach((cell, index) => {
                             const list = cell.textContent
@@ -104,16 +108,33 @@ export const GET = async (req: NextRequest) => {
                                 finalGradeRank.rank = Number(list)
                             }
                         })
-
-                        finalGradeRankClass.push({
-                            userid: userid ?? "",
-                            img: img ?? "",
-                            name: name ?? "",
-                            data: { ...finalGradeRank },
-                        })
                     }
                 })
+
+                return {
+                    userid: userid ?? "",
+                    img: img ?? "",
+                    name: name ?? "",
+                    data: { ...finalGradeRank },
+                }
             }
+
+            const startFetchingTime = new Date().toLocaleString()
+            const fetchPromises = []
+
+            for (let i = 0; i < 70; i++) {
+                const userid = classId + i.toString().padStart(2, "0")
+                fetchPromises.push(fetchData(userid))
+            }
+
+            const results = await Promise.all(fetchPromises)
+
+            const finalGradeRankClass = results.filter((result) => result !== null)
+
+            console.log(
+                `Start fetching: ${startFetchingTime}\nEnd fetching: ` + new Date().toLocaleString()
+            )
+
             return NextResponse.json(finalGradeRankClass)
         }
     }
