@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import { FinalGradeRankClass, FinalGradeRank, Conduct } from "@/types"
+import getClassNames from "@/app/lib/class-name"
+import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
 export const GET = async (req: NextRequest) => {
     const year = cookies().get("cookie_year")?.value
@@ -44,16 +45,23 @@ export const GET = async (req: NextRequest) => {
             const classId = userid?.slice(0, 7)
             const year = req.nextUrl.searchParams.get("year")
             const sem = req.nextUrl.searchParams.get("sem")
-            const res = await fetch(`${url}/api/class-name?userid=${userid}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                    "Content-Type": "application/json",
-                },
-            })
+            // const res = await fetch(`${url}/api/class-name?userid=${userid}`, {
+            //     method: "GET",
+            //     headers: {
+            //         Authorization: `Bearer ${process.env.AUTHORIZATION}`,
+            //         "Content-Type": "application/json",
+            //     },
+            // })
 
-            const classNamedata = await res.json()
-            const classNameown = classNamedata.className
+            // const classNamedata = await res.json()
+
+            const classNameown: ClassName = await getClassNames(
+                userid ?? "",
+                year ?? "",
+                sem ?? "",
+                dept ?? "",
+                es ?? ""
+            )
 
             const fetchData = async (userid: string) => {
                 const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
@@ -93,18 +101,26 @@ export const GET = async (req: NextRequest) => {
                     score: data2.score,
                 }
 
-                const res4 = await fetch(`${url}/api/class-name?userid=${userid}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                        "Content-Type": "application/json",
-                    },
-                })
+                // const res4 = await fetch(`${url}/api/class-name?userid=${userid}`, {
+                //     method: "GET",
+                //     headers: {
+                //         Authorization: `Bearer ${process.env.AUTHORIZATION}`,
+                //         "Content-Type": "application/json",
+                //     },
+                // })
 
-                const data3 = await res4.json()
-                const className = data3.className
+                // const data3 = await res4.json()
+                const className: ClassName = await getClassNames(
+                    userid,
+                    year ?? "",
+                    sem ?? "",
+                    dept ?? "",
+                    es ?? ""
+                )
 
-                if (className !== classNameown) {
+                console.log(classNameown, className)
+
+                if (className.class !== classNameown.class) {
                     return null // If className doesn't match, return null
                 }
 
@@ -153,23 +169,18 @@ export const GET = async (req: NextRequest) => {
                 }
             }
 
-            const startFetchingTime = new Date().toLocaleString()
             const fetchPromises = []
-
+            console.time("fetching")
             for (let i = 1; i < 60; i++) {
                 const userid = classId + i.toString().padStart(2, "0")
                 fetchPromises.push(fetchData(userid))
             }
-
             const results = await Promise.all(fetchPromises)
 
+            console.timeEnd("fetching")
             finalGradeRankClass = results.filter(
                 (result) => result !== null
             ) as FinalGradeRankClass[]
-
-            console.log(
-                `Start fetching: ${startFetchingTime}\nEnd fetching: ` + new Date().toLocaleString()
-            )
 
             return NextResponse.json(finalGradeRankClass)
         }
@@ -196,7 +207,7 @@ export const GET = async (req: NextRequest) => {
             )
 
             const data = await res2.json()
-            console.log(data)
+            // console.log({ data })
             return {
                 year: data.year,
                 sem: data.sem,
@@ -212,30 +223,28 @@ export const GET = async (req: NextRequest) => {
             document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
         )
 
-        rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
-            cells.forEach((cell, index) => {
-                const list = cell.textContent
-                if (index === 0) {
+        for (let i = 0; i < rows.length; i++) {
+            const cells = Array.from(rows[i].querySelectorAll("td:not(:last-child) font"))
+
+            for (let j = 0; j < cells.length; j++) {
+                const list = cells[j].textContent
+                if (j === 0) {
                     finalGradeRank.year = list ?? ""
                 }
-                if (index === 1) {
+                if (j === 1) {
                     finalGradeRank.sem = list ?? ""
                 }
-                if (index === 2) {
+                if (j === 2) {
                     finalGradeRank.avg = Number(list)
                 }
-                if (index === 3) {
+                if (j === 3) {
                     finalGradeRank.rank = Number(list)
                 }
-            })
-
-            const conduct = fetchData(userid ?? "", finalGradeRank.year, finalGradeRank.sem)
-
-            console.log(conduct)
-
+            }
+            const conduct = await fetchData(userid ?? "", finalGradeRank.year, finalGradeRank.sem)
+            finalGradeRank.conduct = { ...conduct }
             finalGradeRankList.push({ ...finalGradeRank })
-        })
+        }
 
         return NextResponse.json(finalGradeRankList)
     }

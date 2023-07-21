@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import Cookie from "js-cookie"
 import clsx from "clsx"
 import { User, CourseAttendanceRecord, Conduct } from "@/types"
@@ -22,6 +23,7 @@ import {
     IconLayoutDashboard,
     IconBadges,
     IconInfoCircle,
+    IconLogout,
 } from "@tabler/icons-react"
 
 export const dynamic = "force-dynamic"
@@ -240,7 +242,7 @@ const UserPage = () => {
                             </div>
                         </div>
                         <div
-                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                             // onClick={() => router.push("/user/info")}
                         >
                             <div className='flex items-center'>
@@ -248,29 +250,29 @@ const UserPage = () => {
                                 <div className='ml-2'>個人詳細資料 (尚未推出)</div>
                             </div>
                         </div>
-                        <div className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'>
+                        <div className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'>
                             <div className='flex items-center'>
                                 <IconClipboardPlus />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
                             </div>
                         </div>
-                        <div className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'>
+                        <div className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'>
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>請假缺曠記錄 (尚未推出)</div>
                             </div>
                         </div>
                         <div
-                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                             onClick={() => router.push("user/final-grade")}
                         >
                             <div className='flex items-center'>
                                 <IconLayoutDashboard />
-                                <div className='ml-2'>學期-操行 成績 (尚未推出)</div>
+                                <div className='ml-2'>學期-操行 成績</div>
                             </div>
                         </div>
                         <div
-                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                             onClick={() => router.push("/user/class-rank")}
                         >
                             <div className='flex items-center'>
@@ -279,12 +281,24 @@ const UserPage = () => {
                             </div>
                         </div>
                         <div
-                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                             onClick={() => router.push("/user/info")}
                         >
                             <div className='flex items-center'>
                                 <IconInfoCircle />
                                 <div className='ml-2'>關於 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => {
+                                Cookie.remove("token")
+                                router.push("/login")
+                            }}
+                        >
+                            <div className='flex items-center'>
+                                <IconLogout />
+                                <div className='ml-2'>登出</div>
                             </div>
                         </div>
                     </div>

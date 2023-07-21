@@ -1,21 +1,16 @@
-import { NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
 import { ClassName } from "@/types"
 
-export const GET = async (req: NextRequest) => {
-    let userid
-    if (req.nextUrl.searchParams.has("userid")) {
-        userid = req.nextUrl.searchParams.get("userid")
-    } else {
-        userid = cookies().get("cookie_userid")?.value
+const getClassNames = async (
+    userid: string,
+    year: string,
+    sem: string,
+    dept: string,
+    es: string
+) => {
+    let className: ClassName = {
+        class: "",
     }
-    const year = cookies().get("cookie_year")?.value
-    const sem = cookies().get("cookie_sem")?.value
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
-
-    let className: string = ""
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php", {
         headers: {
@@ -35,10 +30,12 @@ export const GET = async (req: NextRequest) => {
         cells.forEach((cell, j) => {
             const list = cell.textContent
             if (i === 5 && j === 1) {
-                className = list ?? ""
+                className.class = list ?? ""
             }
         })
     })
 
-    return NextResponse.json({ className })
+    return className
 }
+
+export default getClassNames

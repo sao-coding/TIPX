@@ -6,6 +6,9 @@ import Cookie from "js-cookie"
 import Image from "next/image"
 import { FinalGradeRankClass } from "@/types"
 import "@/app/loaderCat.css"
+import Avatar from "@/components/ui/avatar"
+
+export const dynamic = "force-dynamic"
 
 const ClassRankPage = () => {
     const [errorMsg, setErrorMsg] = useState("")
@@ -27,6 +30,7 @@ const ClassRankPage = () => {
 
             return json
         },
+        refetchOnWindowFocus: false,
     })
 
     const errorImg = (userid: string) => {
@@ -71,7 +75,7 @@ const ClassRankPage = () => {
                                     </div>
                                 )}
                                 <div className='flex items-center'>
-                                    <img
+                                    {/* <Image
                                         src={item.img}
                                         alt='大頭貼'
                                         width='0'
@@ -83,6 +87,17 @@ const ClassRankPage = () => {
                                         className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
                                         id={item.userid}
                                         onError={() => errorImg(item.userid)}
+                                    /> */}
+                                    <Avatar
+                                        src={item.img}
+                                        width={75}
+                                        height={100}
+                                        alt='大頭貼'
+                                        fallback={
+                                            <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
+                                                <IconUserCircle size={75} />
+                                            </div>
+                                        }
                                     />
                                     <div className='p-2'>
                                         <div className='p-1'>{item.userid}</div>

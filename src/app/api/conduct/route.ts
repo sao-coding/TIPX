@@ -63,7 +63,7 @@ export const GET = async (req: NextRequest) => {
                 conduct.sem = list ?? ""
             }
             if (index === 2) {
-                conduct.score = parseInt(list ?? "")
+                conduct.score = Number(list ?? "")
             }
         })
         conductList.push({ ...conduct })

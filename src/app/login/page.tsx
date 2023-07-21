@@ -139,7 +139,7 @@ const LoginPage = () => {
                         </div>
                         <div className='p-2'>
                             <button
-                                className='w-full rounded-md bg-orange-300 py-2 hover:bg-orange-400'
+                                className='w-full cursor-pointer rounded-md bg-orange-300 py-2 hover:bg-orange-400'
                                 onClick={fetchLogin}
                             >
                                 登入
