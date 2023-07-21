@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic"
 export const GET = async (req: NextRequest) => {
     const year = req.cookies.get("cookie_year")?.value
     const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
+    const userid = "D11019114"
     const dept = req.cookies.get("cookie_dept")?.value
     const es = req.cookies.get("cookie_es")?.value
     // const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
@@ -29,7 +29,7 @@ export const GET = async (req: NextRequest) => {
     //     )
     // }
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php?div=1", {
         headers: {
             cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",

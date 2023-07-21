@@ -32,3 +32,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# TODO
+新生基本資料 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php?div=1
+新生資料填寫 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_new.php?DIV=1
+新生檔案上傳 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_upload.php?DIV=1
+新生問卷填寫 https://netinfo.takming.edu.tw/tip/survey/survey_edit01.php

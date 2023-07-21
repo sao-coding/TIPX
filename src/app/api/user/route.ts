@@ -12,9 +12,9 @@ export const GET = async (req: NextRequest) => {
     }
     const year = cookies().get("cookie_year")?.value
     const sem = cookies().get("cookie_sem")?.value
-
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
+
     const info: string[] = []
     const credit: string[] = []
     const title: string[] = []

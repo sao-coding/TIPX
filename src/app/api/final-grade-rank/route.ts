@@ -33,14 +33,14 @@ export const GET = async (req: NextRequest) => {
         ) {
             // D11019139
             // 取前7碼
-            const classId = userid?.slice(0, 7)
+            const classId = userid?.slice(0, 6)
             const searchYear = req.nextUrl.searchParams.get("year")
             const searchSem = req.nextUrl.searchParams.get("sem")
             const url =
                 process.env.NODE_ENV === "development"
                     ? "http://localhost:3000"
                     : "https://tip.sao-x.com"
-            const res = await fetch(`${url}/api/user?userid=${userid}`, {
+            const res = await fetch(`${url}/api/class-name?userid=${userid}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${process.env.AUTHORIZATION}`,
@@ -48,8 +48,8 @@ export const GET = async (req: NextRequest) => {
                 },
             })
 
-            const majordata = await res.json()
-            const majorown = majordata.major
+            const classNamedata = await res.json()
+            const classNameown = classNamedata.className
 
             const fetchData = async (userid: string) => {
                 const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
@@ -70,9 +70,21 @@ export const GET = async (req: NextRequest) => {
                 const data = await res2.json()
                 const name = data.name
                 const img = data.img
-                const major = data.major
-                if (major !== majorown) {
-                    return null // If major doesn't match, return null
+
+                const res3 = await fetch(`${url}/api/class-name?userid=${userid}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${process.env.AUTHORIZATION}`,
+                        "Content-Type": "application/json",
+                    },
+                })
+
+                const data2 = await res3.json()
+                const className = data2.className
+                console.log(className, classNameown)
+
+                if (className !== classNameown) {
+                    return null // If className doesn't match, return null
                 }
 
                 const buffer = await res.arrayBuffer()
@@ -122,7 +134,7 @@ export const GET = async (req: NextRequest) => {
             const startFetchingTime = new Date().toLocaleString()
             const fetchPromises = []
 
-            for (let i = 0; i < 70; i++) {
+            for (let i = 0; i < 60; i++) {
                 const userid = classId + i.toString().padStart(2, "0")
                 fetchPromises.push(fetchData(userid))
             }
