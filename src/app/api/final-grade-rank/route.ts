@@ -33,7 +33,7 @@ export const GET = async (req: NextRequest) => {
         ) {
             // D11019139
             // 取前7碼
-            const classId = userid?.slice(0, 6)
+            const classId = userid?.slice(0, 7)
             const searchYear = req.nextUrl.searchParams.get("year")
             const searchSem = req.nextUrl.searchParams.get("sem")
             const url =
