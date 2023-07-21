@@ -8,10 +8,16 @@ import { FinalGradeRankClass } from "@/types"
 import "@/app/loaderCat.css"
 
 const ClassRankPage = () => {
+    const [errorMsg, setErrorMsg] = useState("")
     const { isLoading, isError, data } = useQuery<FinalGradeRankClass[]>({
         queryKey: ["class-rank"],
         queryFn: async () => {
             const res = await fetch(`/api/final-grade-rank?type=class&year=111&sem=2`)
+            if (!res.ok) {
+                setErrorMsg("發生了錯誤：" + res.status)
+                throw new Error()
+            }
+
             const json = await res.json()
 
             return json
@@ -106,6 +112,13 @@ const ClassRankPage = () => {
                             <div className='cat__tail'></div>
                             <div className='cat__head'></div>
                         </div>
+                    </div>
+                </div>
+            )}
+            {isError && (
+                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
+                    <div className='flex h-full w-full items-center justify-center'>
+                        <div className='text-2xl'>{errorMsg}</div>
                     </div>
                 </div>
             )}
