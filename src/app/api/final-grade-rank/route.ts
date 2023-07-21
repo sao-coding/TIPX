@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import { FinalGradeRankClass, FinalGradeRank } from "@/types"
+import { FinalGradeRankClass, FinalGradeRank, Conduct } from "@/types"
 
 export const GET = async (req: NextRequest) => {
     const year = cookies().get("cookie_year")?.value
@@ -30,6 +30,9 @@ export const GET = async (req: NextRequest) => {
         rank: 0,
     }
 
+    const url =
+        process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://tip.sao-x.com"
+
     if (req.nextUrl.searchParams.get("type") === "class") {
         if (
             req.nextUrl.searchParams.has("type") &&
@@ -41,10 +44,6 @@ export const GET = async (req: NextRequest) => {
             const classId = userid?.slice(0, 7)
             const year = req.nextUrl.searchParams.get("year")
             const sem = req.nextUrl.searchParams.get("sem")
-            const url =
-                process.env.NODE_ENV === "development"
-                    ? "http://localhost:3000"
-                    : "https://tip.sao-x.com"
             const res = await fetch(`${url}/api/class-name?userid=${userid}`, {
                 method: "GET",
                 headers: {
@@ -184,6 +183,27 @@ export const GET = async (req: NextRequest) => {
             },
         })
 
+        const fetchData = async (userid: string, year: string, sem: string) => {
+            const res2 = await fetch(
+                `${url}/api/conduct?userid=${userid}&year=${year}&sem=${sem}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${process.env.AUTHORIZATION}`,
+                    },
+                }
+            )
+
+            const data = await res2.json()
+            console.log(data)
+            return {
+                year: data.year,
+                sem: data.sem,
+                score: data.score,
+            }
+        }
+
         const buffer = await res.arrayBuffer()
         let html = new TextDecoder("big5").decode(buffer)
         const dom = new JSDOM(html)
@@ -192,7 +212,7 @@ export const GET = async (req: NextRequest) => {
             document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
         )
 
-        rows.forEach((row, index) => {
+        rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
             cells.forEach((cell, index) => {
                 const list = cell.textContent
@@ -209,6 +229,11 @@ export const GET = async (req: NextRequest) => {
                     finalGradeRank.rank = Number(list)
                 }
             })
+
+            const conduct = fetchData(userid ?? "", finalGradeRank.year, finalGradeRank.sem)
+
+            console.log(conduct)
+
             finalGradeRankList.push({ ...finalGradeRank })
         })
 

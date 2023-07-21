@@ -104,7 +104,7 @@ const LoginPage = () => {
         console.log("url", searchParams.get("redirect") ?? "/")
         // 跳轉頁面
 
-        // window.location.href = searchParams.get("redirect") ?? "/"
+        window.location.href = searchParams.get("redirect") ?? "/"
     }
 
     return (

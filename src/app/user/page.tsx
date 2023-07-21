@@ -17,7 +17,9 @@ import {
     IconStar,
     IconLoader2,
     IconUser,
+    IconClipboardPlus,
     IconClipboardList,
+    IconLayoutDashboard,
     IconBadges,
     IconInfoCircle,
 } from "@tabler/icons-react"
@@ -190,7 +192,7 @@ const UserPage = () => {
                         <div className='mt-2 flex items-center justify-between'>
                             <div className='w-full rounded-xl border p-2 shadow-md'>
                                 <div className='flex items-center justify-between'>
-                                    <div className=''>請假總次數</div>
+                                    <div className=''>請假次數</div>
                                     <div className=''>
                                         <IconListDetails size={20} />
                                     </div>
@@ -211,7 +213,7 @@ const UserPage = () => {
                             </div>
                             <div className='mx-1 w-full rounded-xl border p-2 shadow-md'>
                                 <div className='flex items-center justify-between'>
-                                    <div className=''>請假總時數</div>
+                                    <div className=''>請假時數</div>
                                     <div className=''>
                                         <IconClock size={20} />
                                     </div>
@@ -248,8 +250,23 @@ const UserPage = () => {
                         </div>
                         <div className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'>
                             <div className='flex items-center'>
-                                <IconClipboardList />
+                                <IconClipboardPlus />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'>
+                            <div className='flex items-center'>
+                                <IconClipboardList />
+                                <div className='ml-2'>請假缺曠記錄 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div
+                            className='mt-2 w-full rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => router.push("user/final-grade")}
+                        >
+                            <div className='flex items-center'>
+                                <IconLayoutDashboard />
+                                <div className='ml-2'>學期-操行 成績 (尚未推出)</div>
                             </div>
                         </div>
                         <div
