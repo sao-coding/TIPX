@@ -1,3 +1,5 @@
 export type Conduct = {
-    score: number[][]
+    year: string
+    sem: string
+    score: number
 }

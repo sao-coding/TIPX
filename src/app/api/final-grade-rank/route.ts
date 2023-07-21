@@ -14,13 +14,18 @@ export const GET = async (req: NextRequest) => {
 
     // final-grade-rank?type=class&year=110&sem=1
 
-    const finalGradeRankClass: FinalGradeRankClass[] = []
+    let finalGradeRankClass: FinalGradeRankClass[] = []
 
     const finalGradeRankList: FinalGradeRank[] = []
 
-    const finalGradeRank: FinalGradeRank = {
+    let finalGradeRank: FinalGradeRank = {
         year: "",
         sem: "",
+        conduct: {
+            year: "",
+            sem: "",
+            score: 0,
+        },
         avg: 0,
         rank: 0,
     }
@@ -34,8 +39,8 @@ export const GET = async (req: NextRequest) => {
             // D11019139
             // 取前7碼
             const classId = userid?.slice(0, 7)
-            const searchYear = req.nextUrl.searchParams.get("year")
-            const searchSem = req.nextUrl.searchParams.get("sem")
+            const year = req.nextUrl.searchParams.get("year")
+            const sem = req.nextUrl.searchParams.get("sem")
             const url =
                 process.env.NODE_ENV === "development"
                     ? "http://localhost:3000"
@@ -54,7 +59,7 @@ export const GET = async (req: NextRequest) => {
             const fetchData = async (userid: string) => {
                 const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
                     headers: {
-                        cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${searchYear}; cookie_sem=${searchSem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                        cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
                         Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
                     },
                 })
@@ -68,10 +73,28 @@ export const GET = async (req: NextRequest) => {
                 })
 
                 const data = await res2.json()
-                const name = data.name
-                const img = data.img
+                const name: string = data.name
+                const img: string = data.img
 
-                const res3 = await fetch(`${url}/api/class-name?userid=${userid}`, {
+                const res3 = await fetch(
+                    `${url}/api/conduct?userid=${userid}&year=${year}&sem=${sem}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${process.env.AUTHORIZATION}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+
+                const data2 = await res3.json()
+                const conduct = {
+                    year: data2.year,
+                    sem: data2.sem,
+                    score: data2.score,
+                }
+
+                const res4 = await fetch(`${url}/api/class-name?userid=${userid}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${process.env.AUTHORIZATION}`,
@@ -79,8 +102,8 @@ export const GET = async (req: NextRequest) => {
                     },
                 })
 
-                const data2 = await res3.json()
-                const className = data2.className
+                const data3 = await res4.json()
+                const className = data3.className
 
                 if (className !== classNameown) {
                     return null // If className doesn't match, return null
@@ -94,16 +117,17 @@ export const GET = async (req: NextRequest) => {
                     document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
                 )
 
-                const finalGradeRank = {
+                finalGradeRank = {
                     year: "",
                     sem: "",
+                    conduct: { ...conduct },
                     avg: 0,
                     rank: 0,
                 }
 
-                rows.forEach((row, index) => {
+                rows.forEach((row) => {
                     const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
-                    if (cells[0].textContent === searchYear && cells[1].textContent === searchSem) {
+                    if (cells[0].textContent === year && cells[1].textContent === sem) {
                         cells.forEach((cell, index) => {
                             const list = cell.textContent
                             if (index === 0) {
@@ -133,14 +157,16 @@ export const GET = async (req: NextRequest) => {
             const startFetchingTime = new Date().toLocaleString()
             const fetchPromises = []
 
-            for (let i = 0; i < 60; i++) {
+            for (let i = 1; i < 60; i++) {
                 const userid = classId + i.toString().padStart(2, "0")
                 fetchPromises.push(fetchData(userid))
             }
 
             const results = await Promise.all(fetchPromises)
 
-            const finalGradeRankClass = results.filter((result) => result !== null)
+            finalGradeRankClass = results.filter(
+                (result) => result !== null
+            ) as FinalGradeRankClass[]
 
             console.log(
                 `Start fetching: ${startFetchingTime}\nEnd fetching: ` + new Date().toLocaleString()

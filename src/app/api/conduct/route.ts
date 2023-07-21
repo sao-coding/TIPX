@@ -5,17 +5,28 @@ import { JSDOM } from "jsdom"
 import { Conduct } from "@/types"
 
 export const GET = async (req: NextRequest) => {
-    const year = cookies().get("cookie_year")?.value
-    const sem = cookies().get("cookie_sem")?.value
-    const userid = cookies().get("cookie_userid")?.value
+    let userid
+    let year
+    let sem
+    if (req.nextUrl.searchParams.has("userid")) {
+        userid = req.nextUrl.searchParams.get("userid")
+        year = req.nextUrl.searchParams.get("year")
+        sem = req.nextUrl.searchParams.get("sem")
+    } else {
+        userid = cookies().get("cookie_userid")?.value
+        year = cookies().get("cookie_year")?.value
+        sem = cookies().get("cookie_sem")?.value
+    }
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
-    const conduct: Conduct = {
-        score: [],
-    }
+    const conductList: Conduct[] = []
 
-    let score: number[] = []
+    const conduct: Conduct = {
+        year: "",
+        sem: "",
+        score: 0,
+    }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_stg04.php", {
         headers: {
@@ -32,15 +43,26 @@ export const GET = async (req: NextRequest) => {
         document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
     )
 
-    rows.forEach((row, index) => {
+    rows.forEach((row) => {
         const cells = Array.from(row.querySelectorAll("td:not(:last-child)"))
-        score = []
-        cells.forEach((cell) => {
+        conduct.year = ""
+        conduct.sem = ""
+        conduct.score = 0
+        cells.forEach((cell, index) => {
             const list = cell.textContent
-            score.push(Number(list))
+            if (index === 0) {
+                conduct.year = list ?? ""
+            }
+            if (index === 1) {
+                conduct.sem = list ?? ""
+            }
+            if (index === 2) {
+                conduct.score = parseInt(list ?? "")
+            }
         })
-        conduct.score[index] = [...score]
+        conductList.push({ ...conduct })
     })
+
     // 目前操行
     // req.nextUrl.searchParams.get("year")
     // req.nextUrl.searchParams.get("sem")
@@ -51,13 +73,13 @@ export const GET = async (req: NextRequest) => {
         ) {
             // 搜尋 year & sem 在 conduct 陣列
             // 有的話回傳
-            for (let i = 0; i < conduct.score.length; i++) {
-                if (conduct.score[i][0] === Number(year) && conduct.score[i][1] === Number(sem)) {
-                    return NextResponse.json(conduct.score[i])
+            for (let i = 0; i < conductList.length; i++) {
+                if (conductList[i].year === year && conductList[i].sem === sem) {
+                    return NextResponse.json(conductList[i])
                 }
             }
         }
     }
 
-    return NextResponse.json(conduct)
+    return NextResponse.json(conductList)
 }

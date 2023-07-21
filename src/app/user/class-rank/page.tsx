@@ -78,14 +78,19 @@ const ClassRankPage = () => {
                                         <div className='p-1'>{item.name}</div>
                                     </div>
                                 </div>
-                                <div className='flex items-center'>
+                                <div className='flex items-center font-mono'>
                                     {/* <div className='p-1'>{item.data.year}</div>
                                 <div className='p-1'>{item.data.sem}</div> */}
-                                    <div className='mr-1 rounded-md bg-main-color px-1'>
-                                        {item.data.avg}
+                                    <div className='mr-1 flex flex-col items-center rounded-md bg-main-color px-1 md:flex-row'>
+                                        <div className=''>操行</div>
+                                        <div className=''>{item.data.conduct.score.toFixed(2)}</div>
+                                    </div>
+                                    <div className='mr-1 flex flex-col items-center rounded-md bg-main-color px-1 md:flex-row'>
+                                        <div className=''>成績</div>
+                                        <div className=''>{item.data.avg.toFixed(2)}</div>
                                     </div>
                                     <div className='ml-1 rounded-md bg-main-color px-1'>
-                                        {item.data.rank}
+                                        {item.data.rank.toString().padStart(2, "0")}
                                     </div>
                                 </div>
                             </div>

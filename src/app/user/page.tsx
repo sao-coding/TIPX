@@ -28,7 +28,11 @@ const UserPage = () => {
     const [userData, setUserData] = useState<User>()
     const [courseAttendanceRecordData, setCourseAttendanceRecordData] =
         useState<CourseAttendanceRecord>()
-    const [conductData, setConductData] = useState("")
+    const [conductData, setConductData] = useState<Conduct>({
+        year: "",
+        sem: "",
+        score: 0,
+    })
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
     const [LeaveLoading, setLeaveLoading] = useState(false)
@@ -230,7 +234,7 @@ const UserPage = () => {
                                         <IconStar size={20} />
                                     </div>
                                 </div>
-                                <div className='text-2xl'>{conductData[2]}分</div>
+                                <div className='text-2xl'>{conductData.score}分</div>
                             </div>
                         </div>
                         <div
