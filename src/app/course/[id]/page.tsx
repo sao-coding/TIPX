@@ -19,7 +19,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch(`/api/course?course=${params.id}`)
+            const res = await fetch(`/api/course?course=${params.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${Cookie.get("token")}`,
+                },
+            })
+
             const data = await res.json()
 
             if (data.error === "Unauthorized") {

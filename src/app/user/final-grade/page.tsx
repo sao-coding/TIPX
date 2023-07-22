@@ -1,16 +1,15 @@
 import { cookies } from "next/headers"
 import { IconStar, IconCrown } from "@tabler/icons-react"
 import clsx from "clsx"
-import Cookie from "js-cookie"
 import { FinalGradeRank } from "@/types"
-import { site } from "@/cofing/site"
+import { site } from "@/config/site"
 
 const getData = async () => {
     const res = await fetch(`${site.url}/api/final-grade`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookie.get("token")}`,
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
             Cookie: cookies().toString(),
         },
     })
@@ -24,7 +23,7 @@ const getData = async () => {
 
 const FinalGradePage = async () => {
     const data: FinalGradeRank[] = await getData()
-
+    console.log({ data })
     // 班排前三名顏色
     const rankColor: { [key: number]: string } = {
         1: "text-amber-500",

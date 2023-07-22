@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import { IconStar } from "@tabler/icons-react"
 import clsx from "clsx"
 import { Credit } from "@/types"
-import { site } from "@/cofing/site"
+import { site } from "@/config/site"
 
 const getData = async () => {
     const res = await fetch(`${site.url}/api/credit`, {
@@ -32,7 +32,6 @@ const CreditPage = async () => {
         0: "text-red-500",
         1: "text-yellow-500",
         2: "text-green-500",
-        3: "text-gray-500",
     }
 
     return (
@@ -51,7 +50,11 @@ const CreditPage = async () => {
                             className={clsx(
                                 "absolute right-0 top-0 p-1 text-2xl font-bold",
                                 passColor[
-                                    item.total === 0 ? 3 : Math.floor((item.get / item.total) * 3)
+                                    item.get / item.total < 0.8 && item.get / item.total >= 0.6
+                                        ? 1
+                                        : item.get / item.total < 0.6
+                                        ? 0
+                                        : 2
                                 ]
                             )}
                         >
@@ -59,13 +62,15 @@ const CreditPage = async () => {
                             {item.total === 0 ? 0 : Math.round((item.get / item.total) * 100)}%
                         </div>
                         <div className='absolute bottom-0 left-0 flex w-full items-center justify-between p-1'>
-                            <div className='flex items-center pr-1'>
-                                <IconStar className='animate-pulse stroke-yellow-500' />
-                                {item.total}
-                            </div>
-                            <div className='flex items-center pl-1'>
-                                <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
-                                {item.get}
+                            <div className='flex w-28 items-center justify-between'>
+                                <div className='flex items-center pr-1'>
+                                    <IconStar className='animate-pulse stroke-yellow-500' />
+                                    {item.total.toString().padStart(2, "0")}
+                                </div>
+                                <div className='flex items-center pl-1'>
+                                    <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
+                                    {item.get.toString().padStart(2, "0")}
+                                </div>
                             </div>
                             <div className='px-2 text-2xl text-neutral-300'>{item.sem}</div>
                         </div>
