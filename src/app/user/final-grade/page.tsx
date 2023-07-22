@@ -1,17 +1,29 @@
-"use client"
-import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { IconStar, IconStarFilled, IconCrown } from "@tabler/icons-react"
+import { cookies } from "next/headers"
+import { IconStar, IconCrown } from "@tabler/icons-react"
 import clsx from "clsx"
 import Cookie from "js-cookie"
-import Image from "next/image"
 import { FinalGradeRank } from "@/types"
-import "@/app/loaderCat.css"
+import { site } from "@/cofing/site"
 
-export const dynamic = "force-dynamic"
+const getData = async () => {
+    const res = await fetch(`${site.url}/api/final-grade`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookie.get("token")}`,
+            Cookie: cookies().toString(),
+        },
+    })
 
-const FinalGradePage = () => {
-    const [errorMsg, setErrorMsg] = useState("")
+    if (!res.ok) {
+        throw new Error("獲取資料失敗")
+    }
+
+    return res.json()
+}
+
+const FinalGradePage = async () => {
+    const data: FinalGradeRank[] = await getData()
 
     // 班排前三名顏色
     const rankColor: { [key: number]: string } = {
@@ -19,26 +31,6 @@ const FinalGradePage = () => {
         2: "text-red-500",
         3: "text-blue-500",
     }
-
-    const { isLoading, isError, data } = useQuery<FinalGradeRank[]>({
-        queryKey: ["final-grade"],
-        queryFn: async () => {
-            const res = await fetch(`/api/final-grade-rank?type=all`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + Cookie.get("token"),
-                },
-            })
-            if (!res.ok) {
-                setErrorMsg("發生了錯誤：" + res.status)
-                throw new Error()
-            }
-
-            const json = await res.json()
-
-            return json
-        },
-    })
 
     return (
         <div className='w-full p-2'>

@@ -29,10 +29,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
             <div className='w-full'>
                 {data?.list?.length > 0 ? (
                     <>
-                        {data?.list?.map((item, index) => (
-                            <Card key={index} data={item} />
-                        ))}
-                        <div className='grid grid-cols-2 gap-2'>
+                        <div className='mb-2 grid grid-cols-2 gap-2'>
                             <div className='rounded-md border p-2 shadow-md'>
                                 <div className=''>曠課</div>
                                 <div className='w-full text-right text-lg font-bold'>
@@ -69,13 +66,22 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                                     {data?.total[7]}
                                 </div>
                             </div>
-                            <div className='col-span-2 rounded-md border p-2 shadow-md'>
+                            {/* <div className='col-span-2 rounded-md border p-2 shadow-md'>
                                 <div className=''>總計</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total.reduce((a, b) => a + b, 0)}
                                 </div>
+                            </div> */}
+                        </div>
+                        <div className='sticky left-0 top-0 mb-2 rounded-md border bg-white p-2 shadow-md'>
+                            <div className=''>總計</div>
+                            <div className='w-full text-right text-lg font-bold'>
+                                {data?.total.reduce((a, b) => a + b, 0)}
                             </div>
                         </div>
+                        {data?.list?.map((item, index) => (
+                            <Card key={index} data={item} />
+                        ))}
                     </>
                 ) : (
                     <div className='text-center text-2xl'>沒有請假</div>

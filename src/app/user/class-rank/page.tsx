@@ -15,7 +15,7 @@ const ClassRankPage = () => {
     const { isLoading, isError, data } = useQuery<FinalGradeRankClass[]>({
         queryKey: ["class-rank"],
         queryFn: async () => {
-            const res = await fetch(`/api/final-grade-rank?type=class&year=111&sem=2`, {
+            const res = await fetch(`/api/class-rank?type=class&year=111&sem=2`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + Cookie.get("token"),
@@ -48,7 +48,7 @@ const ClassRankPage = () => {
     return (
         <>
             {data && (
-                <div className='flex w-full flex-col items-center justify-center p-4'>
+                <div className='flex w-full flex-col items-center justify-center p-2'>
                     {/* 依排名排序 如果是 0 就排在最後 */}
                     {data
                         .sort((a, b) => {

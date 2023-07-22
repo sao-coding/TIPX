@@ -31,11 +31,7 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
         parentPhone: "",
         parentJob: "",
         desc: "",
-        credit: {
-            title: [],
-            total: [],
-            get: [],
-        },
+        credit: [],
     }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
@@ -153,6 +149,25 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
         }
     }
 
+    // {"title":["110上","110下","111上","111下"],"total":[25,21,25,22],"get":[25,21,25,22]}
+
+    // {
+    //     year: 110
+    //     sem: 1
+    //     total: 25
+    //     get: 25
+    // }
+
+    let creditList = []
+    for (let i = 0; i < title.length; i++) {
+        creditList.push({
+            year: title[i].slice(0, 3),
+            sem: title[i].slice(3, 4) === "上" ? "1" : "2", // "上" => "1" "下" => "2
+            total: Number(total[i]),
+            get: Number(get[i]),
+        })
+    }
+
     infolist.userid = info[0]
     infolist.img = img?.getAttribute("src") ?? ""
     infolist.name = info[1]
@@ -175,9 +190,7 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
     infolist.parentPhone = info[18]
     infolist.parentJob = info[19]
     infolist.desc = textarea?.textContent ?? ""
-    infolist.credit.title = title
-    infolist.credit.total = total
-    infolist.credit.get = get
+    infolist.credit = creditList
 
     return infolist
 }

@@ -257,15 +257,18 @@ const UserPage = () => {
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
                             </div>
                         </div>
-                        <div className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'>
+                        <div
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => router.push("/user/attendance-record")}
+                        >
                             <div className='flex items-center'>
                                 <IconClipboardList />
-                                <div className='ml-2'>請假缺曠記錄 (尚未推出)</div>
+                                <div className='ml-2'>請假缺曠記錄</div>
                             </div>
                         </div>
                         <div
                             className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("")}
+                            onClick={() => router.push("/user/credit")}
                         >
                             <div className='flex items-center'>
                                 <IconCoins />

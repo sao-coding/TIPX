@@ -26,10 +26,11 @@
 //     get[]
 // }
 
-type Credit = {
-    title: string[]
-    total: number[]
-    get: number[]
+export type Credit = {
+    year: string
+    sem: string
+    total: number
+    get: number
 }
 
 export type User = {
@@ -55,5 +56,5 @@ export type User = {
     parentPhone: string
     parentJob: string
     desc: string
-    credit: Credit
+    credit: Credit[]
 }
