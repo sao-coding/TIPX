@@ -30,7 +30,7 @@ export default function UserInfoPage() {
                         },
                     }}
                 >
-                    <a href='/thumbnail-a.jpeg' data-fancybox data-caption='大頭貼'>
+                    <a href='/thumbnail-a.jpeg' data-fancybox data-caption={userData?.name}>
                         <img src='/thumbnail-a.jpeg' />
                     </a>
                 </Fancybox>

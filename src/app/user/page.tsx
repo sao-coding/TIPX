@@ -241,7 +241,7 @@ const UserPage = () => {
                             </div>
                         </div>
                         <Link
-                            href='/user/info'
+                            href='/user/about'
                             className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>

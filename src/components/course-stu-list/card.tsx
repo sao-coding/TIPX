@@ -24,7 +24,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
                                     },
                                 }}
                             >
-                                <a href={data.img} data-fancybox data-caption='大頭貼'>
+                                <a href={data.img} data-fancybox data-caption={data.name}>
                                     <Image
                                         src={data.img}
                                         alt='大頭貼'

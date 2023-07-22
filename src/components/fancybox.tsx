@@ -1,5 +1,5 @@
+"use client"
 import { useRef, useEffect } from "react"
-
 import { Fancybox as NativeFancybox } from "@fancyapps/ui"
 import "@fancyapps/ui/dist/fancybox/fancybox.css"
 import { OptionsType } from "@fancyapps/ui/types/Fancybox/options"

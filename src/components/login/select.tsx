@@ -3,7 +3,13 @@ import { IconChevronUp, IconChevronDown } from "@tabler/icons-react"
 import { LoginSelect } from "@/types"
 import { useState, useEffect } from "react"
 
-const LoginSelect = ({ data, setValue }: { data: LoginSelect[]; setValue: any }) => {
+const LoginSelect = ({
+    data,
+    setValue,
+}: {
+    data: LoginSelect[]
+    setValue: (value: string) => void
+}) => {
     return (
         <>
             <Select.Root defaultValue={data[0].value} onValueChange={setValue}>

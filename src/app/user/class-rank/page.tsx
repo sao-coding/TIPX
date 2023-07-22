@@ -3,10 +3,10 @@ import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { IconUserCircle, IconCrown } from "@tabler/icons-react"
 import Cookie from "js-cookie"
-import Image from "next/image"
+import Avatar from "@/components/ui/avatar"
+import Fancybox from "@/components/fancybox"
 import { FinalGradeRankClass } from "@/types"
 import "@/app/loaderCat.css"
-import Avatar from "@/components/ui/avatar"
 
 export const dynamic = "force-dynamic"
 
@@ -88,17 +88,31 @@ const ClassRankPage = () => {
                                         id={item.userid}
                                         onError={() => errorImg(item.userid)}
                                     /> */}
-                                    <Avatar
-                                        src={item.img}
-                                        width={75}
-                                        height={100}
-                                        alt='大頭貼'
-                                        fallback={
-                                            <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
-                                                <IconUserCircle size={75} />
-                                            </div>
-                                        }
-                                    />
+                                    <Fancybox
+                                        options={{
+                                            Carousel: {
+                                                infinite: false,
+                                            },
+                                        }}
+                                    >
+                                        <a
+                                            href={item.img}
+                                            data-fancybox='images'
+                                            data-caption={item.name}
+                                        >
+                                            <Avatar
+                                                src={item.img}
+                                                width={75}
+                                                height={100}
+                                                alt='大頭貼'
+                                                fallback={
+                                                    <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
+                                                        <IconUserCircle size={75} />
+                                                    </div>
+                                                }
+                                            />
+                                        </a>
+                                    </Fancybox>
                                     <div className='p-2'>
                                         <div className='p-1'>{item.userid}</div>
                                         <div className='p-1'>{item.name}</div>
