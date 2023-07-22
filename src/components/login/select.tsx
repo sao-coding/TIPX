@@ -26,7 +26,11 @@ const LoginSelect = ({
                         </Select.ScrollUpButton>
                         <Select.Viewport>
                             {data.map((item) => (
-                                <Select.Item key={item.value} value={item.value}>
+                                <Select.Item
+                                    key={item.value}
+                                    value={item.value}
+                                    className='cursor-pointer rounded-md p-1 outline-none hover:bg-gray-200'
+                                >
                                     <Select.ItemText>{item.name}</Select.ItemText>
                                     <Select.ItemIndicator />
                                 </Select.Item>

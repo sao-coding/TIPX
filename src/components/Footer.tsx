@@ -44,24 +44,24 @@ const Footer = () => {
     return (
         <div
             className={clsx(
-                "fixed bottom-0 z-10 flex h-12 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
+                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
                 { hidden: navbarHidden }
             )}
         >
             <Link href='/' className='flex flex-col items-center justify-center'>
-                <IconHome />
+                <IconHome size={26} />
                 {/* <div className='mt-1'>首頁</div> */}
             </Link>
             <Link href='/timetable' className='flex flex-col items-center justify-center'>
-                <IconCalendarEvent />
+                <IconCalendarEvent size={26} />
                 {/* <div className='mt-1'>課表</div> */}
             </Link>
             <Link href='/course' className='flex flex-col items-center justify-center'>
-                <IconBook2 />
+                <IconBook2 size={26} />
                 {/* <div className='mt-1'>修課</div> */}
             </Link>
             <Link href='/user' className='flex flex-col items-center justify-center'>
-                <IconUser />
+                <IconUser size={26} />
                 {/* <div className='mt-1'>個人</div> */}
             </Link>
         </div>
