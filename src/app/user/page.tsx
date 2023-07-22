@@ -300,7 +300,7 @@ const UserPage = () => {
                         >
                             <div className='flex items-center'>
                                 <IconInfoCircle />
-                                <div className='ml-2'>關於 (尚未推出)</div>
+                                <div className='ml-2'>關於</div>
                             </div>
                         </Link>
                         <div
