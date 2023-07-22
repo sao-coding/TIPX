@@ -55,12 +55,12 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     return (
         <>
             {data && (
-                <div className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'>
+                <div className='md:bg-white flex w-full items-center rounded-2xl px-4 pb-4'>
                     <div className='flex flex-col items-center justify-center'>
-                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
+                        <div className='md:bg-white md:text-xl sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold'>
                             {data.title}
                         </div>
-                        <div className='w-full pt-2 md:px-24'>
+                        <div className='md:px-24 w-full pt-2'>
                             <div className='flex w-full items-center justify-between'>
                                 <div className='flex items-center'>
                                     <div className='mr-1'>{data.unit}</div>
@@ -83,10 +83,10 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='flex w-full items-center justify-center md:px-24'>
+                        <div className='md:px-24 flex w-full items-center justify-center'>
                             <div className='whitespace-pre-line break-all'>{data?.content}</div>
                         </div>
-                        <div className='mt-1 w-full rounded-md border-2 border-dashed p-1 md:px-24'>
+                        <div className='md:px-24 mt-1 w-full rounded-md border-2 border-dashed p-1'>
                             {data.file.length > 0 ? (
                                 <>
                                     {data.file.map((item) => (
@@ -105,7 +105,10 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                     ))}
                                 </>
                             ) : (
-                                <div className=''>沒有附件</div>
+                                <div className='flex items-center'>
+                                    <IconPaperclip size={20} />
+                                    <div className='text-gray-500'>沒有附件</div>
+                                </div>
                             )}
                             {data.link ? (
                                 <div className='flex items-center'>
@@ -120,7 +123,10 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                     </a>
                                 </div>
                             ) : (
-                                <div className=''>沒有連結</div>
+                                <div className='flex items-center'>
+                                    <IconLink size={20} />
+                                    <div className='text-gray-500'>沒有連結</div>
+                                </div>
                             )}
                         </div>
                         <div className='mt-2 w-full border-t pt-2'>
