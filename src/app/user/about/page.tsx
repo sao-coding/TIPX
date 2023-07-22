@@ -55,9 +55,6 @@ export default function UserInfoPage() {
                 <div className=''>{userData?.parentPhone}</div>
                 <div className=''>{userData?.parentJob}</div>
                 <div className=''>{userData?.desc}</div>
-                <div className=''>{userData?.credit.title}</div>
-                <div className=''>{userData?.credit.total}</div>
-                <div className=''>{userData?.credit.get}</div>
             </div>
         </>
     )
