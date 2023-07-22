@@ -1,15 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["tipfile.takming.edu.tw"],
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "tipfile.takming.edu.tw",
-                port: "443",
-                pathname: "/stuphoto/",
-            },
-        ],
+        domains: ["tipfile.takming.edu.tw", "avatars.githubusercontent.com"],
     },
     transpilePackages: ["swagger-ui-react", "swagger-client", "react-syntax-highlighter"],
 }

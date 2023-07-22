@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Cookie from "js-cookie"
 import clsx from "clsx"
@@ -41,7 +40,6 @@ const UserPage = () => {
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
     const [LeaveLoading, setLeaveLoading] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -242,71 +240,74 @@ const UserPage = () => {
                                 <div className='text-2xl'>{conductData.score}分</div>
                             </div>
                         </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            // onClick={() => router.push("/user/info")}
+                        <Link
+                            href='/user/info'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconUser />
                                 <div className='ml-2'>個人詳細資料 (尚未推出)</div>
                             </div>
-                        </div>
-                        <div className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'>
+                        </Link>
+                        <Link
+                            href=''
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                        >
                             <div className='flex items-center'>
                                 <IconClipboardPlus />
                                 <div className='ml-2'>線上請假 (尚未推出)</div>
                             </div>
-                        </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("/user/attendance-record")}
+                        </Link>
+                        <Link
+                            href='/user/attendance-record'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>請假缺曠記錄</div>
                             </div>
-                        </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("/user/credit")}
+                        </Link>
+                        <Link
+                            href='/user/credit'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconCoins />
                                 <div className='ml-2'>學分資訊</div>
                             </div>
-                        </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("user/final-grade")}
+                        </Link>
+                        <Link
+                            href='/user/final-grade'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconLayoutDashboard />
                                 <div className='ml-2'>學期-操行 成績</div>
                             </div>
-                        </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("/user/class-rank")}
+                        </Link>
+                        <Link
+                            href='/user/class-rank'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconBadges />
                                 <div className='ml-2'>班級排名 (beta)</div>
                             </div>
-                        </div>
-                        <div
-                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                            onClick={() => router.push("/user/info")}
+                        </Link>
+                        <Link
+                            href='/user/info'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
                                 <IconInfoCircle />
                                 <div className='ml-2'>關於 (尚未推出)</div>
                             </div>
-                        </div>
+                        </Link>
                         <div
                             className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                             onClick={() => {
                                 Cookie.remove("token")
-                                router.push("/login")
+                                window.location.href = "/login"
                             }}
                         >
                             <div className='flex items-center'>
