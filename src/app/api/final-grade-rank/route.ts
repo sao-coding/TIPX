@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import getClassNames from "@/app/lib/class-name"
+import getUser from "@/lib/user"
+import getConduct from "@/lib/conduct"
+import getClassNames from "@/lib/class-name"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -31,9 +33,6 @@ export const GET = async (req: NextRequest) => {
         rank: 0,
     }
 
-    const url =
-        process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://tip.sao-x.com"
-
     if (req.nextUrl.searchParams.get("type") === "class") {
         if (
             req.nextUrl.searchParams.has("type") &&
@@ -45,15 +44,6 @@ export const GET = async (req: NextRequest) => {
             const classId = userid?.slice(0, 7)
             const year = req.nextUrl.searchParams.get("year")
             const sem = req.nextUrl.searchParams.get("sem")
-            // const res = await fetch(`${url}/api/class-name?userid=${userid}`, {
-            //     method: "GET",
-            //     headers: {
-            //         Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-            //         "Content-Type": "application/json",
-            //     },
-            // })
-
-            // const classNamedata = await res.json()
 
             const classNameown: ClassName = await getClassNames(
                 userid ?? "",
@@ -71,46 +61,7 @@ export const GET = async (req: NextRequest) => {
                     },
                 })
 
-                const res2 = await fetch(`${url}/api/user?userid=${userid}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                        "Content-Type": "application/json",
-                    },
-                })
-
-                const data = await res2.json()
-                const name: string = data.name
-                const img: string = data.img
-
-                const res3 = await fetch(
-                    `${url}/api/conduct?userid=${userid}&year=${year}&sem=${sem}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-
-                const data2 = await res3.json()
-                const conduct = {
-                    year: data2.year,
-                    sem: data2.sem,
-                    score: data2.score,
-                }
-
-                // const res4 = await fetch(`${url}/api/class-name?userid=${userid}`, {
-                //     method: "GET",
-                //     headers: {
-                //         Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                //         "Content-Type": "application/json",
-                //     },
-                // })
-
-                // const data3 = await res4.json()
-                const className: ClassName = await getClassNames(
+                const { name, img } = await getUser(
                     userid,
                     year ?? "",
                     sem ?? "",
@@ -118,7 +69,22 @@ export const GET = async (req: NextRequest) => {
                     es ?? ""
                 )
 
-                console.log(classNameown, className)
+                const conduct = (await getConduct(
+                    userid,
+                    year ?? "",
+                    sem ?? "",
+                    dept ?? "",
+                    es ?? "",
+                    "one"
+                )) as Conduct
+
+                const className: ClassName = await getClassNames(
+                    userid,
+                    year ?? "",
+                    sem ?? "",
+                    dept ?? "",
+                    es ?? ""
+                )
 
                 if (className.class !== classNameown.class) {
                     return null // If className doesn't match, return null
@@ -195,23 +161,19 @@ export const GET = async (req: NextRequest) => {
         })
 
         const fetchData = async (userid: string, year: string, sem: string) => {
-            const res2 = await fetch(
-                `${url}/api/conduct?userid=${userid}&year=${year}&sem=${sem}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${process.env.AUTHORIZATION}`,
-                    },
-                }
-            )
+            const conduct = (await getConduct(
+                userid,
+                year ?? "",
+                sem ?? "",
+                dept ?? "",
+                es ?? "",
+                "one"
+            )) as Conduct
 
-            const data = await res2.json()
-            // console.log({ data })
             return {
-                year: data.year,
-                sem: data.sem,
-                score: data.score,
+                year: conduct.year,
+                sem: conduct.sem,
+                score: conduct.score,
             }
         }
 

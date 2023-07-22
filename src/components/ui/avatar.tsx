@@ -1,7 +1,7 @@
 import Image, { ImageProps } from "next/image"
 import { IconUserCircle } from "@tabler/icons-react"
 import { useState } from "react"
-import { cx } from "@/app/lib/utils"
+import { cx } from "@/lib/utils"
 
 type AvatarProps = {
     src: string

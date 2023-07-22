@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import getClassNames from "@/app/lib/class-name"
+import getClassNames from "@/lib/class-name"
 import { ClassName } from "@/types"
 
 export const GET = async (req: NextRequest) => {

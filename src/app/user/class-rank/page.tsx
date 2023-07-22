@@ -109,11 +109,19 @@ const ClassRankPage = () => {
                                 <div className='p-1'>{item.data.sem}</div> */}
                                     <div className='mr-1 flex flex-col items-center rounded-md bg-main-color px-1 md:flex-row'>
                                         <div className=''>操行</div>
-                                        <div className=''>{item.data.conduct.score.toFixed(2)}</div>
+                                        {/* 我想要格式長這樣 00.00 */}
+                                        <div className=''>
+                                            {item.data.conduct.score
+                                                .toFixed(2)
+                                                .toString()
+                                                .padStart(5, "0")}
+                                        </div>
                                     </div>
                                     <div className='mr-1 flex flex-col items-center rounded-md bg-main-color px-1 md:flex-row'>
                                         <div className=''>成績</div>
-                                        <div className=''>{item.data.avg.toFixed(2)}</div>
+                                        <div className=''>
+                                            {item.data.avg.toFixed(2).toString().padStart(5, "0")}
+                                        </div>
                                     </div>
                                     <div className='ml-1 rounded-md bg-main-color px-1'>
                                         {item.data.rank.toString().padStart(2, "0")}

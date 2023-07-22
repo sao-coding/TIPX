@@ -20,6 +20,7 @@ import {
     IconUser,
     IconClipboardPlus,
     IconClipboardList,
+    IconCoins,
     IconLayoutDashboard,
     IconBadges,
     IconInfoCircle,
@@ -260,6 +261,15 @@ const UserPage = () => {
                             <div className='flex items-center'>
                                 <IconClipboardList />
                                 <div className='ml-2'>請假缺曠記錄 (尚未推出)</div>
+                            </div>
+                        </div>
+                        <div
+                            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                            onClick={() => router.push("")}
+                        >
+                            <div className='flex items-center'>
+                                <IconCoins />
+                                <div className='ml-2'>學分資訊</div>
                             </div>
                         </div>
                         <div
