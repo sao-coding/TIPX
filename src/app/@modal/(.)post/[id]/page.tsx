@@ -46,7 +46,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                             </Dialog.Close>
                             <Dialog.Title asChild>
                                 <div className='mb-1 flex items-center justify-center'>
-                                    <div className='pr-5 font-bold md:text-xl'>{data.title}</div>
+                                    <div className='md:text-xl pr-5 font-bold'>{data.title}</div>
                                 </div>
                             </Dialog.Title>
                             <div className='flex items-center justify-between'>
@@ -97,7 +97,10 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                         ))}
                                     </>
                                 ) : (
-                                    <div className=''>沒有附件</div>
+                                    <div className='flex items-center'>
+                                        <IconPaperclip size={20} />
+                                        <div className='text-gray-500'>沒有附件</div>
+                                    </div>
                                 )}
                                 {data.link ? (
                                     <div className='flex items-center'>
@@ -112,7 +115,10 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                         </a>
                                     </div>
                                 ) : (
-                                    <div className=''>沒有連結</div>
+                                    <div className='flex items-center'>
+                                        <IconLink size={20} />
+                                        <div className='text-gray-500'>沒有連結</div>
+                                    </div>
                                 )}
                             </div>
                         </>
