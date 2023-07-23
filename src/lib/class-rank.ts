@@ -10,6 +10,7 @@ const getClassRank = async (
     sem: string,
     dept: string,
     es: string,
+    classid: string,
     start: string,
     end: string
 ) => {
@@ -27,7 +28,7 @@ const getClassRank = async (
         rank: 0,
     }
 
-    const classId = userid?.slice(0, 7)
+    const classId = userid?.slice(0, 6)
 
     const classNameown: ClassName = await getClassName(
         userid ?? "",
@@ -62,6 +63,8 @@ const getClassRank = async (
             dept ?? "",
             es ?? ""
         )
+
+        console.log(userid, classNameown.class, className.class)
 
         if (className.class !== classNameown.class) {
             return null // If className doesn't match, return null
@@ -115,7 +118,7 @@ const getClassRank = async (
     const fetchPromises = []
     console.time("fetching")
     for (let i = Number(start); i < Number(end); i++) {
-        const userid = classId + (i + 1).toString().padStart(2, "0")
+        const userid = classId + (Number(classid) + 1).toString() + i.toString().padStart(2, "0")
         fetchPromises.push(fetchData(userid))
     }
     const results = await Promise.all(fetchPromises)

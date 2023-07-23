@@ -1,7 +1,6 @@
 import * as Select from "@radix-ui/react-select"
 import { IconChevronUp, IconChevronDown } from "@tabler/icons-react"
 import { LoginSelect } from "@/types"
-import { useState, useEffect } from "react"
 
 const LoginSelect = ({
     data,
@@ -13,7 +12,10 @@ const LoginSelect = ({
     return (
         <>
             <Select.Root defaultValue={data[0].value} onValueChange={setValue}>
-                <Select.Trigger className='box-border flex w-full items-center justify-between rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'>
+                <Select.Trigger
+                    aria-controls='下拉選單'
+                    className='box-border flex w-full items-center justify-between rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                >
                     <Select.Value />
                     <Select.Icon asChild>
                         <IconChevronDown />

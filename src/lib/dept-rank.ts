@@ -4,7 +4,16 @@ import getConduct from "@/lib/conduct"
 import getClassName from "@/lib/class-name"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
-const getDeptRank = async (userid: string, year: string, sem: string, dept: string, es: string) => {
+const getDeptRank = async (
+    userid: string,
+    year: string,
+    sem: string,
+    dept: string,
+    es: string,
+    classid: string,
+    start: string,
+    end: string
+) => {
     let finalGradeRankClass: FinalGradeRankClass[] = []
 
     let finalGradeRank: FinalGradeRank = {
@@ -107,12 +116,11 @@ const getDeptRank = async (userid: string, year: string, sem: string, dept: stri
 
     const fetchPromises = []
     console.time("fetching")
-    for (let i = 1; i < 3; i++) {
-        for (let j = 1; j < 60; j++) {
-            const userid = classId + i.toString() + j.toString().padStart(2, "0")
-            fetchPromises.push(fetchData(userid))
-        }
+    for (let i = Number(start); i < Number(end); i++) {
+        const userid = classId + (Number(classid) + 1).toString() + i.toString().padStart(2, "0")
+        fetchPromises.push(fetchData(userid))
     }
+
     const results = await Promise.all(fetchPromises)
 
     console.timeEnd("fetching")

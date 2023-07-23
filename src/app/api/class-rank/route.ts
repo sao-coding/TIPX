@@ -11,6 +11,7 @@ export const GET = async (req: NextRequest) => {
     const userid = searchParams.get("userid") ?? cookies().get("cookie_userid")?.value
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
+    const classid = searchParams.get("classid")
     const start = searchParams.get("start")
     const end = searchParams.get("end")
 
@@ -20,8 +21,9 @@ export const GET = async (req: NextRequest) => {
         sem ?? "",
         dept ?? "",
         es ?? "",
+        classid ?? "0",
         start ?? "0",
-        end ?? "20"
+        end ?? "0"
     )
 
     return NextResponse.json(classRankList)
