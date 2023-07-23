@@ -18,9 +18,9 @@ const ClassRankPage = () => {
             setIsLoading(true)
             let promises = []
             for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 60; j += 20) {
+                for (let j = 0; j < 60; j += 10) {
                     const res = await fetch(
-                        `/api/class-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 20}`,
+                        `/api/class-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
                         {
                             method: "GET",
                             headers: {

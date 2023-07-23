@@ -13,15 +13,15 @@ const DeptRankPage = () => {
     const [errorMsg, setErrorMsg] = useState("")
 
     useEffect(() => {
-        const fetchDate = async () => {
+        const fetchData = async () => {
             // 20為範圍
             setIsLoading(true)
             let promises = []
             let list = []
             for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 60; j += 20) {
+                for (let j = 0; j < 60; j += 10) {
                     const res = await fetch(
-                        `/api/dept-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 20}`,
+                        `/api/dept-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
                         {
                             method: "GET",
                             headers: {
@@ -44,7 +44,7 @@ const DeptRankPage = () => {
             setData(data.flat())
             setIsLoading(false)
         }
-        fetchDate()
+        fetchData()
     }, [])
 
     return (
