@@ -2,12 +2,6 @@ import { JSDOM } from "jsdom"
 import { User } from "@/types"
 
 const getUser = async (userid: string, year: string, sem: string, dept: string, es: string) => {
-    const info: string[] = []
-    const credit: string[] = []
-    const title: string[] = []
-    const total: number[] = []
-    const get: number[] = []
-
     const infolist: User = {
         userid: "",
         img: "",
@@ -31,7 +25,6 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
         parentPhone: "",
         parentJob: "",
         desc: "",
-        credit: [],
     }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
@@ -44,153 +37,95 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
     let html = new TextDecoder("big5").decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
-    const rows = Array.from(
-        document.querySelectorAll("form > table tr td table:first-child tr td font")
-    )
-    const img = document.querySelector("form > table tr td table:first-child tr td img")
-    const textarea = document.querySelector("form > table tr td table:first-child tr td textarea")
-    // 移除陣列第一個元素
-    rows.shift()
-    const filter = (index: number, list: string) => {
-        list = list.replace("&nbsp;&nbsp;&nbsp;", "")
-        // index 0 ~ 20
-        if (![0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20].includes(index)) {
-            list = list.replace(/\s/g, "")
-        } else {
-            list = list === "" ? "無" : list
-        }
-        return list
-    }
 
-    rows.forEach((row, index) => {
-        let list = row.textContent
-        list = filter(index, list as string)
-        if (list !== "") {
-            if (
-                ![
-                    21,
-                    22,
-                    23,
-                    24,
-                    25,
-                    26,
-                    27,
-                    28,
-                    29,
-                    30,
-                    31,
-                    32,
-                    33,
-                    34,
-                    35,
-                    36,
-                    37,
-                    38,
-                    39,
-                    40,
-                    41,
-                    42,
-                    43,
-                    44,
-                    45,
-                    46,
-                    47,
-                    48,
-                    49,
-                    50,
-                    rows.length - 4,
-                    rows.length - 2,
-                    rows.length - 1,
-                ].includes(index)
-            ) {
-                if (index > 51 && list !== "已修學分數" && list !== "實得學分數") {
-                    // count++
-                    credit.push(list)
-                } else if (list !== "教務資訊" && list !== "已修學分數" && list !== "實得學分數") {
-                    if (index === 8 && list === "　") {
-                        list = "無"
-                    }
-                    // console.log("index", index, "list", list)
-                    // 0972490452  0226608116
-                    if (index === 13) {
-                        const phone = list.split("  ")[0]
-                        const homePhone = list.split("  ")[1]
-                        if (phone === "" || homePhone === "") {
-                            info.push("無")
-                        } else {
-                            info.push(phone)
-                            info.push(homePhone)
-                        }
-                    } else {
-                        info.push(list)
-                    }
-                }
-                // if (list === "已修學分數") {
-                //     count2 = count
-                // }
-            }
-        }
-    })
-
-    // console.log("info", info)
-
-    const count = credit.length / 3
-    for (let i = 0; i < credit.length; i++) {
-        if (i < count) {
-            title.push(credit[i])
-        }
-        if (i >= count && i < count * 2) {
-            // console.log("total", credit[i])
-            total.push(parseInt(credit[i]))
-        }
-        if (i >= count * 2) {
-            // console.log("get", credit[i])
-            get.push(parseInt(credit[i]))
-        }
-    }
-
-    // {"title":["110上","110下","111上","111下"],"total":[25,21,25,22],"get":[25,21,25,22]}
-
-    // {
-    //     year: 110
-    //     sem: 1
-    //     total: 25
-    //     get: 25
-    // }
-
-    let creditList = []
-    for (let i = 0; i < title.length; i++) {
-        creditList.push({
-            year: title[i].slice(0, 3),
-            sem: title[i].slice(3, 4) === "上" ? "1" : "2", // "上" => "1" "下" => "2
-            total: Number(total[i]),
-            get: Number(get[i]),
-        })
-    }
-
-    infolist.userid = info[0]
-    infolist.img = img?.getAttribute("src") ?? ""
-    infolist.name = info[1]
-    infolist.status = info[2]
-    infolist.dept = info[3]
-    infolist.es = info[4]
-    infolist.major = info[5]
-    infolist.enName = info[6]
-    infolist.IDnumber = info[7]
-    infolist.gender = info[8]
-    infolist.birthday = info[9]
-    infolist.birthplace = info[10]
-    infolist.address = info[11]
-    infolist.phone = info[12]
-    infolist.homePhone = info[13]
-    infolist.date = info[14]
-    infolist.previousEducation = info[15]
-    infolist.parentName = info[16]
-    infolist.parentAddress = info[17]
-    infolist.parentPhone = info[18]
-    infolist.parentJob = info[19]
-    infolist.desc = textarea?.textContent ?? ""
-    infolist.credit = creditList
+    infolist.userid =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(1)"
+        )?.textContent ?? ""
+    infolist.img =
+        document
+            .querySelector("form > table tr td table:first-child tr td img")
+            ?.getAttribute("src") ?? ""
+    infolist.name =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(2)"
+        )?.textContent ?? ""
+    infolist.status =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(3)"
+        )?.textContent ?? ""
+    infolist.dept =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(6)"
+        )?.textContent ?? ""
+    infolist.es =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(7)"
+        )?.textContent ?? ""
+    infolist.major =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(9)"
+        )?.textContent ?? ""
+    infolist.enName =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(12)"
+        )?.textContent ?? ""
+    infolist.IDnumber =
+        document
+            .querySelector(
+                "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(14)"
+            )
+            ?.textContent?.replace("　", "") ?? ""
+    infolist.gender =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(15)"
+        )?.textContent ?? ""
+    infolist.birthday =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(16)"
+        )?.textContent ?? ""
+    infolist.birthplace =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(18)"
+        )?.textContent ?? ""
+    infolist.address =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(20)"
+        )?.textContent ?? ""
+    const phone = document
+        .querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(22)"
+        )
+        ?.textContent?.split("  ") ?? ["", ""]
+    infolist.phone = phone[0]
+    infolist.homePhone = phone[1]
+    infolist.previousEducation =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(24)"
+        )?.textContent ?? ""
+    infolist.date =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(26)"
+        )?.textContent ?? ""
+    infolist.parentName =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(30)"
+        )?.textContent ?? ""
+    infolist.parentAddress =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(32)"
+        )?.textContent ?? ""
+    infolist.parentPhone =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(34)"
+        )?.textContent ?? ""
+    infolist.parentJob =
+        document.querySelector(
+            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(36)"
+        )?.textContent ?? ""
+    infolist.desc =
+        document.querySelector("form > table tr td table:first-child tr td textarea")
+            ?.textContent ?? ""
 
     return infolist
 }

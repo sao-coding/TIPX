@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom"
 import { ClassName } from "@/types"
 
-const getClassNames = async (
+const getClassName = async (
     userid: string,
     year: string,
     sem: string,
@@ -42,4 +42,4 @@ const getClassNames = async (
     }
 }
 
-export default getClassNames
+export default getClassName

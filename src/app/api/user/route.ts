@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import getUser from "@/lib/user"
-
+import { JSDOM } from "jsdom"
+import { User } from "@/types"
 export const GET = async (req: NextRequest) => {
     let userid
     if (req.nextUrl.searchParams.has("userid")) {

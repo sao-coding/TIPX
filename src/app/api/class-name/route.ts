@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import getClassNames from "@/lib/class-name"
+import getClassName from "@/lib/class-name"
 import { ClassName } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -20,7 +20,7 @@ export const GET = async (req: NextRequest) => {
         return NextResponse.redirect("/login")
     }
 
-    const className: ClassName = await getClassNames(userid, year, sem, dept, es)
+    const className: ClassName = await getClassName(userid, year, sem, dept, es)
 
     // let className: string = ""
 

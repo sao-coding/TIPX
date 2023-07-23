@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getUser from "@/lib/user"
+import getCredit from "@/lib/credit"
 
 export const GET = async (req: NextRequest) => {
     const searchParams = req.nextUrl.searchParams
@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest) => {
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
-    const { credit } = await getUser(userid ?? "", year ?? "", sem ?? "", dept ?? "", es ?? "")
+    const credit = await getCredit(userid ?? "", year ?? "", sem ?? "", dept ?? "", es ?? "")
 
     return NextResponse.json(credit)
 }

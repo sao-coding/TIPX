@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom"
 import getUser from "@/lib/user"
 import getConduct from "@/lib/conduct"
-import getClassNames from "@/lib/class-name"
+import getClassName from "@/lib/class-name"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
 const getClassRank = async (
@@ -29,7 +29,7 @@ const getClassRank = async (
 
     const classId = userid?.slice(0, 7)
 
-    const classNameown: ClassName = await getClassNames(
+    const classNameown: ClassName = await getClassName(
         userid ?? "",
         year ?? "",
         sem ?? "",
@@ -55,7 +55,7 @@ const getClassRank = async (
             "one"
         )) as Conduct
 
-        const className: ClassName = await getClassNames(
+        const className: ClassName = await getClassName(
             userid,
             year ?? "",
             sem ?? "",
