@@ -35,7 +35,7 @@ const FinalGradePage = async () => {
         <div className='w-full p-2'>
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
-                    <div className='relative rounded-xl border p-2 shadow-md'>
+                    <div className='relative rounded-xl border p-2 shadow-md' key={index}>
                         <div
                             className={clsx(
                                 "absolute right-0 top-0 m-1 rounded-md px-1 font-bold text-white",
