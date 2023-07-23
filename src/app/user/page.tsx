@@ -225,9 +225,13 @@ const UserPage = () => {
                                     {LeaveLoading ? (
                                         <IconLoader2 size={24} className='mx-1 animate-spin' />
                                     ) : (
-                                        courseAttendanceRecordData?.total?.reduce((total, item) => {
-                                            return total + Math.round(((item * 50) / 60) * 10) / 10
-                                        }, 0)
+                                        courseAttendanceRecordData?.total
+                                            ?.reduce((total, item) => {
+                                                return (
+                                                    total + Math.round(((item * 50) / 60) * 10) / 10
+                                                )
+                                            }, 0)
+                                            .toFixed(1)
                                     )}
                                     <div className='ml-0.5'>小時</div>
                                 </div>
