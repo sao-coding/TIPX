@@ -72,14 +72,10 @@ const LoginPage = () => {
             return
         }
 
-        const data = await res.json()
-
         Cookie.set(
             "cookie_userid",
             (document.getElementById("username") as HTMLInputElement)?.value
         )
-
-        Cookie.set("token", data.token)
 
         Cookie.set("cookie_dept", deptValue)
 
@@ -105,6 +101,8 @@ const LoginPage = () => {
         if (!res.ok) {
             alert("授權碼錯誤")
         } else {
+            const data = await res.json()
+            Cookie.set("token", data.token)
             window.location.href = searchParams.get("redirect") ?? "/"
         }
     }

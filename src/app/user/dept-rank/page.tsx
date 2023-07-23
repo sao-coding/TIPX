@@ -1,49 +1,25 @@
-"use client"
-import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
 import { IconUserCircle, IconCrown } from "@tabler/icons-react"
-import Cookie from "js-cookie"
+import { cookies } from "next/headers"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
 import { FinalGradeRankClass } from "@/types"
-import "@/app/loaderCat.css"
+import { site } from "@/config/site"
 
-export const dynamic = "force-dynamic"
-
-const ClassRankPage = () => {
-    const [errorMsg, setErrorMsg] = useState("")
-    const { isLoading, isError, data } = useQuery<FinalGradeRankClass[]>({
-        queryKey: ["dept-rank"],
-        queryFn: async () => {
-            const res = await fetch(`/api/dept-rank?year=111&sem=2`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + Cookie.get("token"),
-                },
-            })
-            if (!res.ok) {
-                setErrorMsg("發生了錯誤：" + res.status)
-                throw new Error()
-            }
-
-            const json = await res.json()
-
-            return json
+const getData = async () => {
+    const res = await fetch(`${site.url}/api/dept-rank`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+            Cookie: cookies().toString(),
         },
-        refetchOnWindowFocus: false,
     })
 
-    const errorImg = (userid: string) => {
-        const img = document.querySelector(`#${userid}`)
-        if (img) {
-            img.setAttribute(
-                "src",
-                "https://tabler-icons.io/static/tabler-icons/icons-png/user-circle.png"
-            )
-            img.classList.remove("object-cover")
-            img.classList.add("object-contain")
-        }
-    }
+    return await res.json()
+}
+
+const ClassRankPage = async () => {
+    const data: FinalGradeRankClass[] = await getData()
 
     return (
         <>
@@ -75,19 +51,6 @@ const ClassRankPage = () => {
                                     </div>
                                 )}
                                 <div className='flex items-center'>
-                                    {/* <Image
-                                        src={item.img}
-                                        alt='大頭貼'
-                                        width='0'
-                                        height='0'
-                                        sizes='fill'
-                                        loading='lazy'
-                                        placeholder='blur'
-                                        // blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
-                                        className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
-                                        id={item.userid}
-                                        onError={() => errorImg(item.userid)}
-                                    /> */}
                                     <Fancybox
                                         options={{
                                             Carousel: {
@@ -148,25 +111,13 @@ const ClassRankPage = () => {
                         ))}
                 </div>
             )}
-            {isLoading && (
-                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
-                    <div className='flex h-full w-full items-center justify-center'>
-                        <div className='cat'>
-                            <div className='cat__body'></div>
-                            <div className='cat__body'></div>
-                            <div className='cat__tail'></div>
-                            <div className='cat__head'></div>
-                        </div>
-                    </div>
-                </div>
-            )}
-            {isError && (
+            {/* {isError && (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                     <div className='flex h-full w-full items-center justify-center'>
                         <div className='text-2xl'>{errorMsg}</div>
                     </div>
                 </div>
-            )}
+            )} */}
         </>
     )
 }
