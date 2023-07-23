@@ -21,8 +21,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
             setData(data)
         }
         fetchData()
-        console.log(data)
-    }, [])
+    }, [params.id])
 
     return (
         <>

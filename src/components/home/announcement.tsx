@@ -39,10 +39,6 @@ const AnnouncementCP = () => {
         fetchData()
     }, [])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
     return (
         <>
             <InfiniteScroll

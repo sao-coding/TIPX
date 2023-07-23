@@ -22,7 +22,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
             setData(data)
         }
         fetchData()
-    }, [])
+    }, [params.id])
 
     return (
         <>

@@ -1,22 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 import Tabs from "@/components/course/tabs"
 import { Course } from "@/types"
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
     const [data, setData] = useState<Course[]>([])
-    const router = useRouter()
-
-    useEffect(() => {
-        const cookie = Cookie.get("token")
-        if (!cookie) {
-            router.push("/login")
-        }
-    }, [])
-
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(`/api/course?course=${params.id}`, {
@@ -36,7 +26,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
             }
         }
         fetchData()
-    }, [])
+    }, [params.id])
 
     return (
         <>

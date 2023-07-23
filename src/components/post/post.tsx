@@ -23,7 +23,7 @@ const PostCP = ({ id, trigger }: { id: string; trigger: React.ReactNode }) => {
             setData(json)
         }
         fetchData()
-    }, [open])
+    }, [open, id])
 
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
