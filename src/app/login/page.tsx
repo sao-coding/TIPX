@@ -62,18 +62,6 @@ const LoginPage = () => {
     }
 
     const fetchLogin = async () => {
-        const res = await fetch("/api/authorize", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                token: (document.getElementById("authcode") as HTMLInputElement)?.value,
-            }),
-        })
-
-        const data = await res.json()
-
         if ((document.getElementById("username") as HTMLInputElement)?.value === "") {
             alert("請輸入學號")
             return
@@ -83,6 +71,8 @@ const LoginPage = () => {
             alert("請輸入授權碼")
             return
         }
+
+        const data = await res.json()
 
         Cookie.set(
             "cookie_userid",
@@ -101,10 +91,22 @@ const LoginPage = () => {
                 .replace(/(.{2})/g, "%$1")
         )
 
-        console.log("url", searchParams.get("redirect") ?? "/")
-        // 跳轉頁面
+        const res = await fetch("/api/authorize", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                token: (document.getElementById("authcode") as HTMLInputElement)?.value,
+            }),
+        })
 
-        window.location.href = searchParams.get("redirect") ?? "/"
+        // 跳轉頁面
+        if (!res.ok) {
+            alert("授權碼錯誤")
+        } else {
+            window.location.href = searchParams.get("redirect") ?? "/"
+        }
     }
 
     return (
