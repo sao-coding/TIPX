@@ -2,31 +2,24 @@ import { IconUserCircle, IconCrown } from "@tabler/icons-react"
 import { cookies } from "next/headers"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
-import getDeptRank from "@/lib/dept-rank"
 import { FinalGradeRankClass } from "@/types"
 import { site } from "@/config/site"
 
-// const getData = async () => {
-//     const res = await fetch(`${site.url}/api/dept-rank`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${cookies().get("token")?.value}`,
-//             Cookie: cookies().toString(),
-//         },
-//     })
+const getData = async () => {
+    const res = await fetch(`${site.url}/api/dept-rank`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies().get("token")?.value}`,
+            Cookie: cookies().toString(),
+        },
+    })
 
-//     return await res.json()
-// }
+    return await res.json()
+}
 
 const ClassRankPage = async () => {
-    const data: FinalGradeRankClass[] = await getDeptRank(
-        cookies().get("cookie_userid")?.value ?? "",
-        cookies().get("cookie_year")?.value ?? "",
-        cookies().get("cookie_sem")?.value ?? "",
-        cookies().get("cookie_dept")?.value ?? "",
-        cookies().get("cookie_es")?.value ?? ""
-    )
+    const data: FinalGradeRankClass[] = await getData()
 
     return (
         <>

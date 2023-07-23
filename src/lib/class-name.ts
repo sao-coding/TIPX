@@ -35,7 +35,11 @@ const getClassNames = async (
         })
     })
 
-    return className
+    return {
+        class:
+            document.querySelector("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)")
+                ?.textContent ?? "",
+    }
 }
 
 export default getClassNames

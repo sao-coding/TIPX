@@ -7,8 +7,6 @@ import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types
 const getDeptRank = async (userid: string, year: string, sem: string, dept: string, es: string) => {
     let finalGradeRankClass: FinalGradeRankClass[] = []
 
-    const finalGradeRankList: FinalGradeRank[] = []
-
     let finalGradeRank: FinalGradeRank = {
         year: "",
         sem: "",
