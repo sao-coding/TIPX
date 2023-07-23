@@ -9,11 +9,11 @@ const getClassRank = async (
     year: string,
     sem: string,
     dept: string,
-    es: string
+    es: string,
+    start: string,
+    end: string
 ) => {
     let finalGradeRankClass: FinalGradeRankClass[] = []
-
-    const finalGradeRankList: FinalGradeRank[] = []
 
     let finalGradeRank: FinalGradeRank = {
         year: "",
@@ -114,8 +114,8 @@ const getClassRank = async (
 
     const fetchPromises = []
     console.time("fetching")
-    for (let i = 1; i < 60; i++) {
-        const userid = classId + i.toString().padStart(2, "0")
+    for (let i = Number(start); i < Number(end); i++) {
+        const userid = classId + (i + 1).toString().padStart(2, "0")
         fetchPromises.push(fetchData(userid))
     }
     const results = await Promise.all(fetchPromises)

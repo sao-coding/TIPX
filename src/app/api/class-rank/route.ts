@@ -11,13 +11,17 @@ export const GET = async (req: NextRequest) => {
     const userid = searchParams.get("userid") ?? cookies().get("cookie_userid")?.value
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
+    const start = searchParams.get("start")
+    const end = searchParams.get("end")
 
     const classRankList = await getClassRank(
         userid ?? "",
         year ?? "",
         sem ?? "",
         dept ?? "",
-        es ?? ""
+        es ?? "",
+        start ?? "0",
+        end ?? "20"
     )
 
     return NextResponse.json(classRankList)

@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { IconUserCircle, IconCrown } from "@tabler/icons-react"
 import Cookie from "js-cookie"
@@ -11,39 +11,54 @@ import "@/app/loaderCat.css"
 export const dynamic = "force-dynamic"
 
 const ClassRankPage = () => {
-    const [errorMsg, setErrorMsg] = useState("")
-    const { isLoading, isError, data } = useQuery<FinalGradeRankClass[]>({
-        queryKey: ["class-rank"],
-        queryFn: async () => {
-            const res = await fetch(`/api/class-rank?year=111&sem=2`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + Cookie.get("token"),
-                },
-            })
-            if (!res.ok) {
-                setErrorMsg("發生了錯誤：" + res.status)
-                throw new Error()
+    const [data, setData] = useState<FinalGradeRankClass[]>([])
+    // const [errorMsg, setErrorMsg] = useState("")
+    // const { isLoading, isError, data } = useQuery<FinalGradeRankClass[]>({
+    //     queryKey: ["class-rank"],
+    //     queryFn: async () => {
+    //         const res = await fetch(`/api/class-rank?year=111&sem=2&start=0&end=20`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: "Bearer " + Cookie.get("token"),
+    //             },
+    //         })
+    //         if (!res.ok) {
+    //             setErrorMsg("發生了錯誤：" + res.status)
+    //             throw new Error()
+    //         }
+
+    //         const json = await res.json()
+
+    //         return json
+    //     },
+    //     refetchOnWindowFocus: false,
+    // })
+
+    useEffect(() => {
+        const fetchDate = async () => {
+            // 20為範圍
+            let promises = []
+            for (let i = 0; i < 60; i += 20) {
+                const res = await fetch(`/api/class-rank?year=111&sem=2&start=${i}&end=${i + 20}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + Cookie.get("token"),
+                    },
+                })
+                const data = await res.json()
+                promises.push(data)
             }
+            const data = await Promise.all(promises)
 
-            const json = await res.json()
-
-            return json
-        },
-        refetchOnWindowFocus: false,
-    })
-
-    const errorImg = (userid: string) => {
-        const img = document.querySelector(`#${userid}`)
-        if (img) {
-            img.setAttribute(
-                "src",
-                "https://tabler-icons.io/static/tabler-icons/icons-png/user-circle.png"
-            )
-            img.classList.remove("object-cover")
-            img.classList.add("object-contain")
+            // 陣列合併
+            // let arr: FinalGradeRankClass[] = []
+            // for (let i = 0; i < data.length; i++) {
+            //     arr = arr.concat(data[i])
+            // }
+            setData(data.flat())
         }
-    }
+        fetchDate()
+    }, [])
 
     return (
         <>
@@ -145,7 +160,7 @@ const ClassRankPage = () => {
                         ))}
                 </div>
             )}
-            {isLoading && (
+            {/* {isLoading && (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                     <div className='flex h-full w-full items-center justify-center'>
                         <div className='cat'>
@@ -163,7 +178,7 @@ const ClassRankPage = () => {
                         <div className='text-2xl'>{errorMsg}</div>
                     </div>
                 </div>
-            )}
+            )} */}
         </>
     )
 }
