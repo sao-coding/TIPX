@@ -65,10 +65,10 @@ const ClassRankPage = () => {
                                         <div className='m-2 h-3 w-20 rounded-full bg-slate-200'></div>
                                     </div>
                                 </div>
-                                <div className='h-full flex-1'>
+                                <div className='h-full flex-1 md:mr-8 md:flex-none'>
                                     <div className='mt-4 flex h-full items-center justify-center'>
-                                        <div className='m-1 h-3 w-11 rounded bg-slate-200'></div>
-                                        <div className='m-1 h-3 w-11 rounded bg-slate-200'></div>
+                                        <div className='m-1 h-3 w-11 rounded bg-slate-200 md:m-4'></div>
+                                        <div className='m-1 h-3 w-11 rounded bg-slate-200 md:m-4'></div>
                                     </div>
                                 </div>
                             </div>
