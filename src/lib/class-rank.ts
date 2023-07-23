@@ -64,8 +64,6 @@ const getClassRank = async (
             es ?? ""
         )
 
-        console.log(userid, classNameown.class, className.class)
-
         if (className.class !== classNameown.class) {
             return null // If className doesn't match, return null
         }
