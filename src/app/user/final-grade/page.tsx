@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { IconStar, IconCrown } from "@tabler/icons-react"
+import { IconUserStar, IconStar, IconCrown } from "@tabler/icons-react"
 import clsx from "clsx"
 import { FinalGradeRank } from "@/types"
 import { site } from "@/config/site"
@@ -23,7 +23,6 @@ const getData = async () => {
 
 const FinalGradePage = async () => {
     const data: FinalGradeRank[] = await getData()
-    console.log({ data })
     // 班排前三名顏色
     const rankColor: { [key: number]: string } = {
         1: "text-amber-500",
@@ -60,7 +59,7 @@ const FinalGradePage = async () => {
                         </div>
                         <div className='absolute bottom-0 left-0 flex w-full items-center justify-between p-1'>
                             <div className='flex items-center pr-1'>
-                                <IconStar className='animate-pulse stroke-yellow-500' />
+                                <IconUserStar className='animate-pulse stroke-yellow-500' />
                                 {item.conduct.score === 0 ? "?" : item.conduct.score.toFixed(2)}
                             </div>
                             <div className='flex items-center pl-1'>

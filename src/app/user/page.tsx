@@ -14,12 +14,13 @@ import {
     IconDeviceMobile,
     IconListDetails,
     IconClock,
-    IconStar,
+    IconUserStar,
     IconLoader2,
     IconUser,
     IconClipboardPlus,
     IconClipboardList,
     IconCoins,
+    IconAntennaBars5,
     IconLayoutDashboard,
     IconArrowBadgeDown,
     IconBadges,
@@ -235,7 +236,7 @@ const UserPage = () => {
                                 <div className='flex items-center justify-between'>
                                     <div className=''>目前操行</div>
                                     <div className=''>
-                                        <IconStar size={20} />
+                                        <IconUserStar size={20} />
                                     </div>
                                 </div>
                                 <div className='text-2xl'>{conductData.score}分</div>
@@ -275,6 +276,15 @@ const UserPage = () => {
                             <div className='flex items-center'>
                                 <IconCoins />
                                 <div className='ml-2'>學分資訊</div>
+                            </div>
+                        </Link>
+                        <Link
+                            href='/user/sem-grade'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                        >
+                            <div className='flex items-center'>
+                                <IconAntennaBars5 />
+                                <div className='ml-2'>科目成績</div>
                             </div>
                         </Link>
                         <Link

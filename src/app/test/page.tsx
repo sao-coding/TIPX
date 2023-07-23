@@ -1,14 +1,18 @@
 "use client"
 import { useEffect, useState } from "react"
-import InfiniteScroll from "react-infinite-scroll-component"
-import { Post } from "@/types"
+import Cookie from "js-cookie"
 
 const Test: React.FC = () => {
     const [data, setData] = useState("")
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch("/api/test")
+            const res = await fetch("/api/test", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
             const data = await res.text()
             setData(data)
         }
