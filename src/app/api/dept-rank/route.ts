@@ -20,5 +20,5 @@ export const GET = async (req: NextRequest) => {
         es ?? ""
     )
 
-    return NextResponse.json({}, { status: 200 })
+    return NextResponse.json(deptRankList)
 }
