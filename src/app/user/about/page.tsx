@@ -69,10 +69,10 @@ const UserAboutPage = async () => {
                             </a>
                         </Fancybox>
                         <div className='absolute right-0 top-0 rounded-md bg-amber-500 px-1 font-bold text-neutral-200'>
-                            {data?.status}
+                            {data.status}
                         </div>
                         <div className='absolute bottom-0 right-0 rounded-md bg-amber-500 px-1 text-neutral-200'>
-                            {data?.userid}
+                            {data.userid}
                         </div>
                         <div className='py-1 pl-4'>
                             <div className='flex items-center'>
@@ -112,25 +112,25 @@ const UserAboutPage = async () => {
                             <IconDeviceMobile />
                             <div className='px-1'>{data.phone}</div>
                         </div>
-                        <div className=''>{data?.address}</div>
-                        <div className=''>{data?.homePhone}</div>
-                        <div className=''>{data?.date}</div>
-                        <div className=''>{data?.previousEducation}</div>
+                        <div className=''>{data.address}</div>
+                        <div className=''>{data.homePhone}</div>
+                        <div className=''>{data.date}</div>
+                        <div className=''>{data.previousEducation}</div>
                     </div>
                 </div>
                 <div className='mb-2 rounded-xl border p-2'>
                     <div className='py-1'>
                         <div className='flex items-center'>
-                            <div className=''>{data?.parentName}</div>
-                            <div className='px-1'>{data?.parentJob}</div>
+                            <div className=''>{data.parentName}</div>
+                            <div className='px-1'>{data.parentJob}</div>
                         </div>
-                        <div className=''>{data?.parentAddress}</div>
-                        <div className=''>{data?.parentPhone}</div>
+                        <div className=''>{data.parentAddress}</div>
+                        <div className=''>{data.parentPhone}</div>
                     </div>
                 </div>
                 <div className='rounded-xl border p-2'>
                     <div className='py-1'>
-                        <div className=''>{data?.desc}</div>
+                        <div className=''>{data.desc}</div>
                     </div>
                 </div>
             </div>
