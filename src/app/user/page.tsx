@@ -21,6 +21,7 @@ import {
     IconClipboardList,
     IconCoins,
     IconLayoutDashboard,
+    IconArrowBadgeDown,
     IconBadges,
     IconInfoCircle,
     IconLogout,
@@ -290,8 +291,17 @@ const UserPage = () => {
                             className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
                         >
                             <div className='flex items-center'>
-                                <IconBadges />
+                                <IconArrowBadgeDown />
                                 <div className='ml-2'>班級排名 (beta)</div>
+                            </div>
+                        </Link>
+                        <Link
+                            href='/user/dept-rank'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                        >
+                            <div className='flex items-center'>
+                                <IconBadges />
+                                <div className='ml-2'>系排名 (beta)</div>
                             </div>
                         </Link>
                         <Link
