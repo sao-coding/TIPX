@@ -13,38 +13,34 @@ const DeptRankPage = () => {
     const [errorMsg, setErrorMsg] = useState("")
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDate = async (i: number, j: number) => {
             // 20為範圍
-            setIsLoading(true)
+            const res = await fetch(
+                `/api/dept-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${Cookie.get("token")}`,
+                    },
+                }
+            )
+            return await res.json()
+        }
+
+        const theard = async () => {
             let promises = []
-            let list = []
+            setIsLoading(true)
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 60; j += 10) {
-                    const res = await fetch(
-                        `/api/dept-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${Cookie.get("token")}`,
-                            },
-                        }
-                    )
-
-                    const data = await res.json()
-                    console.log(data)
-                    promises.push(data)
+                    promises.push(fetchDate(i, j))
                 }
-                // promises.push(list)
             }
             const data = await Promise.all(promises)
-            if (data.some((item) => !item)) {
-                throw new Error()
-            }
             setData(data.flat())
             setIsLoading(false)
         }
-        fetchData()
+        theard()
     }, [])
 
     return (
