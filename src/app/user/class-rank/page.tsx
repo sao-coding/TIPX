@@ -43,7 +43,7 @@ const ClassRankPage = () => {
                     promises.push(fetchDate(i, j))
                 }
                 // 延遲 0.5 秒
-                await new Promise((resolve) => setTimeout(resolve, 500))
+                await new Promise((resolve) => setTimeout(resolve, 1000))
             }
             const data = await Promise.all(promises)
             setData(data.flat())
