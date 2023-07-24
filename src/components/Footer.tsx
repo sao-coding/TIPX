@@ -32,15 +32,6 @@ const Footer = () => {
         }
     }, [prevScrollPos])
 
-    // const checkGo = (path: string) => {
-    //     const token = Cookies.get("token")
-    //     if (token) {
-    //         go(path)
-    //     } else {
-    //         go("/login")
-    //     }
-    // }
-
     return (
         <div
             className={clsx(

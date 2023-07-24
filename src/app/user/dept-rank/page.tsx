@@ -156,7 +156,7 @@ const DeptRankPage = () => {
                                 <div className='flex items-center font-mono'>
                                     {/* <div className='p-1'>{item.data.year}</div>
                                 <div className='p-1'>{item.data.sem}</div> */}
-                                    <div className='mr-1 flex flex-col items-center rounded-md px-1 md:flex-row'>
+                                    <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconUserStar className='animate-pulse stroke-yellow-500' />
                                         {/* 我想要格式長這樣 00.00 */}
                                         <div className=''>
@@ -166,17 +166,17 @@ const DeptRankPage = () => {
                                                 .padStart(5, "0")}
                                         </div>
                                     </div>
-                                    <div className='mr-1 flex flex-col items-center rounded-md px-1 md:flex-row'>
+                                    <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                                         <div className=''>
                                             {item.data.avg.toFixed(2).toString().padStart(5, "0")}
                                         </div>
                                     </div>
-                                    <div className='rounded-md px-1 text-lg font-bold'>
-                                        {item.data.rank.toString().padStart(2, "0")}
-                                    </div>
-                                    <div className='rounded-md px-1 text-lg font-bold'>
+                                    <div className='px-1 text-lg font-bold'>
                                         {(index + 1).toString().padStart(3, "0")}
+                                    </div>
+                                    <div className='absolute  bottom-0 right-0 px-3 text-lg font-bold'>
+                                        {item.data.rank.toString().padStart(2, "0")}
                                     </div>
                                 </div>
                             </div>

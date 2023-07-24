@@ -16,11 +16,13 @@ export const GET = async (req: NextRequest) => {
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
-    if (!userid || !year || !sem || !dept || !es) {
-        return NextResponse.redirect("/login")
-    }
-
-    const className: ClassName = await getClassName(userid, year, sem, dept, es)
+    const className: ClassName = await getClassName(
+        userid ?? "",
+        year ?? "",
+        sem ?? "",
+        dept ?? "",
+        es ?? ""
+    )
 
     // let className: string = ""
 

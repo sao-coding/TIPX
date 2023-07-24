@@ -172,7 +172,7 @@ const ClassRankPage = () => {
                                 <div className='flex items-center font-mono'>
                                     {/* <div className='p-1'>{item.data.year}</div>
                                 <div className='p-1'>{item.data.sem}</div> */}
-                                    <div className='mr-1 flex flex-col items-center rounded-md px-1 md:flex-row'>
+                                    <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconUserStar className='animate-pulse stroke-yellow-500' />
                                         {/* 我想要格式長這樣 00.00 */}
                                         <div className=''>
@@ -182,13 +182,13 @@ const ClassRankPage = () => {
                                                 .padStart(5, "0")}
                                         </div>
                                     </div>
-                                    <div className='mr-1 flex flex-col items-center rounded-md px-1 md:flex-row'>
+                                    <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                                         <div className=''>
                                             {item.data.avg.toFixed(2).toString().padStart(5, "0")}
                                         </div>
                                     </div>
-                                    <div className='ml-1 rounded-md px-1 text-lg font-bold'>
+                                    <div className='ml-1 px-1 text-lg font-bold'>
                                         {item.data.rank.toString().padStart(2, "0")}
                                     </div>
                                 </div>

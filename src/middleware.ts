@@ -1,14 +1,21 @@
 // 處理身分驗證
+import { getToken } from "next-auth/jwt"
 import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextRequest } from "next/server"
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
     console.log("middleware: ", req.nextUrl.pathname)
+    const nextAuthToken = await getToken({
+        req,
+        secret: process.env.NEXTAUTH_SECRET,
+    })
+
     if (req.nextUrl.pathname.startsWith("/api")) {
         console.log("middleware: api")
         if (
             req.nextUrl.pathname === "/api/authorize" ||
-            req.nextUrl.pathname.startsWith("/api/post")
+            req.nextUrl.pathname.startsWith("/api/post") ||
+            req.nextUrl.pathname.startsWith("/api/auth")
         ) {
             return
         }
@@ -17,21 +24,24 @@ export function middleware(req: NextRequest) {
             authToken === false ||
             req.headers.get("Authorization")?.split(" ")[1] !== process.env.AUTHORIZATION
         ) {
-            return NextResponse.json(
-                {
-                    error: "Unauthorized",
-                },
-                {
-                    status: 401,
-                }
-            )
+            if (!nextAuthToken) {
+                return NextResponse.json(
+                    {
+                        error: "Unauthorized",
+                    },
+                    {
+                        status: 401,
+                    }
+                )
+            }
         }
     } else if (req.nextUrl.pathname !== "/" && req.nextUrl.pathname.startsWith("/post") === false) {
         const token = req.cookies.get("token")?.value
-        if (!token) {
+
+        if (!token && !nextAuthToken) {
             console.log("middleware: no token")
             return NextResponse.redirect(
-                new URL(`/login?redirect=${req.nextUrl.pathname}`, req.nextUrl)
+                new URL(`/login?callbackUrl=${req.nextUrl.pathname}`, req.nextUrl)
             )
         }
     }
