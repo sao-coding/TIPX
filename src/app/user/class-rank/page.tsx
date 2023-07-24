@@ -54,7 +54,7 @@ const ClassRankPage = () => {
 
     return (
         <>
-            <div className='flex w-full flex-col items-center justify-center p-2'>
+            <div className='mb-14 flex w-full flex-col items-center justify-center p-2'>
                 {isError && (
                     <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                         <div className='flex h-full w-full flex-col items-center justify-center'>
