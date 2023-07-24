@@ -18,11 +18,23 @@ import InfoBoard from "@/app/user/infoBoard"
 import Logout from "@/app/user/logout"
 import { site } from "@/config/site"
 
+const getUserData = async () => {
+    const res = await fetch(`${site.url}/api/user`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookies().get("token")?.value,
+            Cookie: cookies().toString(),
+        },
+    })
+    return await res.json()
+}
 const UserPage = async () => {
+    const userData: User = await getUserData()
     return (
         <div className='w-full p-2'>
             <Suspense fallback={<div>Loading...</div>}>
-                <Info />
+                <Info userData={userData} />
             </Suspense>
             <InfoBoard />
             <Link
