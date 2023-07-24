@@ -41,7 +41,7 @@ const DeptRankPage = () => {
                 for (let j = 0; j < 60; j += 10) {
                     promises.push(fetchDate(i, j))
                 }
-                await new Promise((resolve) => setTimeout(resolve, 1000))
+                await new Promise((resolve) => setTimeout(resolve, 1500))
             }
             const data = await Promise.all(promises)
             setData(data.flat())
