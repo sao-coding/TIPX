@@ -25,6 +25,12 @@ const DeptRankPage = () => {
                     },
                 }
             )
+            if (!res.ok) {
+                setIsError(true)
+                setErrorMsg("獲取資料失敗")
+                setIsLoading(false)
+                return
+            }
             return await res.json()
         }
 
@@ -46,6 +52,22 @@ const DeptRankPage = () => {
     return (
         <>
             <div className='flex w-full flex-col items-center justify-center p-2'>
+                {isError && (
+                    <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
+                        <div className='flex h-full w-full flex-col items-center justify-center'>
+                            <div className='text-2xl'>{errorMsg}</div>
+                            <button
+                                className='rounded-md bg-main-color p-2 text-xl'
+                                onClick={
+                                    // 重新整理
+                                    () => location.reload()
+                                }
+                            >
+                                重新整理
+                            </button>
+                        </div>
+                    </div>
+                )}
                 {isLoading && (
                     <>
                         {Array.from(Array(7).keys()).map((index) => (
@@ -74,6 +96,7 @@ const DeptRankPage = () => {
                 )}
                 {/* 依分數排序 如果是 0 就排在最後 */}
                 {data.length > 0 &&
+                    !isError &&
                     data
                         .sort((a, b) => {
                             if (a.data.avg === 0) {

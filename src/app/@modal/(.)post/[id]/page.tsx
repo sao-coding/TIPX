@@ -1,4 +1,5 @@
 "use client"
+
 import { useCallback } from "react"
 import { useQuery } from "@tanstack/react-query"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -46,7 +47,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                             </Dialog.Close>
                             <Dialog.Title asChild>
                                 <div className='mb-1 flex items-center justify-center'>
-                                    <div className='md:text-xl pr-5 font-bold'>{data.title}</div>
+                                    <div className='pr-5 font-bold md:text-xl'>{data.title}</div>
                                 </div>
                             </Dialog.Title>
                             <div className='flex items-center justify-between'>

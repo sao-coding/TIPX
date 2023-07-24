@@ -26,10 +26,10 @@ const CourseAttendanceRecordPage = () => {
 
     return (
         <>
-            <div className='w-full p-2'>
+            <div className='mb-14 w-full p-2'>
                 {data?.list?.length > 0 ? (
                     <>
-                        <div className='grid grid-cols-2 gap-2 mb-2'>
+                        <div className='mb-2 grid grid-cols-2 gap-2'>
                             <div className='rounded-md border p-2 shadow-md'>
                                 <div className=''>曠課</div>
                                 <div className='w-full text-right text-lg font-bold'>
@@ -73,12 +73,12 @@ const CourseAttendanceRecordPage = () => {
                                 </div>
                             </div> */}
                         </div>
-                        <div className='sticky top-0 left-0 rounded-md border p-2 shadow-md bg-slate-50 mb-2'>
-                                <div className=''>總計</div>
-                                <div className='w-full text-right text-lg font-bold'>
-                                    {data?.total.reduce((a, b) => a + b, 0)}
-                                </div>
+                        <div className='sticky left-0 top-0 mb-2 rounded-md border bg-slate-50 p-2 shadow-md'>
+                            <div className=''>總計</div>
+                            <div className='w-full text-right text-lg font-bold'>
+                                {data?.total.reduce((a, b) => a + b, 0)}
                             </div>
+                        </div>
                         {data?.list?.map((item, index) => (
                             <Card key={index} data={item} />
                         ))}

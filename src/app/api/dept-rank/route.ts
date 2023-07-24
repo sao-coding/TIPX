@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import { JSDOM } from "jsdom"
 import getDeptRank from "@/lib/dept-rank"
-import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
+import { FinalGradeRankClass } from "@/types"
 
 export const GET = async (req: NextRequest) => {
     const searchParams = req.nextUrl.searchParams
@@ -15,7 +14,7 @@ export const GET = async (req: NextRequest) => {
     const start = searchParams.get("start")
     const end = searchParams.get("end")
 
-    const deptRankList = await getDeptRank(
+    const deptRankList: FinalGradeRankClass[] = await getDeptRank(
         userid ?? "",
         year ?? "",
         sem ?? "",

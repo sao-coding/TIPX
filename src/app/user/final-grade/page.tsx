@@ -31,7 +31,7 @@ const FinalGradePage = async () => {
     }
 
     return (
-        <div className='w-full p-2'>
+        <div className='mb-14 w-full p-2'>
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
                     <div
