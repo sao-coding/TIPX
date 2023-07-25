@@ -151,7 +151,7 @@ const Form = () => {
                                 className='flex w-full cursor-pointer items-center justify-center rounded-md bg-orange-300 py-2 hover:bg-orange-400'
                             >
                                 <IconBrandGoogle size={20} className='mx-1' />
-                                繼續以 Google
+                                使用 Google 登入
                             </button>
                         </div>
                     </div>

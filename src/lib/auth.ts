@@ -13,17 +13,15 @@ const authOptions: NextAuthOptions = {
         async signIn({ account, profile }) {
             if (account?.provider === "google") {
                 if (profile?.email && profile?.email?.endsWith("@gs.takming.edu.tw")) {
-                    cookies().set("cookie_userid", profile.email.split("@")[0])
+                    cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase())
                     return true
                 }
                 return false
             }
-
             return true
         },
         async session({ session }) {
-            session.user.studentId = session.user.email?.split("@")[0] as string
-
+            session.user.studentId = session.user.email?.split("@")[0].toUpperCase() as string
             return session
         },
     },
