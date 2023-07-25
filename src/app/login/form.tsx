@@ -90,17 +90,19 @@ const Form = () => {
 
         Cookie.set(
             "cookie_userid",
-            (document.getElementById("username") as HTMLInputElement)?.value
+            (document.getElementById("username") as HTMLInputElement)?.value,
+            { expires: 7 }
         )
 
-        Cookie.set("cookie_dept", deptValue)
+        Cookie.set("cookie_dept", deptValue, { expires: 7 })
 
         Cookie.set(
             "cookie_es",
             iconv
                 .encode(esValue, "big5")
                 .toString("hex")
-                .replace(/(.{2})/g, "%$1")
+                .replace(/(.{2})/g, "%$1"),
+            { expires: 7 }
         )
 
         const res = await fetch("/api/authorize", {
@@ -119,7 +121,7 @@ const Form = () => {
         } else {
             toast.success("登入成功")
             const data = await res.json()
-            Cookie.set("token", data.token)
+            Cookie.set("token", data.token, { expires: 7 })
             // 延遲1秒跳轉
             setTimeout(() => {
                 window.location.href = searchParams.get("callbackUrl") ?? "/"

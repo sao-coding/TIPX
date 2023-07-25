@@ -13,7 +13,9 @@ const authOptions: NextAuthOptions = {
         async signIn({ account, profile }) {
             if (account?.provider === "google") {
                 if (profile?.email && profile?.email?.endsWith("@gs.takming.edu.tw")) {
-                    cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase())
+                    cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase(), {
+                        expires: 7,
+                    })
                     return true
                 }
                 return false
@@ -30,7 +32,7 @@ const authOptions: NextAuthOptions = {
     },
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
+        maxAge: 7 * 24 * 60 * 60,
     },
 }
 
