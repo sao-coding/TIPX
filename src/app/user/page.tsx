@@ -1,9 +1,7 @@
-import { Suspense } from "react"
 import Link from "next/link"
 import { cookies } from "next/headers"
 import { User } from "@/types"
 import {
-    IconUserCircle,
     IconUser,
     IconClipboardPlus,
     IconClipboardList,
@@ -42,7 +40,7 @@ const UserPage = async () => {
             >
                 <div className='flex items-center'>
                     <IconUser />
-                    <div className='ml-2'>個人詳細資料 (尚未推出)</div>
+                    <div className='ml-2'>個人詳細資料</div>
                 </div>
             </Link>
             <Link

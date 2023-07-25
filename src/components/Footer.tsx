@@ -35,7 +35,7 @@ const Footer = () => {
     return (
         <div
             className={clsx(
-                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300",
+                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300 md:hidden",
                 { hidden: navbarHidden }
             )}
         >

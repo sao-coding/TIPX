@@ -33,16 +33,6 @@ export const GET = async (req: NextRequest) => {
     // req.nextUrl.searchParams.get("year")
     // req.nextUrl.searchParams.get("sem")
     if (req.nextUrl.searchParams.has("year") && req.nextUrl.searchParams.has("sem")) {
-        // 搜尋 year & sem 在 conduct 陣列
-        // 有的話回傳
-        // for (let i = 0; i < conductList.length; i++) {
-        //     if (
-        //         conductList[i].year === req.nextUrl.searchParams.get("year") &&
-        //         conductList[i].sem === req.nextUrl.searchParams.get("sem")
-        //     ) {
-        //         return NextResponse.json(conductList[i])
-        //     }
-        // }
         conductList = await getConduct(
             userid ?? "",
             year ?? "",

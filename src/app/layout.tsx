@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Providers from "./providers"
+import Header from "@/components/Header"
 import Container from "@/components/Container"
 import Footer from "@/components/Footer"
 
@@ -23,6 +24,7 @@ export default function RootLayout({
     return (
         <html lang='zh-hant-TW'>
             <body className={inter.className}>
+                <Header />
                 <Container>
                     <Providers>
                         {children}
