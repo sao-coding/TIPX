@@ -117,9 +117,13 @@ const Form = () => {
         if (!res.ok) {
             toast.error("授權碼錯誤")
         } else {
+            toast.success("登入成功")
             const data = await res.json()
             Cookie.set("token", data.token)
-            window.location.href = searchParams.get("callbackUrl") ?? "/"
+            // 延遲1秒跳轉
+            setTimeout(() => {
+                window.location.href = searchParams.get("callbackUrl") ?? "/"
+            }, 1000)
         }
     }
 

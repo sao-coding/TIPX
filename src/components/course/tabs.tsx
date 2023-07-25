@@ -19,12 +19,17 @@ const CourseTabs = ({ data, id }: { data: Course[]; id: string }) => (
             ))}
         </Tabs.List>
 
-        <Tabs.Content className='rounded-b-md pt-2' value='作業' aria-labelledby='作業' id='作業'>
+        <Tabs.Content
+            className='mb-14 rounded-b-md pt-2 '
+            value='作業'
+            aria-labelledby='作業'
+            id='作業'
+        >
             {/* params.id */}
             <Hw params={{ id: id }} />
         </Tabs.Content>
         <Tabs.Content
-            className='rounded-b-md pt-2'
+            className='mb-14 rounded-b-md pt-2 '
             value='修課學生'
             aria-labelledby='修課學生'
             id='修課學生'
@@ -32,7 +37,7 @@ const CourseTabs = ({ data, id }: { data: Course[]; id: string }) => (
             <CourseStuList params={{ id: id }} />
         </Tabs.Content>
         <Tabs.Content
-            className='rounded-b-md pt-2'
+            className='mb-14 rounded-b-md pt-2 '
             value='出缺勤'
             aria-labelledby='出缺勤'
             id='出缺勤'
