@@ -47,20 +47,20 @@ const Form = () => {
         console.log("year", year)
         console.log("month", month)
         if (month >= 8) {
-            Cookie.set("cookie_year", (year - 1911).toString())
+            Cookie.set("cookie_year", (year - 1911).toString(), { expires: 7 })
             console.log("cookie_year", year - 1911)
         } else {
-            Cookie.set("cookie_year", (year - 1912).toString())
+            Cookie.set("cookie_year", (year - 1912).toString(), { expires: 7 })
             console.log("cookie_year", year - 1912)
         }
         // 判斷上下學期
         // year 8 ~ 12 || year+1 1 ~ 2
         // year 2 ~ 7
         if (month >= 8 || month <= 2) {
-            Cookie.set("cookie_sem", "1")
+            Cookie.set("cookie_sem", "1", { expires: 7 })
             console.log("cookie_sem", 1)
         } else {
-            Cookie.set("cookie_sem", "2")
+            Cookie.set("cookie_sem", "2", { expires: 7 })
             console.log("cookie_sem", 2)
         }
     }, [])

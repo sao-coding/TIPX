@@ -14,7 +14,8 @@ const authOptions: NextAuthOptions = {
             if (account?.provider === "google") {
                 if (profile?.email && profile?.email?.endsWith("@gs.takming.edu.tw")) {
                     cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase(), {
-                        expires: 7,
+                        // 7天
+                        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
                     })
                     return true
                 }
