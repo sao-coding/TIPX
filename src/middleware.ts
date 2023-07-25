@@ -35,7 +35,12 @@ export async function middleware(req: NextRequest) {
                 )
             }
         }
-    } else if (req.nextUrl.pathname !== "/" && req.nextUrl.pathname.startsWith("/post") === false) {
+        // timetable course user
+    } else if (
+        req.nextUrl.pathname.startsWith("/timetable") ||
+        req.nextUrl.pathname.startsWith("/course") ||
+        req.nextUrl.pathname.startsWith("/user")
+    ) {
         const token = req.cookies.get("token")?.value
 
         if (!token && !nextAuthToken) {
@@ -48,5 +53,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/((?!_next/static|_next/image|favicon.ico|login|img|_vercel|^/$).*)"],
+    matcher: ["/((?!_next/static|_next/image|favicon.ico|login|img|_vercel|pwa|^/$).*)"],
 }

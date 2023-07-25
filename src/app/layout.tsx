@@ -13,6 +13,8 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
     title: "TIP",
     description: "學生資訊系統",
+    manifest: "/pwa/manifest.json",
+    themeColor: "#ffffff",
 }
 
 export default function RootLayout({

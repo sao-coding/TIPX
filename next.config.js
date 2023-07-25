@@ -6,4 +6,8 @@ const nextConfig = {
     transpilePackages: ["swagger-ui-react", "swagger-client", "react-syntax-highlighter"],
 }
 
-module.exports = nextConfig
+const withPWA = require("next-pwa")({
+    dest: "public",
+})
+
+module.exports = withPWA(nextConfig)
