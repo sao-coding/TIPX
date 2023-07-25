@@ -6,7 +6,7 @@ import Cookie from "js-cookie"
 import { CourseAttendanceRecord, Conduct } from "@/types"
 const InfoBoard = () => {
     const [courseAttendanceRecordData, setCourseAttendanceRecordData] =
-        useState<CourseAttendanceRecord>()
+        useState<CourseAttendanceRecord>({ list: [], total: [] })
     const [conductData, setConductData] = useState<Conduct>({
         year: "",
         sem: "",
@@ -60,13 +60,15 @@ const InfoBoard = () => {
                     </div>
                 </div>
                 <div className='flex items-center text-2xl'>
-                    {/* {courseAttendanceRecordData?.total?.reduce(
-                        (total, item) => total + item
-                    )} */}
                     {LeaveLoading ? (
                         <IconLoader2 size={24} className='mx-1 animate-spin' />
                     ) : (
-                        courseAttendanceRecordData?.total?.reduce((total, item) => total + item)
+                        <>
+                            {courseAttendanceRecordData?.total.length > 0 &&
+                                courseAttendanceRecordData?.total?.reduce(
+                                    (total, item) => total + item
+                                )}
+                        </>
                     )}
                     <div className='ml-0.5'>次</div>
                 </div>
@@ -82,11 +84,14 @@ const InfoBoard = () => {
                     {LeaveLoading ? (
                         <IconLoader2 size={24} className='mx-1 animate-spin' />
                     ) : (
-                        courseAttendanceRecordData?.total
-                            ?.reduce((total, item) => {
-                                return total + Math.round(((item * 50) / 60) * 10) / 10
-                            }, 0)
-                            .toFixed(1)
+                        <>
+                            {courseAttendanceRecordData?.total.length > 0 &&
+                                courseAttendanceRecordData?.total
+                                    ?.reduce((total, item) => {
+                                        return total + Math.round(((item * 50) / 60) * 10) / 10
+                                    }, 0)
+                                    .toFixed(1)}
+                        </>
                     )}
                     <div className='ml-0.5'>小時</div>
                 </div>
