@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "TIP",
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
-    themeColor: "#ffffff",
+    themeColor: "#f8fafc",
 }
 
 export default function RootLayout({
