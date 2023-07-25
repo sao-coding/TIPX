@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { IconBrandGoogle } from "@tabler/icons-react"
 import { signIn } from "next-auth/react"
-import toast from "react-hot-toast"
+import toast, { useToasterStore } from "react-hot-toast"
 import Cookie from "js-cookie"
 import LoginSelect from "@/components/login/select"
 import iconv from "iconv-lite"
@@ -14,6 +14,16 @@ const Form = () => {
     const [deptValue, setDeptValue] = useState("1")
     const [esValue, setEsValue] = useState("日四技")
     const searchParams = useSearchParams()
+
+    const { toasts } = useToasterStore()
+    const TOAST_LIMIT = 2
+    // Enforce Limit
+    useEffect(() => {
+        toasts
+            .filter((t) => t.visible) // Only consider visible toasts
+            .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit
+            .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
+    }, [toasts])
 
     // 部別資料
     const dept = [
