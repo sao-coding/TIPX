@@ -4,9 +4,11 @@ import { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { IconBrandGoogle } from "@tabler/icons-react"
 import { signIn } from "next-auth/react"
+import toast from "react-hot-toast"
 import Cookie from "js-cookie"
 import LoginSelect from "@/components/login/select"
 import iconv from "iconv-lite"
+import Logo from "@/components/logo"
 
 const Form = () => {
     const [deptValue, setDeptValue] = useState("1")
@@ -63,12 +65,16 @@ const Form = () => {
 
     const fetchLogin = async () => {
         if ((document.getElementById("username") as HTMLInputElement)?.value === "") {
-            alert("請輸入學號")
+            console.log(
+                "username",
+                (document.getElementById("username") as HTMLInputElement)?.value
+            )
+            toast.error("請輸入學號")
             return
         }
 
         if ((document.getElementById("authcode") as HTMLInputElement)?.value === "") {
-            alert("請輸入授權碼")
+            toast.error("請輸入授權碼")
             return
         }
 
@@ -99,7 +105,7 @@ const Form = () => {
 
         // 跳轉頁面
         if (!res.ok) {
-            alert("授權碼錯誤")
+            toast.error("授權碼錯誤")
         } else {
             const data = await res.json()
             Cookie.set("token", data.token)
@@ -112,7 +118,9 @@ const Form = () => {
             <div className='absolute left-0 top-0 h-full w-full p-4'>
                 <div className='flex h-full items-center justify-center'>
                     <div className='rounded-md bg-white p-4 shadow-md'>
-                        <div className='pb-4 text-center text-lg font-bold'>TIP-X</div>
+                        <div className='pb-4 text-center'>
+                            <Logo className='h-10 w-full' />
+                        </div>
                         <div className='p-2'>
                             <div className='p-2'>學號</div>
                             <input
