@@ -32,7 +32,10 @@ const Footer = () => {
             window.removeEventListener("scroll", handleScroll)
         }
     }, [prevScrollPos])
-
+    useEffect(() => {
+        console.log(pathname)
+        console.log(pathname.startsWith("/") && pathname !== "/")
+    }, [pathname])
     return (
         <div
             className={clsx(
@@ -44,10 +47,22 @@ const Footer = () => {
                 // <NavItem key={link.href} href={link.href} icon={link.icon} />
                 <Link href={link.href} key={link.href}>
                     <link.icon
-                        size={pathname === link.href ? 30 : 26}
+                        // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
+                        size={
+                            pathname.startsWith(link.href) && link.href !== "/"
+                                ? 30
+                                : link.href === "/" && pathname === "/"
+                                ? 30
+                                : 26
+                        }
+                        // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
                         className={cx(
                             "stroke-white/80",
-                            pathname === link.href && "fill-white/80 stroke-black stroke-1"
+                            pathname.startsWith(link.href) && link.href !== "/"
+                                ? "fill-white/80 stroke-black stroke-1"
+                                : link.href === "/" && pathname === "/"
+                                ? "fill-white/80 stroke-black stroke-1"
+                                : ""
                         )}
                     />
                 </Link>
