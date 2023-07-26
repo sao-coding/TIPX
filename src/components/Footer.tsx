@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"

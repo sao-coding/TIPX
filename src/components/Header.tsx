@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
 import Logo from "@/components/logo"
 import { NAV_LINKS } from "@/config/links"
 
