@@ -52,18 +52,6 @@ const Footer = () => {
                     />
                 </Link>
             ))}
-            {/* <Link href='/'>
-                <IconHome size={26} className='stroke-white/80' />
-            </Link>
-            <Link href='/timetable'>
-                <IconCalendarEvent size={26} className='stroke-white/80' />
-            </Link>
-            <Link href='/course'>
-                <IconBook2 size={26} className='stroke-white/80' />
-            </Link>
-            <Link href='/user'>
-                <IconUser size={26} className='stroke-white/80' />
-            </Link> */}
         </div>
     )
 }
