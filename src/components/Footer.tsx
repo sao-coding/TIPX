@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"
+import { cx } from "@/lib/utils"
 import { NAV_LINKS } from "@/config/links"
 
 const Footer = () => {
@@ -51,7 +52,7 @@ const Footer = () => {
                                 : 26
                         }
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
-                        className={clsx(
+                        className={cx(
                             "stroke-white/80",
                             pathname.startsWith(link.href) && link.href !== "/"
                                 ? "fill-white/80 stroke-black stroke-1"
