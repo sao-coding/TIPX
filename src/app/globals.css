@@ -24,8 +24,6 @@ body {
 
 * {
     -webkit-tap-highlight-color: transparent;
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
     box-sizing: border-box;
 }
 
