@@ -42,7 +42,7 @@ const Footer = () => {
         >
             {FOOTER_LINKS.map((link) => (
                 // <NavItem key={link.href} href={link.href} icon={link.icon} />
-                <Link href={link.href}>
+                <Link href={link.href} key={link.href}>
                     <link.icon
                         size={pathname === link.href ? 30 : 26}
                         className={cx(
