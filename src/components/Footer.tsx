@@ -40,19 +40,19 @@ const Footer = () => {
             )}
         >
             <Link href='/' className='flex flex-col items-center justify-center'>
-                <IconHome size={26} />
+                <IconHome size={26} className='stroke-white/80' />
                 {/* <div className='mt-1'>首頁</div> */}
             </Link>
             <Link href='/timetable' className='flex flex-col items-center justify-center'>
-                <IconCalendarEvent size={26} />
+                <IconCalendarEvent size={26} className='stroke-white/80' />
                 {/* <div className='mt-1'>課表</div> */}
             </Link>
             <Link href='/course' className='flex flex-col items-center justify-center'>
-                <IconBook2 size={26} />
+                <IconBook2 size={26} className='stroke-white/80' />
                 {/* <div className='mt-1'>修課</div> */}
             </Link>
             <Link href='/user' className='flex flex-col items-center justify-center'>
-                <IconUser size={26} />
+                <IconUser size={26} className='stroke-white/80' />
                 {/* <div className='mt-1'>個人</div> */}
             </Link>
         </div>

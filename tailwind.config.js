@@ -19,9 +19,9 @@ module.exports = {
                 15: "repeat(15, minmax(0, 1fr))",
             },
             colors: {
-                "main-color": "#FBE0C3",
+                "main-color-1": "#fceee9",
                 "main-color-2": "#FFBB98",
-                "main-color-3": "#7D8E95",
+                "main-color-3": "#a65a4c",
                 "main-color-4": "#344648",
             },
             boxShadow: {

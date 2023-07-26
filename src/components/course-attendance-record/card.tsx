@@ -18,7 +18,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
 
     return (
         <>
-            <div className='mb-2 w-full rounded-md bg-main-color p-2 shadow-md'>
+            <div className='mb-2 w-full rounded-md bg-main-color-1 p-2 shadow-md'>
                 <div className='flex items-center justify-around'>
                     <div className=''>{formatDate(data.date)}</div>
                     <div className='rounded-md bg-main-color-2 px-1'>{data.week}</div>
@@ -27,7 +27,9 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
                     <div className=''>{data.courseID}</div>
                 </div>
                 <div className='mt-2 flex items-center justify-center'>
-                    <div className='rounded-md bg-main-color-3 px-1'>{data.course}</div>
+                    <div className='rounded-md bg-main-color-3 px-1 text-white/80'>
+                        {data.course}
+                    </div>
                 </div>
             </div>
         </>

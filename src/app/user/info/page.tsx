@@ -21,7 +21,7 @@ const InfoPage = () => {
                     />
                     <div className='font-bold'>Hong</div>
                     <a
-                        className='rounded-md bg-main-color px-1'
+                        className='rounded-md bg-main-color-1 px-1'
                         href='https://github.com/tszhong0411'
                         target='_blank'
                         rel='noopener noreferrer'

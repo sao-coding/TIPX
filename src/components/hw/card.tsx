@@ -26,16 +26,16 @@ const Card = ({ data }: { data: HwList }) => {
 
     return (
         <>
-            <div className='bg-main-color shadow-md w-full rounded-md relative mb-2'>
+            <div className='relative mb-2 w-full rounded-md bg-main-color-1 shadow-md'>
                 <div
                     className={clsx(
-                        "absolute top-2 right-2 p-1 rounded-md text-white",
+                        "absolute right-2 top-2 rounded-md p-1 text-white",
                         data.status === "已繳交" ? "bg-green-600" : "bg-red-600"
                     )}
                 >
                     {data.status}
                 </div>
-                <div className='flex p-2 justify-between'>
+                <div className='flex justify-between p-2'>
                     <div className=''>
                         <div className='text-lg font-bold'>{data.title}</div>
                         <div className='flex items-center text-sm text-neutral-500'>
@@ -50,7 +50,7 @@ const Card = ({ data }: { data: HwList }) => {
                             <IconPaperclip size={20} />
                             附件
                             <button
-                                className='bg-main-color-3 p-1 rounded-md ml-1 hover:bg-main-color-4 text-white'
+                                className='ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
                                 onClick={() => download(data.file)}
                             >
                                 <IconDownload size={20} />
@@ -59,7 +59,7 @@ const Card = ({ data }: { data: HwList }) => {
                     </div>
                     <div className='flex items-end'>
                         <button
-                            className='bg-main-color-3 p-1 rounded-md mr-2 hover:bg-main-color-4 text-white'
+                            className='mr-2 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
                             disabled={data.upload_status}
                         >
                             <IconUpload />
@@ -67,7 +67,7 @@ const Card = ({ data }: { data: HwList }) => {
                         {/* 如果未繳交 cursor-not-allowed */}
                         <button
                             className={clsx(
-                                "bg-main-color-3 p-1 rounded-md hover:bg-main-color-4 text-white",
+                                "rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
                                 data.download === "" ? "cursor-not-allowed" : ""
                             )}
                             disabled={data.download === ""}

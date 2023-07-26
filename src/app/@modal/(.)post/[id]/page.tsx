@@ -92,7 +92,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                                     rel='noreferrer'
                                                     className='p-1'
                                                 >
-                                                    <IconDownload className='rounded-md bg-main-color p-1' />
+                                                    <IconDownload className='rounded-md bg-main-color-1 p-1' />
                                                 </a>
                                             </div>
                                         ))}

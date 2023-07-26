@@ -82,10 +82,10 @@ const Info = ({ userData }: { userData: User }) => {
                                     <div className='pl-1'>{userData.es}</div>
                                 </div>
                             </div>
-                            <div className='absolute right-0 top-0 rounded-md bg-amber-500 px-1 font-bold text-neutral-200'>
+                            <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
                                 {userData.status}
                             </div>
-                            <div className='absolute bottom-0 right-0 rounded-md bg-amber-500 px-1 text-neutral-200'>
+                            <div className='absolute bottom-0 right-0 rounded-md bg-main-color-3 px-1 text-neutral-200'>
                                 {userData.userid}
                             </div>
                         </div>

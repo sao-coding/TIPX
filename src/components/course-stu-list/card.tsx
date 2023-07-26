@@ -9,7 +9,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
 
     return (
         <>
-            <div className='mb-2 w-full rounded-md bg-main-color shadow-md'>
+            <div className='mb-2 w-full rounded-md bg-main-color-1 shadow-md'>
                 <div className='flex p-2'>
                     <div className='p-2'>
                         {isImgError ? (

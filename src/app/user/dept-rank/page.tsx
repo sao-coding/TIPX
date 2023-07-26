@@ -58,7 +58,7 @@ const DeptRankPage = () => {
                         <div className='flex h-full w-full flex-col items-center justify-center'>
                             <div className='text-2xl'>{errorMsg}</div>
                             <button
-                                className='rounded-md bg-main-color p-2 text-xl'
+                                className='rounded-md bg-main-color-1 p-2 text-xl'
                                 onClick={
                                     // 重新整理
                                     () => location.reload()

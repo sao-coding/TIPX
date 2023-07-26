@@ -55,12 +55,12 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     return (
         <>
             {data && (
-                <div className='md:bg-white flex w-full items-center rounded-2xl px-4 pb-4'>
+                <div className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'>
                     <div className='flex flex-col items-center justify-center'>
-                        <div className='md:bg-white md:text-xl sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold'>
+                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
                             {data.title}
                         </div>
-                        <div className='md:px-24 w-full pt-2'>
+                        <div className='w-full pt-2 md:px-24'>
                             <div className='flex w-full items-center justify-between'>
                                 <div className='flex items-center'>
                                     <div className='mr-1'>{data.unit}</div>
@@ -83,10 +83,10 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='md:px-24 flex w-full items-center justify-center'>
+                        <div className='flex w-full items-center justify-center md:px-24'>
                             <div className='whitespace-pre-line break-all'>{data?.content}</div>
                         </div>
-                        <div className='md:px-24 mt-1 w-full rounded-md border-2 border-dashed p-1'>
+                        <div className='mt-1 w-full rounded-md border-2 border-dashed p-1 md:px-24'>
                             {data.file.length > 0 ? (
                                 <>
                                     {data.file.map((item) => (
@@ -99,7 +99,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                                 rel='noreferrer'
                                                 className='p-1'
                                             >
-                                                <IconDownload className='rounded-md bg-main-color p-1' />
+                                                <IconDownload className='rounded-md bg-main-color-1 p-1' />
                                             </a>
                                         </div>
                                     ))}
@@ -132,7 +132,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         <div className='mt-2 w-full border-t pt-2'>
                             <div className='flex items-center justify-end'>
                                 <div
-                                    className='flex items-center rounded-md bg-main-color px-1'
+                                    className='flex items-center rounded-md bg-main-color-1 px-1'
                                     onClick={() => {
                                         Share(data.title, data.content, path)
                                     }}

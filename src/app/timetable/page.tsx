@@ -64,7 +64,7 @@ const TimeTablePage = async () => {
                                     {data.timetable.length > 0 &&
                                         data.timetable[i].map((item, index) => (
                                             <div
-                                                className='relative table-cell border-r border-t border-main-color-3 bg-main-color p-2 pb-6 first:border-l-0 last:border-r-0'
+                                                className='relative table-cell border-r border-t border-main-color-3 bg-main-color-1 p-2 pb-6 first:border-l-0 last:border-r-0'
                                                 key={index}
                                             >
                                                 <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
