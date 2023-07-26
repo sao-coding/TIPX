@@ -5,8 +5,7 @@ import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"
-import { cx } from "@/lib/utils"
-import { FOOTER_LINKS } from "@/config/links"
+import { NAV_LINKS } from "@/config/links"
 
 const Footer = () => {
     const [prevScrollPos, setPrevScrollPos] = useState(0)
@@ -32,10 +31,7 @@ const Footer = () => {
             window.removeEventListener("scroll", handleScroll)
         }
     }, [prevScrollPos])
-    useEffect(() => {
-        console.log(pathname)
-        console.log(pathname.startsWith("/") && pathname !== "/")
-    }, [pathname])
+
     return (
         <div
             className={clsx(
@@ -43,7 +39,7 @@ const Footer = () => {
                 { hidden: navbarHidden }
             )}
         >
-            {FOOTER_LINKS.map((link) => (
+            {NAV_LINKS.map((link) => (
                 // <NavItem key={link.href} href={link.href} icon={link.icon} />
                 <Link href={link.href} key={link.href}>
                     <link.icon
@@ -56,7 +52,7 @@ const Footer = () => {
                                 : 26
                         }
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
-                        className={cx(
+                        className={clsx(
                             "stroke-white/80",
                             pathname.startsWith(link.href) && link.href !== "/"
                                 ? "fill-white/80 stroke-black stroke-1"

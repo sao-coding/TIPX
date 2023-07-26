@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
 import Logo from "@/components/logo"
+import { NAV_LINKS } from "@/config/links"
 
 const Header = async () => {
     return (
@@ -11,42 +12,18 @@ const Header = async () => {
                 </Link>
             </div>
             <div className='flex items-center'>
-                <Link
-                    href='/'
-                    className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
-                >
-                    <div className='mx-1 flex items-center justify-center'>
-                        <IconHome size={26} className='stroke-white/80' />
-                        <div className='px-1 text-white/80'>首頁</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/timetable'
-                    className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
-                >
-                    <div className='mx-1 flex items-center justify-center'>
-                        <IconCalendarEvent size={26} className='stroke-white/80' />
-                        <div className='px-1 text-white/80'>課表</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/course'
-                    className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
-                >
-                    <div className='mx-1 flex items-center justify-center'>
-                        <IconBook2 size={26} className='stroke-white/80' />
-                        <div className='px-1 text-white/80'>修課</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user'
-                    className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
-                >
-                    <div className='mx-1 flex items-center justify-center'>
-                        <IconUser size={26} className='stroke-white/80' />
-                        <div className='px-1 text-white/80'>個人</div>
-                    </div>
-                </Link>
+                {NAV_LINKS.map((link) => (
+                    <Link
+                        href={link.href}
+                        key={link.href}
+                        className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
+                    >
+                        <div className='mx-1 flex items-center justify-center'>
+                            <link.icon size={26} className='stroke-white/80' />
+                            <div className='px-1 text-white/80'>{link.text}</div>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </header>
     )

@@ -1,6 +1,7 @@
 import "@/app/globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import GoogleAnalytics from "@/app/GoogleAnalytics"
+import GoogleAdsense from "@/app/GoogleAdsense"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Providers from "@/app/providers"
@@ -29,6 +30,7 @@ export default function RootLayout({
         <html lang='zh-hant-TW'>
             <head>
                 <GoogleAnalytics />
+                {/* <GoogleAdsense /> */}
             </head>
             <body className={inter.className}>
                 <Toaster />
