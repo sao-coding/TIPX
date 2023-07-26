@@ -10,7 +10,10 @@ const Logout = () => {
             className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
             onClick={() => {
                 signOut()
-                Cookie.remove("token")
+                // 刪除所有Cookie
+                Object.keys(Cookie.get()).forEach((cookieName) => {
+                    Cookie.remove(cookieName)
+                })
                 window.location.href = "/login"
             }}
         >
