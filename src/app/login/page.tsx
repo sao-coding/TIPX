@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth"
-import Form from "./form"
+import Form from "@/app/login/form"
 import authOptions from "@/lib/auth"
 import { redirect } from "next/navigation"
 
