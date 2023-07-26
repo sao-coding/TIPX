@@ -1,10 +1,6 @@
-// "use client"
-
-import { useEffect, useState } from "react"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { Course } from "@/types"
-import Cookie from "js-cookie"
 import { site } from "@/config/site"
 
 const getData = async () => {
