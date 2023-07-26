@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { IconHome, IconBook2, IconCalendarEvent, IconUser } from "@tabler/icons-react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
-import Cookie from "js-cookie"
+import { usePathname } from "next/navigation"
 import clsx from "clsx"
+import { cx } from "@/lib/utils"
+import { FOOTER_LINKS } from "@/config/links"
 
 const Footer = () => {
     const [prevScrollPos, setPrevScrollPos] = useState(0)
     const [navbarHidden, setNavbarHidden] = useState(false)
-    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -39,22 +40,30 @@ const Footer = () => {
                 { hidden: navbarHidden }
             )}
         >
-            <Link href='/' className='flex flex-col items-center justify-center'>
+            {FOOTER_LINKS.map((link) => (
+                // <NavItem key={link.href} href={link.href} icon={link.icon} />
+                <Link href={link.href}>
+                    <link.icon
+                        size={pathname === link.href ? 30 : 26}
+                        className={cx(
+                            "stroke-white/80",
+                            pathname === link.href && "fill-white/80 stroke-black stroke-1"
+                        )}
+                    />
+                </Link>
+            ))}
+            {/* <Link href='/'>
                 <IconHome size={26} className='stroke-white/80' />
-                {/* <div className='mt-1'>首頁</div> */}
             </Link>
-            <Link href='/timetable' className='flex flex-col items-center justify-center'>
+            <Link href='/timetable'>
                 <IconCalendarEvent size={26} className='stroke-white/80' />
-                {/* <div className='mt-1'>課表</div> */}
             </Link>
-            <Link href='/course' className='flex flex-col items-center justify-center'>
+            <Link href='/course'>
                 <IconBook2 size={26} className='stroke-white/80' />
-                {/* <div className='mt-1'>修課</div> */}
             </Link>
-            <Link href='/user' className='flex flex-col items-center justify-center'>
+            <Link href='/user'>
                 <IconUser size={26} className='stroke-white/80' />
-                {/* <div className='mt-1'>個人</div> */}
-            </Link>
+            </Link> */}
         </div>
     )
 }

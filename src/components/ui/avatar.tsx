@@ -1,6 +1,5 @@
 "use client"
 import Image, { ImageProps } from "next/image"
-import { IconUserCircle } from "@tabler/icons-react"
 import { useState } from "react"
 import { cx } from "@/lib/utils"
 
