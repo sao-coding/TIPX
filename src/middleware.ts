@@ -5,6 +5,7 @@ import { NextRequest } from "next/server"
 
 export async function middleware(req: NextRequest) {
     console.log("middleware: ", req.nextUrl.pathname)
+    req.headers.set("X-Content-Type-Options", "nosniff")
     const nextAuthToken = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
