@@ -24,6 +24,8 @@ body {
 
 * {
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
     box-sizing: border-box;
 }
 
@@ -75,10 +77,6 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-    * {
-        -webkit-text-size-adjust: none;
-        text-size-adjust: none;
-    }
     .user-info {
         perspective: 300rem;
     }
