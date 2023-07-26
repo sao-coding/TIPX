@@ -32,15 +32,11 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     // text: 一組字串，分享訊息的描述
     // url: 一組字串，分享訊息要帶上的連結
     const Share = (title: string, text: string, url: string) => {
-        // 去除 所有 \r, \n, \t
-        text = text.replace(/[\r\n\t]/g, "")
-        // 最後加上換行
-        text += "\n"
         if (navigator.share) {
             navigator
                 .share({
                     title: title,
-                    text: text.slice(0, 50),
+                    text: title,
                     url: url,
                 })
                 .then(() => {
