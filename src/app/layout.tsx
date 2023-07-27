@@ -9,6 +9,7 @@ import Header from "@/components/Header"
 import Container from "@/components/Container"
 import Footer from "@/components/Footer"
 import Toaster from "@/components/Toaster"
+import InfoLog from "@/app/info"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
     return (
         <html lang='zh-hant-TW'>
             <head>
+                <InfoLog />
                 <GoogleAnalytics />
                 {/* <GoogleAdsense /> */}
             </head>
