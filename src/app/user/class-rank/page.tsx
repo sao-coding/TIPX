@@ -14,6 +14,7 @@ const ClassRankPage = () => {
     const [errorMsg, setErrorMsg] = useState("")
 
     useEffect(() => {
+        let show = true
         const fetchDate = async (i: number, j: number) => {
             const res = await fetch(
                 `/api/class-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
@@ -29,6 +30,11 @@ const ClassRankPage = () => {
                 setIsError(true)
                 setErrorMsg("獲取資料失敗")
                 setIsLoading(false)
+                if (show) {
+                    toast.remove()
+                    toast.error("伺服器過載，請稍後再試")
+                    show = false
+                }
                 return
             }
             return await res.json()
@@ -46,12 +52,13 @@ const ClassRankPage = () => {
             const data = await Promise.all(promises)
             setData(data.flat())
             setIsLoading(false)
+            if (show) {
+                toast.remove()
+                toast.success("載入成功")
+            }
         }
-        toast.promise(theard(), {
-            loading: "資料量大，請稍等",
-            success: "載入成功",
-            error: "伺服器過載，請稍後再試",
-        })
+        toast.loading("資料量大，請稍等")
+        theard()
     }, [])
 
     return (
