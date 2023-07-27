@@ -4,6 +4,7 @@ import { IconUserCircle, IconUserStar, IconStar, IconCrown } from "@tabler/icons
 import Cookie from "js-cookie"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
+import toast, { useToasterStore } from "react-hot-toast"
 import { FinalGradeRankClass } from "@/types"
 
 const DeptRankPage = () => {
@@ -41,13 +42,17 @@ const DeptRankPage = () => {
                 for (let j = 0; j < 60; j += 10) {
                     promises.push(fetchDate(i, j))
                 }
-                await new Promise((resolve) => setTimeout(resolve, 1500))
+                await new Promise((resolve) => setTimeout(resolve, 2000))
             }
             const data = await Promise.all(promises)
             setData(data.flat())
             setIsLoading(false)
         }
-        theard()
+        toast.promise(theard(), {
+            loading: "資料量大，請稍等",
+            success: "載入成功",
+            error: "伺服器過載，請稍後再試",
+        })
     }, [])
 
     return (
