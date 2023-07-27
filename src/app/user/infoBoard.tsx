@@ -86,11 +86,17 @@ const InfoBoard = () => {
                     ) : (
                         <>
                             {courseAttendanceRecordData?.total.length > 0 &&
-                                courseAttendanceRecordData?.total
-                                    ?.reduce((total, item) => {
-                                        return total + Math.round(((item * 50) / 60) * 10) / 10
-                                    }, 0)
-                                    .toFixed(1)}
+                            document.body.clientWidth >= 380
+                                ? courseAttendanceRecordData?.total
+                                      ?.reduce((total, item) => {
+                                          return total + Math.round(((item * 50) / 60) * 10) / 10
+                                      }, 0)
+                                      .toFixed(1)
+                                : courseAttendanceRecordData?.total
+                                      ?.reduce((total, item) => {
+                                          return total + Math.round(((item * 50) / 60) * 10) / 10
+                                      }, 0)
+                                      .toFixed(0)}
                         </>
                     )}
                     <div className='ml-0.5'>小時</div>
