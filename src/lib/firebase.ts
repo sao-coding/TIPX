@@ -10,6 +10,7 @@ const firebaseConfig = {
     appId: "1:802544439134:web:027cdfeb8b6e1d015a09cf",
     measurementId: "G-1HL9K2W9GR",
 }
+
 export const init = async () => {
     if ("serviceWorker" in navigator) {
         const app = initializeApp(firebaseConfig)
