@@ -17,15 +17,13 @@ export const init = async () => {
 
         // Auto request notification permission
         const messaging = getMessaging(app)
-        if (Notification.permission === "granted") {
-            const token = await getToken(messaging, {
-                vapidKey:
-                    "BHy1C9V2qhATnxLAuU9iUFmYbhe0WwXndtPhbscRFPVA8io1-dH_Tmbcrmq9AvFsqNk3oUAf2kFLaGeEN37CG5Y",
-            })
+        const token = await getToken(messaging, {
+            vapidKey:
+                "BHy1C9V2qhATnxLAuU9iUFmYbhe0WwXndtPhbscRFPVA8io1-dH_Tmbcrmq9AvFsqNk3oUAf2kFLaGeEN37CG5Y",
+        })
 
-            // The token to send test message
-            console.log(token)
-        }
+        // The token to send test message
+        console.log(token)
 
         onMessage(messaging, (payload) => {
             console.log(payload)
