@@ -14,6 +14,7 @@ import {
 } from "@tabler/icons-react"
 import Info from "@/app/user/info"
 import InfoBoard from "@/app/user/infoBoard"
+import Notify from "@/app/user/notify"
 import Logout from "@/app/user/logout"
 import { site } from "@/config/site"
 
@@ -115,6 +116,7 @@ const UserPage = async () => {
                     <div className='ml-2'>關於</div>
                 </div>
             </Link>
+            <Notify />
             <Logout />
         </div>
     )
