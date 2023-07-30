@@ -35,6 +35,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # TODO
 新生基本資料 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php?div=1
+基本資料填寫(日) 同意書 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_agree.php
+基本資料填寫(進) 同意書 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_agree_night.php
 新生資料填寫 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_new.php?DIV=1
 新生檔案上傳 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_upload.php?DIV=1
 新生問卷填寫 https://netinfo.takming.edu.tw/tip/survey/survey_edit01.php

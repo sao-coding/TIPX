@@ -74,11 +74,7 @@ const Form = () => {
     }
 
     const fetchLogin = async () => {
-        if ((document.getElementById("username") as HTMLInputElement)?.value === "") {
-            console.log(
-                "username",
-                (document.getElementById("username") as HTMLInputElement)?.value
-            )
+        if ((document.querySelector("#studentID") as HTMLInputElement)?.value === "") {
             toast.error("請輸入學號")
             return
         }
@@ -88,11 +84,11 @@ const Form = () => {
             return
         }
 
-        Cookie.set(
-            "cookie_userid",
-            (document.getElementById("username") as HTMLInputElement)?.value,
-            { expires: 7 }
-        )
+        // Cookie.set(
+        //     "cookie_userid",
+        //     (document.getElementById("studentID") as HTMLInputElement)?.value,
+        //     { expires: 7 }
+        // )
 
         Cookie.set("cookie_dept", deptValue, { expires: 7 })
 
@@ -105,23 +101,16 @@ const Form = () => {
             { expires: 7 }
         )
 
-        const res = await fetch("/api/authorize", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                token: (document.getElementById("authcode") as HTMLInputElement)?.value,
-            }),
+        const status = await signIn("credentials", {
+            // redirect: false,
+            studentID: (document.getElementById("studentID") as HTMLInputElement)?.value,
+            password: (document.getElementById("authcode") as HTMLInputElement)?.value,
         })
 
-        // 跳轉頁面
-        if (!res.ok) {
+        if (status?.error) {
             toast.error("授權碼錯誤")
         } else {
             toast.success("登入成功")
-            const data = await res.json()
-            Cookie.set("token", data.token, { expires: 7 })
             // 延遲1秒跳轉
             setTimeout(() => {
                 window.location.href = searchParams.get("callbackUrl") ?? "/"
@@ -141,7 +130,7 @@ const Form = () => {
                             <div className='p-2'>學號</div>
                             <input
                                 type='text'
-                                id='username'
+                                id='studentID'
                                 className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                             />
                         </div>

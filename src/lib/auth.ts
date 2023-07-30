@@ -1,9 +1,48 @@
 import { cookies } from "next/headers"
 import { NextAuthOptions } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+// CredentialsConfig
+import { CredentialsConfig } from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 
 const authOptions: NextAuthOptions = {
     providers: [
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                studentID: { label: "學號", type: "text" },
+                password: { label: "密碼", type: "password" },
+            },
+            async authorize(credentials, req) {
+                // 驗證授權碼
+                const admin = {
+                    id: "1",
+                    password: "0000",
+                }
+
+                if (credentials?.password !== admin.password) return null
+                // console.log("credentials", credentials?.studentID)
+                // console.log("password", credentials?.password)
+                // const res = await fetch("http://localhost:3000/api/authorize", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //         token: credentials?.password,
+                //     }),
+                // })
+
+                // console.log("res", await res.json())
+
+                // if (!res.ok) return null
+                return {
+                    id: "1",
+                    email: credentials?.studentID + "@gs.takming.edu.tw",
+                }
+            },
+        }),
+
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
@@ -23,8 +62,14 @@ const authOptions: NextAuthOptions = {
             }
             return true
         },
-        async session({ session }) {
-            session.user.studentId = session.user.email?.split("@")[0].toUpperCase() as string
+        async jwt({ token, account }) {
+            return {
+                ...token,
+                provider: account?.provider,
+            }
+        },
+        async session({ session, token }) {
+            session.user.studentID = session.user.email?.split("@")[0].toUpperCase() as string
             return session
         },
     },

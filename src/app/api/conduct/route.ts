@@ -2,26 +2,15 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import getConduct from "@/lib/conduct"
+import { getServerSession } from "next-auth"
+import authOptions from "@/lib/auth"
 
 export const GET = async (req: NextRequest) => {
-    let userid
-    let year
-    let sem
-    if (req.nextUrl.searchParams.has("userid")) {
-        userid = req.nextUrl.searchParams.get("userid")
-    } else {
-        userid = cookies().get("cookie_userid")?.value
-    }
-    if (req.nextUrl.searchParams.has("year")) {
-        year = req.nextUrl.searchParams.get("year")
-    } else {
-        year = cookies().get("cookie_year")?.value
-    }
-    if (req.nextUrl.searchParams.has("sem")) {
-        sem = req.nextUrl.searchParams.get("sem")
-    } else {
-        sem = cookies().get("cookie_sem")?.value
-    }
+    const searchParams = req.nextUrl.searchParams
+    const session = await getServerSession(authOptions)
+    const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
+    const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
+    const userid = searchParams.get("userid") ?? session?.user.studentID
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
