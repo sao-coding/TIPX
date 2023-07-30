@@ -4,7 +4,7 @@
     "background_color": "#f69435",
     "display": "standalone",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/user",
     "name": "TIPX",
     "short_name": "TIPX",
     "description": "學生資訊系統",
@@ -32,11 +32,11 @@
     ],
     "shortcuts": [
         {
-            "name": "首頁",
-            "url": "/",
+            "name": "個人",
+            "url": "/user",
             "icons": [
                 {
-                    "src": "/pwa/home.png",
+                    "src": "/pwa/user.png",
                     "sizes": "192x192",
                     "type": "image/png"
                 }
@@ -59,17 +59,6 @@
             "icons": [
                 {
                     "src": "/pwa/course.png",
-                    "sizes": "192x192",
-                    "type": "image/png"
-                }
-            ]
-        },
-        {
-            "name": "個人",
-            "url": "/user",
-            "icons": [
-                {
-                    "src": "/pwa/user.png",
                     "sizes": "192x192",
                     "type": "image/png"
                 }
