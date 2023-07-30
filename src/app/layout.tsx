@@ -32,7 +32,7 @@ export default function RootLayout({
         <html lang='zh-hant-TW'>
             <head>
                 <InfoLog />
-                <link rel='apple-touch-icon' href='/pwa/icon-192x192.png' />
+                <link rel='apple-touch-icon' href='/pwa/maskable_icon.png' />
                 <GoogleAnalytics />
                 {/* <GoogleAdsense /> */}
             </head>
