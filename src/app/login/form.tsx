@@ -102,7 +102,7 @@ const Form = () => {
         )
 
         const status = await signIn("credentials", {
-            // redirect: false,
+            redirect: false,
             studentID: (document.getElementById("studentID") as HTMLInputElement)?.value,
             password: (document.getElementById("authcode") as HTMLInputElement)?.value,
         })

@@ -51,7 +51,7 @@ const InfoBoard = () => {
     }, [])
 
     return (
-        <div className='mt-2 flex items-center justify-between'>
+        <div className='mt-2 flex items-center justify-between space-x-1'>
             <div className='w-full rounded-xl border p-2 shadow-md'>
                 <div className='flex items-center justify-between'>
                     <div className=''>請假次數</div>
@@ -73,7 +73,7 @@ const InfoBoard = () => {
                     <div className='ml-0.5'>次</div>
                 </div>
             </div>
-            <div className='mx-1 w-full rounded-xl border p-2 shadow-md'>
+            <div className='w-full rounded-xl border p-2 shadow-md'>
                 <div className='flex items-center justify-between'>
                     <div className=''>請假時數</div>
                     <div className=''>
