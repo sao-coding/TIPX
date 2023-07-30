@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
     themeColor: "#f8fafc",
+    appleWebApp: true,
 }
 
 export default function RootLayout({
@@ -31,6 +32,7 @@ export default function RootLayout({
         <html lang='zh-hant-TW'>
             <head>
                 <InfoLog />
+                <link rel='apple-touch-icon' href='/pwa/icon-192x192.png' />
                 <GoogleAnalytics />
                 {/* <GoogleAdsense /> */}
             </head>
