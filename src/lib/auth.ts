@@ -1,8 +1,6 @@
 import { cookies } from "next/headers"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-// CredentialsConfig
-import { CredentialsConfig } from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 
 const authOptions: NextAuthOptions = {
@@ -17,7 +15,7 @@ const authOptions: NextAuthOptions = {
                 // 驗證授權碼
                 const admin = {
                     id: "1",
-                    password: "0000",
+                    password: process.env.AUTHORIZATION,
                 }
 
                 if (credentials?.password !== admin.password) return null
@@ -68,7 +66,7 @@ const authOptions: NextAuthOptions = {
                 provider: account?.provider,
             }
         },
-        async session({ session, token }) {
+        async session({ session }) {
             session.user.studentID = session.user.email?.split("@")[0].toUpperCase() as string
             return session
         },
