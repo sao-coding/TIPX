@@ -103,7 +103,7 @@ const Switch = () => {
             </Select.Trigger>
 
             <Select.Portal>
-                <Select.Content className='w-[--radix-select-trigger-width] rounded-md border bg-white p-2 shadow-md'>
+                <Select.Content className='rounded-md border bg-white p-2 shadow-md'>
                     <Select.ScrollUpButton className='flex items-center justify-center'>
                         <IconChevronUp />
                     </Select.ScrollUpButton>

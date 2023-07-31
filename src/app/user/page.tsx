@@ -33,7 +33,7 @@ const getUserData = async () => {
 const UserPage = async () => {
     const userData: User = await getUserData()
     return (
-        <div className='w-full p-2'>
+        <div className='mb-14 w-full p-2'>
             <Info userData={userData} />
             <InfoBoard />
             <Switch />
