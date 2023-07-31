@@ -14,6 +14,7 @@ import {
 } from "@tabler/icons-react"
 import Info from "@/app/user/info"
 import InfoBoard from "@/app/user/infoBoard"
+import Switch from "@/app/user/switch"
 import Notify from "@/app/user/notify"
 import Logout from "@/app/user/logout"
 import { site } from "@/config/site"
@@ -35,6 +36,7 @@ const UserPage = async () => {
         <div className='w-full p-2'>
             <Info userData={userData} />
             <InfoBoard />
+            <Switch />
             <Link
                 href='/user/about'
                 className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'

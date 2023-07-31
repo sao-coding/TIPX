@@ -48,7 +48,7 @@ const InfoBoard = () => {
             setConductData(data)
         }
         fetchConduct()
-    }, [])
+    }, [Cookie.get("cookie_year"), Cookie.get("cookie_sem")])
 
     return (
         <div className='mt-2 flex items-center justify-between space-x-1'>

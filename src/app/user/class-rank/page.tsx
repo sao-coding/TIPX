@@ -17,7 +17,9 @@ const ClassRankPage = () => {
         let show = true
         const fetchDate = async (i: number, j: number) => {
             const res = await fetch(
-                `/api/class-rank?year=111&sem=2&classid=${i}&start=${j}&end=${j + 10}`,
+                `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
+                    "cookie_sem"
+                )}&classid=${i}&start=${j}&end=${j + 10}`,
                 {
                     method: "GET",
                     headers: {
