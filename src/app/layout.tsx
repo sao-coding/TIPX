@@ -1,6 +1,7 @@
 import "@/app/globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import GoogleAnalytics from "@/app/GoogleAnalytics"
+import UmamiAnalytics from "@/app/UmamiAnalytics"
 import GoogleAdsense from "@/app/GoogleAdsense"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
@@ -34,6 +35,7 @@ export default function RootLayout({
                 <InfoLog />
                 <link rel='apple-touch-icon' href='/pwa/maskable_icon.png' />
                 <GoogleAnalytics />
+                <UmamiAnalytics />
                 {/* <GoogleAdsense /> */}
             </head>
             <body className={inter.className}>
