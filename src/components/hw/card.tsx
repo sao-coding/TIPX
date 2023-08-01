@@ -74,7 +74,7 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                             disabled={data.download === ""}
                             onClick={() => {
                                 if (data.download !== "") {
-                                    umami.track("hw_download", {
+                                    umami.track("作業下載", {
                                         course: course,
                                         hw: data.title,
                                         url: data.download,
