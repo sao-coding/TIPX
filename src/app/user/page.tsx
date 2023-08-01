@@ -10,6 +10,7 @@ import {
     IconLayoutDashboard,
     IconArrowBadgeDown,
     IconBadges,
+    IconBrandGoogleAnalytics,
     IconInfoCircle,
 } from "@tabler/icons-react"
 import Info from "@/app/user/info"
@@ -107,6 +108,15 @@ const UserPage = async () => {
                 <div className='flex items-center'>
                     <IconBadges />
                     <div className='ml-2'>系排名 (beta)</div>
+                </div>
+            </Link>
+            <Link
+                href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
+                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+            >
+                <div className='flex items-center'>
+                    <IconBrandGoogleAnalytics />
+                    <div className='ml-2'>網站數據統計</div>
                 </div>
             </Link>
             <Link
