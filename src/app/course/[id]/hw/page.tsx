@@ -7,8 +7,24 @@ import { HwList } from "@/types"
 import "@/app/loaderCat.css"
 
 const HwPage = ({ params }: { params: { id: string } }) => {
+    const [name, setName] = useState("")
     const [data, setData] = useState<HwList[]>([])
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchName = async () => {
+            const res = await fetch(`/api/course?course=${params.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + Cookie.get("token"),
+                },
+            })
+            const data = await res.json()
+            setName(data.name)
+        }
+        fetchName()
+    }, [params.id])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,7 +58,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
             ) : (
                 <div className='w-full'>
                     {data.length > 0 ? (
-                        data.map((item) => <Card key={item.id} data={item} />)
+                        data.map((item) => <Card key={item.id} course={name} data={item} />)
                     ) : (
                         <div className='text-center text-2xl'>沒有作業</div>
                     )}

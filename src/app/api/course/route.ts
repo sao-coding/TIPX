@@ -61,23 +61,11 @@ export const GET = async (req: NextRequest) => {
                 courselist.push({ item: list ?? "", id: id ?? "" })
             })
         })
+        return NextResponse.json(courselist)
     } else {
-        const rows = Array.from(document.querySelectorAll("table tr"))
-        rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td font a"))
-            cells.forEach((cell, index) => {
-                if (filter[index - 1] === "ok") {
-                    let list = cell.textContent
-                    const link = cell.getAttribute("href")
-                    // console.log(list)
-                    // console.log(link)
-                    list = list?.replace("作業下載", "作業") ?? ""
-                    list = list?.replace("修課同學", "修課學生") ?? ""
-                    const id = link?.split("=")[1]
-                    courselist.push({ item: list ?? "", id: id ?? "" })
-                }
-            })
-        })
+        const name = document
+            .querySelector("font[color='#800000']")
+            ?.textContent?.replace("目前無公告資訊!!", "")
+        return NextResponse.json({ name })
     }
-    return NextResponse.json(courselist)
 }

@@ -46,6 +46,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/react-window": "^1.8.5",
     "@types/react-window-infinite-loader": "^1.0.6",
+    "@types/umami": "^0.1.2",
     "@types/uuid": "^9.0.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.0"

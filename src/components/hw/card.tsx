@@ -8,7 +8,8 @@ import {
     IconDownloadOff,
 } from "@tabler/icons-react"
 import { HwList } from "@/types"
-const Card = ({ data }: { data: HwList }) => {
+
+const Card = ({ course, data }: { course: string; data: HwList }) => {
     const formatTime = (time: string) => {
         // 202306151300
         const year = time.slice(0, 4)
@@ -73,6 +74,11 @@ const Card = ({ data }: { data: HwList }) => {
                             disabled={data.download === ""}
                             onClick={() => {
                                 if (data.download !== "") {
+                                    umami.track("hw_download", {
+                                        course: course,
+                                        hw: data.title,
+                                        url: data.download,
+                                    })
                                     download(data.download)
                                 }
                             }}

@@ -29,7 +29,7 @@ export const GET = async (req: NextRequest) => {
     //     )
     // }
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=D192106", {
         headers: {
             cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
