@@ -51,17 +51,27 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                             <IconPaperclip size={20} />
                             附件
                             <button
-                                className='ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
+                                className={clsx(
+                                    "ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
+                                    data.file === "" ? "cursor-not-allowed" : ""
+                                )}
+                                disabled={data.file === ""}
                                 onClick={() => {
-                                    umami.track("附件下載", {
-                                        course: course,
-                                        name: data.title,
-                                        file: data.file,
-                                    })
-                                    download(data.file)
+                                    if (data.file !== "") {
+                                        umami.track("附件下載", {
+                                            course: course,
+                                            name: data.title,
+                                            file: data.file,
+                                        })
+                                        download(data.file)
+                                    }
                                 }}
                             >
-                                <IconDownload size={20} />
+                                {data.file === "" ? (
+                                    <IconDownloadOff size={20} />
+                                ) : (
+                                    <IconDownload size={20} />
+                                )}
                             </button>
                         </div>
                     </div>
