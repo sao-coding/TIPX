@@ -52,7 +52,14 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                             附件
                             <button
                                 className='ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
-                                onClick={() => download(data.file)}
+                                onClick={() => {
+                                    umami.track("附件下載", {
+                                        course: course,
+                                        name: data.title,
+                                        file: data.file,
+                                    })
+                                    download(data.file)
+                                }}
                             >
                                 <IconDownload size={20} />
                             </button>
@@ -76,8 +83,8 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                                 if (data.download !== "") {
                                     umami.track("作業下載", {
                                         course: course,
-                                        hw: data.title,
-                                        url: data.download,
+                                        name: data.title,
+                                        hw: data.download,
                                     })
                                     download(data.download)
                                 }
