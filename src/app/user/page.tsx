@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { cookies } from "next/headers"
+import { getServerSession } from "next-auth"
+import authOptions from "@/lib/auth"
 import { User } from "@/types"
 import {
     IconUser,
@@ -33,6 +35,8 @@ const getUserData = async () => {
 }
 const UserPage = async () => {
     const userData: User = await getUserData()
+    const session = await getServerSession(authOptions)
+
     return (
         <div className='mb-14 w-full p-2'>
             <Info userData={userData} />
@@ -110,15 +114,17 @@ const UserPage = async () => {
                     <div className='ml-2'>系排名 (beta)</div>
                 </div>
             </Link>
-            <Link
-                href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconBrandGoogleAnalytics />
-                    <div className='ml-2'>網站數據統計</div>
-                </div>
-            </Link>
+            {session?.user.studentID === process.env.ADMINSTUDENTID && (
+                <Link
+                    href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconBrandGoogleAnalytics />
+                        <div className='ml-2'>網站數據統計</div>
+                    </div>
+                </Link>
+            )}
             <Link
                 href='/user/info'
                 className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
