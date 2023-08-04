@@ -2,10 +2,13 @@ import clsx from "clsx"
 import { IconPinFilled, IconCalendarTime, IconCalendarOff } from "@tabler/icons-react"
 import { Announcement } from "@/types"
 import Link from "next/link"
+import React from "react"
 
-const CardCP = ({ data }: { data: Announcement }) => {
+const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ data }, ref) => {
+    // React.forwardRef<ref 的 type, props 的 type>((props, ref) => {})
     return (
         <Link
+            ref={ref}
             href={`/post/${data.link}`}
             className='mb-2 block h-36 w-full rounded-xl bg-main-color-1 p-2 shadow-md'
         >
@@ -46,6 +49,6 @@ const CardCP = ({ data }: { data: Announcement }) => {
             </div>
         </Link>
     )
-}
+})
 
 export default CardCP
