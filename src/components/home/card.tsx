@@ -51,4 +51,6 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
     )
 })
 
+CardCP.displayName = "CardCP"
+
 export default CardCP
