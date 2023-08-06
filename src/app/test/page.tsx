@@ -1,5 +1,6 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
+import { toPng } from "html-to-image"
 import Cookie from "js-cookie"
 import { IconHome, IconBook2, IconCalendarEvent, IconUser, Icon } from "@tabler/icons-react"
 
@@ -20,23 +21,45 @@ const Test: React.FC = () => {
         fetchData()
     }, [])
 
+    const ref = useRef<HTMLDivElement>(null)
+
+    const onButtonClick = useCallback(() => {
+        if (ref.current === null) {
+            return
+        }
+
+        toPng(ref.current, { cacheBust: true })
+            .then((dataUrl) => {
+                const link = document.createElement("a")
+                link.download = "my-image-name.png"
+                link.href = dataUrl
+                link.click()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [ref])
+
     return (
         <>
-            <div className='flex items-center space-x-4'>
-                <div className='flex items-center justify-center rounded-full bg-black p-1'>
-                    <IconHome size={184} className='stroke-white' />
+            <div ref={ref}>
+                <div className='flex items-center space-x-4'>
+                    <div className='flex items-center justify-center rounded-full bg-black p-1'>
+                        <IconHome size={184} className='stroke-white' />
+                    </div>
+                    <div className='flex items-center justify-center rounded-full bg-black p-1'>
+                        <IconBook2 size={184} className='stroke-white' />
+                    </div>
+                    <div className='flex items-center justify-center rounded-full bg-black p-1'>
+                        <IconCalendarEvent size={184} className='stroke-white' />
+                    </div>
+                    <div className='flex items-center justify-center rounded-full bg-black p-1'>
+                        <IconUser size={184} className='stroke-white' />
+                    </div>
                 </div>
-                <div className='flex items-center justify-center rounded-full bg-black p-1'>
-                    <IconBook2 size={184} className='stroke-white' />
-                </div>
-                <div className='flex items-center justify-center rounded-full bg-black p-1'>
-                    <IconCalendarEvent size={184} className='stroke-white' />
-                </div>
-                <div className='flex items-center justify-center rounded-full bg-black p-1'>
-                    <IconUser size={184} className='stroke-white' />
-                </div>
+                {/* <iframe srcDoc={data} className='h-screen w-full' /> */}
             </div>
-            {/* <iframe srcDoc={data} className='h-screen w-full' /> */}
+            <button onClick={onButtonClick}>Click me</button>
         </>
     )
 }
