@@ -7,6 +7,7 @@ import { site } from "@/config/site"
 import * as htmlToImage from "html-to-image"
 import { toPng } from "html-to-image"
 import { useQuery } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 
 // const getData = async () => {
 //     const res = await fetch(`${site.url}/api/timetable`, {
@@ -96,6 +97,8 @@ const TimeTablePage = () => {
         toPng(ref.current, { cacheBust: true })
             .then((dataUrl) => {
                 const file = dataUrlToFile(dataUrl, "課表.png")
+                toast.remove()
+                toast.success("圖片生成成功")
                 Share("課表", "課表", file as File)
             })
             .catch((err) => {
@@ -143,8 +146,8 @@ const TimeTablePage = () => {
                         size={24}
                         className='absolute right-0 top-2/4 mr-2 -translate-y-2/4'
                         onClick={() => {
+                            toast.loading("圖片生成中...")
                             saveImage()
-                            console.log("click")
                         }}
                     />
                 </div>
