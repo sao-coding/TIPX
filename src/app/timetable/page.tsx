@@ -48,6 +48,8 @@ import toast from "react-hot-toast"
 const TimeTablePage = () => {
     // const data = await getData()
 
+    const week = ["一", "二", "三", "四", "五", "六", "日"]
+
     const { isLoading, isError, data } = useQuery<OutTimeTable>({
         queryKey: ["timetable"],
         queryFn: async () => {
@@ -90,6 +92,7 @@ const TimeTablePage = () => {
     const ref = useRef<HTMLDivElement>(null)
 
     const saveImage = useCallback(() => {
+        toast.loading("圖片生成中...")
         if (ref.current === null) {
             return
         }
@@ -139,19 +142,55 @@ const TimeTablePage = () => {
 
     return (
         <>
-            <div className='w-full rounded-md bg-white p-2 shadow-md md:p-4'>
+            <div className='w-full rounded-md bg-transparent p-2 md:bg-white md:p-4 md:shadow-md'>
                 <div className='relative mb-2 rounded-xl border bg-white shadow-md'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2
                         size={24}
                         className='absolute right-0 top-2/4 mr-2 -translate-y-2/4'
                         onClick={() => {
-                            toast.loading("圖片生成中...")
                             saveImage()
                         }}
                     />
                 </div>
                 <div className='overflow-x-auto rounded-md md:flex md:items-center md:justify-center'>
+                    {isLoading && (
+                        <div
+                            ref={ref}
+                            className='table w-[960px] table-fixed overflow-hidden rounded-md'
+                        >
+                            <div className='table-header-group'>
+                                {Array.from(Array(7).keys()).map((index) => (
+                                    <div
+                                        className='table-cell whitespace-nowrap bg-main-color-2 p-2 text-center'
+                                        key={index}
+                                    >
+                                        星期{week[index]}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className='table-row-group'>
+                                {Array.from(Array(14).keys()).map((i) => (
+                                    <div className='table-row' key={i}>
+                                        {Array.from(Array(7).keys()).map((item, index) => (
+                                            <div
+                                                className='relative table-cell border-r border-t border-main-color-3 bg-main-color-1 p-2 pb-6 first:border-l-0 last:border-r-0'
+                                                key={index}
+                                            >
+                                                <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
+                                                    <div className=''>{i + 1}</div>
+                                                </div>
+
+                                                <div className='h-24 text-center' key={index}>
+                                                    載入中...
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                     {data && (
                         <div
                             ref={ref}
