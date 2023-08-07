@@ -34,6 +34,12 @@ const authOptions: NextAuthOptions = {
                 // console.log("res", await res.json())
 
                 // if (!res.ok) return null
+                if (!credentials?.studentID) return null
+                cookies().set("cookie_userid", credentials?.studentID, {
+                    // 7天
+                    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                })
+
                 return {
                     id: "1",
                     email: credentials?.studentID + "@gs.takming.edu.tw",
@@ -48,6 +54,7 @@ const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async signIn({ account, profile }) {
+            console.log("account", account, "profile", profile)
             if (account?.provider === "google") {
                 if (profile?.email && profile?.email?.endsWith("@gs.takming.edu.tw")) {
                     cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase(), {
@@ -59,12 +66,6 @@ const authOptions: NextAuthOptions = {
                 return false
             }
             return true
-        },
-        async jwt({ token, account }) {
-            return {
-                ...token,
-                provider: account?.provider,
-            }
         },
         async session({ session }) {
             session.user.studentID = session.user.email?.split("@")[0].toUpperCase() as string

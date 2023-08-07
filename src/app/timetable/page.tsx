@@ -50,6 +50,12 @@ const TimeTablePage = () => {
 
     const week = ["一", "二", "三", "四", "五", "六", "日"]
 
+    const trackShareTimeTable = () => {
+        const studentId = Cookie.get("cookie_userid") ?? ""
+        const data = studentId
+        return data
+    }
+
     const { isLoading, isError, data } = useQuery<OutTimeTable>({
         queryKey: ["timetable"],
         queryFn: async () => {
@@ -150,6 +156,9 @@ const TimeTablePage = () => {
                         className='absolute right-0 top-2/4 mr-2 -translate-y-2/4'
                         onClick={() => {
                             saveImage()
+                            umami.track("課表分享", {
+                                data: trackShareTimeTable(),
+                            })
                         }}
                     />
                 </div>

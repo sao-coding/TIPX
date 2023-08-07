@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons-react"
 import { HwList } from "@/types"
 
-const Card = ({ course, data }: { course: string; data: HwList }) => {
+const Card = ({ course, data, studentID }: { course: string; data: HwList; studentID: string }) => {
     const formatTime = (time: string) => {
         // 202306151300
         const year = time.slice(0, 4)
@@ -23,6 +23,16 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
     const download = (id: string) => {
         const hw = `https://netinfo.takming.edu.tw/tip/download_file_2.php?filename=${id}`
         window.location.href = hw
+    }
+
+    const trackDownloadFile = (course: string, title: string) => {
+        const student = studentID
+        return `${course} - ${student} - ${title}`
+    }
+
+    const trackDownloadHw = (course: string, title: string) => {
+        const student = studentID
+        return `${course} - ${student} - ${title}`
     }
 
     return (
@@ -59,9 +69,7 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                                 onClick={() => {
                                     if (data.file !== "") {
                                         umami.track("附件下載", {
-                                            course: course,
-                                            name: data.title,
-                                            file: data.file,
+                                            data: trackDownloadFile(course, data.title),
                                         })
                                         download(data.file)
                                     }
@@ -92,9 +100,7 @@ const Card = ({ course, data }: { course: string; data: HwList }) => {
                             onClick={() => {
                                 if (data.download !== "") {
                                     umami.track("作業下載", {
-                                        course: course,
-                                        name: data.title,
-                                        hw: data.download,
+                                        data: trackDownloadHw(course, data.title),
                                     })
                                     download(data.download)
                                 }

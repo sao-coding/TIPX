@@ -58,7 +58,14 @@ const HwPage = ({ params }: { params: { id: string } }) => {
             ) : (
                 <div className='w-full'>
                     {data.length > 0 ? (
-                        data.map((item) => <Card key={item.id} course={name} data={item} />)
+                        data.map((item) => (
+                            <Card
+                                key={item.id}
+                                course={name}
+                                data={item}
+                                studentID={Cookie.get("cookie_userid") ?? ""}
+                            />
+                        ))
                     ) : (
                         <div className='text-center text-2xl'>沒有作業</div>
                     )}
