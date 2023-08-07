@@ -27,12 +27,12 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
 
     const trackDownloadFile = (course: string, title: string) => {
         const student = studentID
-        return `${course} - ${student} - ${title}`
+        return `${student} - ${course} - ${title}`
     }
 
     const trackDownloadHw = (course: string, title: string) => {
         const student = studentID
-        return `${course} - ${student} - ${title}`
+        return `${student} - ${course} - ${title}`
     }
 
     return (
