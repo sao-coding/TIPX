@@ -11,6 +11,8 @@ import Container from "@/components/Container"
 import Footer from "@/components/Footer"
 import Toaster from "@/components/Toaster"
 import InfoLog from "@/app/info"
+import { getServerSession } from "next-auth"
+import authOptions from "@/lib/auth"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,13 +24,15 @@ export const metadata: Metadata = {
     appleWebApp: true,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
     modal,
 }: {
     children: React.ReactNode
     modal: React.ReactNode
 }) {
+    const session = await getServerSession(authOptions)
+
     return (
         <html lang='zh-hant-TW'>
             <head>
@@ -42,7 +46,7 @@ export default function RootLayout({
                 <Toaster />
                 <Header />
                 <Container>
-                    <Providers>
+                    <Providers session={session}>
                         {children}
                         {modal}
                     </Providers>

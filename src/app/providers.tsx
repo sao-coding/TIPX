@@ -1,9 +1,35 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { usePathname } from "next/navigation"
+import { Session } from "next-auth"
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({
+    children,
+    session,
+}: {
+    children: React.ReactNode
+    session: Session | null
+}) => {
     const [queryClient] = useState(() => new QueryClient())
+    const pathname = usePathname()
+
+    useEffect(() => {
+        const writeLog = async () => {
+            await fetch("/api/log", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    stuID: session?.user.studentID,
+                    name: session?.user.name,
+                    path: pathname,
+                }),
+            })
+        }
+        writeLog()
+    }, [pathname])
 
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }
