@@ -43,6 +43,7 @@ const AnnouncementCP = () => {
                                     <div
                                         className='mb-2 grid grid-cols-3 gap-1 rounded-xl border p-2'
                                         ref={ref}
+                                        key={data.id}
                                     >
                                         {/* <div className=''>{data.id}</div> */}
                                         <div className=''>{data.stuID}</div>
