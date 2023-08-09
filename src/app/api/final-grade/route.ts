@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import { JSDOM } from "jsdom"
-import getUser from "@/lib/user"
 import getFinalGrade from "@/lib/final-grade"
-import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
+import { FinalGradeRank } from "@/types"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 
@@ -20,7 +18,7 @@ export const GET = async (req: NextRequest) => {
 
     // final-grade-rank?type=class&year=110&sem=1
 
-    const finalGradeRankList = await getFinalGrade(
+    const finalGradeRankList: FinalGradeRank[] = await getFinalGrade(
         userid ?? "",
         year ?? "",
         sem ?? "",

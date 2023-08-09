@@ -13,6 +13,7 @@ import {
     IconArrowBadgeDown,
     IconBadges,
     IconBrandGoogleAnalytics,
+    IconNotes,
     IconInfoCircle,
 } from "@tabler/icons-react"
 import Info from "@/app/user/info"
@@ -115,15 +116,26 @@ const UserPage = async () => {
                 </div>
             </Link>
             {session?.user.studentID === process.env.ADMINSTUDENTID && (
-                <Link
-                    href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                >
-                    <div className='flex items-center'>
-                        <IconBrandGoogleAnalytics />
-                        <div className='ml-2'>網站數據統計</div>
-                    </div>
-                </Link>
+                <>
+                    <Link
+                        href='/user/log'
+                        className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    >
+                        <div className='flex items-center'>
+                            <IconNotes />
+                            <div className='ml-2'>日誌中心</div>
+                        </div>
+                    </Link>
+                    <Link
+                        href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
+                        className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    >
+                        <div className='flex items-center'>
+                            <IconBrandGoogleAnalytics />
+                            <div className='ml-2'>網站數據統計</div>
+                        </div>
+                    </Link>
+                </>
             )}
             <Link
                 href='/user/info'
