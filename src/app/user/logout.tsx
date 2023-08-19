@@ -15,7 +15,7 @@ const Logout = () => {
                     console.log(cookieName)
                     Cookie.remove(cookieName)
                 })
-                // signOut()
+                signOut()
                 window.location.href = "/login"
             }}
         >
