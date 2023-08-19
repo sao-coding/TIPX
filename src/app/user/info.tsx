@@ -106,7 +106,7 @@ const Info = ({ userData }: { userData: User }) => {
                             </div>
                             <div className='flex items-center'>
                                 <IconDeviceMobile />
-                                {userData.phone}
+                                <div>{userData.phone}</div>
                             </div>
                         </div>
                     </div>
