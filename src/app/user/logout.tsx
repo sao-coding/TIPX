@@ -15,8 +15,9 @@ const Logout = () => {
                     console.log(cookieName)
                     Cookie.remove(cookieName)
                 })
-                signOut()
-                window.location.href = "/login"
+                signOut({
+                    redirect: false,
+                })
             }}
         >
             <div className='flex items-center'>
