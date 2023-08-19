@@ -3,8 +3,11 @@
 import { signOut } from "next-auth/react"
 import Cookie from "js-cookie"
 import { IconLogout } from "@tabler/icons-react"
+import { useRouter } from "next/router"
 
 const Logout = () => {
+    const router = useRouter()
+
     return (
         <div
             className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
@@ -18,6 +21,7 @@ const Logout = () => {
                 signOut({
                     redirect: false,
                 })
+                router.push("/login")
             }}
         >
             <div className='flex items-center'>
