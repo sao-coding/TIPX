@@ -3,7 +3,7 @@
 import { signOut } from "next-auth/react"
 import Cookie from "js-cookie"
 import { IconLogout } from "@tabler/icons-react"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 const Logout = () => {
     const router = useRouter()
