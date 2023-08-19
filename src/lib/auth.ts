@@ -19,21 +19,7 @@ const authOptions: NextAuthOptions = {
                 }
 
                 if (credentials?.password !== admin.password) return null
-                // console.log("credentials", credentials?.studentID)
-                // console.log("password", credentials?.password)
-                // const res = await fetch("http://localhost:3000/api/authorize", {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify({
-                //         token: credentials?.password,
-                //     }),
-                // })
 
-                // console.log("res", await res.json())
-
-                // if (!res.ok) return null
                 if (!credentials?.studentID) return null
                 cookies().set("cookie_userid", credentials?.studentID, {
                     // 7天
