@@ -42,6 +42,9 @@ const Form = () => {
 
     // 判斷學年度
     useEffect(() => {
+        Object.keys(Cookie.get()).forEach((cookieName) => {
+            Cookie.remove(cookieName)
+        })
         const year = new Date().getFullYear()
         const month = new Date().getMonth() + 1
         console.log("year", year)

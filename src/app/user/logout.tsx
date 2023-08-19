@@ -9,11 +9,13 @@ const Logout = () => {
         <div
             className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
             onClick={() => {
+                console.log("logout")
                 // 刪除所有Cookie
                 Object.keys(Cookie.get()).forEach((cookieName) => {
+                    console.log(cookieName)
                     Cookie.remove(cookieName)
                 })
-                signOut()
+                // signOut()
                 window.location.href = "/login"
             }}
         >
