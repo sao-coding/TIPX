@@ -30,7 +30,9 @@ const Providers = ({
                 }),
             })
         }
-        writeLog()
+        if (session?.user.name) {
+            writeLog()
+        }
     }, [pathname])
 
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

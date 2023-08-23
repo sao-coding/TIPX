@@ -74,7 +74,7 @@ export const POST = async (req: NextRequest) => {
         await db.collection("log").add({
             ip: res.ip,
             stuID: res.stuID,
-            name: res.name ?? "管理員",
+            name: res.name,
             path: res.path,
             time: new Date().toISOString(),
         })
