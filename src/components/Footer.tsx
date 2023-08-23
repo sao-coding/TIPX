@@ -41,7 +41,11 @@ const Footer = () => {
         >
             {NAV_LINKS.map((link) => (
                 // <NavItem key={link.href} href={link.href} icon={link.icon} />
-                <Link href={link.href} key={link.href}>
+                <Link
+                    href={link.href}
+                    key={link.href}
+                    className='w-[30px] h-[30px] flex items-center justify-center'
+                >
                     <link.icon
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
                         size={
