@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { usePathname } from "next/navigation"
 import { Session } from "next-auth"
+import getIP from "@/lib/ip"
 
 const Providers = ({
     children,
@@ -22,6 +23,7 @@ const Providers = ({
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    ip: await getIP(),
                     stuID: session?.user.studentID,
                     name: session?.user.name,
                     path: pathname,

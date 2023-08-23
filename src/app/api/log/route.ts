@@ -4,6 +4,7 @@ import { db } from "@/lib/firebase-admin"
 import getIP from "@/lib/ip"
 
 type logType = {
+    ip: string
     stuID: string
     name: string
     path: string
@@ -71,7 +72,7 @@ export const POST = async (req: NextRequest) => {
     // 如果是開發環境就不要寫入資料庫
     if (process.env.NODE_ENV === "production") {
         await db.collection("log").add({
-            ip: await getIP(),
+            ip: res.ip,
             stuID: res.stuID,
             name: res.name ?? "管理員",
             path: res.path,
