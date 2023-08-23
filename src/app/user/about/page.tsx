@@ -68,10 +68,10 @@ const UserAboutPage = async () => {
                                 />
                             </a>
                         </Fancybox>
-                        <div className='absolute right-0 top-0 rounded-md bg-amber-500 px-1 font-bold text-neutral-200'>
+                        <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
                             {data.status}
                         </div>
-                        <div className='absolute bottom-0 right-0 rounded-md bg-amber-500 px-1 text-neutral-200'>
+                        <div className='absolute bottom-0 right-0 rounded-md bg-main-color-3 px-1 text-neutral-200'>
                             {data.userid}
                         </div>
                         <div className='py-1 pl-4'>
