@@ -44,17 +44,12 @@ export const GET = async (req: NextRequest) => {
     let html = new TextDecoder("big5").decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
-    const verify = Array.from(document.querySelectorAll("script"))
-    // 去除 所有 \r, \n, \t
-    const cap = verify[0].innerHTML.replace(/\r|\n|\t/g, "")
-    html = html.replace(/\r|\n|\t/g, "")
-    html = html.replace(cap, "")
 
     if (req.nextUrl.searchParams.get("course") === null) {
         const rows = Array.from(document.querySelectorAll("table tbody tr:not(:first-child)"))
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll("td:not(:first-child) font span a"))
-            cells.forEach((cell, index) => {
+            cells.forEach((cell) => {
                 const list = cell.textContent
                 const link = cell.getAttribute("href")
                 const id = link?.split("=")[1]

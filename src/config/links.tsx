@@ -1,4 +1,11 @@
-import { IconHome, IconBook2, IconCalendarEvent, IconUser, Icon } from "@tabler/icons-react"
+import {
+    Icon,
+    IconHome,
+    IconBook2,
+    IconCalendarEvent,
+    IconUser,
+    IconMessageCircleOff,
+} from "@tabler/icons-react"
 
 type NavLinks = {
     icon: Icon
@@ -16,6 +23,11 @@ export const NAV_LINKS: NavLinks = [
         icon: IconCalendarEvent,
         href: "/timetable",
         text: "課表",
+    },
+    {
+        icon: IconMessageCircleOff,
+        href: "/forum",
+        text: "聊天",
     },
     {
         icon: IconBook2,

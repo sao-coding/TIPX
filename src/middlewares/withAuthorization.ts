@@ -12,7 +12,6 @@ export const withAuthorization: MiddlewareFactory = (next) => {
         if (req.nextUrl.pathname.startsWith("/api")) {
             console.log("middleware: api")
             if (
-                req.nextUrl.pathname === "/api/authorize" ||
                 req.nextUrl.pathname.startsWith("/api/post") ||
                 req.nextUrl.pathname.startsWith("/api/auth")
             ) {
