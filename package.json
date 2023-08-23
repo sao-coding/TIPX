@@ -28,6 +28,7 @@
     "eslint-config-next": "13.4.19",
     "firebase": "^10.2.0",
     "firebase-admin": "^11.10.1",
+    "framer-motion": "^10.16.1",
     "html-to-image": "^1.11.11",
     "iconv-lite": "^0.6.3",
     "js-cookie": "^3.0.5",
