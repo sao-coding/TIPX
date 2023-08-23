@@ -13,7 +13,8 @@ const AnnouncementCP = () => {
     >({
         queryKey: ["log"],
         queryFn: async ({ pageParam = 0 }) => {
-            const res = await fetch(`/api/log?type=all&id=${pageParam}&limit=10`)
+            console.log("pageParam", pageParam)
+            const res = await fetch(`/api/log?id=${pageParam}&limit=10`)
             return res.json()
         },
         getNextPageParam: (lastPage, allPages) => {
@@ -22,7 +23,7 @@ const AnnouncementCP = () => {
                 allPages,
             })
 
-            return lastPage.length === 10 ? allPages.length * 10 : undefined
+            return lastPage.length === 10 ? lastPage[lastPage.length - 1].time : undefined
         },
     })
 

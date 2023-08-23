@@ -2,6 +2,11 @@ import { cookies } from "next/headers"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import { FirestoreAdapter } from "@auth/firebase-adapter"
+import { initFirestore } from "@auth/firebase-adapter"
+import type { Adapter } from "next-auth/adapters"
+import { cert } from "firebase-admin/app"
+import { db } from "@/lib/firebase-admin"
 
 const authOptions: NextAuthOptions = {
     providers: [
@@ -59,12 +64,13 @@ const authOptions: NextAuthOptions = {
         },
     },
     pages: {
-        signIn: "/login",
+        // signIn: "/login",
     },
     session: {
         strategy: "jwt",
         maxAge: 7 * 24 * 60 * 60,
     },
+    adapter: FirestoreAdapter(db) as Adapter,
 }
 
 export default authOptions
