@@ -6,14 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/firebase-adapter": "^1.0.0",
     "@ducanh2912/next-pwa": "^9.4.0",
     "@fancyapps/ui": "^5.0.22",
-    "@prisma/client": "^5.1.1",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-tabs": "^1.0.4",
@@ -54,7 +52,6 @@
     "@types/umami": "^0.1.2",
     "@types/uuid": "^9.0.2",
     "prettier": "^3.0.2",
-    "prettier-plugin-tailwindcss": "^0.5.3",
-    "prisma": "^5.1.1"
+    "prettier-plugin-tailwindcss": "^0.5.3"
   }
 }

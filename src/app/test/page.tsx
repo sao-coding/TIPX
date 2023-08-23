@@ -57,7 +57,7 @@ const Test: React.FC = () => {
                         <IconUser size={184} className='stroke-white' />
                     </div>
                 </div>
-                {/* <iframe srcDoc={data} className='h-screen w-full' /> */}
+                <iframe srcDoc={data} className='h-screen w-full' />
             </div>
             <button onClick={onButtonClick}>Click me</button>
         </>
