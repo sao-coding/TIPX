@@ -68,7 +68,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                                 </a>
                                             </div>
                                         </div>
-                                        <div className='rounded-md px-1 shadow-md'>
+                                        <div className='rounded-md px-1 shadow-md bg-main-color-1'>
                                             {data.category}
                                         </div>
                                     </div>
