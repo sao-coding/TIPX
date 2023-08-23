@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
 import { db } from "@/lib/firebase-admin"
 import getIP from "@/lib/ip"
 
