@@ -71,11 +71,11 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                             <div className='flex w-full items-center justify-between'>
                                 <div className='flex items-center'>
                                     <IconCalendarTime size={20} />
-                                    {data.date}
+                                    <div className='pl-1'>{data.date}</div>
                                 </div>
                                 <div className='flex items-center'>
                                     <IconCalendarOff size={20} />
-                                    {data.deadline}
+                                    <div className='pl-1'>{data.deadline}</div>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                     {data.file.map((item) => (
                                         <div key={item.title} className='flex items-center'>
                                             <IconPaperclip size={20} />
-                                            {item.title}
+                                            <div className='pl-1'>{item.title}</div>
                                             <a
                                                 href={item.link}
                                                 target='_blank'
@@ -103,7 +103,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                             ) : (
                                 <div className='flex items-center'>
                                     <IconPaperclip size={20} />
-                                    <div className='text-gray-500'>沒有附件</div>
+                                    <div className='text-gray-500 pl-1'>沒有附件</div>
                                 </div>
                             )}
                             {data.link ? (
@@ -113,7 +113,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                         href={data.link}
                                         target='_blank'
                                         rel='noreferrer'
-                                        className='text-blue-500'
+                                        className='text-blue-500 pr-1'
                                     >
                                         點及此處前往
                                     </a>
@@ -121,7 +121,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                             ) : (
                                 <div className='flex items-center'>
                                     <IconLink size={20} />
-                                    <div className='text-gray-500'>沒有連結</div>
+                                    <div className='text-gray-500 pl-1'>沒有連結</div>
                                 </div>
                             )}
                         </div>
