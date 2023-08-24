@@ -52,7 +52,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
         <>
             {data && (
                 <div className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'>
-                    <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-col items-center justify-center w-full'>
                         <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
                             {data.title}
                         </div>
