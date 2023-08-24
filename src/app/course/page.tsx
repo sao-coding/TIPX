@@ -25,13 +25,16 @@ const CourseListPage = async () => {
 
     return (
         <>
-            <div className='w-full p-2'>
+            <div className='w-full rounded-md px-2 md:bg-white md:p-4 md:shadow-md'>
+                <div className='relative mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
+                    <div className='text-center text-2xl font-bold'>課程</div>
+                </div>
                 <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
                     {/* {loading && <div className='p-1'>載入中</div>} */}
                     {data.length > 0 &&
                         data.map((course: Course) => (
                             <Link
-                                className='block rounded-md border p-1 shadow-sm'
+                                className='block rounded-lg border p-1 shadow-sm'
                                 href={`/course/${course.id}`}
                                 key={course.id}
                             >
