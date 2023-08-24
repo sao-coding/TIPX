@@ -9,7 +9,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
 
     return (
         <>
-            <div className='mb-2 w-full rounded-md bg-main-color-1 shadow-md'>
+            <div className='mb-2 w-full border-b'>
                 <div className='flex p-2'>
                     <div className='p-2'>
                         {isImgError ? (
@@ -46,36 +46,33 @@ const Card = ({ data }: { data: CourseStuList }) => {
                             <div className='flex items-center justify-between p-1'>
                                 <div className='flex items-center'>
                                     <IconUserCircle />
-                                    {data.name}
+                                    <div className='pl-1'>{data.name}</div>
                                 </div>
                                 <div className='flex items-center'>
                                     <IconGenderBigender />
-                                    {data.gender}
+                                    <div className='pl-1'>{data.gender}</div>
                                 </div>
                             </div>
                             <div className='flex items-center p-1'>
                                 <IconStar />
-                                {data.id}
+                                <div className='pl-1'>{data.id}</div>
                             </div>
-                            <div className='flex items-center'>
-                                <div className='pr-1'>
-                                    <a
-                                        href={`mailto:${data.email[0]}`}
-                                        className='flex items-center rounded-md p-1 shadow-md  hover:bg-main-color-2'
-                                    >
-                                        <IconMail />
-                                        <div className=''>個人信箱</div>
-                                    </a>
-                                </div>
-                                <div className='pl-1'>
-                                    <a
-                                        href={`mailto:${data.email[1]}`}
-                                        className='flex items-center rounded-md p-1 shadow-md  hover:bg-main-color-2'
-                                    >
-                                        <IconMail />
-                                        <div className=''>學校信箱</div>
-                                    </a>
-                                </div>
+                            <div className='flex items-center space-x-2'>
+                                <a
+                                    href={`mailto:${data.email[0]}`}
+                                    className='flex items-center p-1 text-main-color-3 hover:bg-main-color-3 rounded-md hover:text-white'
+                                >
+                                    <IconMail />
+                                    <div className='pl-1'>個人信箱</div>
+                                </a>
+
+                                <a
+                                    href={`mailto:${data.email[1]}`}
+                                    className='flex items-center p-1 text-main-color-3 hover:bg-main-color-3 rounded-md hover:text-white'
+                                >
+                                    <IconMail />
+                                    <div className='pl-1'>學校信箱</div>
+                                </a>
                             </div>
                         </div>
                     </div>

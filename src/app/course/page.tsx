@@ -31,7 +31,7 @@ const CourseListPage = async () => {
                     {data.length > 0 &&
                         data.map((course: Course) => (
                             <Link
-                                className='block rounded-md border p-1 shadow-md'
+                                className='block rounded-md border p-1 shadow-sm'
                                 href={`/course/${course.id}`}
                                 key={course.id}
                             >

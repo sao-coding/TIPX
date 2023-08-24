@@ -10,7 +10,7 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
         <Link
             ref={ref}
             href={`/post/${data.link}`}
-            className='mb-2 block h-36 w-full rounded-xl bg-main-color-1 p-2 shadow-md'
+            className='mb-2 block h-36 w-full md:rounded-xl md:bg-main-color-1 p-2 md:shadow-md border-b md:border-none'
         >
             <div className='relative h-full'>
                 <div
@@ -23,10 +23,10 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
                 </div>
                 <div className='p-1'>{data.category}</div>
                 <div className='h-12 px-1 text-left md:text-center'>{data.title}</div>
-                <div className='flex w-full items-center px-1 max-xs:hidden md:justify-center'>
+                <div className='flex w-full items-center px-1 max-xs:hidden md:justify-center space-x-1'>
                     <div className='flex items-center'>
                         <IconCalendarTime size={20} />
-                        <div className='pr-1'>{data.date}</div>
+                        <div className='pl-1'>{data.date}</div>
                     </div>
                     <div className='flex items-center'>
                         <IconCalendarOff size={20} />
@@ -36,14 +36,14 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
                 <div className='absolute -bottom-1 left-0 flex flex-col items-center justify-center px-1 font-mono text-xs xs:hidden'>
                     <div className='flex items-center'>
                         <IconCalendarTime size={16} />
-                        {data.date}
+                        <div className='pl-1'>{data.date}</div>
                     </div>
                     <div className='flex items-center'>
                         <IconCalendarOff size={16} />
-                        {data.deadline}
+                        <div className='pl-1'>{data.deadline}</div>
                     </div>
                 </div>
-                <div className='absolute bottom-0 right-0 rounded-lg bg-white px-1'>
+                <div className='absolute bottom-0 right-0 rounded-lg md:bg-white px-1 bg-main-color-1'>
                     {data.unit}
                 </div>
             </div>

@@ -49,7 +49,9 @@ const AnnouncementCP = () => {
                                         {/* <div className=''>{data.id}</div> */}
                                         <div className=''>{data.stuID}</div>
                                         <div className=''>{data.name}</div>
-                                        <div className=' justify-self-end'>{data.path}</div>
+                                        <div className='justify-self-end whitespace-nowrap'>
+                                            {data.path}
+                                        </div>
                                         <div className=''>{data.ip}</div>
                                         <div className='col-span-2  justify-self-end'>
                                             {new Date(data.time).toLocaleString("zh-TW", {
@@ -67,7 +69,9 @@ const AnnouncementCP = () => {
                                     {/* <div className=''>{data.id}</div> */}
                                     <div className=''>{data.stuID}</div>
                                     <div className=''>{data.name}</div>
-                                    <div className='justify-self-end'>{data.path}</div>
+                                    <div className='justify-self-end whitespace-nowrap'>
+                                        {data.path}
+                                    </div>
                                     <div className=''>{data.ip}</div>
                                     <div className='col-span-2  justify-self-end'>
                                         {new Date(data.time).toLocaleString("zh-TW", {

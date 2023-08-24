@@ -1,7 +1,3 @@
-import { useState } from "react"
-import Image from "next/image"
-import clsx from "clsx"
-import { IconCalendarTime } from "@tabler/icons-react"
 import {
     CourseAttendanceRecord,
     CourseAttendanceRecordList,
@@ -18,7 +14,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
 
     return (
         <>
-            <div className='mb-2 w-full rounded-md bg-main-color-1 p-2 shadow-md'>
+            <div className='mb-2 w-full rounded-md bg-main-color-1 p-2 shadow-sm'>
                 <div className='flex items-center justify-around'>
                     <div className=''>{formatDate(data.date)}</div>
                     <div className='rounded-md bg-main-color-2 px-1'>{data.week}</div>

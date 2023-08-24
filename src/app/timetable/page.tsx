@@ -148,7 +148,7 @@ const TimeTablePage = () => {
 
     return (
         <>
-            <div className='w-full rounded-md bg-transparent p-2 md:bg-white md:p-4 md:shadow-md'>
+            <div className='w-full rounded-md bg-transparent px-2 md:bg-white md:p-4 md:shadow-md'>
                 <div className='relative mb-2 rounded-xl border bg-white shadow-md'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2

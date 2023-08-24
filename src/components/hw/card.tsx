@@ -37,7 +37,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
 
     return (
         <>
-            <div className='relative mb-2 w-full rounded-md bg-main-color-1 shadow-md'>
+            <div className='relative mb-2 w-full border-b'>
                 <div
                     className={clsx(
                         "absolute right-2 top-2 rounded-md p-1 text-white",
@@ -51,15 +51,15 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                         <div className='text-lg font-bold'>{data.title}</div>
                         <div className='flex items-center text-sm text-neutral-500'>
                             <IconCalendarTime size={20} />
-                            <div className=''>{formatTime(data.start)}</div>
+                            <div className='pl-1'>{formatTime(data.start)}</div>
                         </div>
                         <div className='flex items-center text-sm text-neutral-500'>
                             <IconCalendarOff size={20} />
-                            <div className=''>{formatTime(data.end)}</div>
+                            <div className='pl-1'>{formatTime(data.end)}</div>
                         </div>
                         <div className='flex items-center text-neutral-500'>
                             <IconPaperclip size={20} />
-                            附件
+                            <div className='pl-1'>附件</div>
                             <button
                                 className={clsx(
                                     "ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",

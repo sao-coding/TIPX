@@ -68,18 +68,18 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                                 </a>
                                             </div>
                                         </div>
-                                        <div className='rounded-md px-1 shadow-md bg-main-color-1'>
+                                        <div className='rounded-md px-1 bg-main-color-1'>
                                             {data.category}
                                         </div>
                                     </div>
                                     <div className='my-1 flex items-center justify-between'>
                                         <div className='flex items-center'>
                                             <IconCalendarTime size={20} />
-                                            {data.date}
+                                            <div className='pl-1'>{data.date}</div>
                                         </div>
                                         <div className='flex items-center'>
                                             <IconCalendarOff size={20} />
-                                            {data.deadline}
+                                            <div className='pl-1'>{data.deadline}</div>
                                         </div>
                                         <Link href={`/post/${id}`} target='_parent'>
                                             <IconExternalLink />
@@ -99,7 +99,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                                         className='flex items-center'
                                                     >
                                                         <IconPaperclip size={20} />
-                                                        {item.title}
+                                                        <div className='pl-1'>{item.title}</div>
                                                         <a
                                                             href={item.link}
                                                             target='_blank'
@@ -114,7 +114,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                         ) : (
                                             <div className='flex items-center'>
                                                 <IconPaperclip size={20} />
-                                                <div className='text-gray-500'>沒有附件</div>
+                                                <div className='text-gray-500 pl-1'>沒有附件</div>
                                             </div>
                                         )}
                                         {data.link ? (
@@ -124,7 +124,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                                     href={data.link}
                                                     target='_blank'
                                                     rel='noreferrer'
-                                                    className='text-blue-500'
+                                                    className='text-blue-500 pl-1'
                                                 >
                                                     點及此處前往
                                                 </a>
@@ -132,7 +132,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                         ) : (
                                             <div className='flex items-center'>
                                                 <IconLink size={20} />
-                                                <div className='text-gray-500'>沒有連結</div>
+                                                <div className='text-gray-500 pl-1'>沒有連結</div>
                                             </div>
                                         )}
                                     </div>
