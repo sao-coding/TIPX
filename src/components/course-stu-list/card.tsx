@@ -43,7 +43,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
                     </div>
                     <div className='flex items-center p-2'>
                         <div className=''>
-                            <div className='flex items-center justify-between p-1'>
+                            <div className='flex items-center justify-between p-1 flex-wrap'>
                                 <div className='flex items-center'>
                                     <IconUserCircle />
                                     <div className='pl-1'>{data.name}</div>
@@ -57,7 +57,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
                                 <IconStar />
                                 <div className='pl-1'>{data.id}</div>
                             </div>
-                            <div className='flex items-center space-x-2'>
+                            <div className='flex items-center justify-between flex-wrap'>
                                 <a
                                     href={`mailto:${data.email[0]}`}
                                     className='flex items-center p-1 text-main-color-3 hover:bg-main-color-3 rounded-md hover:text-white'
