@@ -1,5 +1,4 @@
 export type HwList = {
-    id: string
     title: string
     file: string
     start: string

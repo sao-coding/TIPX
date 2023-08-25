@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { JSDOM } from "jsdom"
-import { v4 as uuidv4 } from "uuid"
 import { HwList } from "@/types"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
@@ -124,7 +123,6 @@ export const GET = async (req: NextRequest) => {
         }
         hw1.forEach((hw) => {
             hwlist.push({
-                id: uuidv4(),
                 title: hw[0],
                 file: hw[1],
                 start: hw[2],
