@@ -11,10 +11,10 @@ import {
 import { useRouter, usePathname } from "next/navigation"
 import { Post } from "@/types"
 import "@/app/loaderCat.css"
+import { motion } from "framer-motion"
 
 const PostPage = ({ params }: { params: { id: string } }) => {
     const id = params.id
-    const router = useRouter()
     const path = usePathname()
 
     const { isLoading, isError, data } = useQuery<Post>({
@@ -51,7 +51,12 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     return (
         <>
             {data && (
-                <div className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'>
+                <motion.div
+                    className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <div className='flex flex-col items-center justify-center w-full'>
                         <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
                             {data.title}
@@ -80,7 +85,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                         <div className='flex w-full items-center justify-center md:px-24'>
-                            <div className='whitespace-pre-line break-all'>{data?.content}</div>
+                            <div className='whitespace-pre-line break-all'>{data.content}</div>
                         </div>
                         <div className='mt-1 w-full rounded-md border-2 border-dashed p-1 md:px-24'>
                             {data.file.length > 0 ? (
@@ -139,7 +144,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             )}
             {isLoading && (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
