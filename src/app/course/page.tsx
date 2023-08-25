@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import Link from "next/link"
 import { Course } from "@/types"
 import { site } from "@/config/site"
+import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
 
 const getData = async () => {
     const res = await fetch(`${site.url}/api/course`, {
@@ -21,7 +22,7 @@ const getData = async () => {
 }
 
 const CourseListPage = async () => {
-    const data = await getData()
+    const data: Course[] = await getData()
 
     return (
         <>
@@ -32,15 +33,16 @@ const CourseListPage = async () => {
                 <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
                     {/* {loading && <div className='p-1'>載入中</div>} */}
                     {data.length > 0 &&
-                        data.map((course: Course) => (
-                            <Link
-                                className='block rounded-lg border p-1 shadow-sm'
-                                href={`/course/${course.id}`}
-                                key={course.id}
-                            >
-                                <div className='p-1'>{course.item}</div>
-                                <div className='p-1'>{course.id}</div>
-                            </Link>
+                        data.map((course, index) => (
+                            <ScaleTransitionView key={course.id} custom={index}>
+                                <Link
+                                    className='block rounded-lg border p-1 shadow-sm'
+                                    href={`/course/${course.id}`}
+                                >
+                                    <div className='p-1'>{course.item}</div>
+                                    <div className='p-1'>{course.id}</div>
+                                </Link>
+                            </ScaleTransitionView>
                         ))}
                 </div>
             </div>
