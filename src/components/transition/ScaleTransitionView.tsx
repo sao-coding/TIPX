@@ -11,7 +11,7 @@ const ScaleTransitionView = (props: ScaleTransitionViewProps) => {
     const card = {
         visible: (custom: number) => ({
             opacity: [0, 1],
-            scale: [0, 1],
+            scale: [0.6, 1],
             transition: { delay: custom * 0.02, duration: 0.4 },
         }),
     }
