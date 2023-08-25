@@ -2,10 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query"
 import Cookie from "js-cookie"
-import { motion } from "framer-motion"
 import Card from "@/components/hw/card"
 import { HwList } from "@/types"
 import "@/app/loaderCat.css"
+import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const HwPage = ({ params }: { params: { id: string } }) => {
     const { data: name } = useQuery({
@@ -20,6 +20,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
             const data = await res.json()
             return data
         },
+        refetchOnWindowFocus: false,
     })
 
     const { data, isLoading } = useQuery<HwList[]>({
@@ -34,6 +35,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
             const data = await res.json()
             return data
         },
+        refetchOnWindowFocus: false,
     })
 
     const card = {
@@ -59,21 +61,19 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 </div>
             ) : (
                 <div className='w-full'>
-                    {data && data.length > 0 ? (
-                        data.map((item, index) => (
-                            <motion.div
-                                key={item.id}
-                                animate='visible'
-                                variants={card}
-                                custom={index}
-                            >
-                                <Card
-                                    course={name}
-                                    data={item}
-                                    studentID={Cookie.get("cookie_userid") ?? ""}
-                                />
-                            </motion.div>
-                        ))
+                    {data && data.length > 0 && name ? (
+                        <>
+                            {console.log(data, name)}
+                            {data.map((item, index) => (
+                                <BottomToUpTransitionView key={index} custom={index}>
+                                    <Card
+                                        course={name}
+                                        data={item}
+                                        studentID={Cookie.get("cookie_userid") ?? ""}
+                                    />
+                                </BottomToUpTransitionView>
+                            ))}
+                        </>
                     ) : (
                         <div className='text-center text-2xl'>沒有作業</div>
                     )}

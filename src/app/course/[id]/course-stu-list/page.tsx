@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import Card from "@/components/course-stu-list/card"
 import { CourseStuList } from "@/types"
 import "@/app/loaderCat.css"
+import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const CourseStuListPage = ({ params }: { params: { id: string } }) => {
     const { data, isLoading } = useQuery<CourseStuList[]>({
@@ -36,7 +37,13 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
             ) : (
                 <div className='w-full'>
                     {data && data.length > 0 ? (
-                        data.map((item) => <Card key={item.id} data={item} />)
+                        <>
+                            {data.map((item, index) => (
+                                <BottomToUpTransitionView key={item.id} custom={index}>
+                                    <Card key={item.id} data={item} />
+                                </BottomToUpTransitionView>
+                            ))}
+                        </>
                     ) : (
                         <div className='text-center text-2xl'>沒有學生</div>
                     )}

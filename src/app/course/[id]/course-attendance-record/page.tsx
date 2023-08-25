@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import Card from "@/components/course-attendance-record/card"
 import { CourseAttendanceRecord } from "@/types"
 import "@/app/loaderCat.css"
+import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
     const { data, isLoading } = useQuery<CourseAttendanceRecord>({
@@ -36,7 +37,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
             ) : (
                 <div className='h-full w-full'>
                     {data && (
-                        <>
+                        <BottomToUpTransitionView>
                             <div className='mb-2 grid grid-cols-2 gap-2'>
                                 <div className='rounded-md border p-2 shadow-sm'>
                                     <div className=''>曠課</div>
@@ -82,7 +83,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                                 </div>
                             </div>
                             {data?.list?.map((item, index) => <Card key={index} data={item} />)}
-                        </>
+                        </BottomToUpTransitionView>
                     )}
                 </div>
             )}
