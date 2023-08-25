@@ -36,82 +36,80 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
     }
 
     return (
-        <>
-            <div className='relative mb-2 w-full border-b'>
-                <div
-                    className={clsx(
-                        "absolute right-2 top-2 rounded-md p-1 text-white",
-                        data.status === "已繳交" ? "bg-green-600" : "bg-red-600"
-                    )}
-                >
-                    {data.status}
-                </div>
-                <div className='flex justify-between p-2'>
-                    <div className=''>
-                        <div className='text-lg font-bold'>{data.title}</div>
-                        <div className='flex items-center text-sm text-neutral-500'>
-                            <IconCalendarTime size={20} />
-                            <div className='pl-1'>{formatTime(data.start)}</div>
-                        </div>
-                        <div className='flex items-center text-sm text-neutral-500'>
-                            <IconCalendarOff size={20} />
-                            <div className='pl-1'>{formatTime(data.end)}</div>
-                        </div>
-                        <div className='flex items-center text-neutral-500'>
-                            <IconPaperclip size={20} />
-                            <div className='pl-1'>附件</div>
-                            <button
-                                className={clsx(
-                                    "ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
-                                    data.file === "" ? "cursor-not-allowed" : ""
-                                )}
-                                disabled={data.file === ""}
-                                onClick={() => {
-                                    if (data.file !== "") {
-                                        umami.track("附件下載", {
-                                            data: trackDownloadFile(course, data.title),
-                                        })
-                                        download(data.file)
-                                    }
-                                }}
-                            >
-                                {data.file === "" ? (
-                                    <IconDownloadOff size={20} />
-                                ) : (
-                                    <IconDownload size={20} />
-                                )}
-                            </button>
-                        </div>
+        <div className='relative mb-2 w-full border-b'>
+            <div
+                className={clsx(
+                    "absolute right-2 top-2 rounded-md p-1 text-white",
+                    data.status === "已繳交" ? "bg-green-600" : "bg-red-600"
+                )}
+            >
+                {data.status}
+            </div>
+            <div className='flex justify-between p-2'>
+                <div className=''>
+                    <div className='text-lg font-bold'>{data.title}</div>
+                    <div className='flex items-center text-sm text-neutral-500'>
+                        <IconCalendarTime size={20} />
+                        <div className='pl-1'>{formatTime(data.start)}</div>
                     </div>
-                    <div className='flex items-end'>
-                        <button
-                            className='mr-2 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
-                            disabled={data.upload_status}
-                        >
-                            <IconUpload />
-                        </button>
-                        {/* 如果未繳交 cursor-not-allowed */}
+                    <div className='flex items-center text-sm text-neutral-500'>
+                        <IconCalendarOff size={20} />
+                        <div className='pl-1'>{formatTime(data.end)}</div>
+                    </div>
+                    <div className='flex items-center text-neutral-500'>
+                        <IconPaperclip size={20} />
+                        <div className='pl-1'>附件</div>
                         <button
                             className={clsx(
-                                "rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
-                                data.download === "" ? "cursor-not-allowed" : ""
+                                "ml-1 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
+                                data.file === "" ? "cursor-not-allowed" : ""
                             )}
-                            disabled={data.download === ""}
+                            disabled={data.file === ""}
                             onClick={() => {
-                                if (data.download !== "") {
-                                    umami.track("作業下載", {
-                                        data: trackDownloadHw(course, data.title),
+                                if (data.file !== "") {
+                                    umami.track("附件下載", {
+                                        data: trackDownloadFile(course, data.title),
                                     })
-                                    download(data.download)
+                                    download(data.file)
                                 }
                             }}
                         >
-                            {data.download === "" ? <IconDownloadOff /> : <IconDownload />}
+                            {data.file === "" ? (
+                                <IconDownloadOff size={20} />
+                            ) : (
+                                <IconDownload size={20} />
+                            )}
                         </button>
                     </div>
                 </div>
+                <div className='flex items-end'>
+                    <button
+                        className='mr-2 rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3'
+                        disabled={data.upload_status}
+                    >
+                        <IconUpload />
+                    </button>
+                    {/* 如果未繳交 cursor-not-allowed */}
+                    <button
+                        className={clsx(
+                            "rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
+                            data.download === "" ? "cursor-not-allowed" : ""
+                        )}
+                        disabled={data.download === ""}
+                        onClick={() => {
+                            if (data.download !== "") {
+                                umami.track("作業下載", {
+                                    data: trackDownloadHw(course, data.title),
+                                })
+                                download(data.download)
+                            }
+                        }}
+                    >
+                        {data.download === "" ? <IconDownloadOff /> : <IconDownload />}
+                    </button>
+                </div>
             </div>
-        </>
+        </div>
     )
 }
 

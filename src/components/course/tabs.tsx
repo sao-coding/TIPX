@@ -5,12 +5,12 @@ import CourseAttendanceRecord from "@/app/course/[id]/course-attendance-record/p
 import { motion } from "framer-motion"
 
 const CourseTabs = ({ id }: { id: string }) => {
-    const data = [{ value: "作業" }, { value: "修課學生" }, { value: "出缺勤" }]
+    const tabList = [{ value: "作業" }, { value: "修課學生" }, { value: "出缺勤" }]
     const tabsClassName = ["peer/tabs-作業", "peer/tabs-修課學生", "peer/tabs-出缺勤"]
     return (
         <Tabs.Root defaultValue='作業'>
             <Tabs.List className='flex justify-around border-b border-main-color-3 relative'>
-                {data?.map((item, index) => (
+                {tabList?.map((item, index) => (
                     <Tabs.Trigger
                         key={item.value}
                         className={`w-full p-2 ` + tabsClassName[index]}
@@ -30,7 +30,7 @@ const CourseTabs = ({ id }: { id: string }) => {
             </Tabs.List>
 
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2 '
+                className='mb-14 rounded-b-md pt-2'
                 value='作業'
                 aria-labelledby='作業'
                 id='作業'
@@ -39,7 +39,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 <Hw params={{ id: id }} />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2 '
+                className='mb-14 rounded-b-md pt-2'
                 value='修課學生'
                 aria-labelledby='修課學生'
                 id='修課學生'
@@ -47,7 +47,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 <CourseStuList params={{ id: id }} />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2 '
+                className='mb-14 rounded-b-md pt-2'
                 value='出缺勤'
                 aria-labelledby='出缺勤'
                 id='出缺勤'

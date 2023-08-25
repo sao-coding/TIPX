@@ -1,35 +1,28 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Cookie from "js-cookie"
+import { useQuery } from "@tanstack/react-query"
 import Card from "@/components/course-attendance-record/card"
 import { CourseAttendanceRecord } from "@/types"
 import "@/app/loaderCat.css"
 
 const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
-    const [data, setData] = useState<CourseAttendanceRecord>({ list: [], total: [] })
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchData = async () => {
+    const { data, isLoading } = useQuery<CourseAttendanceRecord>({
+        queryKey: ["course-attendance-record", params.id],
+        queryFn: async () => {
             const res = await fetch(`/api/course-attendance-record?course=${params.id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: "Bearer " + Cookie.get("token"),
                 },
             })
             const data = await res.json()
-
-            setData(data)
-            setLoading(false)
-        }
-        fetchData()
-    }, [params.id])
+            return data
+        },
+    })
 
     return (
         <>
-            {loading ? (
+            {isLoading ? (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                     <div className='flex h-full w-full items-center justify-center'>
                         <div className='cat'>
@@ -42,7 +35,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                 </div>
             ) : (
                 <div className='h-full w-full'>
-                    {data.list.length > 0 ? (
+                    {data && (
                         <>
                             <div className='mb-2 grid grid-cols-2 gap-2'>
                                 <div className='rounded-md border p-2 shadow-sm'>
@@ -90,8 +83,6 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                             </div>
                             {data?.list?.map((item, index) => <Card key={index} data={item} />)}
                         </>
-                    ) : (
-                        <div className='text-center text-2xl'>沒有請假</div>
                     )}
                 </div>
             )}
