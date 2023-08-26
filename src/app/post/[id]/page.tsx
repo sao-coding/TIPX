@@ -8,7 +8,8 @@ import {
     IconLink,
     IconShare2,
 } from "@tabler/icons-react"
-import { useRouter, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
+import toast from "react-hot-toast"
 import { Post } from "@/types"
 import "@/app/loaderCat.css"
 import { motion } from "framer-motion"
@@ -36,15 +37,18 @@ const PostPage = ({ params }: { params: { id: string } }) => {
             navigator
                 .share({
                     title: title,
-                    text: title,
+                    text: "\n" + text,
                     url: url,
                 })
                 .then(() => {
-                    console.log("已分享")
+                    toast.success("分享成功")
                 })
-                .catch(console.error)
+                .catch((error) => {
+                    toast.error("分享失敗")
+                    console.log(error)
+                })
         } else {
-            console.log("Web Share API 不支援")
+            toast.error("Web Share API 不支援")
         }
     }
 
@@ -132,7 +136,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                         </div>
                         <div className='mt-2 w-full border-t pt-2'>
                             <div className='flex items-center justify-end'>
-                                <div
+                                <button
                                     className='flex items-center rounded-md bg-main-color-1 px-1'
                                     onClick={() => {
                                         Share(data.title, data.content, path)
@@ -140,7 +144,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                 >
                                     <IconShare2 />
                                     分享
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>
