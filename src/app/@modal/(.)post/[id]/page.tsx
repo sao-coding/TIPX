@@ -49,7 +49,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                         >
                             {data && (
                                 <>
-                                    <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4'>
+                                    <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4 outline-none'>
                                         <IconX size={24} />
                                     </Dialog.Close>
                                     <Dialog.Title asChild>
