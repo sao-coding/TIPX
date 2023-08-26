@@ -37,7 +37,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
             navigator
                 .share({
                     title: title,
-                    text: "\n" + text,
+                    text: "\n" + title,
                     url: url,
                 })
                 .then(() => {
