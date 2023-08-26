@@ -3,6 +3,7 @@ import { IconCoins, IconStar } from "@tabler/icons-react"
 import clsx from "clsx"
 import { SemGrade } from "@/types"
 import { site } from "@/config/site"
+import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
 
 const getData = async () => {
     const res = await fetch(`${site.url}/api/sem-grade`, {
@@ -35,33 +36,30 @@ const FinalGradePage = async () => {
         <div className='mb-14 w-full p-2'>
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
-                    <div className='relative rounded-xl border p-2 shadow-md' key={index}>
-                        <div
-                            className={clsx(
-                                "absolute right-0 top-0 m-1 rounded-md px-1 font-bold text-white",
-                                typeColor[item.type]
-                            )}
-                        >
-                            {item.type}
+                    <ScaleTransitionView key={index} custom={index}>
+                        <div className='relative rounded-xl border p-2 shadow-md' key={index}>
+                            <div
+                                className={clsx(
+                                    "absolute right-0 top-0 m-1 rounded-md px-1 font-bold text-white",
+                                    typeColor[item.type]
+                                )}
+                            >
+                                {item.type}
+                            </div>
+                            <div>{item.id}</div>
+                            <div>{item.name}</div>
+                            <div>{item.category}</div>
+                            <div className='flex items-center space-x-1'>
+                                <IconCoins className='animate-pulse stroke-yellow-500' />
+                                <div>{item.credit}</div>
+                                <IconStar className='animate-pulse stroke-yellow-500' />
+                                <div>{item.midtermGrade}</div>
+                                <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
+                                <div>{item.finalGrade}</div>
+                            </div>
+                            <div>{item.class}</div>
                         </div>
-                        <div className=''>{item.id}</div>
-                        <div className=''>{item.name}</div>
-                        <div className=''>{item.category}</div>
-
-                        {/* <div className='flex items-center'> */}
-                        <div className='flex items-center'>
-                            <IconCoins className='animate-pulse stroke-yellow-500' />
-                            <div className='px-1'>{item.credit}</div>
-                            <IconStar className='animate-pulse stroke-yellow-500' />
-                            <div className='px-1'>{item.midtermGrade}</div>
-                            {/* </div>
-                            <div className='flex items-center'> */}
-                            <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
-                            <div className='px-1'>{item.finalGrade}</div>
-                        </div>
-                        {/* </div> */}
-                        <div className=''>{item.class}</div>
-                    </div>
+                    </ScaleTransitionView>
                 ))}
             </div>
         </div>
