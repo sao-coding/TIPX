@@ -140,7 +140,7 @@ const Switch = () => {
             }}
         >
             <Select.Trigger
-                className='mt-2 flex w-full cursor-pointer items-center rounded-xl border bg-slate-50 p-2 shadow-md focus-visible:outline-none'
+                className='mt-2 flex w-full cursor-pointer items-center rounded-xl border p-2 shadow-md focus-visible:outline-none'
                 aria-controls='下拉選單'
             >
                 <Select.Icon asChild>
