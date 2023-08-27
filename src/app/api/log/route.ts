@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase-admin"
-
-type logType = {
-    ip: string
-    stuID: string
-    name: string
-    path: string
-}
+import getUser from "@/lib/user"
+import { Log } from "@/types"
 
 export const GET = async (req: NextRequest) => {
     if (req.nextUrl.searchParams.has("id") && req.nextUrl.searchParams.has("limit")) {
@@ -38,9 +33,9 @@ export const GET = async (req: NextRequest) => {
                 .limit(parseInt(limits))
                 .get()
 
-            log.docs.map((doc) => {
-                console.log(doc.id, doc.data())
-            })
+            // log.docs.map((doc) => {
+            //     console.log(doc.id, doc.data())
+            // })
 
             return NextResponse.json(
                 log.docs.map((doc) => {
@@ -52,7 +47,7 @@ export const GET = async (req: NextRequest) => {
 }
 
 export const POST = async (req: NextRequest) => {
-    const res: logType = await req.json()
+    const res: Log = await req.json()
 
     // await prisma.$queryRaw` INSERT INTO log (ip, stuID,name, path) VALUES (${await getIP()}, ${
     //     res.stuID
@@ -68,9 +63,11 @@ export const POST = async (req: NextRequest) => {
     // })
 
     // 如果是開發環境就不要寫入資料庫
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV !== "production") {
+        const { img } = await getUser(res.stuID, "", "", "", "")
         await db.collection("log").add({
             ip: res.ip,
+            img: img,
             stuID: res.stuID,
             name: res.name,
             path: res.path,

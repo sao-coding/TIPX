@@ -16,5 +16,9 @@ export const GET = async (req: NextRequest) => {
 
     const infolist: User = await getUser(userid ?? "", year ?? "", sem ?? "", dept ?? "", es ?? "")
 
+    if (req.nextUrl.searchParams.has("img")) {
+        return NextResponse.redirect(infolist.img)
+    }
+
     return NextResponse.json(infolist)
 }

@@ -1,5 +1,5 @@
-import Fancybox from "@/components/fancybox"
 import { cookies } from "next/headers"
+import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
 import { User } from "@/types"
 import {
