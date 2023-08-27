@@ -43,7 +43,7 @@ const InfoPage = () => {
                                 </div>
                             }
                         />
-                        <div className='font-bold'>Umar-Turdiev</div>
+                        <div className='font-bold'>UT</div>
                         <a
                             className='rounded-md bg-main-color-1 px-1'
                             href='https://github.com/Umar-Turdiev'
@@ -66,7 +66,7 @@ const InfoPage = () => {
                                 </div>
                             }
                         />
-                        <div className='font-bold'>Meriser</div>
+                        <div className='font-bold'>Meri</div>
                         <a
                             className='rounded-md bg-main-color-1 px-1'
                             href='https://github.com/Meriser'
