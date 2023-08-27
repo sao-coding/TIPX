@@ -1,4 +1,4 @@
-import AnnouncementCP from "@/components/home/announcement"
+import AnnouncementCP from "@/app/components/announcement"
 
 const HomePage = () => {
     return (

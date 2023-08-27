@@ -6,7 +6,7 @@ import { IconBrandGoogle } from "@tabler/icons-react"
 import { signIn } from "next-auth/react"
 import toast, { useToasterStore } from "react-hot-toast"
 import Cookie from "js-cookie"
-import LoginSelect from "@/components/login/select"
+import LoginSelect from "@/app/login/components/select"
 import iconv from "iconv-lite"
 import Logo from "@/components/logo"
 
