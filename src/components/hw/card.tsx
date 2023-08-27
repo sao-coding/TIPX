@@ -46,7 +46,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                 {data.status}
             </div>
             <div className='flex justify-between p-2'>
-                <div className=''>
+                <div>
                     <div className='text-lg font-bold'>{data.title}</div>
                     <div className='flex items-center text-sm text-neutral-500'>
                         <IconCalendarTime size={20} />

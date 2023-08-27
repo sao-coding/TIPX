@@ -3,7 +3,7 @@ import { IconPinFilled } from "@tabler/icons-react"
 const Loading = () => {
     return (
         <>
-            <div className='mb-2 h-36 w-full md:rounded-xl md:bg-main-color-1 p-2 md:shadow-md border-b md:border-none'>
+            <div className='mb-2 h-36 w-full md:rounded-xl md:bg-main-color-1 p-2 md:shadow-md border-b md:border-none md:mb-5'>
                 <div className='relative h-full animate-pulse'>
                     <div className='absolute right-0 top-0 rounded-full bg-neutral-500 p-1'>
                         <IconPinFilled size={20} />

@@ -16,11 +16,11 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
         <>
             <div className='mb-2 w-full rounded-md bg-main-color-1 p-2 shadow-sm'>
                 <div className='flex items-center justify-around'>
-                    <div className=''>{formatDate(data.date)}</div>
+                    <div>{formatDate(data.date)}</div>
                     <div className='rounded-md bg-main-color-2 px-1'>{data.week}</div>
-                    <div className=''>第{data.period}節</div>
-                    <div className=''>{data.type}</div>
-                    <div className=''>{data.courseID}</div>
+                    <div>第{data.period}節</div>
+                    <div>{data.type}</div>
+                    <div>{data.courseID}</div>
                 </div>
                 <div className='mt-2 flex items-center justify-center'>
                     <div className='rounded-md bg-main-color-3 px-1 text-white/80'>

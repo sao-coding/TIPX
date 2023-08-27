@@ -80,8 +80,8 @@ const UserAboutPage = async () => {
                                     <div>{data.name}</div>
                                     <div>{data.enName}</div>
                                 </div>
-                                <div className=''>{data.IDnumber}</div>
-                                <div className=''>{data.major}</div>
+                                <div>{data.IDnumber}</div>
+                                <div>{data.major}</div>
                                 <div className='flex items-center space-x-2'>
                                     <div>{data.dept}</div>
                                     <div>{data.es}</div>
@@ -113,10 +113,10 @@ const UserAboutPage = async () => {
                                 <IconDeviceMobile />
                                 <div>{data.phone}</div>
                             </div>
-                            <div className=''>{data.address}</div>
-                            <div className=''>{data.homePhone}</div>
-                            <div className=''>{data.date}</div>
-                            <div className=''>{data.previousEducation}</div>
+                            <div>{data.address}</div>
+                            <div>{data.homePhone}</div>
+                            <div>{data.date}</div>
+                            <div>{data.previousEducation}</div>
                         </div>
                     </div>
                 </BottomToUpTransitionView>
@@ -127,15 +127,15 @@ const UserAboutPage = async () => {
                                 <div>{data.parentName}</div>
                                 <div>{data.parentJob}</div>
                             </div>
-                            <div className=''>{data.parentAddress}</div>
-                            <div className=''>{data.parentPhone}</div>
+                            <div>{data.parentAddress}</div>
+                            <div>{data.parentPhone}</div>
                         </div>
                     </div>
                 </BottomToUpTransitionView>
                 <BottomToUpTransitionView custom={3}>
                     <div className='rounded-xl border p-2'>
                         <div className='py-1'>
-                            <div className=''>{data.desc}</div>
+                            <div>{data.desc}</div>
                         </div>
                     </div>
                 </BottomToUpTransitionView>

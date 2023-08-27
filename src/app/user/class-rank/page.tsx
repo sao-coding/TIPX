@@ -93,7 +93,7 @@ const ClassRankPage = () => {
                                     <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
                                         <IconUserCircle size={75} />
                                     </div>
-                                    <div className=''>
+                                    <div>
                                         <div className='m-2 mb-5 h-3 w-20 rounded-full bg-slate-200'></div>
                                         <div className='m-2 h-3 w-20 rounded-full bg-slate-200'></div>
                                     </div>
@@ -186,7 +186,7 @@ const ClassRankPage = () => {
                                     <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconUserStar className='animate-pulse stroke-yellow-500' />
                                         {/* 我想要格式長這樣 00.00 */}
-                                        <div className=''>
+                                        <div>
                                             {item.data.conduct.score
                                                 .toFixed(2)
                                                 .toString()
@@ -195,7 +195,7 @@ const ClassRankPage = () => {
                                     </div>
                                     <div className='mr-1 flex flex-col items-center px-1 md:flex-row'>
                                         <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
-                                        <div className=''>
+                                        <div>
                                             {item.data.avg.toFixed(2).toString().padStart(5, "0")}
                                         </div>
                                     </div>

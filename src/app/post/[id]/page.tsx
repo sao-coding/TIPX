@@ -76,7 +76,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
                                         </a>
                                     </div>
                                 </div>
-                                <div className=''>{data.category}</div>
+                                <div>{data.category}</div>
                             </div>
                             <div className='flex w-full items-center justify-between'>
                                 <div className='flex items-center'>

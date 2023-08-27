@@ -42,7 +42,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
                         )}
                     </div>
                     <div className='flex items-center p-2'>
-                        <div className=''>
+                        <div>
                             <div className='flex items-center justify-between p-1 flex-wrap'>
                                 <div className='flex items-center'>
                                     <IconUserCircle />

@@ -52,7 +52,7 @@ const Notify = () => {
                     <IconBell />
                     <div className='ml-2'>訂閱系統通知</div>
                 </div>
-                <div className=''>
+                <div>
                     {/* 判斷是否允許通知 */}
                     {isNotify ? (
                         <div className='text-green-500'>已開啟</div>

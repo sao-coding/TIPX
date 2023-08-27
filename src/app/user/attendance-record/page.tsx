@@ -30,44 +30,44 @@ const CourseAttendanceRecordPage = async () => {
                     <>
                         <div className='mb-2 grid grid-cols-2 gap-2'>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>曠課</div>
+                                <div>曠課</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[0]}
                                 </div>
                             </div>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>事假</div>
+                                <div>事假</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[2]}
                                 </div>
                             </div>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>病假</div>
+                                <div>病假</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[1]}
                                 </div>
                             </div>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>生理假</div>
+                                <div>生理假</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[12]}
                                 </div>
                             </div>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>公假</div>
+                                <div>公假</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[3]}
                                 </div>
                             </div>
                             <div className='rounded-md border p-2 shadow-sm'>
-                                <div className=''>喪假</div>
+                                <div>喪假</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total[7]}
                                 </div>
                             </div>
                         </div>
                         <div className='sticky left-0 top-0 mb-2 rounded-md border bg-slate-50 p-2 shadow-sm md:top-14'>
-                            <div className=''>總計</div>
+                            <div>總計</div>
                             <div className='w-full text-right text-lg font-bold'>
                                 {data?.total.reduce((a, b) => a + b, 0)}
                             </div>

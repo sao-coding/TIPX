@@ -54,8 +54,8 @@ const InfoBoard = () => {
         <div className='mt-2 flex items-center justify-between space-x-1'>
             <div className='w-full rounded-xl border p-2 shadow-md'>
                 <div className='flex items-center justify-between'>
-                    <div className=''>請假次數</div>
-                    <div className=''>
+                    <div>請假次數</div>
+                    <div>
                         <IconListDetails size={20} />
                     </div>
                 </div>
@@ -75,8 +75,8 @@ const InfoBoard = () => {
             </div>
             <div className='w-full rounded-xl border p-2 shadow-md'>
                 <div className='flex items-center justify-between'>
-                    <div className=''>請假時數</div>
-                    <div className=''>
+                    <div>請假時數</div>
+                    <div>
                         <IconClock size={20} />
                     </div>
                 </div>
@@ -104,8 +104,8 @@ const InfoBoard = () => {
             </div>
             <div className='w-full rounded-xl border p-2 shadow-md'>
                 <div className='flex items-center justify-between'>
-                    <div className=''>目前操行</div>
-                    <div className=''>
+                    <div>目前操行</div>
+                    <div>
                         <IconUserStar size={20} />
                     </div>
                 </div>

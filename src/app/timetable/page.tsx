@@ -187,7 +187,7 @@ const TimeTablePage = () => {
                                                 key={index}
                                             >
                                                 <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
-                                                    <div className=''>{i + 1}</div>
+                                                    <div>{i + 1}</div>
                                                 </div>
 
                                                 <div className='h-24 text-center' key={index}>
@@ -226,7 +226,7 @@ const TimeTablePage = () => {
                                                     key={index}
                                                 >
                                                     <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
-                                                        <div className=''>{i + 1}</div>
+                                                        <div>{i + 1}</div>
                                                     </div>
 
                                                     {item.map((item, index) => (

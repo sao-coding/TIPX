@@ -46,13 +46,13 @@ const AnnouncementCP = () => {
                                         ref={ref}
                                         key={data.id}
                                     >
-                                        {/* <div className=''>{data.id}</div> */}
-                                        <div className=''>{data.stuID}</div>
-                                        <div className=''>{data.name}</div>
+                                        {/* <div>{data.id}</div> */}
+                                        <div>{data.stuID}</div>
+                                        <div>{data.name}</div>
                                         <div className='justify-self-end whitespace-nowrap'>
                                             {data.path}
                                         </div>
-                                        <div className=''>{data.ip}</div>
+                                        <div>{data.ip}</div>
                                         <div className='col-span-2  justify-self-end'>
                                             {new Date(data.time).toLocaleString("zh-TW", {
                                                 timeZone: "Asia/Taipei",
@@ -66,13 +66,13 @@ const AnnouncementCP = () => {
                                     className='mb-1 grid grid-cols-3 gap-1 rounded-xl border p-2'
                                     key={data.id}
                                 >
-                                    {/* <div className=''>{data.id}</div> */}
-                                    <div className=''>{data.stuID}</div>
-                                    <div className=''>{data.name}</div>
+                                    {/* <div>{data.id}</div> */}
+                                    <div>{data.stuID}</div>
+                                    <div>{data.name}</div>
                                     <div className='justify-self-end whitespace-nowrap'>
                                         {data.path}
                                     </div>
-                                    <div className=''>{data.ip}</div>
+                                    <div>{data.ip}</div>
                                     <div className='col-span-2  justify-self-end'>
                                         {new Date(data.time).toLocaleString("zh-TW", {
                                             timeZone: "Asia/Taipei",

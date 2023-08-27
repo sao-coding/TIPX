@@ -42,7 +42,7 @@ const PostCP = ({ id, trigger }: { id: string; trigger: React.ReactNode }) => {
                                 </div>
                             </Dialog.Title>
                             <div className='flex items-center justify-between'>
-                                <div className=''>{data.unit}</div>
+                                <div>{data.unit}</div>
                                 <div className='rounded-md px-1 shadow-md'>{data.category}</div>
                             </div>
                             <div className='flex items-center justify-between'>
@@ -60,7 +60,7 @@ const PostCP = ({ id, trigger }: { id: string; trigger: React.ReactNode }) => {
                                     {data.content}
                                 </div>
                             </div>
-                            <div className=''>
+                            <div>
                                 {data.file.length > 0 ? (
                                     <>
                                         {data.file.map((item) => (
@@ -79,7 +79,7 @@ const PostCP = ({ id, trigger }: { id: string; trigger: React.ReactNode }) => {
                                         ))}
                                     </>
                                 ) : (
-                                    <div className=''>沒有附件</div>
+                                    <div>沒有附件</div>
                                 )}
                                 {data.link ? (
                                     <div className='flex items-center'>
@@ -94,13 +94,13 @@ const PostCP = ({ id, trigger }: { id: string; trigger: React.ReactNode }) => {
                                         </a>
                                     </div>
                                 ) : (
-                                    <div className=''>沒有連結</div>
+                                    <div>沒有連結</div>
                                 )}
                             </div>
                         </>
                     ) : (
                         <>
-                            <div className=''>沒有公告</div>
+                            <div>沒有公告</div>
                         </>
                     )}
                 </Dialog.Content>

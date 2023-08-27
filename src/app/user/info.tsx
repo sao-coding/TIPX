@@ -75,8 +75,8 @@ const Info = ({ userData }: { userData: User }) => {
                                     <div className='pr-1'>{userData.name}</div>
                                     <div className='pl-1'>{userData.enName}</div>
                                 </div>
-                                <div className=''>{userData.IDnumber}</div>
-                                <div className=''>{userData.major}</div>
+                                <div>{userData.IDnumber}</div>
+                                <div>{userData.major}</div>
                                 <div className='flex items-center'>
                                     <div className='pr-1'>{userData.dept}</div>
                                     <div className='pl-1'>{userData.es}</div>
