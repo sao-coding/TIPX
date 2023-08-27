@@ -30,14 +30,6 @@ const getDeptRank = async (
 
     const classId = userid?.slice(0, 6)
 
-    // const classNameown: ClassName = await getClassNames(
-    //     userid ?? "",
-    //     year ?? "",
-    //     sem ?? "",
-    //     dept ?? "",
-    //     es ?? ""
-    // )
-
     const { major: majorOwn } = await getUser(userid, year ?? "", sem ?? "", dept ?? "", es ?? "")
 
     const fetchData = async (userid: string) => {
