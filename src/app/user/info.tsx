@@ -71,15 +71,15 @@ const Info = ({ userData }: { userData: User }) => {
                                 )}
                             </div>
                             <div className='py-[3px] pl-4'>
-                                <div className='flex items-center'>
-                                    <div className='pr-1'>{userData.name}</div>
-                                    <div className='pl-1'>{userData.enName}</div>
+                                <div className='flex items-center space-x-2'>
+                                    <div>{userData.name}</div>
+                                    <div>{userData.enName}</div>
                                 </div>
                                 <div>{userData.IDnumber}</div>
                                 <div>{userData.major}</div>
-                                <div className='flex items-center'>
-                                    <div className='pr-1'>{userData.dept}</div>
-                                    <div className='pl-1'>{userData.es + "　"}</div>
+                                <div className='flex items-center space-x-2'>
+                                    <div>{userData.dept}</div>
+                                    <div>{userData.es + "　"}</div>
                                 </div>
                             </div>
                             <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
