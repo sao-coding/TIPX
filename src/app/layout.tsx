@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "TIP",
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
-    themeColor: "#f69435",
+    themeColor: "#f8fafc",
     appleWebApp: true,
     icons: [
         {
