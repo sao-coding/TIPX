@@ -1,25 +1,45 @@
+"use client"
+import { useEffect, useState, useCallback, useRef } from "react"
+import { toPng } from "html-to-image"
 import { IconUserHexagon } from "@tabler/icons-react"
 
 const Test: React.FC = () => {
+    const ref = useRef<HTMLDivElement>(null)
+    const onButtonClick = useCallback(() => {
+        if (ref.current === null) {
+            return
+        }
+
+        toPng(ref.current, { cacheBust: true })
+            .then((dataUrl) => {
+                const link = document.createElement("a")
+                link.download = "my-image-name.png"
+                link.href = dataUrl
+                link.click()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [ref])
     return (
-        <div className='h-[400px] w-[800px]'>
-            <div
-                className='h-full w-full px-14 py-12 text-white flex flex-col justify-between'
-                style={{
-                    background: "linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)",
-                }}
-            >
-                <div className='text-3xl font-semibold'>2023-08-31</div>
-                <div className='mx-auto text-4xl'>
-                    【英國雙聯學位說明會】英國倫敦密德薩斯Middlesex University
-                    雙聯學位說明會~歡迎參加
-                </div>
-                <div className='flex items-center justify-between'>
-                    <IconUserHexagon className='flex w-10 h-10' />
-                    <div className='text-3xl'>TIPX</div>
+        <>
+            <div className='absolute top-20 left-0 h-[630px] w-[1200px]' ref={ref}>
+                <div
+                    className='h-full w-full px-14 py-12 text-white flex flex-col justify-center items-center'
+                    style={{
+                        background: "linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)",
+                    }}
+                >
+                    <IconUserHexagon className='flex w-40 h-40' />
+                    <div className='text-5xl' style={{ fontFamily: "Short Stack" }}>
+                        TIPX
+                    </div>
                 </div>
             </div>
-        </div>
+            <button className='z-10 mt-[630px] py-1 px-2 bg-main-color-2' onClick={onButtonClick}>
+                生成OG圖
+            </button>
+        </>
     )
 }
 
