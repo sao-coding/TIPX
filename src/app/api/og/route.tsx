@@ -61,7 +61,7 @@ export const GET = async (req: Request) => {
                         background: "linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)",
                     }}
                 >
-                    <div tw='text-3xl font-semibold' style={{ fontFamily: "OG Little" }}>
+                    <div tw='text-5xl font-semibold' style={{ fontFamily: "OG Little" }}>
                         {date}
                     </div>
                     <div
@@ -73,8 +73,8 @@ export const GET = async (req: Request) => {
                     <div tw='flex items-center justify-between'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
-                            width='40'
-                            height='40'
+                            width='60'
+                            height='60'
                             viewBox='0 0 24 24'
                             fill='none'
                             stroke='currentColor'
@@ -86,7 +86,7 @@ export const GET = async (req: Request) => {
                             <path d='M6.201 18.744a4 4 0 0 1 3.799 -2.744h4a4 4 0 0 1 3.798 2.741'></path>
                             <path d='M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z'></path>
                         </svg>
-                        <div tw='text-3xl' style={{ fontFamily: "OG Little" }}>
+                        <div tw='text-5xl' style={{ fontFamily: "OG Little" }}>
                             TIPX
                         </div>
                     </div>
