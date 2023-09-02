@@ -1,5 +1,9 @@
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
+<<<<<<< HEAD
+=======
+import WorkPage from "@/app/forum/work"
+>>>>>>> 3699c4812fb69f7c759c956fc95003fbb7aa8445
 import Container from "@/app/forum/container"
 
 const ForumPage = async () => {
