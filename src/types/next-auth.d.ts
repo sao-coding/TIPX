@@ -1,3 +1,4 @@
+import { Database } from "firebase-admin/lib/database/database"
 import { DefaultSession } from "next-auth"
 
 declare module "next-auth" {
@@ -6,4 +7,5 @@ declare module "next-auth" {
             studentID: string
         } & DefaultSession["user"]
     }
+    type User = DatabaseUser
 }
