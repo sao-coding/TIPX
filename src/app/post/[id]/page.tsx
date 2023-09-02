@@ -1,175 +1,38 @@
-"use client"
+import getPost from "@/lib/post"
+import Post from "@/app/post/[id]/post"
+import { Post as PostType } from "@/types"
+import { site } from "@/config/site"
 
-import { useQuery } from "@tanstack/react-query"
-import {
-    IconCalendarTime,
-    IconCalendarOff,
-    IconDownload,
-    IconPaperclip,
-    IconLink,
-    IconShare2,
-} from "@tabler/icons-react"
-import { usePathname } from "next/navigation"
-import toast from "react-hot-toast"
-import { Post } from "@/types"
-import "@/app/loaderCat.css"
-import { motion } from "framer-motion"
+export async function generateMetadata({ params }: { params: { id: string } }) {
+    const post = (await getPost("one", Number(params.id))) as PostType
+    if (!post) return { notFound: true }
+
+    return {
+        openGraph: {
+            title: post.title,
+            description: post.content,
+            type: "article",
+            url: `${site.url}/post/${params.id}`,
+            article: {
+                publishedTime: post.date,
+                authors: [post.publisher.name],
+                tags: [post.category],
+            },
+            images: [
+                {
+                    url: `${site.url}/api/og/?title=${post.title}&date=${post.date}`,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                    type: "image/png",
+                },
+            ],
+        },
+    }
+}
 
 const PostPage = ({ params }: { params: { id: string } }) => {
-    const id = params.id
-    const path = usePathname()
-
-    const { isLoading, isError, data } = useQuery<Post>({
-        queryKey: ["post", id],
-        queryFn: async () => {
-            const res = await fetch(`/api/post?type=one&id=${id}`)
-            const json = await res.json()
-            // error
-            if (!res.ok) throw new Error("沒有這篇公告")
-            return json
-        },
-    })
-
-    // itle: 一組字串，分享訊息的標題
-    // text: 一組字串，分享訊息的描述
-    // url: 一組字串，分享訊息要帶上的連結
-    const Share = (title: string, text: string, url: string) => {
-        if (navigator.share) {
-            navigator
-                .share({
-                    title: title,
-                    text: title + "\n",
-                    url: url,
-                })
-                .then(() => {
-                    toast.success("分享成功")
-                })
-                .catch((error) => {
-                    toast.error("分享失敗")
-                    console.log(error)
-                })
-        } else {
-            toast.error("Web Share API 不支援")
-        }
-    }
-
-    return (
-        <>
-            {data && (
-                <motion.div
-                    className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <div className='flex flex-col items-center justify-center w-full'>
-                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
-                            {data.title}
-                        </div>
-                        <div className='w-full pt-2 md:px-24'>
-                            <div className='flex w-full items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <div className='mr-1'>{data.unit}</div>
-                                    <div className='ml-1 text-blue-500'>
-                                        <a href={`mailto:${data.publisher.email}`}>
-                                            {data.publisher.name}
-                                        </a>
-                                    </div>
-                                </div>
-                                <div>{data.category}</div>
-                            </div>
-                            <div className='flex w-full items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IconCalendarTime size={20} />
-                                    <div className='pl-1'>{data.date}</div>
-                                </div>
-                                <div className='flex items-center'>
-                                    <IconCalendarOff size={20} />
-                                    <div className='pl-1'>{data.deadline}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='flex w-full items-center justify-center md:px-24'>
-                            <div className='whitespace-pre-line break-all'>{data.content}</div>
-                        </div>
-                        <div className='mt-1 w-full rounded-md border-2 border-dashed p-1 md:px-24'>
-                            {data.file.length > 0 ? (
-                                <>
-                                    {data.file.map((item) => (
-                                        <div key={item.title} className='flex items-center'>
-                                            <IconPaperclip size={20} />
-                                            <div className='pl-1'>{item.title}</div>
-                                            <a
-                                                href={item.link}
-                                                target='_blank'
-                                                rel='noreferrer'
-                                                className='p-1'
-                                            >
-                                                <IconDownload className='rounded-md bg-main-color-1 p-1' />
-                                            </a>
-                                        </div>
-                                    ))}
-                                </>
-                            ) : (
-                                <div className='flex items-center'>
-                                    <IconPaperclip size={20} />
-                                    <div className='text-gray-500 pl-1'>沒有附件</div>
-                                </div>
-                            )}
-                            {data.link ? (
-                                <div className='flex items-center'>
-                                    <IconLink size={20} />
-                                    <a
-                                        href={data.link}
-                                        target='_blank'
-                                        rel='noreferrer'
-                                        className='text-blue-500 pr-1'
-                                    >
-                                        點及此處前往
-                                    </a>
-                                </div>
-                            ) : (
-                                <div className='flex items-center'>
-                                    <IconLink size={20} />
-                                    <div className='text-gray-500 pl-1'>沒有連結</div>
-                                </div>
-                            )}
-                        </div>
-                        <div className='mt-2 w-full border-t pt-2'>
-                            <div className='flex items-center justify-end'>
-                                <button
-                                    className='flex items-center rounded-md bg-main-color-1 px-1'
-                                    onClick={() => {
-                                        Share(data.title, data.content, path)
-                                    }}
-                                >
-                                    <IconShare2 />
-                                    分享
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-            {isLoading && (
-                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
-                    <div className='flex h-full w-full items-center justify-center'>
-                        <div className='cat'>
-                            <div className='cat__body'></div>
-                            <div className='cat__body'></div>
-                            <div className='cat__tail'></div>
-                            <div className='cat__head'></div>
-                        </div>
-                    </div>
-                </div>
-            )}
-            {isError && (
-                <div className='flex h-full w-full items-center justify-center'>
-                    <div className='text-red-500'>沒有這篇公告</div>
-                </div>
-            )}
-        </>
-    )
+    return <Post params={params} />
 }
 
 export default PostPage
