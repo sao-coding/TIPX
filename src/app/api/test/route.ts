@@ -29,12 +29,34 @@ export const GET = async (req: NextRequest) => {
     //     )
     // }
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_semscore.php", {
-        headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-        },
-    })
+    const cookie = {
+        cookie_worktype: "1",
+        cookie_sex: "1",
+        cookie_logintimes: "2",
+        cookie_name: "%AAL%B0%B6%A4t",
+        cookie_type: "4",
+        cookie_deptid: "390390",
+        cookie_dept: "%B8%EA%AC%EC%A8t",
+        cookie_account: "wayne",
+        cookie_level: "1",
+        cookie_unitid: "19",
+        cookie_sem: "2",
+        cookie_year: "111",
+        cookie_userid: "0003046",
+    }
+
+    const res = await fetch(
+        "https://netinfo.takming.edu.tw/tip/tea_absbook_list.php?OpNo=D192112",
+        {
+            headers: {
+                // cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: Object.entries(cookie)
+                    .map((e) => `${e[0]}=${e[1]}`)
+                    .join("; "),
+                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+            },
+        }
+    )
 
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
