@@ -13,15 +13,29 @@ import Toaster from "@/components/Toaster"
 import InfoLog from "@/app/info"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
+import { site } from "@/config/site"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-    title: "TIP",
+    title: "TIPX",
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
     themeColor: "#f8fafc",
     appleWebApp: true,
+    openGraph: {
+        type: "website",
+        locale: "zh_TW",
+        url: site.url,
+        images: [
+            {
+                url: "/img/og.png",
+                width: 1200,
+                height: 630,
+                alt: "TIPX",
+            },
+        ],
+    },
     icons: [
         {
             rel: "icon",
