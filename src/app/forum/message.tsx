@@ -11,6 +11,7 @@ import * as Popover from "@radix-ui/react-popover"
 import { useReplyMessageStore } from "@/store/reply"
 import { useEditMessageStore } from "@/store/edit"
 import { useDeleteMessageStore } from "@/store/delete"
+import { motion } from "framer-motion"
 
 const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message }>(
     ({ user, message }, ref) => {
@@ -116,65 +117,74 @@ const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message 
                         </Popover.Trigger>
                         <Popover.Anchor className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
                         <Popover.Portal>
-                            <Popover.Content className='w-48 bg-slate-100 outline-none border rounded-2xl p-2'>
-                                <Popover.Close asChild>
-                                    <button
-                                        className='block outline-none text-center w-full hover:bg-slate-200 rounded-md'
-                                        onClick={() => {
-                                            setReplyMessage({
-                                                id: message.id,
-                                                author: message.author,
-                                                content: message.content,
-                                                timestamp: message.timestamp,
-                                                edited_timestamp: message.edited_timestamp ?? "",
-                                                deleted_timestamp: message.deleted_timestamp ?? "",
-                                                status: true,
-                                            })
-                                            setEditMessage({
-                                                id: "",
-                                                email: "",
-                                                content: "",
-                                                status: false,
-                                            })
-                                        }}
-                                    >
-                                        回覆
-                                    </button>
-                                </Popover.Close>
-                                {user.email === message.author?.email?.toLowerCase() && (
-                                    <>
-                                        <Popover.Close asChild>
-                                            <button
-                                                className='block outline-none text-center w-full hover:bg-slate-200 rounded-md'
-                                                onClick={() => {
-                                                    setEditMessage({
-                                                        id: message.id,
-                                                        email: message.author?.email?.toLowerCase(),
-                                                        content: message.content,
-                                                        status: true,
-                                                    })
-                                                    resetReplyMessage()
-                                                }}
-                                            >
-                                                編輯
-                                            </button>
-                                        </Popover.Close>
-                                        <Popover.Close asChild>
-                                            <button
-                                                className='block outline-none text-center w-full hover:bg-slate-200 rounded-md'
-                                                onClick={() => {
-                                                    setDeleteMessage({
-                                                        id: message.id,
-                                                        email: message.author?.email?.toLowerCase(),
-                                                        status: true,
-                                                    })
-                                                }}
-                                            >
-                                                刪除
-                                            </button>
-                                        </Popover.Close>
-                                    </>
-                                )}
+                            <Popover.Content asChild>
+                                <motion.div
+                                    className='w-48 bg-slate-100 outline-none border rounded-2xl p-2'
+                                    initial={{ opacity: 0, scale: 0.6 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.08 }}
+                                >
+                                    <Popover.Close asChild>
+                                        <button
+                                            className='block outline-none text-center w-full hover:bg-slate-200 rounded-md p-1'
+                                            onClick={() => {
+                                                setReplyMessage({
+                                                    id: message.id,
+                                                    author: message.author,
+                                                    content: message.content,
+                                                    timestamp: message.timestamp,
+                                                    edited_timestamp:
+                                                        message.edited_timestamp ?? "",
+                                                    deleted_timestamp:
+                                                        message.deleted_timestamp ?? "",
+                                                    status: true,
+                                                })
+                                                setEditMessage({
+                                                    id: "",
+                                                    email: "",
+                                                    content: "",
+                                                    status: false,
+                                                })
+                                            }}
+                                        >
+                                            回覆
+                                        </button>
+                                    </Popover.Close>
+                                    {user.email === message.author?.email?.toLowerCase() && (
+                                        <>
+                                            <Popover.Close asChild>
+                                                <button
+                                                    className='block outline-none text-center w-full hover:bg-slate-200 rounded-md p-1'
+                                                    onClick={() => {
+                                                        setEditMessage({
+                                                            id: message.id,
+                                                            email: message.author?.email?.toLowerCase(),
+                                                            content: message.content,
+                                                            status: true,
+                                                        })
+                                                        resetReplyMessage()
+                                                    }}
+                                                >
+                                                    編輯
+                                                </button>
+                                            </Popover.Close>
+                                            <Popover.Close asChild>
+                                                <button
+                                                    className='block outline-none text-center w-full hover:bg-slate-200 rounded-md p-1'
+                                                    onClick={() => {
+                                                        setDeleteMessage({
+                                                            id: message.id,
+                                                            email: message.author?.email?.toLowerCase(),
+                                                            status: true,
+                                                        })
+                                                    }}
+                                                >
+                                                    刪除
+                                                </button>
+                                            </Popover.Close>
+                                        </>
+                                    )}
+                                </motion.div>
                             </Popover.Content>
                         </Popover.Portal>
                     </Popover.Root>
