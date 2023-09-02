@@ -23,8 +23,9 @@ const Test: React.FC = () => {
     }, [ref])
     return (
         <>
-            <div className='absolute top-20 left-0 h-[630px] w-[1200px]' ref={ref}>
+            <div className='absolute top-20 left-0 h-[630px] w-[1200px]'>
                 <div
+                    ref={ref}
                     className='h-full w-full px-14 py-12 text-white flex flex-col justify-center items-center'
                     style={{
                         background: "linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)",
