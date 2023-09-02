@@ -23,19 +23,13 @@ export const GET = async (req: Request) => {
         const titleFontSize =
             title.length > 50 ? "text-4xl" : title.length > 40 ? "text-5xl" : "text-7xl"
 
-        const OGBlod = fetch(
-            new URL("../../../../public/fonts/采風體W3.woff", import.meta.url)
-        ).then((res) => {
-            return res.arrayBuffer()
-        })
-
         const OGLittleBlod = fetch(
             new URL("../../../../public/fonts/ShortStack-Regular.ttf", import.meta.url)
         ).then((res) => {
             return res.arrayBuffer()
         })
 
-        const [fontOGBlod, fontOGLittleBlod] = await Promise.all([OGBlod, OGLittleBlod])
+        const [fontOGLittleBlod] = await Promise.all([OGLittleBlod])
 
         return new ImageResponse(
             (
@@ -48,7 +42,10 @@ export const GET = async (req: Request) => {
                     <div tw='text-3xl font-semibold' style={{ fontFamily: "OG Little" }}>
                         {date}
                     </div>
-                    <div tw={`${titleFontSize} mx-auto`} style={{ fontFamily: "OG" }}>
+                    <div
+                        tw={`${titleFontSize} mx-auto`}
+                        style={{ fontFamily: "Microsoft JhengHei" }}
+                    >
                         {title}
                     </div>
                     <div tw='flex items-center justify-between'>
@@ -78,29 +75,11 @@ export const GET = async (req: Request) => {
                 height: 630,
                 fonts: [
                     {
-                        name: "OG",
-                        data: fontOGBlod,
-                        weight: 900,
-                        style: "normal",
-                    },
-                    {
                         name: "OG Little",
                         data: fontOGLittleBlod,
                         weight: 900,
                         style: "normal",
                     },
-                    //         {
-                    //             name: "Inter",
-                    //             data: fontInterSemiBold,
-                    //             weight: 600,
-                    //             style: "normal",
-                    //         },
-                    //         {
-                    //             name: "Cal Sans",
-                    //             data: fontCalSansSemiBold,
-                    //             weight: 700,
-                    //             style: "normal",
-                    //         },
                 ],
             }
         )
