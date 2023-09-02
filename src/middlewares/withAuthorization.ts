@@ -29,6 +29,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
             // timetable course user
         } else if (
             req.nextUrl.pathname.startsWith("/timetable") ||
+            req.nextUrl.pathname.startsWith("/forum") ||
             req.nextUrl.pathname.startsWith("/course") ||
             req.nextUrl.pathname.startsWith("/user")
         ) {

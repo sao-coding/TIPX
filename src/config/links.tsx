@@ -4,7 +4,7 @@ import {
     IconBook2,
     IconCalendarEvent,
     IconUser,
-    IconMessageCircleOff,
+    IconMessageCircle,
 } from "@tabler/icons-react"
 
 type NavLinks = {
@@ -25,7 +25,7 @@ export const NAV_LINKS: NavLinks = [
         text: "課表",
     },
     {
-        icon: IconMessageCircleOff,
+        icon: IconMessageCircle,
         href: "/forum",
         text: "聊天",
     },
