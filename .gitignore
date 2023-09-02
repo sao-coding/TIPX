@@ -47,7 +47,7 @@ next-env.d.ts
 /public/sw.js.map
 /public/workbox-*.js
 /public/workbox-*.js.map
-src/app/og/*
-src/app/test/*
-src/app/api/test/*
+/src/app/og/*
+/src/app/test/*
+/src/app/api/test/*
 .VSCodeCounter
