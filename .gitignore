@@ -48,3 +48,6 @@ next-env.d.ts
 /public/workbox-*.js
 /public/workbox-*.js.map
 .VSCodeCounter
+/src/app/og
+/src/app/test
+/src/app/api/test
