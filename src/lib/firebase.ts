@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getMessaging, getToken, onMessage } from "firebase/messaging"
+import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAbdwy8Hex6nJV9sZ-hpicCJILceIdWQSU",
@@ -11,10 +12,10 @@ const firebaseConfig = {
     measurementId: "G-1HL9K2W9GR",
 }
 
+const app = initializeApp(firebaseConfig)
+
 export const init = async () => {
     if ("serviceWorker" in navigator) {
-        const app = initializeApp(firebaseConfig)
-
         // Auto request notification permission
         const messaging = getMessaging(app)
         console.log("messaging,", Notification.permission)
@@ -44,3 +45,5 @@ export const init = async () => {
         })
     }
 }
+
+export const db = getFirestore(app)
