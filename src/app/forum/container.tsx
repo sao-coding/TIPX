@@ -228,9 +228,7 @@ const Container = ({ user }: { user: User }) => {
                         <LoadingCP key={index} index={index} />
                     ))}
             </div>
-            <div className='h-[58px]'>
-                <SendCP user={user} />
-            </div>
+            <SendCP user={user} />
         </>
     )
 }

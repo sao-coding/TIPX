@@ -252,7 +252,7 @@ const SendCP = ({ user }: { user: User }) => {
 
     return (
         <>
-            <div className='flex justify-between items-end bg-slate-100 py-2 px-4'>
+            <div className='flex justify-between items-end bg-slate-100 py-2 px-4 w-full'>
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
                         <div className='p-2 flex items-center justify-center'>
