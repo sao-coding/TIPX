@@ -21,7 +21,7 @@ const Avatar = (props: AvatarProps) => {
             {error ? (
                 fallback
             ) : (
-                <div className={cx("overflow-hidden", loading && "animate-pulse")}>
+                <div className={cx("", loading && "animate-pulse")}>
                     <Image
                         src={src}
                         width={width}
