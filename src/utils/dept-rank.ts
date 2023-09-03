@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom"
-import getUser from "@/lib/user"
-import getConduct from "@/lib/conduct"
+import getUser from "@/utils/user"
+import getConduct from "@/utils/conduct"
 import getClassName from "@/utils/class-name"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 

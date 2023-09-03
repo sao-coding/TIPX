@@ -1,4 +1,4 @@
-import getPost from "@/lib/post"
+import getPost from "@/utils/post"
 import Post from "@/app/post/[id]/post"
 import { Post as PostType } from "@/types"
 import { site } from "@/config/site"
