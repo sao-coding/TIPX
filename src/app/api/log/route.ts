@@ -63,7 +63,7 @@ export const POST = async (req: NextRequest) => {
     // })
 
     // 如果是開發環境就不要寫入資料庫
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && res.stuID !== process.env.ADMINSTUDENTID) {
         const { img } = await getUser(res.stuID, "", "", "", "")
         await db.collection("log").add({
             ip: res.ip,
