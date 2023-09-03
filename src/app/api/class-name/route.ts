@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import { JSDOM } from "jsdom"
-import getClassName from "@/lib/class-name"
+import getClassName from "@/utils/class-name"
 import { ClassName } from "@/types"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"

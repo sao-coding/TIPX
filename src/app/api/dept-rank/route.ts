@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getDeptRank from "@/lib/dept-rank"
+import getDeptRank from "@/utils/dept-rank"
 import { FinalGradeRankClass } from "@/types"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"

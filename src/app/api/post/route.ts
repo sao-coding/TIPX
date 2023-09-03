@@ -1,6 +1,6 @@
 // 學校公告
 import { NextRequest, NextResponse } from "next/server"
-import getPost from "@/lib/post"
+import getPost from "@/utils/post"
 
 export const GET = async (req: NextRequest) => {
     // 獲取公告 全部貼文

@@ -1,7 +1,7 @@
 // 課堂資訊
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getCourse from "@/lib/course"
+import getCourse from "@/utils/course"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 

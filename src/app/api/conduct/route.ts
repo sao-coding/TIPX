@@ -1,7 +1,7 @@
 // 操行成績
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getConduct from "@/lib/conduct"
+import getConduct from "@/utils/conduct"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 

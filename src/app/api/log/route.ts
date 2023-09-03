@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase-admin"
-import getUser from "@/lib/user"
+import getUser from "@/utils/user"
 import { Log } from "@/types"
 
 export const GET = async (req: NextRequest) => {

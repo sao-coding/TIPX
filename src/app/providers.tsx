@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { usePathname } from "next/navigation"
 import { Session } from "next-auth"
-import getIP from "@/lib/ip"
+import getIP from "@/utils/ip"
 
 const Providers = ({
     children,

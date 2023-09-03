@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom"
 import getUser from "@/lib/user"
 import getConduct from "@/lib/conduct"
-import getClassName from "@/lib/class-name"
+import getClassName from "@/utils/class-name"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
 const getClassRank = async (
