@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getSemGrade from "@/lib/sem-grade"
+import getSemGrade from "@/utils/sem-grade"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 

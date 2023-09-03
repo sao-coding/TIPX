@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
-import getClassRank from "@/lib/class-rank"
+import getClassRank from "@/utils/class-rank"
 import { FinalGradeRankClass } from "@/types"
 
 export const GET = async (req: NextRequest) => {

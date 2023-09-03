@@ -1,7 +1,7 @@
 // 缺曠請假紀錄
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getCourseAttendanceRecord from "@/lib/course-attendance-record"
+import getCourseAttendanceRecord from "@/utils/course-attendance-record"
 import { JSDOM } from "jsdom"
 import { CourseAttendanceRecord } from "@/types"
 import { getServerSession } from "next-auth"

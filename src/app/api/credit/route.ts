@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import getCredit from "@/lib/credit"
+import getCredit from "@/utils/credit"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 
