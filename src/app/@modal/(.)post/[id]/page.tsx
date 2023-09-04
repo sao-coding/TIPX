@@ -16,7 +16,7 @@ import { Post } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import "@/app/loaderCat.css"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 const PostModal = ({ params }: { params: { id: string } }) => {
     const id = params.id
@@ -38,125 +38,120 @@ const PostModal = ({ params }: { params: { id: string } }) => {
 
     return (
         <Dialog.Root defaultOpen onOpenChange={(open) => !open && dismiss()}>
-            <AnimatePresence>
-                <Dialog.Portal forceMount>
-                    <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-                    <Dialog.Content asChild>
-                        <motion.div
-                            className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'
-                            initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
-                            animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
-                        >
-                            {data && (
-                                <>
-                                    <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4 outline-none'>
-                                        <IconX size={24} />
-                                    </Dialog.Close>
-                                    <Dialog.Title asChild>
-                                        <div className='mb-1 flex items-center justify-center'>
-                                            <div className='pr-5 font-bold md:text-xl'>
-                                                {data.title}
-                                            </div>
-                                        </div>
-                                    </Dialog.Title>
-                                    <div className='flex items-center justify-between'>
-                                        <div className='flex items-center'>
-                                            <div className='mr-1'>{data.unit}</div>
-                                            <div className='ml-1 text-blue-500'>
-                                                <a href={`mailto:${data.publisher.email}`}>
-                                                    {data.publisher.name}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div className='rounded-md px-1 bg-main-color-1'>
-                                            {data.category}
+            <Dialog.Portal>
+                <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
+                <Dialog.Content asChild>
+                    <motion.div
+                        className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[95vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'
+                        initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
+                        animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
+                    >
+                        {data && (
+                            <>
+                                <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4 outline-none'>
+                                    <IconX size={24} />
+                                </Dialog.Close>
+                                <Dialog.Title asChild>
+                                    <div className='mb-1 flex items-center justify-center'>
+                                        <div className='pr-5 font-bold md:text-xl'>
+                                            {data.title}
                                         </div>
                                     </div>
-                                    <div className='my-1 flex items-center justify-between'>
-                                        <div className='flex items-center'>
-                                            <IconCalendarTime size={20} />
-                                            <div className='pl-1'>{data.date}</div>
-                                        </div>
-                                        <div className='flex items-center'>
-                                            <IconCalendarOff size={20} />
-                                            <div className='pl-1'>{data.deadline}</div>
-                                        </div>
-                                        <Link href={`/post/${id}`} target='_parent'>
-                                            <IconExternalLink />
-                                        </Link>
-                                    </div>
-                                    <div className='h-[50vh] w-full overflow-y-auto rounded-xl border'>
-                                        <div className='whitespace-pre-line break-words p-1'>
-                                            {data.content}
+                                </Dialog.Title>
+                                <div className='flex items-center justify-between'>
+                                    <div className='flex items-center'>
+                                        <div className='mr-1'>{data.unit}</div>
+                                        <div className='ml-1 text-blue-500'>
+                                            <a href={`mailto:${data.publisher.email}`}>
+                                                {data.publisher.name}
+                                            </a>
                                         </div>
                                     </div>
-                                    <div className='mt-1 h-[10vh] overflow-y-auto rounded-xl border p-1'>
-                                        {data.file.length > 0 ? (
-                                            <>
-                                                {data.file.map((item) => (
-                                                    <div
-                                                        key={item.title}
-                                                        className='flex items-center'
+                                    <div className='rounded-md px-1 bg-main-color-1'>
+                                        {data.category}
+                                    </div>
+                                </div>
+                                <div className='my-1 flex items-center justify-between'>
+                                    <div className='flex items-center'>
+                                        <IconCalendarTime size={20} />
+                                        <div className='pl-1'>{data.date}</div>
+                                    </div>
+                                    <div className='flex items-center'>
+                                        <IconCalendarOff size={20} />
+                                        <div className='pl-1'>{data.deadline}</div>
+                                    </div>
+                                    <Link href={`/post/${id}`} target='_parent'>
+                                        <IconExternalLink />
+                                    </Link>
+                                </div>
+                                <div className='h-[50vh] w-full overflow-y-auto rounded-xl border'>
+                                    <div className='whitespace-pre-line break-words p-1'>
+                                        {data.content}
+                                    </div>
+                                </div>
+                                <div className='mt-1 h-[10vh] overflow-y-auto rounded-xl border p-1'>
+                                    {data.file.length > 0 ? (
+                                        <>
+                                            {data.file.map((item) => (
+                                                <div key={item.title} className='flex items-center'>
+                                                    <IconPaperclip size={20} />
+                                                    <div className='pl-1'>{item.title}</div>
+                                                    <a
+                                                        href={item.link}
+                                                        target='_blank'
+                                                        rel='noreferrer'
+                                                        className='p-1'
                                                     >
-                                                        <IconPaperclip size={20} />
-                                                        <div className='pl-1'>{item.title}</div>
-                                                        <a
-                                                            href={item.link}
-                                                            target='_blank'
-                                                            rel='noreferrer'
-                                                            className='p-1'
-                                                        >
-                                                            <IconDownload className='rounded-md bg-main-color-1 p-1' />
-                                                        </a>
-                                                    </div>
-                                                ))}
-                                            </>
-                                        ) : (
-                                            <div className='flex items-center'>
-                                                <IconPaperclip size={20} />
-                                                <div className='text-gray-500 pl-1'>沒有附件</div>
-                                            </div>
-                                        )}
-                                        {data.link ? (
-                                            <div className='flex items-center'>
-                                                <IconLink size={20} />
-                                                <a
-                                                    href={data.link}
-                                                    target='_blank'
-                                                    rel='noreferrer'
-                                                    className='text-blue-500 pl-1'
-                                                >
-                                                    點及此處前往
-                                                </a>
-                                            </div>
-                                        ) : (
-                                            <div className='flex items-center'>
-                                                <IconLink size={20} />
-                                                <div className='text-gray-500 pl-1'>沒有連結</div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </>
-                            )}
-                            {isLoading && (
-                                <div className='flex items-center justify-center'>
-                                    <div className='cat'>
-                                        <div className='cat__body'></div>
-                                        <div className='cat__body'></div>
-                                        <div className='cat__tail'></div>
-                                        <div className='cat__head'></div>
-                                    </div>
+                                                        <IconDownload className='rounded-md bg-main-color-1 p-1' />
+                                                    </a>
+                                                </div>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        <div className='flex items-center'>
+                                            <IconPaperclip size={20} />
+                                            <div className='text-gray-500 pl-1'>沒有附件</div>
+                                        </div>
+                                    )}
+                                    {data.link ? (
+                                        <div className='flex items-center'>
+                                            <IconLink size={20} />
+                                            <a
+                                                href={data.link}
+                                                target='_blank'
+                                                rel='noreferrer'
+                                                className='text-blue-500 pl-1'
+                                            >
+                                                點及此處前往
+                                            </a>
+                                        </div>
+                                    ) : (
+                                        <div className='flex items-center'>
+                                            <IconLink size={20} />
+                                            <div className='text-gray-500 pl-1'>沒有連結</div>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                            {isError && (
-                                <div className='flex items-center justify-center'>
-                                    <div className='text-red-500'>沒有這篇公告</div>
+                            </>
+                        )}
+                        {isLoading && (
+                            <div className='flex items-center justify-center'>
+                                <div className='cat'>
+                                    <div className='cat__body'></div>
+                                    <div className='cat__body'></div>
+                                    <div className='cat__tail'></div>
+                                    <div className='cat__head'></div>
                                 </div>
-                            )}
-                        </motion.div>
-                    </Dialog.Content>
-                </Dialog.Portal>
-            </AnimatePresence>
+                            </div>
+                        )}
+                        {isError && (
+                            <div className='flex items-center justify-center'>
+                                <div className='text-red-500'>沒有這篇公告</div>
+                            </div>
+                        )}
+                    </motion.div>
+                </Dialog.Content>
+            </Dialog.Portal>
         </Dialog.Root>
     )
 }
