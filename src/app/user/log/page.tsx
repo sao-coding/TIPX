@@ -119,7 +119,7 @@ const AnnouncementCP = () => {
                                             />
                                         </a>
                                     </Fancybox>
-                                    <div className='px-2 w-full'>
+                                    <div className='px-2'>
                                         <div>{data.stuID}</div>
                                         <div>{data.name}</div>
                                         <div>{data.class}</div>
@@ -135,7 +135,6 @@ const AnnouncementCP = () => {
                                     >
                                         {data.path}
                                     </Link>
-
                                     <div className='absolute top-2 right-2 bg-main-color-2 rounded-lg font-mono px-1 my-7'>
                                         {data.ip}
                                     </div>
