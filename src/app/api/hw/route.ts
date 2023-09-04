@@ -161,12 +161,10 @@ export const POST = async (req: NextRequest) => {
         return NextResponse.json({ status: "error", message: "沒有作業ID" })
     }
 
-    if (file) {
-        if (file !== "undefined") {
-            bodyContent.append("userfile", file)
-        } else {
-            return NextResponse.json({ status: "error", message: "沒有檔案" })
-        }
+    if (file && file !== "null") {
+        bodyContent.append("userfile", file)
+    } else {
+        return NextResponse.json({ status: "error", message: "沒有檔案" })
     }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php", {
