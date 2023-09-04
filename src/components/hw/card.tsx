@@ -15,6 +15,7 @@ import toast, { useToasterStore } from "react-hot-toast"
 import { FileUploader } from "react-drag-drop-files"
 import { motion } from "framer-motion"
 import { HwList } from "@/types"
+import { track } from "@vercel/analytics/react"
 
 const Card = ({ course, data, studentID }: { course: string; data: HwList; studentID: string }) => {
     const [file, setFile] = useState<File | null>(null)
@@ -36,6 +37,11 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
     }
 
     const trackDownloadHw = (course: string, title: string) => {
+        const student = studentID
+        return `${student} - ${course} - ${title}`
+    }
+
+    const trackUploadHw = (course: string, title: string) => {
         const student = studentID
         return `${student} - ${course} - ${title}`
     }
@@ -70,9 +76,9 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
         const data = await res.json()
         if (data.status === "success") {
             toast.success("上傳成功", { id: toastId })
-            // umami.track("作業上傳", {
-            //     data: trackDownloadHw(course, data.title),
-            // })
+            umami.track("作業上傳", {
+                data: trackUploadHw(course, data.title),
+            })
         } else if (data.status === "error") {
             toast.error(data.message, { id: toastId })
         } else {
