@@ -175,6 +175,10 @@ export const POST = async (req: NextRequest) => {
         body: bodyContent,
     })
 
+    if (!res.ok) {
+        return NextResponse.json({ status: "error", message: "上傳失敗" })
+    }
+
     const data = await res.text()
 
     if (data.includes("File Upload Successful")) {
