@@ -15,10 +15,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 # 參考資料
 https://uigradients.com/
 https://ithelp.ithome.com.tw/articles/10222915
-
-https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file.php?id=98892
-list_course_uploadhw_file_x.php?id={id}
-表單資料
-id: 98892
-userfile: (二進位)
-Submit: ¶}©l¤W¶Ç
+https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
+https://www.wfublog.com/2017/10/input-type-file-upload-css-skill.html
+https://blog.kalan.dev/2021-03-13-html-form-data
+https://ithelp.ithome.com.tw/articles/10306392
+https://blog.huli.tw/2021/02/19/cors-guide-2/
