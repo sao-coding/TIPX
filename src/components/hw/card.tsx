@@ -165,7 +165,8 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                         className='h-full p-4 flex flex-col space-y-2 items-center'
                                         onSubmit={(event) => upload(event, data.upload)}
                                     >
-                                        <h1 className='text-xl'>作業上傳</h1>
+                                        <h1 className='text-xl self-start'>作業上傳</h1>
+                                        <h2 className='text-lg font-bold'>{data.title}</h2>
                                         <FileUploader
                                             handleChange={(file: File) => handleFileChange(file)}
                                             onDraggingStateChange={(dragging: boolean) =>
