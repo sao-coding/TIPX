@@ -8,7 +8,7 @@ import "@/app/loaderCat.css"
 import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const HwPage = ({ params }: { params: { id: string } }) => {
-    const { data: name } = useQuery({
+    const { data: course } = useQuery({
         queryKey: ["course", params.id],
         queryFn: async () => {
             const res = await fetch(`/api/course?course=${params.id}`, {
@@ -53,12 +53,12 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 </div>
             ) : (
                 <div className='w-full'>
-                    {data && data.length > 0 && name ? (
+                    {data && data.length > 0 && course ? (
                         <>
                             {data.map((item, index) => (
                                 <BottomToUpTransitionView key={index} custom={index}>
                                     <Card
-                                        course={name}
+                                        course={course.name}
                                         data={item}
                                         studentID={Cookie.get("cookie_userid") ?? ""}
                                     />

@@ -15,7 +15,6 @@ import toast, { useToasterStore } from "react-hot-toast"
 import { FileUploader } from "react-drag-drop-files"
 import { motion } from "framer-motion"
 import { HwList } from "@/types"
-import { track } from "@vercel/analytics/react"
 
 const Card = ({ course, data, studentID }: { course: string; data: HwList; studentID: string }) => {
     const [file, setFile] = useState<File | null>(null)
@@ -32,18 +31,15 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
     }, [toasts])
 
     const trackDownloadFile = (course: string, title: string) => {
-        const student = studentID
-        return `${student} - ${course} - ${title}`
+        return `${studentID} - ${course} - ${title}`
     }
 
     const trackDownloadHw = (course: string, title: string) => {
-        const student = studentID
-        return `${student} - ${course} - ${title}`
+        return `${studentID} - ${course} - ${title}`
     }
 
     const trackUploadHw = (course: string, title: string) => {
-        const student = studentID
-        return `${student} - ${course} - ${title}`
+        return `${studentID} - ${course} - ${title}`
     }
 
     const formatTime = (time: string) => {
