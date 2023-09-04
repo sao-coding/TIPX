@@ -69,14 +69,14 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
             body: bodyContent,
         })
 
-        const data = await res.json()
-        if (data.status === "success") {
+        const json = await res.json()
+        if (json.status === "success") {
             toast.success("上傳成功", { id: toastId })
             umami.track("作業上傳", {
                 data: trackUploadHw(course, data.title),
             })
-        } else if (data.status === "error") {
-            toast.error(data.message, { id: toastId })
+        } else if (json.status === "error") {
+            toast.error(json.message, { id: toastId })
         } else {
             toast.error("上傳失敗", { id: toastId })
         }
