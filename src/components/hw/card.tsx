@@ -172,6 +172,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                             onDraggingStateChange={(dragging: boolean) =>
                                                 setOnDrop(dragging)
                                             }
+                                            onTypeError={() => toast.error("不支援的檔案類型")}
                                             name='userfile'
                                             types={[
                                                 "doc",
