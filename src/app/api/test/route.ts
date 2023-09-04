@@ -46,13 +46,13 @@ export const GET = async (req: NextRequest) => {
     }
 
     const res = await fetch(
-        "https://netinfo.takming.edu.tw/tip/tea_absbook_list.php?OpNo=D192112",
+        "https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php?id={id}",
         {
             headers: {
-                // cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-                cookie: Object.entries(cookie)
-                    .map((e) => `${e[0]}=${e[1]}`)
-                    .join("; "),
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                // cookie: Object.entries(cookie)
+                //     .map((e) => `${e[0]}=${e[1]}`)
+                //     .join("; "),
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         }
@@ -70,4 +70,25 @@ export const GET = async (req: NextRequest) => {
     // html = html.replace(cap, "")
 
     return NextResponse.json(html)
+    // let headersList = {
+    //     Cookie: "cookie_rgno=D11019139; cookie_level=2; cookie_type=2; cookie_userid=D11019139; cookie_name=%25F7%25E1%25A4%25E5%25B5q; cookie_program=D; cookie_programname=%A4%E9%A5%7C%A7%DE; cookie_dept=19; cookie_grade=3; cookie_divcode=1; cookie_classno=D1931; cookie_classname=%A4%E9%A5%7C%A7%DE%AC%EC%A4T%A5%D2; cookie_enyear=110; cookie_class=1; cookie_logintimes=2; cookie_sex=1; cookie_account=D11019139; cookie_year=111; cookie_sem=2; PHPSESSID=i9ksvmrh7fnbr6jr80asl2tfbg",
+    // }
+
+    // let bodyContent = new FormData()
+    // bodyContent.append("id", "98892")
+    // bodyContent.append("Submit", "¶}©l¤W¶Ç")
+    // bodyContent.append("userfile", "d:\\jeter\\Downloads\\system.docx")
+
+    // let response = await fetch(
+    //     "https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php?id=%7Bid%7D",
+    //     {
+    //         method: "POST",
+    //         body: bodyContent,
+    //         headers: headersList,
+    //     }
+    // )
+
+    // let data = await response.text()
+    // console.log(data)
+    // return NextResponse.json(data)
 }

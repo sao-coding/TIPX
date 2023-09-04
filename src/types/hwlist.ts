@@ -3,7 +3,7 @@ export type HwList = {
     file: string
     start: string
     end: string
-    upload_status: boolean
+    upload: string
     download: string
     size: string
     status: string

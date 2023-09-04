@@ -38,14 +38,6 @@ const HwPage = ({ params }: { params: { id: string } }) => {
         refetchOnWindowFocus: false,
     })
 
-    const card = {
-        visible: (custom: number) => ({
-            opacity: [0, 1],
-            y: [50, -10, 0],
-            transition: { delay: custom * 0.1, duration: 0.5 },
-        }),
-    }
-
     return (
         <>
             {isLoading ? (
@@ -63,7 +55,6 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 <div className='w-full'>
                     {data && data.length > 0 && name ? (
                         <>
-                            {console.log(data, name)}
                             {data.map((item, index) => (
                                 <BottomToUpTransitionView key={index} custom={index}>
                                     <Card

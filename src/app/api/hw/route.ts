@@ -44,22 +44,16 @@ export const GET = async (req: NextRequest) => {
                         // 移除空白
                         list = list.replace(/\s/g, "")
                     }
-                    if (index === 3) {
-                        if (list == "未到或已過上傳時間") {
-                            list = "true"
-                        } else {
-                            list = "false"
-                        }
-                    }
-
                     if (index === 4) {
-                        if (list == "已上傳本作業") {
+                        if (list === "已上傳本作業") {
                             list = "已繳交"
                         } else {
                             list = "未繳交"
                         }
                     }
-                    hw.push(list)
+                    if (index !== 3) {
+                        hw.push(list)
+                    }
                 }
 
                 if (index === 0) {
@@ -67,6 +61,17 @@ export const GET = async (req: NextRequest) => {
                     // <input type="button" value="下載" onclick="DownDoc("teach_n/1112/T11120000162.docx")">
                     // 取得下載連結
                     link = link.replace(/DownDoc\(\"|\"\)/g, "")
+                    hw.push(link)
+                }
+                if (index === 3) {
+                    let link = cell.querySelector("input")?.getAttribute("onclick") ?? ""
+                    if (list === "未到或已過上傳時間") {
+                        link = ""
+                    } else {
+                        // <input type=button value='我要上傳作業' onclick='OpenWin(98892);'>
+                        // 取得上傳連結 並去除";"
+                        link = link.replace(/OpenWin\(|\);/g, "")
+                    }
                     hw.push(link)
                 }
             })
@@ -127,7 +132,7 @@ export const GET = async (req: NextRequest) => {
                 file: hw[1],
                 start: hw[2],
                 end: hw[3],
-                upload_status: hw[4] === "true" ? true : false,
+                upload: hw[4],
                 download: hw[5],
                 size: hw[6],
                 status: hw[7],
@@ -141,4 +146,42 @@ export const GET = async (req: NextRequest) => {
     await crawler(res2, "downhw")
     await writeHw(hwdata1, hwdata2)
     return NextResponse.json(hwlist)
+}
+
+export const POST = async (req: NextRequest) => {
+    const formData = await req.formData()
+    const id = formData.get("id")
+    const file = formData.get("userfile")
+    // const submit = formData.get("Submit")
+
+    let bodyContent = new FormData()
+    if (id) {
+        bodyContent.append("id", id)
+    } else {
+        return NextResponse.json({ status: "error", message: "沒有作業ID" })
+    }
+
+    if (file) {
+        if (file !== "undefined") {
+            bodyContent.append("userfile", file)
+        } else {
+            return NextResponse.json({ status: "error", message: "沒有檔案" })
+        }
+    }
+
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php", {
+        method: "POST",
+        headers: {
+            Cookie: cookies().toString(),
+        },
+        body: bodyContent,
+    })
+
+    const data = await res.text()
+
+    if (data.includes("File Upload Successful")) {
+        return NextResponse.json({ status: "success" })
+    } else {
+        return NextResponse.json({ status: "fail" })
+    }
 }
