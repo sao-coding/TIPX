@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect } from "react"
 import { Log } from "@/types"
 import { useInView } from "react-intersection-observer"
@@ -71,17 +72,21 @@ const AnnouncementCP = () => {
                                         <div className='px-2'>
                                             <div>{data.stuID}</div>
                                             <div>{data.name}</div>
-                                            <div>{data.ip}</div>
+                                            <div>{data.class}</div>
                                             <div className='col-span-2  justify-self-end'>
                                                 {new Date(data.time).toLocaleString("zh-TW", {
                                                     timeZone: "Asia/Taipei",
                                                 })}
                                             </div>
                                         </div>
-                                        <div className='absolute top-2 right-2 px-1 bg-main-color-2 rounded-lg font-mono'>
-                                            <div className='justify-self-end whitespace-nowrap'>
-                                                {data.path}
-                                            </div>
+                                        <Link
+                                            href={data.path}
+                                            className='absolute top-2 right-2 px-1 bg-main-color-2 rounded-lg font-mono whitespace-nowrap block'
+                                        >
+                                            {data.path}
+                                        </Link>
+                                        <div className='absolute top-2 right-2 bg-main-color-2 rounded-lg font-mono px-1 my-7'>
+                                            {data.ip}
                                         </div>
                                     </div>
                                 )
@@ -114,20 +119,25 @@ const AnnouncementCP = () => {
                                             />
                                         </a>
                                     </Fancybox>
-                                    <div className='px-2'>
+                                    <div className='px-2 w-full'>
                                         <div>{data.stuID}</div>
                                         <div>{data.name}</div>
-                                        <div>{data.ip}</div>
+                                        <div>{data.class}</div>
                                         <div className='col-span-2  justify-self-end'>
                                             {new Date(data.time).toLocaleString("zh-TW", {
                                                 timeZone: "Asia/Taipei",
                                             })}
                                         </div>
                                     </div>
-                                    <div className='absolute top-2 right-2 px-1 bg-main-color-2 rounded-lg font-mono'>
-                                        <div className='justify-self-end whitespace-nowrap'>
-                                            {data.path}
-                                        </div>
+                                    <Link
+                                        href={data.path}
+                                        className='absolute top-2 right-2 px-1 bg-main-color-2 rounded-lg font-mono whitespace-nowrap block'
+                                    >
+                                        {data.path}
+                                    </Link>
+
+                                    <div className='absolute top-2 right-2 bg-main-color-2 rounded-lg font-mono px-1 my-7'>
+                                        {data.ip}
                                     </div>
                                 </div>
                             )

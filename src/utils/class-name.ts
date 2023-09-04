@@ -1,20 +1,14 @@
 import { JSDOM } from "jsdom"
 import { ClassName } from "@/types"
 
-const getClassName = async (
-    userid: string,
-    year: string,
-    sem: string,
-    dept: string,
-    es: string
-) => {
+const getClassName = async (userid: string) => {
     let className: ClassName = {
         class: "",
     }
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php", {
         headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; `,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

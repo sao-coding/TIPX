@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase-admin"
 import getUser from "@/utils/user"
+import getClassName from "@/utils/class-name"
 import { Log } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -20,11 +21,22 @@ export const GET = async (req: NextRequest) => {
                 .limit(parseInt(limits))
                 .get()
 
-            return NextResponse.json(
-                log.docs.map((doc) => {
-                    return { id: doc.id, ...doc.data() }
-                })
-            )
+            // return NextResponse.json(
+            //     log.docs.map((doc) => {
+            //         return { id: doc.id, ...doc.data() }
+            //     })
+            // )
+
+            const logData = []
+
+            for (const doc of log.docs) {
+                const data = doc.data()
+                data.class = await (await getClassName(data.stuID)).class
+                data.id = doc.id
+                logData.push(data)
+            }
+
+            return NextResponse.json(logData)
         } else {
             const log = await db
                 .collection("log")
@@ -37,11 +49,20 @@ export const GET = async (req: NextRequest) => {
             //     console.log(doc.id, doc.data())
             // })
 
-            return NextResponse.json(
-                log.docs.map((doc) => {
-                    return { id: doc.id, ...doc.data() }
-                })
-            )
+            // return NextResponse.json(
+            //     log.docs.map(async (doc) => {
+            //         return { id: doc.id, class: await getClassName(doc.data().stuID), ...doc.data() }
+            //     })
+            // )
+            const logData = []
+            for (const doc of log.docs) {
+                const data = doc.data()
+                data.class = await (await getClassName(data.stuID)).class
+                data.id = doc.id
+                logData.push(data)
+            }
+
+            return NextResponse.json(logData)
         }
     }
 }

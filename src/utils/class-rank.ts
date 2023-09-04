@@ -30,13 +30,7 @@ const getClassRank = async (
 
     const classId = userid?.slice(0, 6)
 
-    const classNameown: ClassName = await getClassName(
-        userid ?? "",
-        year ?? "",
-        sem ?? "",
-        dept ?? "",
-        es ?? ""
-    )
+    const classNameown: ClassName = await getClassName(userid ?? "")
     const fetchData = async (userid: string) => {
         const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
             headers: {
@@ -56,13 +50,7 @@ const getClassRank = async (
             "one"
         )) as Conduct
 
-        const className: ClassName = await getClassName(
-            userid,
-            year ?? "",
-            sem ?? "",
-            dept ?? "",
-            es ?? ""
-        )
+        const className: ClassName = await getClassName(userid)
 
         if (className.class !== classNameown.class) {
             return null // If className doesn't match, return null
