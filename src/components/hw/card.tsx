@@ -200,19 +200,21 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                                             <IconUpload size={40} />
                                                             <div className='flex items-center'>
                                                                 <IconPaperclip size={20} />
+                                                                {/* 檔案名稱 . 前面的部分 不超過 11 個字 */}
                                                                 {file ? (
                                                                     <div>
-                                                                        {file.name.length > 11
-                                                                            ? file.name.slice(
-                                                                                  0,
-                                                                                  11
-                                                                              ) +
-                                                                              "..." +
-                                                                              file.name.slice(
-                                                                                  file.name.lastIndexOf(
+                                                                        {file.name.split(".")[0]
+                                                                            .length > 11
+                                                                            ? `${file.name
+                                                                                  .split(".")[0]
+                                                                                  .slice(
+                                                                                      0,
+                                                                                      11
+                                                                                  )}... .${
+                                                                                  file.name.split(
                                                                                       "."
-                                                                                  )
-                                                                              )
+                                                                                  )[1]
+                                                                              }`
                                                                             : file.name}
                                                                     </div>
                                                                 ) : (
