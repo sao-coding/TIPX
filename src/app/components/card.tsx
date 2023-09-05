@@ -36,7 +36,14 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
                 >
-                    {data.title}
+                    {/* 電腦版寬度超過 768px 不限制字數 */}
+                    {/* 手機版寬度小於 768px 限制字數為 40 字 */}
+                    {/* 超過 40 字的標題會被截斷 顯示省略號 */}
+                    {document.body.clientWidth >= 768
+                        ? data.title
+                        : data.title.length > 40
+                        ? data.title.slice(0, 40) + "..."
+                        : data.title}
                 </motion.div>
                 <motion.div
                     className='flex w-full items-center px-1 max-xs:hidden md:justify-center space-x-1'

@@ -202,7 +202,18 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                                                 <IconPaperclip size={20} />
                                                                 {file ? (
                                                                     <div>
-                                                                        已選擇檔案 {file.name}
+                                                                        {file.name.length > 11
+                                                                            ? file.name.slice(
+                                                                                  0,
+                                                                                  11
+                                                                              ) +
+                                                                              "..." +
+                                                                              file.name.slice(
+                                                                                  file.name.lastIndexOf(
+                                                                                      "."
+                                                                                  )
+                                                                              )
+                                                                            : file.name}
                                                                     </div>
                                                                 ) : (
                                                                     <div>上傳 或 拖曳檔案至此</div>
