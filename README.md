@@ -21,3 +21,16 @@ https://www.wfublog.com/2017/10/input-type-file-upload-css-skill.html
 https://blog.kalan.dev/2021-03-13-html-form-data
 https://ithelp.ithome.com.tw/articles/10306392
 https://blog.huli.tw/2021/02/19/cors-guide-2/
+
+https://netinfo.takming.edu.tw/tip/stu_setphone.php  
+https://netinfo.takming.edu.tw/tip/stu_setphone_x.php  
+Phone: 0925385500  
+NPhone: 0925385500  
+
+https://netinfo.takming.edu.tw/tip/verify_stu_tel.php?rno=D11019139  
+
+https://netinfo.takming.edu.tw/tip/verify_stu_tel_ok.php  
+
+KeeperID: D11019139  
+KeeperName: 欒文皓  
+VCode: 7117  

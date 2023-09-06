@@ -170,7 +170,7 @@ export const POST = async (req: NextRequest) => {
     const res = await fetch("https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php", {
         method: "POST",
         headers: {
-            Cookie: cookies().toString(),
+            cookie: cookies().toString(),
         },
         body: bodyContent,
     })

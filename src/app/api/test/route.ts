@@ -44,19 +44,41 @@ export const GET = async (req: NextRequest) => {
         cookie_year: "111",
         cookie_userid: "0003046",
     }
-    userid = "D11216101"
-    const res = await fetch(
-        "https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_new.php?DIV=1",
-        {
-            headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-                // cookie: Object.entries(cookie)
-                //     .map((e) => `${e[0]}=${e[1]}`)
-                //     .join("; "),
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        }
-    )
+    userid = "D11214124"
+    // cookie_userid=D11214124;cookie_rgno=D11214124;cookie_year=112;year_sem=1;
+
+    // js 設定 cookie
+
+    // const cookie = {
+    //     cookie_account: "D11214124",
+    //     cookie_userid: "D11214124",
+    //     cookie_rgno: "D11214124",
+    //     cookie_program: "D",
+    //     cookie_enyear: "112",
+    //     cookie_dept: "14",
+    //     cookie_year: "112",
+    //     cookie_sem: "1",
+    //     cookie_divcode: "1",
+    //     cookie_level: "2",
+    //     cookie_type: "2",
+    // }
+
+    // for (const [key, value] of Object.entries(cookie)) {
+    //     document.cookie = `${key}=${value};`
+    // }
+
+    // Mail: only@sao-x.com
+    // LineID: fuckjeter
+
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_setmail.php", {
+        headers: {
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            // cookie: Object.entries(cookie)
+            //     .map((e) => `${e[0]}=${e[1]}`)
+            //     .join("; "),
+            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+        },
+    })
 
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
