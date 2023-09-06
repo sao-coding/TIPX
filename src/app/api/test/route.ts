@@ -4,11 +4,11 @@ import { JSDOM } from "jsdom"
 export const dynamic = "force-dynamic"
 
 export const GET = async (req: NextRequest) => {
-    const year = req.cookies.get("cookie_year")?.value
-    const sem = req.cookies.get("cookie_sem")?.value
-    const userid = req.cookies.get("cookie_userid")?.value
-    const dept = req.cookies.get("cookie_dept")?.value
-    const es = req.cookies.get("cookie_es")?.value
+    let year = req.cookies.get("cookie_year")?.value
+    let sem = req.cookies.get("cookie_sem")?.value
+    let userid = req.cookies.get("cookie_userid")?.value
+    let dept = req.cookies.get("cookie_dept")?.value
+    let es = req.cookies.get("cookie_es")?.value
     // const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
 
     // if (
@@ -44,9 +44,9 @@ export const GET = async (req: NextRequest) => {
         cookie_year: "111",
         cookie_userid: "0003046",
     }
-
+    userid = "D11216101"
     const res = await fetch(
-        "https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php?id={id}",
+        "https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_new.php?DIV=1",
         {
             headers: {
                 cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
