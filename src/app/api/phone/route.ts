@@ -34,6 +34,7 @@ export const GET = async (req: NextRequest) => {
                 "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > input[type=text]"
             )
             ?.getAttribute("value") ?? ""
+
     return NextResponse.json({ phone })
 }
 
@@ -58,13 +59,13 @@ export const POST = async (req: NextRequest) => {
         },
         body: bodyContent,
     })
-    console.log(res)
+
     if (!res.ok) {
         return NextResponse.json({ status: "error", message: "發生錯誤" })
     }
 
     const data = await res.text()
-    console.log(data)
+
     return NextResponse.json(data)
     if (data.includes("File Upload Successful")) {
         return NextResponse.json({ status: "success" })

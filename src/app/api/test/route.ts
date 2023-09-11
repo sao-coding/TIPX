@@ -70,7 +70,7 @@ export const GET = async (req: NextRequest) => {
     // Mail: only@sao-x.com
     // LineID: fuckjeter
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_setmail.php", {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
         headers: {
             cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
             // cookie: Object.entries(cookie)

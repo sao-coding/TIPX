@@ -52,7 +52,7 @@ export const GET = async (req: NextRequest) => {
                 "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=text]"
             )
             ?.getAttribute("value") ?? ""
-    console.log(html)
+    // console.log(html)
     return NextResponse.json(email)
 }
 

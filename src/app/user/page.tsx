@@ -58,7 +58,10 @@ const UserPage = async () => {
             >
                 <div className='flex items-center'>
                     <IconClipboardPlus />
-                    <div className='ml-2'>線上請假 (即將開放測試)</div>
+                    <div className='ml-2'>
+                        線上請假 (開放測試)
+                        <div className='text-xs'>工程獅討拍寫到快往生，有任何問題我不負責</div>
+                    </div>
                 </div>
             </Link>
             <Link

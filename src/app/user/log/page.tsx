@@ -9,7 +9,7 @@ import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
 import { IconUserCircle } from "@tabler/icons-react"
 
-const AnnouncementCP = () => {
+const LogPage = () => {
     const { ref, inView } = useInView()
     const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
         Log[]
@@ -165,4 +165,4 @@ const AnnouncementCP = () => {
     )
 }
 
-export default AnnouncementCP
+export default LogPage
