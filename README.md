@@ -34,3 +34,28 @@ https://netinfo.takming.edu.tw/tip/verify_stu_tel_ok.php
 KeeperID: D11019139  
 KeeperName: 欒文皓  
 VCode: 7117  
+%AAL%B0%B6%A4t  
+林偉川  
+%B8%EA%AC%EC%A8t  
+資科系
+
+mode: 1
+timed: 
+d1: 
+d2: 
+TDate: 1120911
+AbsType: 2
+T16: D513101
+StuDate:
+
+https://netinfo.takming.edu.tw/tip/stu_absrec.php?type=3&rgno=D11019139&rowid=1978463
+
+mode: 1
+timed: 
+d1: 
+d2: 
+TDate: 1120911
+AbsType: 3
+T17: D513101
+StuDate: 
+https://netinfo.takming.edu.tw/tip/stu_absrec.php?type=3&rgno=D11019139&rowid=1978464
