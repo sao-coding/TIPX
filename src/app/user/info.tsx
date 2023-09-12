@@ -71,10 +71,7 @@ const Info = ({ userData }: { userData: User }) => {
                                 )}
                             </div>
                             <div className='py-[3px] pl-4'>
-                                <div className='flex items-center space-x-2'>
-                                    <div>{userData.name}</div>
-                                    <div>{userData.enName}</div>
-                                </div>
+                                <div>{userData.name}</div>
                                 <div>{userData.IDnumber}</div>
                                 <div>{userData.major}</div>
                                 <div className='flex items-center space-x-2'>
