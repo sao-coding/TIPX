@@ -9,7 +9,7 @@ import "@/app/loaderCat.css"
 const LeavePage = () => {
     return (
         <div className='h-full w-full md:rounded-md md:bg-white px-4 md:pt-4 md:shadow-md'>
-            <Tabs.Root defaultValue='列表'>
+            <Tabs.Root defaultValue='請假'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative'>
                     <Tabs.Trigger
                         className='w-full p-2 peer/tabs-請假'
