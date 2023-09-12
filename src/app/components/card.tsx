@@ -69,7 +69,7 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
                     </div>
                 </motion.div>
                 <motion.div
-                    className='absolute bottom-0 right-0 rounded-lg md:bg-white px-1 bg-main-color-1'
+                    className='absolute bottom-0 right-0 rounded-lg md:bg-white px-1 bg-main-color-1 max-sm:text-sm'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
