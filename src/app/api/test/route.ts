@@ -42,9 +42,9 @@ export const GET = async (req: NextRequest) => {
         cookie_unitid: "19",
         cookie_sem: "2",
         cookie_year: "111",
-        cookie_userid: "0003046",
+        cookie_userid: "0004307",
     }
-    userid = "D11214124"
+    // userid = "D11214124"
     // cookie_userid=D11214124;cookie_rgno=D11214124;cookie_year=112;year_sem=1;
 
     // js 設定 cookie
@@ -70,12 +70,12 @@ export const GET = async (req: NextRequest) => {
     // Mail: only@sao-x.com
     // LineID: fuckjeter
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/tea_absrec_chk.php", {
         headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-            // cookie: Object.entries(cookie)
-            //     .map((e) => `${e[0]}=${e[1]}`)
-            //     .join("; "),
+            // cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            cookie: Object.entries(cookie)
+                .map((e) => `${e[0]}=${e[1]}`)
+                .join("; "),
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

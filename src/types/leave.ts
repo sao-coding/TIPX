@@ -10,7 +10,18 @@ export type Leave = {
 
 export type LeaveItem = {
     status: boolean
-    id: string
+    id: number
+    courseID: string
     name: string
     value: string
+}
+
+export type LeaveItemCheck = {
+    id: string
+    type: string
+    date: string
+    course: string
+    teacher: string
+    section: string
+    status: string
 }
