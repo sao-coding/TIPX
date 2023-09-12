@@ -38,6 +38,17 @@ const List = () => {
         退件: "bg-red-500",
     }
 
+    const formatDate = (date: string) => {
+        // 1120915(五) -> 2023/09/15(五)
+
+        const year = date.slice(0, 3)
+        const month = date.slice(3, 5)
+        const day = date.slice(5, 7)
+        const week = date.slice(8, 9)
+
+        return `${year}/${month}/${day} (${week})`
+    }
+
     const deleteLeave = async (id: string) => {
         const toastId = toast.loading("刪除中...")
         const res = await fetch(`/api/leave`, {
@@ -117,7 +128,7 @@ const List = () => {
                                     {item.type}
                                 </div>
                             </div>
-                            <div className=''>{item.date}</div>
+                            <div className=''>{formatDate(item.date)}</div>
                             <div className=''>{item.course}</div>
                             <div className=''>{item.teacher}</div>
 
@@ -137,7 +148,7 @@ const List = () => {
                                     <button
                                         type='submit'
                                         value={item.id}
-                                        className='bg-red-500 text-white px-1 py-0.5 rounded-lg'
+                                        className='bg-red-500 text-white px-2 py-0.5 rounded-lg'
                                         onClick={(e) => {
                                             deleteLeave(e.currentTarget.value)
                                         }}
