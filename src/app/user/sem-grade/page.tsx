@@ -57,7 +57,7 @@ const FinalGradePage = async () => {
                                 <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                                 <div>{item.finalGrade}</div>
                             </div>
-                            <div>{item.class}</div>
+                            <div className='overflow-ellipsis line-clamp-1'>{item.class}</div>
                         </div>
                     </ScaleTransitionView>
                 ))}
