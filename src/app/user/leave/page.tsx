@@ -9,7 +9,7 @@ import "@/app/loaderCat.css"
 const LeavePage = () => {
     return (
         <div className='h-full w-full md:rounded-md md:bg-white px-4 md:pt-4 md:shadow-md'>
-            <Tabs.Root defaultValue='列表'>
+            <Tabs.Root defaultValue='請假'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative'>
                     <Tabs.Trigger
                         className='w-full p-2 peer/tabs-請假'
@@ -27,7 +27,6 @@ const LeavePage = () => {
                     </Tabs.Trigger>
                     <motion.div
                         id='tabs-line'
-                        // className='absolute bottom-0 left-0 h-1 border-b-[3px] border-main-color-2 flex w-1/2 peer-aria-selected/tabs-作業:translate-x-0 peer-aria-selected/tabs-修課學生:translate-x-full peer-aria-selected/tabs-出缺勤:translate-x-[200%] duration-300 ease-in-out'
                         className='absolute bottom-0 left-0 h-1 border-b-[3px] border-main-color-2 flex w-1/2 peer-aria-selected/tabs-請假:translate-x-0 peer-aria-selected/tabs-列表:translate-x-full duration-300 ease-in-out'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
