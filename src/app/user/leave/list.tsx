@@ -25,6 +25,12 @@ const List = () => {
         // refetchOnWindowFocus: false,
     })
 
+    const typeColor: { [key: string]: string } = {
+        病假: "bg-blue-500",
+        事假: "bg-green-500",
+        生理假: "bg-yellow-500",
+    }
+
     const statusColor: { [key: string]: string } = {
         已核可: "bg-green-500",
         審核中: "bg-yellow-500",
@@ -101,7 +107,16 @@ const List = () => {
                     {data?.length === 0 && <div className='text-center text-2xl'>沒有請假紀錄</div>}
                     {data?.map((item, index) => (
                         <div className='relative p-2 border mb-2 rounded-xl' key={index}>
-                            <div className=''>{item.type}</div>
+                            <div className='flex'>
+                                <div
+                                    className={clsx(
+                                        "rounded-lg px-1 text-white",
+                                        typeColor[item.type]
+                                    )}
+                                >
+                                    {item.type}
+                                </div>
+                            </div>
                             <div className=''>{item.date}</div>
                             <div className=''>{item.course}</div>
                             <div className=''>{item.teacher}</div>
