@@ -67,7 +67,7 @@ const List = () => {
     return (
         <>
             {isLoading ? (
-                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
+                <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0'>
                     <div className='flex h-full w-full items-center justify-center'>
                         <div className='cat'>
                             <div className='cat__body'></div>
