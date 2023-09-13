@@ -13,7 +13,11 @@ const formatDate = (type: string, date: string) => {
     if (type === "TIPX") {
         let [year, month, day] = date.split(".")
         // 去除 (X)
-        day = day.replace(/\(.+\)/, "")
+        try {
+            day = day.replace(/\(.+\)/, "")
+        } catch (error) {
+            return ""
+        }
         return `${Number(year) + 1911}-${month}-${day}`
     }
     if (type === "TIP") {
@@ -94,7 +98,7 @@ export const GET = async (req: NextRequest) => {
             currentSem = 2
         }
 
-        if (currentYear !== Number(year) && currentSem !== Number(sem)) {
+        if (currentYear !== Number(year) || currentSem !== Number(sem)) {
             // 過往學期無法請假
             return NextResponse.json(
                 {
