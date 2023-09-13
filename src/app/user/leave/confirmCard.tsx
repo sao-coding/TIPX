@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { LeaveItem } from "@/types"
 import clsx from "clsx"
