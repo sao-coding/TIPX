@@ -1,18 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { IconBrandGoogle } from "@tabler/icons-react"
 import { signIn } from "next-auth/react"
 import toast, { useToasterStore } from "react-hot-toast"
 import Cookie from "js-cookie"
-import LoginSelect from "@/app/login/components/select"
-import iconv from "iconv-lite"
+// import iconv from "iconv-lite"
 import Logo from "@/components/logo"
 
 const Form = () => {
-    const [deptValue, setDeptValue] = useState("1")
-    const [esValue, setEsValue] = useState("日四技")
     const searchParams = useSearchParams()
 
     const { toasts } = useToasterStore()
@@ -24,21 +21,6 @@ const Form = () => {
             .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit
             .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
     }, [toasts])
-
-    // 部別資料
-    const dept = [
-        { name: "日間部", value: "1" },
-        { name: "進修部", value: "2" },
-        { name: "進修學院", value: "3" },
-    ]
-
-    // 學制資料 eductional system
-    const es = [
-        { name: "日四技", value: "日四技" },
-        { name: "進四技", value: "進四技" },
-        { name: "日二技", value: "日二技" },
-        { name: "進二技", value: "進二技" },
-    ]
 
     // 判斷學年度
     useEffect(() => {
@@ -68,14 +50,6 @@ const Form = () => {
         }
     }, [])
 
-    const deptValueChange = (value: string) => {
-        setDeptValue(value)
-    }
-
-    const esValueChange = (value: string) => {
-        setEsValue(value)
-    }
-
     const fetchLogin = async () => {
         if ((document.querySelector("#studentID") as HTMLInputElement)?.value === "") {
             toast.error("請輸入學號")
@@ -86,23 +60,6 @@ const Form = () => {
             toast.error("請輸入授權碼")
             return
         }
-
-        // Cookie.set(
-        //     "cookie_userid",
-        //     (document.getElementById("studentID") as HTMLInputElement)?.value,
-        //     { expires: 7 }
-        // )
-
-        Cookie.set("cookie_dept", deptValue, { expires: 7 })
-
-        Cookie.set(
-            "cookie_es",
-            iconv
-                .encode(esValue, "big5")
-                .toString("hex")
-                .replace(/(.{2})/g, "%$1"),
-            { expires: 7 }
-        )
 
         const status = await signIn("credentials", {
             redirect: false,
@@ -125,8 +82,8 @@ const Form = () => {
         <>
             <div className='absolute left-0 top-0 h-full w-full p-4'>
                 <div className='flex h-full items-center justify-center'>
-                    <div className='rounded-md bg-white p-4 shadow-md'>
-                        <div className='pb-4 text-center'>
+                    <div className='rounded-xl bg-white p-4 shadow-md'>
+                        <div className='pb-2 text-center'>
                             <Logo className='h-10 w-full' />
                         </div>
                         <div className='p-2'>
@@ -144,14 +101,6 @@ const Form = () => {
                                 id='authcode'
                                 className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                             />
-                        </div>
-                        <div className='p-2'>
-                            <div className='p-2'>部別</div>
-                            <LoginSelect data={dept} setValue={deptValueChange} />
-                        </div>
-                        <div className='p-2'>
-                            <div className='p-2'>學制</div>
-                            <LoginSelect data={es} setValue={esValueChange} />
                         </div>
                         <div className='p-2'>
                             <button
