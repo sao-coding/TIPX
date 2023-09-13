@@ -37,25 +37,6 @@ const Leave = () => {
     const upload = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        // const formData = new FormData(event.currentTarget)
-        // const res = await fetch(upload, {
-        //     method: "POST",
-        //     body: formData,
-        // })
-        // const data = await res.json()
-        console.log({ date, selected })
-        // 顯示 event 所有 checkbox 的 id 和 checked
-        console.log(
-            Array.from(event.currentTarget.querySelectorAll("input[type=checkbox]")).map(
-                (input) => ({
-                    id: input.id,
-                    checked: (input as HTMLInputElement).checked
-                        ? (input as HTMLInputElement).value
-                        : null,
-                })
-            )
-        )
-
         if (!date) {
             toast.error("請選擇日期")
             return
