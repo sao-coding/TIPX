@@ -1,3 +1,5 @@
+"use client"
+
 import * as Tabs from "@radix-ui/react-tabs"
 import Hw from "@/app/course/[id]/hw/page"
 import CourseStuList from "@/app/course/[id]/course-stu-list/page"
