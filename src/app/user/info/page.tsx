@@ -4,8 +4,18 @@ import { IconUserCircle } from "@tabler/icons-react"
 const InfoPage = () => {
     return (
         <>
-            <div className='w-full p-2'>
-                <div className='pb-2 text-4xl font-bold w-full text-center'>貢獻</div>
+            <div className='w-full px-2'>
+                <h1 className='py-2 text-4xl font-bold w-full text-center'>警告</h1>
+                <div className='text-center'>
+                    此網頁為非官方網站，為個人作品
+                    <br />
+                    不代表任何學校或組織的意見
+                    <br />
+                    使用本網頁{" "}
+                    <span className='bg-main-color-2 px-1 py-0.5 rounded-lg'>tip.sao-x.com</span>
+                    <div className='text-red-500'>若有任何損失，本網站概不負責！</div>
+                </div>
+                <h1 className='py-2 text-4xl font-bold w-full text-center'>貢獻</h1>
                 <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
                     <div className='flex w-full flex-col items-center justify-center'>
                         <Avatar
