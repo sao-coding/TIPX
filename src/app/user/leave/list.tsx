@@ -66,6 +66,42 @@ const List = () => {
 
     return (
         <>
+            <div className='relative mb-2'>
+                <Listbox value={month} onChange={(e) => setMonth(e)}>
+                    <Listbox.Button className='bg-white rounded-lg p-1 flex items-center justify-start w-full'>
+                        <IconArrowsMoveVertical />
+                        {month !== "all" ? `${month} 月` : "全部"}
+                    </Listbox.Button>
+                    <Listbox.Options className='bg-white shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10 font-mono cursor-pointer'>
+                        {/* {data?.type.map((type, i) => (
+                                            <Listbox.Option key={i} value={type}>
+                                                {type}
+                                            </Listbox.Option>
+                                        ))} */}
+                        {/* 上學期 09~01 */}
+                        {/* 下學期 02~06 */}
+                        {Cookie.get("cookie_sem") === "1" ? (
+                            <>
+                                <Listbox.Option value='all'>全部</Listbox.Option>
+                                <Listbox.Option value='09'>09 月</Listbox.Option>
+                                <Listbox.Option value='10'>10 月</Listbox.Option>
+                                <Listbox.Option value='11'>11 月</Listbox.Option>
+                                <Listbox.Option value='12'>12 月</Listbox.Option>
+                                <Listbox.Option value='01'>01 月</Listbox.Option>
+                            </>
+                        ) : (
+                            <>
+                                <Listbox.Option value='all'>全部</Listbox.Option>
+                                <Listbox.Option value='02'>02 月</Listbox.Option>
+                                <Listbox.Option value='03'>03 月</Listbox.Option>
+                                <Listbox.Option value='04'>04 月</Listbox.Option>
+                                <Listbox.Option value='05'>05 月</Listbox.Option>
+                                <Listbox.Option value='06'>06 月</Listbox.Option>
+                            </>
+                        )}
+                    </Listbox.Options>
+                </Listbox>
+            </div>
             {isLoading ? (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0'>
                     <div className='flex h-full w-full items-center justify-center'>
@@ -79,42 +115,6 @@ const List = () => {
                 </div>
             ) : (
                 <>
-                    <div className='relative mb-2'>
-                        <Listbox value={month} onChange={(e) => setMonth(e)}>
-                            <Listbox.Button className='bg-white rounded-lg p-1 flex items-center justify-start w-full'>
-                                <IconArrowsMoveVertical />
-                                {month !== "all" ? `${month} 月` : "全部"}
-                            </Listbox.Button>
-                            <Listbox.Options className='bg-white shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10 font-mono cursor-pointer'>
-                                {/* {data?.type.map((type, i) => (
-                                            <Listbox.Option key={i} value={type}>
-                                                {type}
-                                            </Listbox.Option>
-                                        ))} */}
-                                {/* 上學期 09~01 */}
-                                {/* 下學期 02~06 */}
-                                {Cookie.get("cookie_sem") === "1" ? (
-                                    <>
-                                        <Listbox.Option value='all'>全部</Listbox.Option>
-                                        <Listbox.Option value='09'>09 月</Listbox.Option>
-                                        <Listbox.Option value='10'>10 月</Listbox.Option>
-                                        <Listbox.Option value='11'>11 月</Listbox.Option>
-                                        <Listbox.Option value='12'>12 月</Listbox.Option>
-                                        <Listbox.Option value='01'>01 月</Listbox.Option>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Listbox.Option value='all'>全部</Listbox.Option>
-                                        <Listbox.Option value='02'>02 月</Listbox.Option>
-                                        <Listbox.Option value='03'>03 月</Listbox.Option>
-                                        <Listbox.Option value='04'>04 月</Listbox.Option>
-                                        <Listbox.Option value='05'>05 月</Listbox.Option>
-                                        <Listbox.Option value='06'>06 月</Listbox.Option>
-                                    </>
-                                )}
-                            </Listbox.Options>
-                        </Listbox>
-                    </div>
                     {data?.length === 0 && <div className='text-center text-2xl'>沒有請假紀錄</div>}
                     {data?.map((item, index) => (
                         <div className='relative p-2 border mb-2 rounded-xl' key={index}>
