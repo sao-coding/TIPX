@@ -47,7 +47,7 @@ const FinalGradePage = async () => {
                                 {item.type}
                             </div>
                             <div>{item.id}</div>
-                            <div>{item.name}</div>
+                            <div className='overflow-ellipsis line-clamp-1'>{item.name}</div>
                             <div>{item.category}</div>
                             <div className='flex items-center space-x-1'>
                                 <IconCoins className='animate-pulse stroke-yellow-500' />
