@@ -8,7 +8,6 @@ import toast from "react-hot-toast"
 import { IconArrowsMoveVertical } from "@tabler/icons-react"
 import { Listbox } from "@headlessui/react"
 import { LeaveItemCheck } from "@/types"
-import "@/app/loaderCat.css"
 
 const List = () => {
     // 目前台灣月份 new Date().getMonth() + 1補0
