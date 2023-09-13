@@ -4,7 +4,6 @@ import * as Tabs from "@radix-ui/react-tabs"
 import { motion } from "framer-motion"
 import Leave from "./leave"
 import List from "./list"
-import "@/app/loaderCat.css"
 
 const LeavePage = () => {
     return (

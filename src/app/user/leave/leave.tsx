@@ -7,6 +7,7 @@ import { Listbox } from "@headlessui/react"
 import toast from "react-hot-toast"
 import ConfirmCard from "@/app/user/leave/confirmCard"
 import { Leave } from "@/types"
+import "@/app/loaderCat.css"
 
 const Leave = () => {
     // 目前台灣時間
