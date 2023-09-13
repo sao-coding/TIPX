@@ -121,7 +121,7 @@ const Leave = () => {
                     className='bg-white rounded-lg p-1 flex-1 hover:bg-gray-200 md:w-1/3 md:border'
                 />
             </div>
-            {isLoading ? (
+            {isLoading && (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0'>
                     <div className='flex h-full w-full items-center justify-center'>
                         <div className='cat'>
@@ -132,7 +132,8 @@ const Leave = () => {
                         </div>
                     </div>
                 </div>
-            ) : (
+            )}
+            {!isLoading &&
                 data?.leave.list.map((leave) => (
                     <div key={leave.id}>
                         {
@@ -140,8 +141,7 @@ const Leave = () => {
                             // <span style={{ color: "green" }}>✔</span>
                         }
                     </div>
-                ))
-            )}
+                ))}
         </form>
     )
 }
