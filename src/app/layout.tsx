@@ -13,6 +13,7 @@ import Toaster from "@/components/Toaster"
 import InfoLog from "@/app/info"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
+import "@/app/loaderCat.css"
 import { site } from "@/config/site"
 
 const inter = Inter({ subsets: ["latin"] })
