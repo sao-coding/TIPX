@@ -104,20 +104,7 @@ const UserAboutPage = async () => {
                             <h1 className='text-xl font-bold mb-1'>基本資料</h1>
                             <div className='flex items-center space-x-1'>
                                 <IconBrandLine />
-                                <div>
-                                    {lineID ? (
-                                        <Link
-                                            href={`https://line.me/ti/p/${lineID.lineid}`}
-                                            target='_blank'
-                                            rel='noreferrer'
-                                            className='bg-main-color-3 px-1 rounded-md text-neutral-200 hover:text-main-color-3 hover:bg-neutral-200'
-                                        >
-                                            {lineID.lineid}
-                                        </Link>
-                                    ) : (
-                                        "未填寫 Line ID"
-                                    )}
-                                </div>
+                                <div>{lineID ? lineID.lineid : "未填寫 Line ID"}</div>
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconGenderBigender />
