@@ -14,12 +14,14 @@ const getLineID = async (userid: string) => {
     const document = dom.window.document
 
     return {
+        // 移除前後空白:
         lineid:
             document
                 .querySelector(
                     "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=text]"
                 )
-                ?.getAttribute("value") ?? "",
+                ?.getAttribute("value")
+                ?.trim() ?? "",
     }
 }
 
