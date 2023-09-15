@@ -39,7 +39,7 @@ const getClassRank = async (
             },
         })
 
-        const { name, img } = await getUser(userid, year ?? "", sem ?? "", dept ?? "", es ?? "")
+        const { name, img } = await getUser(userid)
 
         const conduct = (await getConduct(
             userid,

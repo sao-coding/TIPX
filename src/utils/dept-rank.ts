@@ -29,7 +29,7 @@ const getDeptRank = async (
 
     const classId = userid?.slice(0, 6)
 
-    const { major: majorOwn } = await getUser(userid, year ?? "", sem ?? "", dept ?? "", es ?? "")
+    const { major: majorOwn } = await getUser(userid)
 
     const fetchData = async (userid: string) => {
         const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
@@ -39,13 +39,7 @@ const getDeptRank = async (
             },
         })
 
-        const { name, img, major } = await getUser(
-            userid,
-            year ?? "",
-            sem ?? "",
-            dept ?? "",
-            es ?? ""
-        )
+        const { name, img, major } = await getUser(userid)
 
         const conduct = (await getConduct(
             userid,
