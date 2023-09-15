@@ -2,6 +2,8 @@ import Link from "next/link"
 import { cookies } from "next/headers"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
+import getUser from "@/utils/user"
+import getLineID from "@/utils/lineid"
 import { User } from "@/types"
 import {
     IconUser,
@@ -23,24 +25,25 @@ import Notify from "@/app/user/notify"
 import Logout from "@/app/user/logout"
 import { site } from "@/config/site"
 
-const getUserData = async () => {
-    const res = await fetch(`${site.url}/api/user`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + cookies().get("token")?.value,
-            Cookie: cookies().toString(),
-        },
-    })
-    return await res.json()
-}
+// const getUserData = async () => {
+//     const res = await fetch(`${site.url}/api/user`, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: "Bearer " + cookies().get("token")?.value,
+//             Cookie: cookies().toString(),
+//         },
+//     })
+//     return await res.json()
+// }
 const UserPage = async () => {
-    const userData: User = await getUserData()
     const session = await getServerSession(authOptions)
+    const userData: User = await getUser(session?.user.studentID as string)
+    const lineID = await getLineID(session?.user.studentID as string)
 
     return (
         <div className='mb-14 w-full p-2'>
-            <Info userData={userData} />
+            <Info userData={userData} lineID={lineID.lineid} />
             <InfoBoard />
             <Switch />
             <Link

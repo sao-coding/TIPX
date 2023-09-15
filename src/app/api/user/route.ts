@@ -14,7 +14,7 @@ export const GET = async (req: NextRequest) => {
     const dept = cookies().get("cookie_dept")?.value
     const es = cookies().get("cookie_es")?.value
 
-    const infolist: User = await getUser(userid ?? "", year ?? "", sem ?? "", dept ?? "", es ?? "")
+    const infolist: User = await getUser(userid ?? "")
 
     if (req.nextUrl.searchParams.has("img")) {
         return NextResponse.redirect(infolist.img)

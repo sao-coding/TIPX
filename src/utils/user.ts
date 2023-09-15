@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom"
 import { User } from "@/types"
 
-const getUser = async (userid: string, year: string, sem: string, dept: string, es: string) => {
+const getUser = async (userid: string) => {
     const infolist: User = {
         userid: "",
         img: "",
@@ -29,7 +29,7 @@ const getUser = async (userid: string, year: string, sem: string, dept: string, 
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
         headers: {
-            cookie: `cookie_programname=${es}; cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept};`,
+            cookie: `cookie_rgno=${userid}; cookie_userid=${userid};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

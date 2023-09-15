@@ -1,9 +1,15 @@
+import Link from "next/link"
+import { getServerSession } from "next-auth"
+import authOptions from "@/lib/auth"
 import { cookies } from "next/headers"
 import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
+import getUser from "@/utils/user"
+import getLineID from "@/utils/lineid"
 import { User } from "@/types"
 import {
     IconUserCircle,
+    IconBrandLine,
     IconId,
     IconGenderBigender,
     IconCake,
@@ -16,21 +22,23 @@ import {
 import { site } from "@/config/site"
 import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
-const getData = async () => {
-    const res = await fetch(`${site.url}/api/user`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies().get("token")?.value}`,
-            Cookie: cookies().toString(),
-        },
-    })
+// const getData = async () => {
+//     const res = await fetch(`${site.url}/api/user`, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${cookies().get("token")?.value}`,
+//             Cookie: cookies().toString(),
+//         },
+//     })
 
-    return await res.json()
-}
+//     return await res.json()
+// }
 
 const UserAboutPage = async () => {
-    const data: User = await getData()
+    const session = await getServerSession(authOptions)
+    const data: User = await getUser(session?.user.studentID as string)
+    const lineID = await getLineID(session?.user.studentID as string)
     const formatDate = (date: string) => {
         // 0900928 -> 90/09/28
         // 若年份開頭為 0，則刪除 0
@@ -95,12 +103,29 @@ const UserAboutPage = async () => {
                         <div className='py-1'>
                             <h1 className='text-xl font-bold mb-1'>基本資料</h1>
                             <div className='flex items-center space-x-1'>
-                                <IconId />
-                                <div>{data.IDnumber}</div>
+                                <IconBrandLine />
+                                <div>
+                                    {lineID ? (
+                                        <Link
+                                            href={`https://line.me/ti/p/${lineID.lineid}`}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                            className='bg-main-color-3 px-1 rounded-md text-neutral-200 hover:text-main-color-3 hover:bg-neutral-200'
+                                        >
+                                            {lineID.lineid}
+                                        </Link>
+                                    ) : (
+                                        "未填寫 Line ID"
+                                    )}
+                                </div>
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconGenderBigender />
                                 <div>{data.gender}</div>
+                            </div>
+                            <div className='flex items-center space-x-1'>
+                                <IconId />
+                                <div>{data.IDnumber}</div>
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconCake />
