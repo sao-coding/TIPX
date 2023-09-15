@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import {
     IconUserCircle,
@@ -11,7 +12,7 @@ import {
 } from "@tabler/icons-react"
 import clsx from "clsx"
 import { User } from "@/types"
-const Info = ({ userData }: { userData: User }) => {
+const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
     const [isImgError, setIsImgError] = useState(false)
     const [userInfo, setUserInfo] = useState("")
 
@@ -74,10 +75,24 @@ const Info = ({ userData }: { userData: User }) => {
                                 <div>{userData.name}</div>
                                 <div>{userData.IDnumber}</div>
                                 <div className='max-xs:text-sm'>{userData.major}</div>
-                                <div className='flex items-center space-x-2'>
+                                <div>
+                                    {lineID ? (
+                                        <Link
+                                            href={`https://line.me/ti/p/${lineID}`}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                            className='bg-main-color-3 px-1 rounded-md text-neutral-200'
+                                        >
+                                            {lineID}
+                                        </Link>
+                                    ) : (
+                                        "未填寫 Line ID"
+                                    )}
+                                </div>
+                                {/* <div className='flex items-center space-x-2'>
                                     <div>{userData.dept}</div>
                                     <div>{userData.es + "　"}</div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
                                 {userData.status}
