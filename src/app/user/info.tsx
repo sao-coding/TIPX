@@ -74,7 +74,9 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                                 <div>{userData.name}</div>
                                 <div>{userData.IDnumber}</div>
                                 <div className='max-xs:text-sm'>{userData.major}</div>
-                                <div>{lineID ? lineID : "未填寫 Line ID"}</div>
+                                <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
+                                    {lineID ? lineID : "未填寫"}
+                                </div>
                                 {/* <div className='flex items-center space-x-2'>
                                     <div>{userData.dept}</div>
                                     <div>{userData.es + "　"}</div>

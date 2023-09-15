@@ -103,7 +103,9 @@ const UserAboutPage = async () => {
                             <h1 className='text-xl font-bold mb-1'>基本資料</h1>
                             <div className='flex items-center space-x-1'>
                                 <IconBrandLine />
-                                <div>{lineID ? lineID.lineid : "未填寫 Line ID"}</div>
+                                <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
+                                    {lineID ? lineID.lineid : "未填寫"}
+                                </div>
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconGenderBigender />
