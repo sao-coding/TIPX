@@ -39,7 +39,9 @@ const CourseListPage = async () => {
                                     className='block rounded-lg border p-1 shadow-sm'
                                     href={`/course/${course.id}`}
                                 >
-                                    <div className='p-1'>{course.item}</div>
+                                    <div className='p-1 overflow-ellipsis line-clamp-1'>
+                                        {course.item}
+                                    </div>
                                     <div className='p-1'>{course.id}</div>
                                 </Link>
                             </ScaleTransitionView>
