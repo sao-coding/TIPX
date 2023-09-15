@@ -50,7 +50,8 @@ const Form = () => {
         }
     }, [])
 
-    const fetchLogin = async () => {
+    const fetchLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         if ((document.querySelector("#studentID") as HTMLInputElement)?.value === "") {
             toast.error("請輸入學號")
             return
@@ -73,19 +74,19 @@ const Form = () => {
             toast.success("登入成功")
             // 延遲1秒跳轉
             setTimeout(() => {
-                window.location.href = searchParams.get("callbackUrl") ?? "/"
+                window.location.href = searchParams.get("callbackUrl") ?? "/user"
             }, 1000)
         }
     }
 
     return (
-        <>
-            <div className='absolute left-0 top-0 h-full w-full p-4'>
-                <div className='flex h-full items-center justify-center'>
-                    <div className='rounded-xl bg-white p-4 shadow-md'>
-                        <div className='pb-2 text-center'>
-                            <Logo className='h-10 w-full' />
-                        </div>
+        <div className='absolute left-0 top-0 h-full w-full p-4'>
+            <div className='flex h-full items-center justify-center'>
+                <div className='rounded-xl bg-white p-4 shadow-md'>
+                    <div className='pb-2 text-center'>
+                        <Logo className='h-10 w-full' />
+                    </div>
+                    <form onSubmit={(e) => fetchLogin(e)}>
                         <div className='p-2'>
                             <div className='p-2'>學號</div>
                             <input
@@ -97,32 +98,31 @@ const Form = () => {
                         <div className='p-2'>
                             <div className='p-2'>授權碼</div>
                             <input
-                                type='text'
+                                type='password'
                                 id='authcode'
                                 className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                             />
                         </div>
                         <div className='p-2'>
-                            <button
+                            <input
+                                type='submit'
                                 className='w-full cursor-pointer rounded-md bg-orange-300 py-2 hover:bg-orange-400'
-                                onClick={fetchLogin}
-                            >
-                                登入
-                            </button>
+                                value='登入'
+                            />
                         </div>
-                        <div className='p-2'>
-                            <button
-                                onClick={() => signIn("google")}
-                                className='flex w-full cursor-pointer items-center justify-center rounded-md bg-orange-300 py-2 hover:bg-orange-400'
-                            >
-                                <IconBrandGoogle size={20} className='mx-1' />
-                                使用 Google 登入
-                            </button>
-                        </div>
+                    </form>
+                    <div className='p-2'>
+                        <button
+                            onClick={() => signIn("google")}
+                            className='flex w-full cursor-pointer items-center justify-center rounded-md bg-orange-300 py-2 hover:bg-orange-400'
+                        >
+                            <IconBrandGoogle size={20} className='mx-1' />
+                            使用 Google 登入
+                        </button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
