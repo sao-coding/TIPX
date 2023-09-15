@@ -34,8 +34,8 @@ const Leave = () => {
         // refetchOnWindowFocus: false,
     })
 
-    const upload = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const upload = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
 
         if (!date) {
             toast.error("請選擇日期")
@@ -46,7 +46,7 @@ const Leave = () => {
             toast.error("請選擇假別")
             return
         }
-        const ckeck = Array.from(event.currentTarget.querySelectorAll("input[type=checkbox]"))
+        const ckeck = Array.from(e.currentTarget.querySelectorAll("input[type=checkbox]"))
         // 至少要有一個勾選
         if (ckeck.every((input) => !(input as HTMLInputElement).checked)) {
             toast.error("請選擇至少一節課")
@@ -63,7 +63,7 @@ const Leave = () => {
                 date,
                 leaveType: selected,
                 // 只要有勾選就請假
-                list: Array.from(event.currentTarget.querySelectorAll("input[type=checkbox]"))
+                list: Array.from(e.currentTarget.querySelectorAll("input[type=checkbox]"))
                     .map((input) => ({
                         id: input.id,
                         value: (input as HTMLInputElement).checked
