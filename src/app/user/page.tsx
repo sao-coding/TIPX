@@ -42,7 +42,7 @@ const UserPage = async () => {
     const lineID = await getLineID(session?.user.studentID as string)
 
     return (
-        <div className='mb-14 w-full p-2'>
+        <div className='mb-14 w-full px-2'>
             <Info userData={userData} lineID={lineID.lineid} />
             <InfoBoard />
             <Switch />
