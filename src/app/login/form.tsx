@@ -84,7 +84,7 @@ const Form = () => {
             <div className='flex h-full items-center justify-center'>
                 <div className='rounded-xl bg-white p-4 shadow-md'>
                     <div className='pb-2 text-center'>
-                        <Logo className='h-10 w-full' />
+                        <Logo className='h-10 w-full md:hidden' />
                     </div>
                     <form onSubmit={(e) => fetchLogin(e)}>
                         <div className='p-2'>
@@ -96,7 +96,12 @@ const Form = () => {
                             />
                         </div>
                         <div className='p-2'>
-                            <div className='p-2'>授權碼</div>
+                            <div className='p-2'>
+                                授權碼
+                                <span className='text-xs text-gray-400 ml-2'>
+                                    一般人請使用 Google 登入
+                                </span>
+                            </div>
                             <input
                                 type='text'
                                 id='authcode'
