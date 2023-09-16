@@ -80,51 +80,49 @@ const Form = () => {
     }
 
     return (
-        <div className='absolute left-0 top-0 h-full w-full p-4'>
-            <div className='flex h-full items-center justify-center'>
-                <div className='rounded-xl bg-white p-4 shadow-md'>
-                    <div className='pb-2 text-center'>
-                        <Logo className='h-10 w-full md:hidden' />
-                    </div>
-                    <form onSubmit={(e) => fetchLogin(e)}>
-                        <div className='p-2'>
-                            <div className='p-2'>學號</div>
-                            <input
-                                type='text'
-                                id='studentID'
-                                className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
-                            />
-                        </div>
-                        <div className='p-2'>
-                            <div className='p-2'>
-                                授權碼
-                                <span className='text-xs text-gray-400 ml-2'>
-                                    一般人請使用 Google 登入
-                                </span>
-                            </div>
-                            <input
-                                type='text'
-                                id='authcode'
-                                className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
-                            />
-                        </div>
-                        <div className='p-2'>
-                            <input
-                                type='submit'
-                                className='w-full cursor-pointer rounded-md bg-orange-300 py-2 hover:bg-orange-400'
-                                value='登入'
-                            />
-                        </div>
-                    </form>
+        <div className='absolute left-0 top-0 w-full p-4 flex h-full items-center justify-center'>
+            <div className='rounded-xl bg-white p-4 shadow-md'>
+                <div className='pb-2 text-center'>
+                    <Logo className='h-10 w-full md:hidden' />
+                </div>
+                <form onSubmit={(e) => fetchLogin(e)}>
                     <div className='p-2'>
-                        <button
-                            onClick={() => signIn("google")}
-                            className='flex w-full cursor-pointer items-center justify-center rounded-md bg-orange-300 py-2 hover:bg-orange-400'
-                        >
-                            <IconBrandGoogle size={20} className='mx-1' />
-                            使用 Google 登入
-                        </button>
+                        <div className='p-2'>學號</div>
+                        <input
+                            type='text'
+                            id='studentID'
+                            className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                        />
                     </div>
+                    <div className='p-2'>
+                        <div className='p-2'>
+                            授權碼
+                            <span className='text-xs text-gray-400 ml-2'>
+                                一般人請使用 Google 登入
+                            </span>
+                        </div>
+                        <input
+                            type='text'
+                            id='authcode'
+                            className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                        />
+                    </div>
+                    <div className='p-2'>
+                        <input
+                            type='submit'
+                            className='w-full cursor-pointer rounded-md bg-orange-300 py-2 hover:bg-orange-400'
+                            value='登入'
+                        />
+                    </div>
+                </form>
+                <div className='p-2'>
+                    <button
+                        onClick={() => signIn("google")}
+                        className='flex w-full cursor-pointer items-center justify-center rounded-md bg-orange-300 py-2 hover:bg-orange-400'
+                    >
+                        <IconBrandGoogle size={20} className='mx-1' />
+                        使用 Google 登入
+                    </button>
                 </div>
             </div>
         </div>
