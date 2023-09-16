@@ -7,12 +7,6 @@ import Tabs from "@/components/course/tabs"
 
 const CoursePage = async ({ params }: { params: { id: string } }) => {
     const session = await getServerSession(authOptions)
-    // userid: string,
-    // year: string,
-    // sem: string,
-    // dept: string,
-    // es: string,
-    // course?: string
     const course = (await getCourse(
         session?.user.studentID ?? cookies().get("cookie_userid")?.value ?? "",
         cookies().get("cookie_year")?.value ?? "",
