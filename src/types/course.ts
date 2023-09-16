@@ -1,4 +1,4 @@
 export type Course = {
-    item: string
+    name: string
     id: string
 }

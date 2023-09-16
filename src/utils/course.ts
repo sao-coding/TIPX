@@ -42,7 +42,7 @@ const getCourse = async (
                 const list = cell.textContent
                 const link = cell.getAttribute("href")
                 const id = link?.split("=")[1]
-                courselist.push({ item: list ?? "", id: id ?? "" })
+                courselist.push({ name: list ?? "", id: id ?? "" })
             })
         })
         return courselist
@@ -50,7 +50,10 @@ const getCourse = async (
         const name = document
             .querySelector("font[color='#800000']")
             ?.textContent?.replace("目前無公告資訊!!", "")
-        return name
+        return {
+            id: course,
+            name: name ?? "",
+        } as Course
     }
 }
 

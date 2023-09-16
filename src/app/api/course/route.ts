@@ -32,6 +32,6 @@ export const GET = async (req: NextRequest) => {
             es ?? "",
             req.nextUrl.searchParams.get("course") ?? ""
         )
-        return NextResponse.json({ name })
+        return NextResponse.json(name)
     }
 }

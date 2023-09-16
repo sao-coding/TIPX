@@ -40,7 +40,7 @@ const CourseListPage = async () => {
                                     href={`/course/${course.id}`}
                                 >
                                     <div className='p-1 overflow-ellipsis line-clamp-1'>
-                                        {course.item}
+                                        {course.name}
                                     </div>
                                     <div className='p-1'>{course.id}</div>
                                 </Link>

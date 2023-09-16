@@ -6,7 +6,7 @@ import authOptions from "@/lib/auth"
 import { JSDOM } from "jsdom"
 import getCourse from "@/utils/course"
 import getGender from "@/utils/gender"
-import { Leave, LeaveItem, LeaveItemCheck } from "@/types"
+import { Course, Leave, LeaveItem, LeaveItemCheck } from "@/types"
 
 const formatDate = (type: string, date: string) => {
     // 112.09.11(一) to 2023-09-11
@@ -154,18 +154,28 @@ export const GET = async (req: NextRequest) => {
             )
             // name = input name
             // value = input value
+            const course = (await getCourse(
+                userid ?? "",
+                year ?? "",
+                sem ?? "",
+                dept ?? "",
+                es ?? "",
+                item?.getAttribute("value") ?? ""
+            )) as Course
+
             leaveDate.leave.list.push({
                 status: item?.getAttribute("checked") === null ? true : false,
                 id: i,
                 courseID: item?.getAttribute("value") ?? "",
-                name: (await getCourse(
-                    userid ?? "",
-                    year ?? "",
-                    sem ?? "",
-                    dept ?? "",
-                    es ?? "",
-                    item?.getAttribute("value") ?? ""
-                )) as string,
+                // name: (await getCourse(
+                //     userid ?? "",
+                //     year ?? "",
+                //     sem ?? "",
+                //     dept ?? "",
+                //     es ?? "",
+                //     item?.getAttribute("value") ?? ""
+                // ))?.name as string,
+                name: course?.name ?? "",
                 value: item?.getAttribute("name") ?? "",
             })
         }
