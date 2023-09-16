@@ -104,7 +104,7 @@ const UserAboutPage = async () => {
                             <div className='flex items-center space-x-1'>
                                 <IconBrandLine />
                                 <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
-                                    {lineID.lineid ? lineID.lineid : "未填寫"}
+                                    {lineID.lineid ? lineID.lineid : "未填寫 Line ID"}
                                 </div>
                             </div>
                             <div className='flex items-center space-x-1'>
