@@ -13,6 +13,7 @@
 新生檔案上傳 https://netinfo.takming.edu.tw/tip/newstu_sys/stu_data_upload.php?DIV=1  
 新生問卷填寫 https://netinfo.takming.edu.tw/tip/survey/survey_edit01.php 
 https://netinfo.takming.edu.tw/tip/survey/survey_edit02.php?flag=1 https://netinfo.takming.edu.tw/tip/survey/functionsXX.js
+點名頁面
 
 # 參考資料
 https://uigradients.com/
