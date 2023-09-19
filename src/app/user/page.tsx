@@ -15,6 +15,7 @@ import {
     IconArrowBadgeDown,
     IconBadges,
     IconBrandGoogleAnalytics,
+    IconActivity,
     IconNotes,
     IconInfoCircle,
 } from "@tabler/icons-react"
@@ -138,6 +139,15 @@ const UserPage = async () => {
                 <div className='flex items-center'>
                     <IconBrandGoogleAnalytics />
                     <div className='ml-2'>網站數據統計</div>
+                </div>
+            </Link>
+            <Link
+                href='https://tk-tipx.github.io/upptime'
+                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+            >
+                <div className='flex items-center'>
+                    <IconActivity />
+                    <div className='ml-2'>系統狀態</div>
                 </div>
             </Link>
             <Link
