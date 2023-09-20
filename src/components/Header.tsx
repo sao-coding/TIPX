@@ -13,8 +13,9 @@ const Header = async () => {
             <div className='flex items-center'>
                 {NAV_LINKS.map((link) => (
                     <Link
-                        href={link.href}
                         key={link.href}
+                        href={link.href}
+                        title={link.text}
                         className='relative after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-0 after:rounded-full after:bg-main-color-1 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
                     >
                         <div className='mx-1 flex items-center justify-center'>
