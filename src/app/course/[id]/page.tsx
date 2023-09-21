@@ -17,7 +17,7 @@ const CoursePage = async ({ params }: { params: { id: string } }) => {
     )) as Course
 
     return (
-        <div className='h-full w-full md:rounded-md md:bg-white px-4 md:pt-4 md:shadow-md'>
+        <div className='h-full w-full md:rounded-md md:bg-white px-2 md:pt-4 md:shadow-md'>
             <div className='relative mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                 <div className='text-center text-2xl font-bold'>{course.name}</div>
             </div>
