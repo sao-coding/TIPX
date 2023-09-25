@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { IconArrowsMoveVertical } from "@tabler/icons-react"
+import { IconSelector } from "@tabler/icons-react"
 import { Listbox } from "@headlessui/react"
 import toast from "react-hot-toast"
 import ConfirmCard from "@/app/user/leave/confirmCard"
@@ -103,7 +103,7 @@ const Leave = () => {
                 <div className='relative md:w-1/3 w-28'>
                     <Listbox value={selected} onChange={(e) => setSelected(e)}>
                         <Listbox.Button className='bg-white rounded-lg p-1 flex items-center justify-start w-full md:border h-8'>
-                            <IconArrowsMoveVertical />
+                            <IconSelector />
                             {selected}
                         </Listbox.Button>
                         <Listbox.Options className='bg-white shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10'>

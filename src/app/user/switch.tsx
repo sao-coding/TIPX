@@ -4,12 +4,7 @@ import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import Cookie from "js-cookie"
-import {
-    IconChevronUp,
-    IconChevronDown,
-    IconArrowsMoveVertical,
-    IconLoader2,
-} from "@tabler/icons-react"
+import { IconChevronUp, IconChevronDown, IconSelector, IconLoader2 } from "@tabler/icons-react"
 import * as Select from "@radix-ui/react-select"
 
 type Sem = {
@@ -145,7 +140,7 @@ const Switch = () => {
                 aria-controls='下拉選單'
             >
                 <Select.Icon asChild>
-                    <IconArrowsMoveVertical className='mr-2' />
+                    <IconSelector className='mr-2' />
                 </Select.Icon>
                 <Select.Value>
                     {isLoading ? (
