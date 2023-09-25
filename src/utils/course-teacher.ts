@@ -1,0 +1,52 @@
+import { JSDOM } from "jsdom"
+
+const getCourseTeacher = async (
+    userid: string,
+    year: string,
+    sem: string,
+    dept: string,
+    es: string,
+    course: string
+) => {
+    // const res = await axios.get(
+    //     `https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=${req.nextUrl.searchParams.get(
+    //         "course"
+    //     )}`,
+    //     {
+    //         headers: {
+    //             cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+    //             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+    //         },
+    //         responseType: "arraybuffer",
+    //         transformResponse: [
+    //             (data) => {
+    //                 return iconv.decode(data, "big5")
+    //             },
+    //         ],
+    //     }
+    // )
+
+    const res = await fetch(
+        `https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=${course}`,
+        {
+            headers: {
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+            },
+        }
+    )
+
+    const buffer = await res.arrayBuffer()
+    const html = new TextDecoder("big5").decode(buffer)
+    const dom = new JSDOM(html)
+    const document = dom.window.document
+
+    const teacher =
+        document.querySelector(
+            "#AutoNumber1 > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)"
+        )?.textContent ?? ""
+
+    return teacher
+}
+
+export default getCourseTeacher
