@@ -10,7 +10,7 @@ const Close = () => {
             className='absolute left-0 top-0 flex items-center h-full pl-2 md:hidden'
             onClick={() => router.back()}
         >
-            <IconArrowLeft size={24} />
+            <IconArrowLeft size={26} />
         </div>
     )
 }
