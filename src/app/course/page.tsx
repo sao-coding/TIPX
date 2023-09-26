@@ -1,31 +1,24 @@
 import { cookies } from "next/headers"
 import Link from "next/link"
+import getCourse from "@/utils/course"
 import getCourseTeacher from "@/utils/course-teacher"
 import Title from "@/components/Title"
 import Footer from "@/components/Footer"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
 import { Course } from "@/types"
-import { site } from "@/config/site"
-
-const getData = async () => {
-    const res = await fetch(`${site.url}/api/course`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies().get("token")?.value}`,
-            Cookie: cookies().toString(),
-        },
-    })
-
-    if (!res.ok) {
-        throw new Error("獲取資料失敗")
-    }
-
-    return res.json()
-}
+import { getServerSession } from "next-auth"
+import authOptions from "@/lib/auth"
 
 const CourseListPage = async () => {
-    const data: Course[] = await getData()
+    const data = (await getCourse(
+        cookies().get("cookie_userid")?.value ?? "",
+        cookies().get("cookie_year")?.value ?? "",
+        cookies().get("cookie_sem")?.value ?? "",
+        cookies().get("cookie_dept")?.value ?? "",
+        cookies().get("cookie_es")?.value ?? ""
+    )) as Course[]
+
+    const session = await getServerSession(authOptions)
 
     const title = {
         title: "課程",
@@ -45,27 +38,30 @@ const CourseListPage = async () => {
                     {data.length > 0 &&
                         data.map((course, index) => (
                             <ScaleTransitionView key={course.id} custom={index}>
-                                <Link
-                                    className='flex flex-col space-y-1 rounded-lg border p-2 shadow-sm'
-                                    href={`/course/${course.id}`}
-                                >
-                                    <div className='overflow-ellipsis line-clamp-1'>
-                                        {course.name}
-                                    </div>
-                                    <div className='flex justify-between items-center'>
-                                        <div className='p-1'>{course.id}</div>
-                                        <div className='px-1 bg-main-color-1 rounded-lg'>
-                                            {getCourseTeacher(
-                                                cookies().get("cookie_userid")?.value ?? "",
-                                                cookies().get("cookie_year")?.value ?? "",
-                                                cookies().get("cookie_sem")?.value ?? "",
-                                                cookies().get("cookie_dept")?.value ?? "",
-                                                cookies().get("cookie_es")?.value ?? "",
-                                                course.id
-                                            )}
+                                <div className='flex flex-col space-y-1'>
+                                    <Link
+                                        className='flex flex-col space-y-1 rounded-lg border p-2 shadow-sm'
+                                        href={`/course/${course.id}`}
+                                    >
+                                        <div className='overflow-ellipsis line-clamp-1'>
+                                            {course.name}
                                         </div>
-                                    </div>
-                                </Link>
+                                        <div className='flex justify-between items-center'>
+                                            <div className='p-1'>{course.id}</div>
+                                            <div className='px-1 bg-main-color-1 rounded-lg'>
+                                                {course.teacher}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    {session?.user.studentID === process.env.ADMINSTUDENTID && (
+                                        <Link
+                                            href={`/course/${course.id}/roll-call`}
+                                            className='block px-1 rounded-lg text-center border'
+                                        >
+                                            點名
+                                        </Link>
+                                    )}
+                                </div>
                             </ScaleTransitionView>
                         ))}
                 </div>
