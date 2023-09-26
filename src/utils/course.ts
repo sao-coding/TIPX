@@ -1,6 +1,7 @@
 // 課堂資訊
 import { JSDOM } from "jsdom"
 import { Course } from "@/types"
+import getCourseTeacher from "@/utils/course-teacher"
 
 const getCourse = async (
     userid: string,
@@ -36,15 +37,21 @@ const getCourse = async (
 
     if (course === undefined) {
         const rows = Array.from(document.querySelectorAll("table tbody tr:not(:first-child)"))
-        rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td:not(:first-child) font span a"))
-            cells.forEach((cell) => {
-                const list = cell.textContent
-                const link = cell.getAttribute("href")
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = Array.from(rows[i].querySelectorAll("td:not(:first-child) font span a"))
+            for (let j = 0; j < cells.length; j++) {
+                const list = cells[j].textContent
+                const link = cells[j].getAttribute("href")
                 const id = link?.split("=")[1]
-                courselist.push({ name: list ?? "", id: id ?? "" })
-            })
-        })
+                courselist.push({
+                    id: id ?? "",
+                    name: list ?? "",
+                    teacher: await getCourseTeacher(userid, year, sem, dept, es, id ?? ""),
+                })
+            }
+        }
+
         return courselist
     } else {
         const name = document

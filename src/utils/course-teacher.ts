@@ -8,24 +8,6 @@ const getCourseTeacher = async (
     es: string,
     course: string
 ) => {
-    // const res = await axios.get(
-    //     `https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=${req.nextUrl.searchParams.get(
-    //         "course"
-    //     )}`,
-    //     {
-    //         headers: {
-    //             cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-    //             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-    //         },
-    //         responseType: "arraybuffer",
-    //         transformResponse: [
-    //             (data) => {
-    //                 return iconv.decode(data, "big5")
-    //             },
-    //         ],
-    //     }
-    // )
-
     const res = await fetch(
         `https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=${course}`,
         {
