@@ -46,15 +46,15 @@ const CourseListPage = async () => {
                         data.map((course, index) => (
                             <ScaleTransitionView key={course.id} custom={index}>
                                 <Link
-                                    className='block rounded-lg border p-1 shadow-sm'
+                                    className='flex flex-col space-y-1 rounded-lg border p-2 shadow-sm'
                                     href={`/course/${course.id}`}
                                 >
-                                    <div className='p-1 overflow-ellipsis line-clamp-1'>
+                                    <div className='overflow-ellipsis line-clamp-1'>
                                         {course.name}
                                     </div>
                                     <div className='flex justify-between items-center'>
                                         <div className='p-1'>{course.id}</div>
-                                        <div className='mr-1 px-1 bg-main-color-1 rounded-lg'>
+                                        <div className='px-1 bg-main-color-1 rounded-lg'>
                                             {getCourseTeacher(
                                                 cookies().get("cookie_userid")?.value ?? "",
                                                 cookies().get("cookie_year")?.value ?? "",
