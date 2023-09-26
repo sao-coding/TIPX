@@ -53,13 +53,17 @@ const CourseListPage = async () => {
                                             </div>
                                         </div>
                                     </Link>
-                                    {session?.user.studentID === process.env.ADMINSTUDENTID && (
+                                    {session?.user.studentID === process.env.ADMINSTUDENTID ? (
                                         <Link
                                             href={`/course/${course.id}/roll-call`}
                                             className='block px-1 rounded-lg text-center border'
                                         >
                                             點名
                                         </Link>
+                                    ) : (
+                                        <div className='px-1 rounded-lg text-center border'>
+                                            點名 (請連絡管理員)
+                                        </div>
                                     )}
                                 </div>
                             </ScaleTransitionView>
