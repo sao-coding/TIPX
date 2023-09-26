@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { cookies } from "next/headers"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 import getUser from "@/utils/user"
@@ -18,12 +17,14 @@ import {
     IconActivity,
     IconNotes,
     IconInfoCircle,
+    IconMessageCircle,
 } from "@tabler/icons-react"
 import Info from "@/app/user/info"
 import InfoBoard from "@/app/user/infoBoard"
 import Switch from "@/app/user/switch"
 import Notify from "@/app/user/notify"
 import Logout from "@/app/user/logout"
+import Footer from "@/components/Footer"
 import { site } from "@/config/site"
 
 // const getUserData = async () => {
@@ -43,125 +44,137 @@ const UserPage = async () => {
     const lineID = await getLineID(session?.user.studentID as string)
 
     return (
-        <div className='mb-14 w-full px-2'>
-            <Info userData={userData} lineID={lineID.lineid} />
-            <InfoBoard />
-            <Switch />
-            <Link
-                href='/user/about'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconUser />
-                    <div className='ml-2'>個人詳細資料</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/leave'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconClipboardPlus />
-                    <div className='ml-2'>線上請假</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/attendance-record'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconClipboardList />
-                    <div className='ml-2'>請假缺曠記錄</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/credit'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconCoins />
-                    <div className='ml-2'>學分資訊</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/sem-grade'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconAntennaBars5 />
-                    <div className='ml-2'>科目成績</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/final-grade'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconLayoutDashboard />
-                    <div className='ml-2'>學期-操行 成績</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/class-rank'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconArrowBadgeDown />
-                    <div className='ml-2'>班級排名 (beta)</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/dept-rank'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconBadges />
-                    <div className='ml-2'>系排名 (beta)</div>
-                </div>
-            </Link>
-            {session?.user.studentID === process.env.ADMINSTUDENTID && (
-                <>
-                    <Link
-                        href='/user/log'
-                        className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-                    >
-                        <div className='flex items-center'>
-                            <IconNotes />
-                            <div className='ml-2'>日誌中心</div>
-                        </div>
-                    </Link>
-                </>
-            )}
-            <Link
-                href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconBrandGoogleAnalytics />
-                    <div className='ml-2'>網站數據統計</div>
-                </div>
-            </Link>
-            <Link
-                href='https://tk-tipx.github.io/upptime'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconActivity />
-                    <div className='ml-2'>系統狀態</div>
-                </div>
-            </Link>
-            <Link
-                href='/user/info'
-                className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
-            >
-                <div className='flex items-center'>
-                    <IconInfoCircle />
-                    <div className='ml-2'>關於</div>
-                </div>
-            </Link>
-            <Notify />
-            <Logout />
-        </div>
+        <>
+            <div className='mb-14 w-full p-2'>
+                <Info userData={userData} lineID={lineID.lineid} />
+                <InfoBoard />
+                <Switch />
+                <Link
+                    href='/user/about'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconUser />
+                        <div className='ml-2'>個人資料</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/leave'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconClipboardPlus />
+                        <div className='ml-2'>線上請假</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/attendance-record'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconClipboardList />
+                        <div className='ml-2'>請假缺曠記錄</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/credit'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconCoins />
+                        <div className='ml-2'>學分資訊</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/sem-grade'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconAntennaBars5 />
+                        <div className='ml-2'>科目成績</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/final-grade'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconLayoutDashboard />
+                        <div className='ml-2'>學期-操行 成績</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/class-rank'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconArrowBadgeDown />
+                        <div className='ml-2'>班級排名 (beta)</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/dept-rank'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconBadges />
+                        <div className='ml-2'>系排名 (beta)</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/forum'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconMessageCircle />
+                        <div className='ml-2'>聊天</div>
+                    </div>
+                </Link>
+                {session?.user.studentID === process.env.ADMINSTUDENTID && (
+                    <>
+                        <Link
+                            href='/user/log'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                        >
+                            <div className='flex items-center'>
+                                <IconNotes />
+                                <div className='ml-2'>日誌中心</div>
+                            </div>
+                        </Link>
+                    </>
+                )}
+                <Link
+                    href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconBrandGoogleAnalytics />
+                        <div className='ml-2'>網站數據統計</div>
+                    </div>
+                </Link>
+                <Link
+                    href='https://tk-tipx.github.io/upptime'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconActivity />
+                        <div className='ml-2'>系統狀態</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/info'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                >
+                    <div className='flex items-center'>
+                        <IconInfoCircle />
+                        <div className='ml-2'>關於</div>
+                    </div>
+                </Link>
+                <Notify />
+                <Logout />
+            </div>
+            <Footer />
+        </>
     )
 }
 

@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
-import { cookies } from "next/headers"
 import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
 import getUser from "@/utils/user"
@@ -19,6 +18,7 @@ import {
     IconTicket,
 } from "@tabler/icons-react"
 import { site } from "@/config/site"
+import Title from "@/components/Title"
 import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 // const getData = async () => {
@@ -52,9 +52,16 @@ const UserAboutPage = async () => {
         return `${year}/${month}/${day}`
     }
 
+    const title = {
+        title: "個人資料",
+        position: "text-center",
+        close: true,
+    }
+
     return (
         <>
-            <div className='w-full p-2 mb-14'>
+            <div className='w-full px-2 mb-14'>
+                <Title title={title} />
                 <BottomToUpTransitionView custom={0}>
                     <div className='mb-2 rounded-xl border p-2'>
                         <div className='relative flex items-center'>
