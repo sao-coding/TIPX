@@ -11,7 +11,7 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
         <Link
             ref={ref}
             href={`/post/${data.link}`}
-            className='mb-2 block h-36 w-full md:rounded-xl md:bg-main-color-1 p-2 md:shadow-md border-b md:border-none md:mb-5'
+            className='mb-2 block h-36 w-full md:rounded-xl md:bg-main-color-1 p-2 md:shadow-md border-t md:border-none md:mb-5'
         >
             <motion.div className='relative h-full' whileTap={{ scale: 0.95 }}>
                 <div

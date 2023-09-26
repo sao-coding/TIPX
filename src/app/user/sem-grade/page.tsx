@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 import { IconCoins, IconStar } from "@tabler/icons-react"
 import clsx from "clsx"
+import Title from "@/components/Title"
 import { SemGrade } from "@/types"
 import { site } from "@/config/site"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
@@ -32,8 +33,15 @@ const FinalGradePage = async () => {
         通識: "bg-yellow-500",
     }
 
+    const title = {
+        title: "科目成績",
+        position: "text-center",
+        close: true,
+    }
+
     return (
-        <div className='mb-14 w-full p-2'>
+        <div className='mb-14 w-full px-2'>
+            <Title title={title} />
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
                     <ScaleTransitionView key={index} custom={index}>

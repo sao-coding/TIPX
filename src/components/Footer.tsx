@@ -8,35 +8,35 @@ import { cx } from "@/lib/utils"
 import { NAV_LINKS } from "@/config/links"
 
 const Footer = () => {
-    const [prevScrollPos, setPrevScrollPos] = useState(0)
-    const [navbarHidden, setNavbarHidden] = useState(false)
+    // const [prevScrollPos, setPrevScrollPos] = useState(0)
+    // const [navbarHidden, setNavbarHidden] = useState(false)
     const pathname = usePathname()
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollPos = window.scrollY
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         const currentScrollPos = window.scrollY
 
-            if (prevScrollPos > currentScrollPos) {
-                setNavbarHidden(false) // 往上滾動，顯示導覽列
-            } else {
-                setNavbarHidden(true) // 往下滾動，隱藏導覽列
-            }
+    //         if (prevScrollPos > currentScrollPos) {
+    //             setNavbarHidden(false) // 往上滾動，顯示導覽列
+    //         } else {
+    //             setNavbarHidden(true) // 往下滾動，隱藏導覽列
+    //         }
 
-            setPrevScrollPos(currentScrollPos)
-        }
+    //         setPrevScrollPos(currentScrollPos)
+    //     }
 
-        window.addEventListener("scroll", handleScroll, { passive: true })
+    //     window.addEventListener("scroll", handleScroll, { passive: true })
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll)
-        }
-    }, [prevScrollPos])
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll)
+    //     }
+    // }, [prevScrollPos])
 
     return (
         <div
             className={clsx(
-                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300 md:hidden",
-                { hidden: navbarHidden }
+                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300 md:hidden"
+                // { hidden: navbarHidden }
             )}
         >
             {NAV_LINKS.map((link) => (
