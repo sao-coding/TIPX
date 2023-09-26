@@ -5,6 +5,7 @@ import Cookie from "js-cookie"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
 import toast from "react-hot-toast"
+import Title from "@/components/Title"
 import { FinalGradeRankClass } from "@/types"
 
 const ClassRankPage = () => {
@@ -63,9 +64,16 @@ const ClassRankPage = () => {
         theard()
     }, [])
 
+    const tite = {
+        title: "班級排名",
+        position: "text-center",
+        close: true,
+    }
+
     return (
         <>
-            <div className='mb-14 flex w-full flex-col items-center justify-center p-2'>
+            <div className='mb-14 flex w-full flex-col items-center justify-center px-2'>
+                <Title title={tite} />
                 {isError && (
                     <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                         <div className='flex h-full w-full flex-col items-center justify-center'>

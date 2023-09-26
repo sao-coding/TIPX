@@ -8,7 +8,6 @@ import { Inter } from "next/font/google"
 import Providers from "@/app/providers"
 import Header from "@/components/Header"
 import Container from "@/components/Container"
-import Footer from "@/components/Footer"
 import Toaster from "@/components/Toaster"
 import InfoLog from "@/app/info"
 import { getServerSession } from "next-auth"
@@ -89,7 +88,6 @@ export default async function RootLayout({
                         {modal}
                     </Providers>
                 </Container>
-                <Footer />
                 <Analytics />
             </body>
         </html>

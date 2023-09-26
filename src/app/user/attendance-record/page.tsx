@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 // import { useState, useEffect } from "react"
+import Title from "@/components/Title"
 import Card from "@/components/course-attendance-record/card"
 import { CourseAttendanceRecord } from "@/types"
 import { site } from "@/config/site"
@@ -22,10 +23,16 @@ const getData = async () => {
 
 const CourseAttendanceRecordPage = async () => {
     const data: CourseAttendanceRecord = await getData()
+    const title = {
+        title: "請假缺曠記錄",
+        position: "text-center",
+        close: true,
+    }
 
     return (
         <>
-            <div className='mb-14 w-full p-2'>
+            <div className='mb-14 w-full px-2'>
+                <Title title={title} />
                 {data?.list?.length > 0 ? (
                     <>
                         <div className='mb-2 grid grid-cols-2 gap-2'>

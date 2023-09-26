@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 import { IconUserStar, IconStar, IconCrown } from "@tabler/icons-react"
 import clsx from "clsx"
+import Title from "@/components/Title"
 import { FinalGradeRank } from "@/types"
 import { site } from "@/config/site"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
@@ -31,8 +32,15 @@ const FinalGradePage = async () => {
         3: "text-blue-500",
     }
 
+    const title = {
+        title: "學期-操行 成績",
+        position: "text-center",
+        close: true,
+    }
+
     return (
-        <div className='mb-14 w-full p-2'>
+        <div className='mb-14 w-full px-2'>
+            <Title title={title} />
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
                     <ScaleTransitionView key={index} custom={index}>
@@ -65,7 +73,9 @@ const FinalGradePage = async () => {
                                     <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                                     {item.avg === 0 ? "?" : item.avg}
                                 </div>
-                                <div className='px-2 text-2xl text-neutral-300'>{item.sem}</div>
+                                <div className='px-2 text-2xl text-neutral-300 max-xs:absolute max-xs:bottom-6 max-xs:right-0'>
+                                    {item.sem}
+                                </div>
                             </div>
                         </div>
                     </ScaleTransitionView>

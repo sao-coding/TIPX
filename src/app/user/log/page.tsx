@@ -2,12 +2,13 @@
 
 import Link from "next/link"
 import { useEffect } from "react"
+import { IconUserCircle } from "@tabler/icons-react"
 import { Log } from "@/types"
 import { useInView } from "react-intersection-observer"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
-import { IconUserCircle } from "@tabler/icons-react"
+import Title from "@/components/Title"
 
 const LogPage = () => {
     const { ref, inView } = useInView()
@@ -30,9 +31,16 @@ const LogPage = () => {
         }
     }, [inView, fetchNextPage, hasNextPage])
 
+    const title = {
+        title: "登入記錄",
+        position: "text-center",
+        close: true,
+    }
+
     return (
         <>
-            <div className='mb-14 w-full p-2'>
+            <div className='mb-14 w-full px-2'>
+                <Title title={title} />
                 {isSuccess &&
                     data.pages.map((page: Log[]) =>
                         page.map((data, i) => {
