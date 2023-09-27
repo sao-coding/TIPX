@@ -1,5 +1,6 @@
 "use client"
 import { useCallback, useRef } from "react"
+import Link from "next/link"
 import { IconShare2 } from "@tabler/icons-react"
 import Cookie from "js-cookie"
 import { OutTimeTable } from "@/types"
@@ -149,7 +150,7 @@ const TimeTablePage = () => {
     return (
         <>
             <div className='w-full rounded-md px-2 md:bg-white md:p-4 md:shadow-md'>
-                <div className='relative py-2 my-0.5 md:rounded-xl md:border md:bg-white md:shadow-sm'>
+                <div className='relative py-2 my-0.5 md:mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2
                         size={24}
@@ -229,10 +230,30 @@ const TimeTablePage = () => {
                                                         <div>{i + 1}</div>
                                                     </div>
 
-                                                    {item.map((item, index) => (
-                                                        <div className='text-center' key={index}>
-                                                            {item}
-                                                        </div>
+                                                    {item.map((value, index) => (
+                                                        // <div className='text-center' key={index}>
+                                                        //     {item}
+                                                        // </div>
+                                                        <>
+                                                            {index !== 0 && (
+                                                                <div key={index}>
+                                                                    {index === 1 ? (
+                                                                        <div className='text-center rounded-lg hover:bg-main-color-2'>
+                                                                            <Link
+                                                                                href={`/course/${item[0]}?tab=規範`}
+                                                                                className='text-blue-500 border-b-2 border-main-color-2'
+                                                                            >
+                                                                                {value}
+                                                                            </Link>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div className='text-center'>
+                                                                            {value}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            )}
+                                                        </>
                                                     ))}
                                                 </div>
                                             ))}
