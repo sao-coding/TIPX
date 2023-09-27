@@ -57,7 +57,7 @@ const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message 
                         {message.author?.avatar && message.author?.anonymous === false ? (
                             <img className='rounded-full' src={message.author.avatar} alt='' />
                         ) : (
-                            <IconUser size={24} className='p-1' />
+                            <IconUser className='p-1' />
                         )}
                     </div>
 

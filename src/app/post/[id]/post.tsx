@@ -7,16 +7,17 @@ import {
     IconDownload,
     IconPaperclip,
     IconLink,
+    IconX,
     IconShare2,
 } from "@tabler/icons-react"
-import { usePathname } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import toast from "react-hot-toast"
 import { Post as PostType } from "@/types"
-import "@/app/loaderCat.css"
 import { motion } from "framer-motion"
 
 const Post = ({ params }: { params: { id: string } }) => {
     const id = params.id
+    const router = useRouter()
     const path = usePathname()
 
     const { isLoading, isError, data } = useQuery<PostType>({
@@ -63,10 +64,18 @@ const Post = ({ params }: { params: { id: string } }) => {
                     transition={{ duration: 0.5 }}
                 >
                     <div className='flex flex-col items-center justify-center w-full'>
-                        <div className='sticky left-0 top-0 w-full border-b bg-slate-50 py-3 text-center font-bold md:bg-white md:text-xl'>
-                            {data.title}
+                        <div className='sticky left-0 top-0 flex items-center justify-between w-full border-b bg-slate-50 py-3 md:bg-white md:text-xl'>
+                            <div className='text-center font-bold pr-4 w-full'>{data.title}</div>
+                            <button
+                                className='self-start outline-none md:hidden'
+                                onClick={() => {
+                                    router.push("/")
+                                }}
+                            >
+                                <IconX />
+                            </button>
                         </div>
-                        <div className='w-full pt-2 md:px-24'>
+                        <div className='w-full pt-2 md:px-24 flex flex-col space-y-1'>
                             <div className='flex w-full items-center justify-between'>
                                 <div className='flex items-center'>
                                     <div className='mr-1'>{data.unit}</div>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import * as Tabs from "@radix-ui/react-tabs"
 import Hw from "@/app/course/[id]/hw/page"
 import CourseStuList from "@/app/course/[id]/course-stu-list/page"
@@ -8,6 +9,7 @@ import CourseInfo from "@/app/course/[id]/course-info/page"
 import { motion } from "framer-motion"
 
 const CourseTabs = ({ id }: { id: string }) => {
+    const searchParams = useSearchParams()
     const tabList = [
         { value: "作業" },
         { value: "學生" },
@@ -17,7 +19,7 @@ const CourseTabs = ({ id }: { id: string }) => {
     ]
     const tabsClassName = ["peer/tabs-作業", "peer/tabs-學生", "peer/tabs-出缺勤", "peer/tabs-規範"]
     return (
-        <Tabs.Root defaultValue='作業'>
+        <Tabs.Root defaultValue={searchParams.get("tab") || "作業"}>
             <div className='sticky left-0 top-0 bg-slate-50 z-10 md:bg-white md:top-14'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative py-1 -mt-2'>
                     {tabList?.map((item, index) => (

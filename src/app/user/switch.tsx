@@ -144,7 +144,7 @@ const Switch = () => {
                 </Select.Icon>
                 <Select.Value>
                     {isLoading ? (
-                        <IconLoader2 size={24} className='mx-1 animate-spin' />
+                        <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
                         <>
                             {data?.map((item, index) => {

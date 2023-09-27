@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query"
 import Cookie from "js-cookie"
 import Card from "@/components/hw/card"
 import { HwList } from "@/types"
-import "@/app/loaderCat.css"
 import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const HwPage = ({ params }: { params: { id: string } }) => {

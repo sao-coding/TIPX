@@ -11,7 +11,7 @@ const Loading = ({ index }: { index: number }) => {
         >
             <div className='flex items-center px-1 py-1'>
                 <div className='w-6 h-6 bg-orange-300 rounded-full flex items-center justify-center'>
-                    <IconUser size={24} />
+                    <IconUser />
                 </div>
 
                 {/* <div className='ml-1 bg-slate-200 w-14 h-4 rounded-full'></div> */}

@@ -61,7 +61,7 @@ const InfoBoard = () => {
                 </div>
                 <div className='flex items-center text-2xl'>
                     {LeaveLoading ? (
-                        <IconLoader2 size={24} className='mx-1 animate-spin' />
+                        <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
                         <>
                             {courseAttendanceRecordData?.total.length > 0 &&
@@ -82,7 +82,7 @@ const InfoBoard = () => {
                 </div>
                 <div className='flex items-center text-2xl'>
                     {LeaveLoading ? (
-                        <IconLoader2 size={24} className='mx-1 animate-spin' />
+                        <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
                         <>
                             {courseAttendanceRecordData?.total.length > 0 &&
