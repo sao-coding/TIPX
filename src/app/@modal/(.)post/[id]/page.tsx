@@ -64,7 +64,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                 <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
                 <Dialog.Content asChild>
                     <motion.div
-                        className='md:overflow-hidden overflow-y-auto fixed left-1/2 top-1/2 z-10 md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg md:bg-white md:p-4 px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow h-full w-full bg-slate-50'
+                        className='md:overflow-hidden overflow-y-auto fixed left-1/2 top-1/2 z-10 md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] -translate-x-1/2 -translate-y-1/2 md:rounded-lg md:bg-white md:p-4 px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow h-full w-full bg-slate-50'
                         initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
                         animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
                     >
