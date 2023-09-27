@@ -79,10 +79,14 @@ const getTeacher = async (
         sname: teacherName,
     })
 
-    const teacherDept =
+    let teacherDept =
         document.querySelector(
             "#AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > div"
         )?.textContent ?? ""
+
+    // 通識教育中心 => 通識中心
+
+    teacherDept === "通識教育中心" && (teacherDept = "通識中心")
 
     document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teach2.php", "GET")
 
