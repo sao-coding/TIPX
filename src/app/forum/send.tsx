@@ -263,7 +263,7 @@ const SendCP = ({ user }: { user: User }) => {
                         <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
                         <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[90vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg outline-none data-[state=open]:animate-contentShow'>
                             <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4 outline-none'>
-                                <IconX size={24} />
+                                <IconX />
                             </Dialog.Close>
                             <Dialog.Title asChild>
                                 <div className='flex items-center justify-center text-lg font-bold'>
@@ -280,7 +280,7 @@ const SendCP = ({ user }: { user: User }) => {
                                                 alt=''
                                             />
                                         ) : (
-                                            <IconUser size={24} />
+                                            <IconUser />
                                         )}
                                     </div>
                                     <div className=''>{user.email}</div>

@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query"
 import Card from "@/components/course-attendance-record/card"
 import { CourseAttendanceRecord } from "@/types"
-import "@/app/loaderCat.css"
 import BottomToUpTransitionView from "@/components/transition/BottomToUpTransitionView"
 
 const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {

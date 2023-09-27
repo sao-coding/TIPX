@@ -153,7 +153,6 @@ const TimeTablePage = () => {
                 <div className='relative py-2 my-0.5 md:mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2
-                        size={24}
                         className='absolute right-0 top-2/4 mr-2 -translate-y-2/4'
                         onClick={() => {
                             saveImage()
