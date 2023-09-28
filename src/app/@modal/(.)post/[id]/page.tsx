@@ -68,20 +68,20 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                         initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
                         animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
                     >
+                        <div className='flex items-center justify-between sticky left-0 top-0 md:static w-full md:bg-white bg-slate-50 py-3 md:border-b-0 border-b mb-2'>
+                            <Dialog.Title asChild>
+                                <div className='flex items-center justify-center'>
+                                    <div className='text-center pr-4 font-bold md:text-xl'>
+                                        {data?.title}
+                                    </div>
+                                </div>
+                            </Dialog.Title>
+                            <Dialog.Close className='self-start outline-none'>
+                                <IconX />
+                            </Dialog.Close>
+                        </div>
                         {data && (
                             <>
-                                <div className='flex items-center justify-between sticky left-0 top-0 md:static w-full md:bg-white bg-slate-50 py-3 md:border-b-0 border-b mb-2'>
-                                    <Dialog.Title asChild>
-                                        <div className='flex items-center justify-center'>
-                                            <div className='text-center pr-4 font-bold md:text-xl'>
-                                                {data.title}
-                                            </div>
-                                        </div>
-                                    </Dialog.Title>
-                                    <Dialog.Close className='self-start outline-none'>
-                                        <IconX />
-                                    </Dialog.Close>
-                                </div>
                                 <div className='flex flex-col space-y-1'>
                                     <div className='flex items-center justify-between'>
                                         <div className='flex items-center'>
@@ -178,7 +178,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                             </>
                         )}
                         {isLoading && (
-                            <div className='flex items-center justify-center'>
+                            <div className='flex items-center justify-center h-full'>
                                 <div className='cat'>
                                     <div className='cat__body'></div>
                                     <div className='cat__body'></div>
@@ -188,7 +188,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                             </div>
                         )}
                         {isError && (
-                            <div className='flex items-center justify-center'>
+                            <div className='flex items-center justify-center h-full'>
                                 <div className='text-red-500'>沒有這篇公告</div>
                             </div>
                         )}
