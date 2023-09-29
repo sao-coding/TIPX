@@ -18,14 +18,14 @@ https://netinfo.takming.edu.tw/tip/survey/functionsXX.js
 https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=D193206
 
 # 參考資料
-https://uigradients.com/
-https://ithelp.ithome.com.tw/articles/10222915
-https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
-https://www.wfublog.com/2017/10/input-type-file-upload-css-skill.html
-https://blog.kalan.dev/2021-03-13-html-form-data
-https://ithelp.ithome.com.tw/articles/10306392
-https://blog.huli.tw/2021/02/19/cors-guide-2/
-
+https://uigradients.com/  
+https://ithelp.ithome.com.tw/articles/10222915  
+https://stackoverflow.com/questions/572768/styling-an-input-type-file-button  
+https://www.wfublog.com/2017/10/input-type-file-upload-css-skill.html  
+https://blog.kalan.dev/2021-03-13-html-form-data  
+https://ithelp.ithome.com.tw/articles/10306392  
+https://blog.huli.tw/2021/02/19/cors-guide-2/  
+https://ithelp.ithome.com.tw/articles/10196695  
 https://netinfo.takming.edu.tw/tip/stu_setphone.php  
 https://netinfo.takming.edu.tw/tip/stu_setphone_x.php  
 Phone: 0925385500  
