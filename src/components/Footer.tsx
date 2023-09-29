@@ -31,11 +31,21 @@ const Footer = () => {
     //         window.removeEventListener("scroll", handleScroll)
     //     }
     // }, [prevScrollPos])
-
+    const click = (e) => {
+        const btnSize = e.currentTarget.getBoundingClientRect();
+        const calX = e.clientX - btnSize.x;
+        const calY = e.clientY - btnSize.y;
+        const ripple = document.createElement("span");
+        ripple.className = "ripple";
+        ripple.style.left = calX + "px";
+        ripple.style.top = calY + "px";
+        e.currentTarget.append(ripple);
+        setTimeout(() => ripple.remove(), 500);
+      };
     return (
         <div
             className={clsx(
-                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 py-2 transition-all duration-300 md:hidden"
+                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 transition-all duration-300 md:hidden"
                 // { hidden: navbarHidden }
             )}
         >
@@ -45,7 +55,9 @@ const Footer = () => {
                     key={link.href}
                     href={link.href}
                     title={link.text}
-                    className='w-[30px] h-[30px] flex items-center justify-center'
+                    className='flex items-center justify-center w-full h-full py-2 relative overflow-hidden'
+                    onClick={(e) => click(e)}
+                    // w-[30px] h-[30px] 
                 >
                     <link.icon
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
