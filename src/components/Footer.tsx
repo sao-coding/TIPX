@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"
@@ -43,21 +42,20 @@ const Footer = () => {
         setTimeout(() => ripple.remove(), 500)
     }
     return (
-        <div
+        <footer
             className={clsx(
                 "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 transition-all duration-300 md:hidden"
                 // { hidden: navbarHidden }
             )}
         >
             {NAV_LINKS.map((link) => (
-                // <NavItem key={link.href} href={link.href} icon={link.icon} />
                 <Link
                     key={link.href}
                     href={link.href}
                     title={link.text}
-                    className='flex items-center justify-center w-full h-full py-2 relative overflow-hidden'
+                    className='flex items-center justify-center w-full h-full relative overflow-hidden'
                     onClick={(e) => click(e)}
-                    // w-[30px] h-[30px]
+                    // w-[30px] h-[30px] py-2
                 >
                     <link.icon
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
@@ -80,7 +78,7 @@ const Footer = () => {
                     />
                 </Link>
             ))}
-        </div>
+        </footer>
     )
 }
 

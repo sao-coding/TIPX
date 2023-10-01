@@ -19,11 +19,11 @@ import {
     IconInfoCircle,
     IconMessageCircle,
 } from "@tabler/icons-react"
-import Info from "@/app/user/info"
-import InfoBoard from "@/app/user/infoBoard"
-import Switch from "@/app/user/switch"
-import Notify from "@/app/user/notify"
-import Logout from "@/app/user/logout"
+import Info from "./info"
+import InfoBoard from "./infoBoard"
+import Switch from "./switch"
+import Notify from "./notify"
+import Logout from "./logout"
 import Footer from "@/components/Footer"
 import { site } from "@/config/site"
 
