@@ -72,7 +72,7 @@ const ClassRankPage = () => {
 
     return (
         <>
-            <div className='mb-14 flex w-full flex-col items-center justify-center px-2'>
+            <div className='flex w-full flex-col items-center justify-center px-2 mb-2'>
                 <Title title={tite} />
                 {isError && (
                     <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>

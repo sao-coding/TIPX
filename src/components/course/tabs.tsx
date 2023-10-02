@@ -43,7 +43,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 </Tabs.List>
             </div>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='mb-2 rounded-b-md pt-2'
                 value='作業'
                 aria-labelledby='作業'
                 id='作業'
@@ -52,7 +52,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 <Hw params={{ id: id }} />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='mb-2 rounded-b-md pt-2'
                 value='學生'
                 aria-labelledby='學生'
                 id='學生'
@@ -60,7 +60,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 <CourseStuList params={{ id: id }} />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='mb-2 rounded-b-md pt-2'
                 value='出缺勤'
                 aria-labelledby='出缺勤'
                 id='出缺勤'
@@ -68,7 +68,7 @@ const CourseTabs = ({ id }: { id: string }) => {
                 <CourseAttendanceRecord params={{ id: id }} />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='mb-2 rounded-b-md pt-2'
                 value='規範'
                 aria-labelledby='規範'
                 id='規範'
