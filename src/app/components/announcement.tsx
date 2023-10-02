@@ -43,8 +43,9 @@ const AnnouncementCP = () => {
                         return <Card key={data.link} data={data} />
                     })
                 )}
-            {(isFetchingNextPage || !data) &&
-                Array.from(Array(5).keys()).map((index) => <Loading key={index} />)}
+            {isFetchingNextPage || !data
+                ? Array.from(Array(5).keys()).map((index) => <Loading key={index} />)
+                : !hasNextPage && <div className='text-center text-gray-500'>沒有更多公告了</div>}
         </>
     )
 }
