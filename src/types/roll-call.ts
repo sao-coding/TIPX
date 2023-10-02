@@ -1,4 +1,4 @@
-type Absence = {
+export type Absence = {
     id: string
     status: boolean
     disabled: boolean
