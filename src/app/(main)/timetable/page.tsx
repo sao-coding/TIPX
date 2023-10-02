@@ -233,9 +233,9 @@ const TimeTablePage = () => {
                                                         // <div className='text-center' key={index}>
                                                         //     {item}
                                                         // </div>
-                                                        <>
+                                                        <div key={index}>
                                                             {index !== 0 && (
-                                                                <div key={index}>
+                                                                <>
                                                                     {index === 1 ? (
                                                                         <div className='text-center rounded-lg hover:bg-main-color-2'>
                                                                             <Link
@@ -250,9 +250,9 @@ const TimeTablePage = () => {
                                                                             {value}
                                                                         </div>
                                                                     )}
-                                                                </div>
+                                                                </>
                                                             )}
-                                                        </>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             ))}
