@@ -6,6 +6,7 @@ import { IconSelector } from "@tabler/icons-react"
 import { Listbox } from "@headlessui/react"
 import toast from "react-hot-toast"
 import Title from "@/components/Title"
+import CheckBox from "./checkbox"
 import { RollCall } from "@/types"
 
 const RollCall = ({ params }: { params: { id: string } }) => {
@@ -99,7 +100,7 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                             onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
-                    <form onSubmit={(e) => save(e)}>
+                    <form onSubmit={(e) => save(e)} className='overflow-x-auto'>
                         {data && (
                             <>
                                 {data.students.map((student) => (
@@ -113,14 +114,14 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                                         >
                                             {student.stuID}
                                         </div>
-                                        <div className=''>{student.name}</div>
+                                        <div className='w-16 whitespace-nowrap'>{student.name}</div>
                                         <div
                                             id={student.stuID}
-                                            className='flex items-center space-x-1'
+                                            className='flex items-center space-x-2'
                                         >
                                             {student.absence.map((absence) => (
                                                 <div key={absence.id}>
-                                                    <input
+                                                    {/* <input
                                                         key={absence.id}
                                                         type='checkbox'
                                                         name={absence.id}
@@ -128,8 +129,9 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                                                         defaultChecked={absence.status}
                                                         disabled={absence.disabled}
                                                         className='h-4 w-4 text-main-color-1 focus:ring-main-color-1 border-gray-300 rounded'
-                                                    />
-                                                    {absence.status ? "缺席" : "出席"}
+                                                    /> */}
+                                                    <CheckBox absence={absence} />
+                                                    {/* {absence.status ? "缺席" : "出席"} */}
                                                 </div>
                                             ))}
                                         </div>

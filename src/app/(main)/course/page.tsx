@@ -40,7 +40,7 @@ const CourseListPage = async () => {
                             <ScaleTransitionView key={course.id} custom={index}>
                                 <div className='flex flex-col space-y-1'>
                                     <Link
-                                        className='flex flex-col space-y-1 rounded-lg border p-2 shadow-sm'
+                                        className='flex flex-col space-y-1 rounded-lg border p-2 shadow-sm ripple'
                                         href={`/course/${course.id}`}
                                     >
                                         <div className='overflow-ellipsis line-clamp-1'>
@@ -56,13 +56,13 @@ const CourseListPage = async () => {
                                     {session?.user.studentID === process.env.ADMINSTUDENTID ? (
                                         <Link
                                             href={`/course/${course.id}/roll-call`}
-                                            className='block px-1 rounded-lg text-center border'
+                                            className='block px-1 rounded-lg text-center border ripple'
                                         >
                                             點名
                                         </Link>
                                     ) : (
-                                        <div className='px-1 rounded-lg text-center border'>
-                                            點名 (請連絡管理員)
+                                        <div className='px-1 rounded-lg text-center border cursor-not-allowed'>
+                                            點名 (請給錢💸)
                                         </div>
                                     )}
                                 </div>
