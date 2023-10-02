@@ -51,7 +51,7 @@ const UserPage = async () => {
                 <Switch />
                 <Link
                     href='/user/about'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconUser />
@@ -60,7 +60,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/leave'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconClipboardPlus />
@@ -69,7 +69,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/attendance-record'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconClipboardList />
@@ -78,7 +78,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/credit'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconCoins />
@@ -87,7 +87,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/sem-grade'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconAntennaBars5 />
@@ -96,7 +96,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/final-grade'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconLayoutDashboard />
@@ -105,7 +105,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/class-rank'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconArrowBadgeDown />
@@ -114,7 +114,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/dept-rank'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconBadges />
@@ -123,7 +123,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/forum'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconMessageCircle />
@@ -134,7 +134,7 @@ const UserPage = async () => {
                     <>
                         <Link
                             href='/user/log'
-                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                         >
                             <div className='flex items-center'>
                                 <IconNotes />
@@ -145,7 +145,7 @@ const UserPage = async () => {
                 )}
                 <Link
                     href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconBrandGoogleAnalytics />
@@ -154,7 +154,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='https://tk-tipx.github.io/upptime'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconActivity />
@@ -163,7 +163,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/info'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
                     <div className='flex items-center'>
                         <IconInfoCircle />

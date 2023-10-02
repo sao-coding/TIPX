@@ -35,7 +35,7 @@ const Footer = () => {
         const calX = e.clientX - btnSize.x
         const calY = e.clientY - btnSize.y
         const ripple = document.createElement("span")
-        ripple.className = "ripple"
+        ripple.className = "footer-ripple"
         ripple.style.left = calX + "px"
         ripple.style.top = calY + "px"
         e.currentTarget.append(ripple)
