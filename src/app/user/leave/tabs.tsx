@@ -34,7 +34,7 @@ const LeaveTabs = () => {
                 </Tabs.List>
             </div>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='rounded-b-md pt-2'
                 value='請假'
                 aria-labelledby='請假'
                 id='請假'
@@ -42,7 +42,7 @@ const LeaveTabs = () => {
                 <Leave />
             </Tabs.Content>
             <Tabs.Content
-                className='mb-14 rounded-b-md pt-2'
+                className='rounded-b-md pt-2'
                 value='列表'
                 aria-labelledby='列表'
                 id='列表'

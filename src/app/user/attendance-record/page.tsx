@@ -31,7 +31,7 @@ const CourseAttendanceRecordPage = async () => {
 
     return (
         <>
-            <div className='mb-14 w-full px-2'>
+            <div className='w-full px-2 mb-2'>
                 <Title title={title} />
                 {data?.list?.length > 0 ? (
                     <>
