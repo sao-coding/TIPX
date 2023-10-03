@@ -58,7 +58,7 @@ const Post = ({ params }: { params: { id: string } }) => {
         <>
             {data && (
                 <motion.div
-                    className='mb-14 flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'
+                    className='flex w-full items-center rounded-2xl px-4 pb-4 md:bg-white'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
