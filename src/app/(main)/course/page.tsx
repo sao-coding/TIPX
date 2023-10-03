@@ -28,7 +28,7 @@ const CourseListPage = async () => {
 
     return (
         <>
-            <div className='w-full rounded-md px-2 mb-2 mb-14 md:bg-white md:p-4 md:shadow-md'>
+            <div className='w-full rounded-md px-2 pb-2 mb-14 md:bg-white md:p-4 md:shadow-md'>
                 {/* <div className='relative mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                     <div className='text-center text-2xl font-bold'>課程</div>
                 </div> */}
