@@ -1,3 +1,4 @@
+import Link from "next/link"
 import {
     CourseAttendanceRecord,
     CourseAttendanceRecordList,
@@ -6,10 +7,12 @@ import {
 
 const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
     const formatDate = (date: string) => {
+        // 1120912 -> 2021-09-12
         const year = date.slice(0, 3)
         const month = date.slice(3, 5)
         const day = date.slice(5, 7)
-        return `${year}/${month}/${day}`
+        // year = parseInt(year) + 1911 + ""
+        return `${parseInt(year) + 1911}-${month}-${day}`
     }
 
     return (
@@ -23,9 +26,12 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
                     <div>{data.courseID}</div>
                 </div>
                 <div className='mt-2 flex items-center justify-center'>
-                    <div className='rounded-md bg-main-color-3 px-1 text-white/80'>
+                    <Link
+                        href={`/user/leave?date=${formatDate(data.date)}`}
+                        className='block px-1 border-b-2 border-main-color-3 text-main-color-3 hover:text-white/80 hover:rounded-md  hover:bg-main-color-3'
+                    >
                         {data.course}
-                    </div>
+                    </Link>
                 </div>
             </div>
         </>
