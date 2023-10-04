@@ -1,5 +1,6 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { IconSelector } from "@tabler/icons-react"
@@ -9,13 +10,14 @@ import ConfirmCard from "@/app/user/leave/confirmCard"
 import { Leave } from "@/types"
 
 const Leave = () => {
+    const searchParams = useSearchParams()
     // 目前台灣時間
     const now = new Date()
     const nowDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, "0")}-${now
         .getDate()
         .toString()
         .padStart(2, "0")}`
-    const [date, setDate] = useState(nowDate)
+    const [date, setDate] = useState(searchParams.get("date") || nowDate)
     const [selected, setSelected] = useState("病假")
     const queryClient = useQueryClient()
     const { isLoading, data } = useQuery<Leave>({
