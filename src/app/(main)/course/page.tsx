@@ -3,7 +3,6 @@ import Link from "next/link"
 import getCourse from "@/utils/course"
 import getCourseTeacher from "@/utils/course-teacher"
 import Title from "@/components/Title"
-import Footer from "@/components/Footer"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
 import { Course } from "@/types"
 import { getServerSession } from "next-auth"
@@ -70,7 +69,6 @@ const CourseListPage = async () => {
                         ))}
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

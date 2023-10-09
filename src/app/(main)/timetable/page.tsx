@@ -8,7 +8,6 @@ import { site } from "@/config/site"
 import { toPng } from "html-to-image"
 import { useQuery } from "@tanstack/react-query"
 import toast from "react-hot-toast"
-import Footer from "@/components/Footer"
 
 // const getData = async () => {
 //     const res = await fetch(`${site.url}/api/timetable`, {
@@ -263,7 +262,6 @@ const TimeTablePage = () => {
                     )}
                 </div>
             </div>
-            <Footer />
         </>
     )
 }
