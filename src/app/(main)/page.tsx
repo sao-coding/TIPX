@@ -1,6 +1,5 @@
 import AnnouncementCP from "@/app/components/announcement"
 import Title from "@/components/Title"
-import Footer from "@/components/Footer"
 
 const HomePage = () => {
     const title = {
@@ -17,7 +16,6 @@ const HomePage = () => {
                 <Title title={title} />
                 <AnnouncementCP />
             </div>
-            <Footer />
         </>
     )
 }

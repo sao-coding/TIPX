@@ -12,8 +12,8 @@ dependencies:
     specifier: ^9.7.1
     version: 9.7.1(next@13.5.4)(webpack@5.88.2)
   '@fancyapps/ui':
-    specifier: ^5.0.23
-    version: 5.0.23
+    specifier: ^5.0.24
+    version: 5.0.24
   '@headlessui/react':
     specifier: ^1.7.17
     version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
@@ -54,8 +54,8 @@ dependencies:
     specifier: 18.2.10
     version: 18.2.10
   '@vercel/analytics':
-    specifier: ^1.0.2
-    version: 1.0.2
+    specifier: ^1.1.0
+    version: 1.1.0
   '@vercel/og':
     specifier: ^0.5.17
     version: 0.5.17
@@ -132,8 +132,8 @@ dependencies:
     specifier: 5.2.2
     version: 5.2.2
   zustand:
-    specifier: ^4.4.2
-    version: 4.4.2(@types/react@18.2.25)(react@18.2.0)
+    specifier: ^4.4.3
+    version: 4.4.3(@types/react@18.2.25)(react@18.2.0)
 
 devDependencies:
   '@types/js-cookie':
@@ -1465,8 +1465,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
-  /@fancyapps/ui@5.0.23:
-    resolution: {integrity: sha512-H/2ZXgWGHdpH6nXrY5D7zhlEN3mlSr7ivkvE6MnPzCO/e30yhoUY/afzISegaJAN/plOtU+ao577IBoGYCfBDQ==}
+  /@fancyapps/ui@5.0.24:
+    resolution: {integrity: sha512-zdyQLVKY5G4q/l2a8H1p9w5gBfL+sgVOXogoOzREbavzzdDKnNNqBO21fnjxUj+GVmBM8kYSR6LeOYf1nYFhvA==}
     dev: false
 
   /@fastify/busboy@1.2.1:
@@ -3348,8 +3348,10 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: false
 
-  /@vercel/analytics@1.0.2:
-    resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
+  /@vercel/analytics@1.1.0:
+    resolution: {integrity: sha512-k5ePYZPxitxxD1eJenPUUuH3qK+EtaA9OVD3oO0BRbyT/LarmZF0qdkptRSidip1arQxsTEIWvHbTuj1oksl+Q==}
+    dependencies:
+      server-only: 0.0.1
     dev: false
 
   /@vercel/og@0.5.17:
@@ -7366,6 +7368,10 @@ packages:
       randombytes: 2.1.0
     dev: false
 
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
+
   /set-function-name@2.0.1:
     resolution: {integrity: sha512-tMNCiqYVkXIZgc2Hnoy2IvC/f8ezc5koaRFkCjrpWzGpCd3qbZXPzVy9MAZzK1ch/X0jvSkojys3oqJN0qCmdA==}
     engines: {node: '>= 0.4'}
@@ -8532,8 +8538,8 @@ packages:
     resolution: {integrity: sha512-N+d4UJSJbt/R3wqY7Coqs5pcV0aUj2j9IaQ3rNj9bVCLld8tTGKRa2USARjnvZJWVx1NDmQev8EknoczaOQDOA==}
     dev: false
 
-  /zustand@4.4.2(@types/react@18.2.25)(react@18.2.0):
-    resolution: {integrity: sha512-qF3/vZHCrjPUX5DvPE3DPDZlh+FiAWRKlP9PI7SlW1MCk8q4vUCDqyWsbF8K41ne0Yx8eeeb0m1cypn1LqUMYQ==}
+  /zustand@4.4.3(@types/react@18.2.25)(react@18.2.0):
+    resolution: {integrity: sha512-oRy+X3ZazZvLfmv6viIaQmtLOMeij1noakIsK/Y47PWYhT8glfXzQ4j0YcP5i0P0qI1A4rIB//SGROGyZhx91A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'
