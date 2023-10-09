@@ -1,7 +1,6 @@
 import { cookies } from "next/headers"
 import Link from "next/link"
 import getCourse from "@/utils/course"
-import getCourseTeacher from "@/utils/course-teacher"
 import Title from "@/components/Title"
 import Footer from "@/components/Footer"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
