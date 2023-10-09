@@ -24,7 +24,6 @@ import InfoBoard from "./infoBoard"
 import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
-import Footer from "@/components/Footer"
 import { site } from "@/config/site"
 
 // const getUserData = async () => {
@@ -173,7 +172,6 @@ const UserPage = async () => {
                 <Notify />
                 <Logout />
             </div>
-            <Footer />
         </>
     )
 }

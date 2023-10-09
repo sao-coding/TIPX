@@ -8,7 +8,6 @@ import { site } from "@/config/site"
 import { toPng } from "html-to-image"
 import { useQuery } from "@tanstack/react-query"
 import toast from "react-hot-toast"
-import Footer from "@/components/Footer"
 
 // const getData = async () => {
 //     const res = await fetch(`${site.url}/api/timetable`, {
@@ -149,7 +148,7 @@ const TimeTablePage = () => {
 
     return (
         <>
-            <div className='w-full rounded-md px-2 mb-2 md:bg-white md:p-4 md:shadow-md mb-14 md:mb-0'>
+            <div className='w-full rounded-md px-2 pb-2 md:bg-white md:p-4 md:shadow-md mb-14 md:mb-0'>
                 <div className='relative py-2 my-0.5 md:mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2
@@ -263,7 +262,6 @@ const TimeTablePage = () => {
                     )}
                 </div>
             </div>
-            <Footer />
         </>
     )
 }
