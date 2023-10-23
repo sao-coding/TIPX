@@ -17,8 +17,8 @@ const RollCallVerify = ({ courseID }: { courseID: string }) => {
             <Dialog.Trigger className='px-1 rounded-lg text-center border ripple mt-1 w-full'>
                 點名
             </Dialog.Trigger>
-            <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-            <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow flex flex-col justify-center items-center space-y-2'>
+            <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
+            <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow flex flex-col justify-center items-center space-y-2'>
                 <Dialog.Title className='text-center text-xl font-bold'>請輸入授權碼</Dialog.Title>
                 <Dialog.Description className='flex justify-center'>
                     <input
