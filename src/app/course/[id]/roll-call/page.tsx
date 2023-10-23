@@ -1,17 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { IconSelector } from "@tabler/icons-react"
-import { Listbox } from "@headlessui/react"
 import toast from "react-hot-toast"
+import { IconReload } from "@tabler/icons-react"
 import Title from "@/components/Title"
 import CheckBox from "./checkbox"
 import { RollCall } from "@/types"
+import { useRollCallVerifyStore } from "@/store/roll-call-verify"
 
 const RollCall = ({ params }: { params: { id: string } }) => {
+    const [verify, setVerify] = useState(false)
     const [date, setDate] = useState("")
     const queryClient = useQueryClient()
+    const { rollCallPassword } = useRollCallVerifyStore()
+
+    useEffect(() => {
+        const verify = async () => {
+            const res = await fetch("/api/roll-call-verify", {
+                method: "POST",
+                body: JSON.stringify({
+                    password: rollCallPassword,
+                }),
+            })
+            const data = await res.json()
+
+            if (data.status === "error") {
+                toast.error("授權碼錯誤")
+                return
+            } else {
+                setVerify(true)
+            }
+        }
+        verify()
+    }, [])
+
     const { isLoading, data } = useQuery<RollCall>({
         queryKey: ["roll-call", params.id, date],
         queryFn: async () => {
@@ -89,39 +112,54 @@ const RollCall = ({ params }: { params: { id: string } }) => {
             ) : (
                 <>
                     <Title title={tilte} />
-                    <div className='w-full text-center'>
-                        <input
-                            type='date'
-                            className='bg-white rounded-lg p-1 h-8 md:w-1/3 md:border text-center'
-                            min={data?.start}
-                            max={data?.end}
-                            step={7}
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                    </div>
-                    <form onSubmit={(e) => save(e)} className='overflow-x-auto'>
-                        {data && (
-                            <>
-                                {data.students.map((student) => (
-                                    <div
-                                        key={student.stuID}
-                                        className='flex items-center space-x-2'
-                                    >
-                                        <div
-                                            id={student.id}
-                                            className='font-mono roll-call-student-id'
-                                        >
-                                            {student.stuID}
-                                        </div>
-                                        <div className='w-16 whitespace-nowrap'>{student.name}</div>
-                                        <div
-                                            id={student.stuID}
-                                            className='flex items-center space-x-2'
-                                        >
-                                            {student.absence.map((absence) => (
-                                                <div key={absence.id}>
-                                                    {/* <input
+                    {verify && (
+                        <>
+                            <div className='w-full text-center relative'>
+                                <input
+                                    type='date'
+                                    className='bg-white rounded-lg p-1 h-8 md:w-1/3 md:border text-center'
+                                    min={data?.start}
+                                    max={data?.end}
+                                    step={7}
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                />
+                                <button
+                                    onClick={() => {
+                                        queryClient.invalidateQueries({
+                                            queryKey: ["roll-call", params.id, date],
+                                        })
+                                    }}
+                                    className='absolute top-0 right-4 bg-main-color-3 text-white rounded-lg px-2 py-1 hover:bg-white hover:text-main-color-3 border border-main-color-3'
+                                >
+                                    <IconReload />
+                                </button>
+                            </div>
+
+                            <form onSubmit={(e) => save(e)} className='overflow-x-auto'>
+                                {data && (
+                                    <>
+                                        {data.students.map((student) => (
+                                            <div
+                                                key={student.stuID}
+                                                className='flex items-center space-x-2'
+                                            >
+                                                <div
+                                                    id={student.id}
+                                                    className='font-mono roll-call-student-id'
+                                                >
+                                                    {student.stuID}
+                                                </div>
+                                                <div className='w-16 whitespace-nowrap'>
+                                                    {student.name}
+                                                </div>
+                                                <div
+                                                    id={student.stuID}
+                                                    className='flex items-center space-x-2'
+                                                >
+                                                    {student.absence.map((absence) => (
+                                                        <div key={absence.id}>
+                                                            {/* <input
                                                         key={absence.id}
                                                         type='checkbox'
                                                         name={absence.id}
@@ -130,22 +168,24 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                                                         disabled={absence.disabled}
                                                         className='h-4 w-4 text-main-color-1 focus:ring-main-color-1 border-gray-300 rounded'
                                                     /> */}
-                                                    <CheckBox absence={absence} />
-                                                    {/* {absence.status ? "缺席" : "出席"} */}
+                                                            <CheckBox absence={absence} />
+                                                            {/* {absence.status ? "缺席" : "出席"} */}
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </>
-                        )}
-                        <button
-                            type='submit'
-                            className='bg-main-color-3 text-white md:rounded-lg px-2 py-3 rounded-full md:mt-2 fixed right-3 bottom-3 md:static md:w-full md:p-1'
-                        >
-                            儲存
-                        </button>
-                    </form>
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
+                                <button
+                                    type='submit'
+                                    className='bg-main-color-3 text-white md:rounded-lg px-2 py-3 rounded-full md:mt-2 fixed right-3 bottom-3 md:static md:w-full md:p-1'
+                                >
+                                    儲存
+                                </button>
+                            </form>
+                        </>
+                    )}
                 </>
             )}
         </div>
