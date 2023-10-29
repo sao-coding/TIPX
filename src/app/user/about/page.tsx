@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
+import Copy from "@/components/Copy"
 import getUser from "@/utils/user"
 import getLineID from "@/utils/lineid"
 import { User } from "@/types"
@@ -113,6 +114,7 @@ const UserAboutPage = async () => {
                                 <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
                                     {lineID.lineid ? lineID.lineid : "未填寫 Line ID"}
                                 </div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconGenderBigender />
@@ -121,10 +123,12 @@ const UserAboutPage = async () => {
                             <div className='flex items-center space-x-1'>
                                 <IconId />
                                 <div>{data.IDnumber}</div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconCake />
                                 <div>{data.birthday ? formatDate(data.birthday) : "未填寫"}</div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconBuildingSkyscraper />
@@ -133,14 +137,17 @@ const UserAboutPage = async () => {
                             <div className='flex items-center space-x-1'>
                                 <IconDeviceMobile />
                                 <div>{data.phone}</div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconDeviceLandlinePhone />
                                 <div>{data.homePhone}</div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconHomeLink />
                                 <div>{data.address}</div>
+                                <Copy />
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconTicket />
