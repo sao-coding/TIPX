@@ -11,8 +11,7 @@ export const GET = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
+
     const classid = searchParams.get("classid")
     const start = searchParams.get("start")
     const end = searchParams.get("end")
@@ -21,8 +20,6 @@ export const GET = async (req: NextRequest) => {
         userid ?? "",
         year ?? "",
         sem ?? "",
-        dept ?? "",
-        es ?? "",
         classid ?? "0",
         start ?? "0",
         end ?? "0"

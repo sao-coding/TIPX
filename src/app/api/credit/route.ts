@@ -10,10 +10,8 @@ export const GET = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
-    const credit = await getCredit(userid ?? "", year ?? "", sem ?? "", dept ?? "", es ?? "")
+    const credit = await getCredit(userid ?? "", year ?? "", sem ?? "")
 
     return NextResponse.json(credit)
 }

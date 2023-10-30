@@ -7,8 +7,8 @@ const getUser = async (userid: string) => {
         img: "",
         name: "",
         status: "",
-        dept: "",
-        es: "",
+        // dept: "",
+        // es: "",
         major: "",
         enName: "",
         IDnumber: "",
@@ -54,14 +54,14 @@ const getUser = async (userid: string) => {
         document.querySelector(
             "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(3)"
         )?.textContent ?? ""
-    infolist.dept =
-        document.querySelector(
-            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(6)"
-        )?.textContent ?? ""
-    infolist.es =
-        document.querySelector(
-            "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(7)"
-        )?.textContent ?? ""
+    // infolist.dept =
+    //     document.querySelector(
+    //         "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(6)"
+    //     )?.textContent ?? ""
+    // infolist.es =
+    //     document.querySelector(
+    //         "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(7)"
+    //     )?.textContent ?? ""
     infolist.major =
         document.querySelector(
             "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(9)"

@@ -1,14 +1,7 @@
 import { JSDOM } from "jsdom"
 import { Conduct } from "@/types"
 
-const getConduct = async (
-    userid: string,
-    year: string,
-    sem: string,
-    dept: string,
-    es: string,
-    type: string
-) => {
+const getConduct = async (userid: string, year: string, sem: string, type: string) => {
     const conductList: Conduct[] = []
 
     const conduct: Conduct = {
@@ -19,7 +12,7 @@ const getConduct = async (
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_stg04.php", {
         headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

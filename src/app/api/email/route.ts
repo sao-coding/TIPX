@@ -10,12 +10,10 @@ export const GET = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_setmail.php", {
         headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
             // cookie: Object.entries(cookie)
             //     .map((e) => `${e[0]}=${e[1]}`)
             //     .join("; "),

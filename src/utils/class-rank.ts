@@ -1,116 +1,141 @@
 import { JSDOM } from "jsdom"
 import getUser from "@/utils/user"
 import getConduct from "@/utils/conduct"
+import getTeacher from "@/utils/teacher"
 import getClassName from "@/utils/class-name"
-import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
+import getCurrentYearSem from "@/utils/current-year-sem"
+import { FinalGradeRankClass, FinalGradeRank, Conduct } from "@/types"
 
-const getClassRank = async (
-    userid: string,
-    year: string,
-    sem: string,
-    dept: string,
-    es: string,
-    classid: string,
-    start: string,
-    end: string
-) => {
+const getClassRank = async (userid: string, year: string, sem: string) => {
+    const { currentYear, currentSem } = await getCurrentYearSem()
+    const teacherid = (await getTeacher(userid ?? "", currentYear ?? "", currentSem ?? "")).id
+
     let finalGradeRankClass: FinalGradeRankClass[] = []
 
-    let finalGradeRank: FinalGradeRank = {
-        year: "",
-        sem: "",
-        conduct: {
+    let finalGradeRank: FinalGradeRankClass = {
+        userid: "",
+        img: "",
+        name: "",
+        data: {
             year: "",
             sem: "",
-            score: 0,
+            conduct: {
+                year: "",
+                sem: "",
+                score: 0,
+            },
+            avg: 0,
+            rank: 0,
         },
-        avg: 0,
-        rank: 0,
     }
 
-    const classId = userid?.slice(0, 6)
-
-    const classNameown: ClassName = await getClassName(userid ?? "")
-    const fetchData = async (userid: string) => {
-        const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
-            headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        })
-
-        const { name, img } = await getUser(userid)
-
-        const conduct = (await getConduct(
-            userid,
-            year ?? "",
-            sem ?? "",
-            dept ?? "",
-            es ?? "",
-            "one"
-        )) as Conduct
-
-        const className: ClassName = await getClassName(userid)
-
-        if (className.class !== classNameown.class) {
-            return null // If className doesn't match, return null
+    const resUrl = async (url: string, method: string, body?: { [key: string]: string }) => {
+        let res
+        if (method === "POST" && body) {
+            res = await fetch(url, {
+                method,
+                headers: {
+                    cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
+                    Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+                },
+                body: JSON.stringify(body),
+            })
+        } else {
+            res = await fetch(url, {
+                method,
+                headers: {
+                    cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
+                    Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+                },
+            })
         }
-
         const buffer = await res.arrayBuffer()
         const html = new TextDecoder("big5").decode(buffer)
         const dom = new JSDOM(html)
         const document = dom.window.document
-        const rows = Array.from(
-            document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
+
+        return document
+    }
+
+    let document
+    document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_semscolist.php", "GET")
+
+    const classList = document.querySelectorAll(
+        "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(2) > tbody > tr > td:nth-child(1) > select > option:not(:first-child)"
+    )
+
+    const className = (await getClassName(userid, year)).class
+
+    const classID = Array.from(classList)
+        .find((e) => e.textContent === className)
+        ?.getAttribute("value")
+
+    document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_semscolist.php", "POST", {
+        Class: classID ?? "",
+    })
+
+    const classRankList = document.querySelectorAll(
+        "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:not(:first-child)"
+    )
+
+    console.log(classRankList.length)
+
+    for (let i = 0; i < classRankList.length; i++) {
+        // body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(2)
+        const userid =
+            document.querySelector(
+                `body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:nth-child(${
+                    i + 2
+                }) > td:nth-child(2)`
+            )?.textContent ?? ""
+        finalGradeRank.userid = userid
+
+        const { img, name } = await getUser(userid)
+        finalGradeRank.img = img
+        finalGradeRank.name = name
+
+        finalGradeRank.data.year = year
+        finalGradeRank.data.sem = sem
+
+        const conduct = (await getConduct(userid, year ?? "", sem ?? "", "one")) as Conduct
+        finalGradeRank.data.conduct = conduct
+
+        // body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(7)
+        finalGradeRank.data.avg = Number(
+            document.querySelector(
+                `body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:nth-child(${
+                    i + 2
+                }) > td:nth-child(7)`
+            )?.textContent ?? ""
         )
 
+        finalGradeRank.data.rank = Number(
+            document.querySelector(
+                `body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:nth-child(${
+                    i + 2
+                }) > td:nth-child(8)`
+            )?.textContent ?? ""
+        )
+
+        finalGradeRankClass.push(finalGradeRank)
+
         finalGradeRank = {
-            year: "",
-            sem: "",
-            conduct: { ...conduct },
-            avg: 0,
-            rank: 0,
-        }
-
-        rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
-            if (cells[0].textContent === year && cells[1].textContent === sem) {
-                cells.forEach((cell, index) => {
-                    const list = cell.textContent
-                    if (index === 0) {
-                        finalGradeRank.year = list ?? ""
-                    }
-                    if (index === 1) {
-                        finalGradeRank.sem = list ?? ""
-                    }
-                    if (index === 2) {
-                        finalGradeRank.avg = Number(list)
-                    }
-                    if (index === 3) {
-                        finalGradeRank.rank = Number(list)
-                    }
-                })
-            }
-        })
-
-        return {
-            userid: userid ?? "",
-            img: img ?? "",
-            name: name ?? "",
-            data: { ...finalGradeRank },
+            userid: "",
+            img: "",
+            name: "",
+            data: {
+                year: "",
+                sem: "",
+                conduct: {
+                    year: "",
+                    sem: "",
+                    score: 0,
+                },
+                avg: 0,
+                rank: 0,
+            },
         }
     }
-
-    const fetchPromises = []
-    console.time("fetching")
-    for (let i = Number(start); i < Number(end); i++) {
-        const userid = classId + (Number(classid) + 1).toString() + i.toString().padStart(2, "0")
-        fetchPromises.push(fetchData(userid))
-    }
-    const results = await Promise.all(fetchPromises)
-
-    console.timeEnd("fetching")
-    finalGradeRankClass = results.filter((result) => result !== null) as FinalGradeRankClass[]
 
     return finalGradeRankClass
 }

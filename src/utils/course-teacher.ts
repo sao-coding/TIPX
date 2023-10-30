@@ -4,15 +4,14 @@ const getCourseTeacher = async (
     userid: string,
     year: string,
     sem: string,
-    dept: string,
-    es: string,
+
     course: string
 ) => {
     const res = await fetch(
         `https://netinfo.takming.edu.tw/tip/teach/teach_classqry.php?opno=${course}`,
         {
             headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         }

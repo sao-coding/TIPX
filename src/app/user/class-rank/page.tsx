@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { IconUserCircle, IconUserStar, IconStar, IconCrown } from "@tabler/icons-react"
 import Cookie from "js-cookie"
 import Avatar from "@/components/ui/avatar"
@@ -9,60 +10,77 @@ import Title from "@/components/Title"
 import { FinalGradeRankClass } from "@/types"
 
 const ClassRankPage = () => {
-    const [data, setData] = useState<FinalGradeRankClass[]>([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [isError, setIsError] = useState(false)
-    const [errorMsg, setErrorMsg] = useState("")
+    // const [data, setData] = useState<FinalGradeRank[]>([])
+    // const [isLoading, setIsLoading] = useState(false)
+    // const [isError, setIsError] = useState(false)
+    // const [errorMsg, setErrorMsg] = useState("")
 
-    useEffect(() => {
-        let show = true
-        const fetchDate = async (i: number, j: number) => {
+    // useEffect(() => {
+    //     let show = true
+    //     const fetchDate = async (i: number, j: number) => {
+    //         const res = await fetch(
+    //             `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
+    //                 "cookie_sem"
+    //             )}&classid=${i}&start=${j}&end=${j + 10}`,
+    //             {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${Cookie.get("token")}`,
+    //                 },
+    //             }
+    //         )
+    //         if (!res.ok) {
+    //             setIsError(true)
+    //             setErrorMsg("獲取資料失敗")
+    //             setIsLoading(false)
+    //             if (show) {
+    //                 toast.remove()
+    //                 toast.error("伺服器過載，請稍後再試")
+    //                 show = false
+    //             }
+    //             return
+    //         }
+    //         return await res.json()
+    //     }
+
+    //     const theard = async () => {
+    //         let promises = []
+    //         setIsLoading(true)
+    //         for (let i = 0; i < 3; i++) {
+    //             for (let j = 0; j < 60; j += 10) {
+    //                 promises.push(fetchDate(i, j))
+    //             }
+    //             await new Promise((resolve) => setTimeout(resolve, 2000))
+    //         }
+    //         const data = await Promise.all(promises)
+    //         setData(data.flat())
+    //         setIsLoading(false)
+    //         if (show) {
+    //             toast.remove()
+    //             toast.success("載入成功")
+    //         }
+    //     }
+    //     toast.loading("資料量大，請稍等")
+    //     theard()
+    // }, [])
+
+    const { data, isLoading } = useQuery<FinalGradeRankClass[]>({
+        queryKey: ["class-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
+        queryFn: async () => {
             const res = await fetch(
-                `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
-                    "cookie_sem"
-                )}&classid=${i}&start=${j}&end=${j + 10}`,
+                `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`,
                 {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${Cookie.get("token")}`,
                     },
                 }
             )
-            if (!res.ok) {
-                setIsError(true)
-                setErrorMsg("獲取資料失敗")
-                setIsLoading(false)
-                if (show) {
-                    toast.remove()
-                    toast.error("伺服器過載，請稍後再試")
-                    show = false
-                }
-                return
-            }
-            return await res.json()
-        }
-
-        const theard = async () => {
-            let promises = []
-            setIsLoading(true)
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 60; j += 10) {
-                    promises.push(fetchDate(i, j))
-                }
-                await new Promise((resolve) => setTimeout(resolve, 2000))
-            }
-            const data = await Promise.all(promises)
-            setData(data.flat())
-            setIsLoading(false)
-            if (show) {
-                toast.remove()
-                toast.success("載入成功")
-            }
-        }
-        toast.loading("資料量大，請稍等")
-        theard()
-    }, [])
+            const data = await res.json()
+            return data
+        },
+    })
 
     const tite = {
         title: "班級排名",
@@ -74,22 +92,6 @@ const ClassRankPage = () => {
         <>
             <div className='flex w-full flex-col items-center justify-center px-2 mb-2'>
                 <Title title={tite} />
-                {isError && (
-                    <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
-                        <div className='flex h-full w-full flex-col items-center justify-center'>
-                            <div className='text-2xl'>{errorMsg}</div>
-                            <button
-                                className='rounded-md bg-main-color-1 p-2 text-xl'
-                                onClick={
-                                    // 重新整理
-                                    () => location.reload()
-                                }
-                            >
-                                重新整理
-                            </button>
-                        </div>
-                    </div>
-                )}
                 {isLoading && (
                     <>
                         {Array.from(Array(7).keys()).map((index) => (
@@ -118,8 +120,8 @@ const ClassRankPage = () => {
                 )}
 
                 {/* 依排名排序 如果是 0 就排在最後 */}
-                {data.length > 0 &&
-                    !isError &&
+                {data &&
+                    data.length > 0 &&
                     data
                         .sort((a, b) => {
                             if (a.data.rank === 0) {

@@ -2,13 +2,7 @@ import { JSDOM } from "jsdom"
 import getConduct from "@/utils/conduct"
 import { FinalGradeRankClass, FinalGradeRank, Conduct, ClassName } from "@/types"
 
-const getFinalGrade = async (
-    userid: string,
-    year: string,
-    sem: string,
-    dept: string,
-    es: string
-) => {
+const getFinalGrade = async (userid: string, year: string, sem: string) => {
     const finalGradeRankList: FinalGradeRank[] = []
 
     let finalGradeRank: FinalGradeRank = {
@@ -25,7 +19,7 @@ const getFinalGrade = async (
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
         headers: {
-            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+            cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })
@@ -35,8 +29,7 @@ const getFinalGrade = async (
             userid,
             year ?? "",
             sem ?? "",
-            dept ?? "",
-            es ?? "",
+
             "one"
         )) as Conduct
 
