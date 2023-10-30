@@ -7,8 +7,7 @@ const getCourse = async (
     userid: string,
     year: string,
     sem: string,
-    dept: string,
-    es: string,
+
     course?: string
 ) => {
     const courselist: Course[] = []
@@ -17,14 +16,14 @@ const getCourse = async (
     if (course === undefined) {
         res = await fetch("https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php", {
             headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         })
     } else {
         res = await fetch(`https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${course}`, {
             headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         })
@@ -47,7 +46,7 @@ const getCourse = async (
                 courselist.push({
                     id: id ?? "",
                     name: list ?? "",
-                    teacher: await getCourseTeacher(userid, year, sem, dept, es, id ?? ""),
+                    teacher: await getCourseTeacher(userid, year, sem, id ?? ""),
                 })
             }
         }

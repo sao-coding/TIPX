@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom"
 import { Credit } from "@/types"
 
-const getCredit = async (userid: string, year: string, sem: string, dept: string, es: string) => {
+const getCredit = async (userid: string, year: string, sem: string) => {
     const title: string[] = []
     const total: number[] = []
     const get: number[] = []
@@ -10,7 +10,7 @@ const getCredit = async (userid: string, year: string, sem: string, dept: string
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
         headers: {
-            cookie: `cookie_programname=${es}; cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept};`,
+            cookie: `cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
             Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
         },
     })

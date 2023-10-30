@@ -12,8 +12,6 @@ const CoursePage = async ({ params }: { params: { id: string } }) => {
         session?.user.studentID ?? cookies().get("cookie_userid")?.value ?? "",
         cookies().get("cookie_year")?.value ?? "",
         cookies().get("cookie_sem")?.value ?? "",
-        cookies().get("cookie_dept")?.value ?? "",
-        cookies().get("cookie_es")?.value ?? "",
         params.id
     )) as Course
 

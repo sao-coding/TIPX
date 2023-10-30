@@ -11,8 +11,6 @@ export const GET = async (req: NextRequest) => {
     const userid = searchParams.get("userid") ?? session?.user.studentID
     const year = cookies().get("cookie_year")?.value
     const sem = cookies().get("cookie_sem")?.value
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
     const infolist: User = await getUser(userid ?? "")
 

@@ -108,10 +108,10 @@ const UserPage = async () => {
                 >
                     <div className='flex items-center'>
                         <IconArrowBadgeDown />
-                        <div className='ml-2'>班級排名 (beta)</div>
+                        <div className='ml-2'>班級排名</div>
                     </div>
                 </Link>
-                <Link
+                {/* <Link
                     href='/user/dept-rank'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
@@ -119,7 +119,7 @@ const UserPage = async () => {
                         <IconBadges />
                         <div className='ml-2'>系排名 (beta)</div>
                     </div>
-                </Link>
+                </Link> */}
                 <Link
                     href='/forum'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'

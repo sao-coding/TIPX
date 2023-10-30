@@ -97,10 +97,10 @@ const UserAboutPage = async () => {
                                 <div>{data.name}</div>
                                 <div>{data.enName}</div>
                                 <div>{data.major}</div>
-                                <div className='flex items-center space-x-2'>
+                                {/* <div className='flex items-center space-x-2'>
                                     <div>{data.dept}</div>
                                     <div>{data.es + "　"}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

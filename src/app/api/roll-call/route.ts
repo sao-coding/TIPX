@@ -39,8 +39,6 @@ export const GET = async (req: NextRequest) => {
             session?.user.studentID ?? "",
             year ?? "",
             sem ?? "",
-            cookies().get("cookie_dept")?.value ?? "",
-            cookies().get("cookie_es")?.value ?? "",
             "course",
             searchParams.get("course") ?? ""
         )
@@ -159,15 +157,7 @@ export const POST = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = (
-        await getTeacher(
-            session?.user.studentID ?? "",
-            year ?? "",
-            sem ?? "",
-            cookies().get("cookie_dept")?.value ?? "",
-            cookies().get("cookie_es")?.value ?? "",
-            "course",
-            course
-        )
+        await getTeacher(session?.user.studentID ?? "", year ?? "", sem ?? "", "course", course)
     ).id
 
     const bodyContent = new URLSearchParams({

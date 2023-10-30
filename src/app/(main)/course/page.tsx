@@ -12,9 +12,7 @@ const CourseListPage = async () => {
     const data = (await getCourse(
         cookies().get("cookie_userid")?.value ?? "",
         cookies().get("cookie_year")?.value ?? "",
-        cookies().get("cookie_sem")?.value ?? "",
-        cookies().get("cookie_dept")?.value ?? "",
-        cookies().get("cookie_es")?.value ?? ""
+        cookies().get("cookie_sem")?.value ?? ""
     )) as Course[]
 
     const session = await getServerSession(authOptions)

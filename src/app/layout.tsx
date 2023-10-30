@@ -23,6 +23,12 @@ export const metadata: Metadata = {
     manifest: "/pwa/manifest.json",
     themeColor: "#f8fafc",
     appleWebApp: true,
+    twitter: {
+        card: "summary_large_image",
+        site: "@tipx",
+        description: "學生資訊系統",
+        images: `${site.url}/img/og.png`,
+    },
     openGraph: {
         type: "website",
         locale: "zh_TW",

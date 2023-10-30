@@ -7,8 +7,6 @@ const getDeptRank = async (
     userid: string,
     year: string,
     sem: string,
-    dept: string,
-    es: string,
     classid: string,
     start: string,
     end: string
@@ -34,21 +32,14 @@ const getDeptRank = async (
     const fetchData = async (userid: string) => {
         const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
             headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         })
 
         const { name, img, major } = await getUser(userid)
 
-        const conduct = (await getConduct(
-            userid,
-            year ?? "",
-            sem ?? "",
-            dept ?? "",
-            es ?? "",
-            "one"
-        )) as Conduct
+        const conduct = (await getConduct(userid, year ?? "", sem ?? "", "one")) as Conduct
 
         if (majorOwn !== major) {
             return null // If the major is not the same, return null

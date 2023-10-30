@@ -31,8 +31,8 @@ export type User = {
     img: string
     name: string
     status: string
-    dept: string
-    es: string
+    // dept: string
+    // es: string
     major: string
     enName: string
     IDnumber: string

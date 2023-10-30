@@ -6,9 +6,7 @@ const getTeacher = async (
     userid: string,
     year: string,
     sem: string,
-    dept: string,
-    es: string,
-    type: string,
+    type?: string,
     course?: string
 ) => {
     const resUrl = async (url: string, method: string, body?: { [key: string]: string }) => {
@@ -23,12 +21,12 @@ const getTeacher = async (
             const bodyContent = Object.entries(body)
                 .map(([key, value]) => `${key}=${value}`)
                 .join("&")
-            console.log(bodyContent)
+            // console.log(bodyContent)
             res = await fetch(url, {
                 method,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
                     Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
                 },
                 body: bodyContent,
@@ -37,7 +35,7 @@ const getTeacher = async (
             res = await fetch(url, {
                 method,
                 headers: {
-                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
                     Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
                 },
             })
@@ -54,19 +52,7 @@ const getTeacher = async (
 
     let teacherName = ""
     if (type === "course") {
-        // userid: string,
-        // year: string,
-        // sem: string,
-        // dept: string,
-        // es: string,
-        teacherName = await getCourseTeacher(
-            userid ?? "",
-            year ?? "",
-            sem ?? "",
-            dept ?? "",
-            es ?? "",
-            course ?? ""
-        )
+        teacherName = await getCourseTeacher(userid ?? "", year ?? "", sem ?? "", course ?? "")
     } else {
         document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_absrec.php", "GET")
 

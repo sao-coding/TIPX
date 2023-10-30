@@ -35,12 +35,10 @@ export const GET = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
     // const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
     //     headers: {
-    //         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+    //         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
     //         Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
     //     },
     // })
@@ -115,7 +113,7 @@ export const GET = async (req: NextRequest) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
             },
             body: bodyContent,
@@ -158,8 +156,6 @@ export const GET = async (req: NextRequest) => {
                 userid ?? "",
                 year ?? "",
                 sem ?? "",
-                dept ?? "",
-                es ?? "",
                 item?.getAttribute("value") ?? ""
             )) as Course
 
@@ -171,8 +167,6 @@ export const GET = async (req: NextRequest) => {
                 //     userid ?? "",
                 //     year ?? "",
                 //     sem ?? "",
-                //     dept ?? "",
-                //     es ?? "",
                 //     item?.getAttribute("value") ?? ""
                 // ))?.name as string,
                 name: course?.name ?? "",
@@ -189,7 +183,7 @@ export const GET = async (req: NextRequest) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                     Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
                 },
                 body: "StuDate=" + month,
@@ -260,8 +254,6 @@ export const POST = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
     const TypeList: { [key: string]: string } = {
         病假: "2",
@@ -282,7 +274,7 @@ export const POST = async (req: NextRequest) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
             },
             body: bodyContent,
@@ -295,7 +287,7 @@ export const POST = async (req: NextRequest) => {
     // if (type === "del") {
     //     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
     //         headers: {
-    //             cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+    //             cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
     //             Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
     //         },
     //     })
@@ -308,15 +300,13 @@ export const DELETE = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
-    const dept = cookies().get("cookie_dept")?.value
-    const es = cookies().get("cookie_es")?.value
 
     const { id } = await req.json()
     const res = await fetch(
         `https://netinfo.takming.edu.tw/tip/stu_absrec.php?type=3&rgno=${userid}&rowid=${id}`,
         {
             headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
+                cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
                 Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
             },
         }
