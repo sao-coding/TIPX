@@ -72,11 +72,13 @@ const CreditPage = async () => {
                                 <div className='flex w-28 items-center justify-between'>
                                     <div className='flex items-center pr-1'>
                                         <IconStar className='animate-pulse stroke-yellow-500' />
-                                        {item.total.toString().padStart(2, "0")}
+                                        {!item.total
+                                            ? "##"
+                                            : item.total.toString().padStart(2, "0")}
                                     </div>
                                     <div className='flex items-center pl-1'>
                                         <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
-                                        {item.get.toString().padStart(2, "0")}
+                                        {!item.get ? "##" : item.get.toString().padStart(2, "0")}
                                     </div>
                                 </div>
                                 <div className='px-2 text-2xl text-neutral-300'>{item.sem}</div>
