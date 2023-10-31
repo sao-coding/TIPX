@@ -11,7 +11,7 @@ import { FinalGradeRankClass } from "@/types"
 
 const DeptRankPage = () => {
     const { data, isLoading } = useQuery<FinalGradeRankClass[]>({
-        queryKey: ["class-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
+        queryKey: ["dept-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
         queryFn: async () => {
             const promises = []
             for (let i = 1; i <= 3; i++) {
