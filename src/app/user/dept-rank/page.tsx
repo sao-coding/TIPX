@@ -11,20 +11,27 @@ import { FinalGradeRankClass } from "@/types"
 
 const DeptRankPage = () => {
     const { data, isLoading } = useQuery<FinalGradeRankClass[]>({
-        queryKey: ["class-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
+        queryKey: ["dept-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
         queryFn: async () => {
-            const res = await fetch(
-                `/api/dept-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
-            const data = await res.json()
-            return data
+            const promises = []
+            for (let i = 1; i <= 3; i++) {
+                const res = await fetch(
+                    `/api/dept-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
+                        "cookie_sem"
+                    )}&classid=${i}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                promises.push(res.json())
+            }
+            const data = await Promise.all(promises)
+            return data.flat()
         },
+        refetchOnWindowFocus: false,
     })
     //     const [data, setData] = useState<FinalGradeRank[]>([])
     //     const [isLoading, setIsLoading] = useState(false)

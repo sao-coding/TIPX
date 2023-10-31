@@ -18,6 +18,7 @@ import { site } from "@/config/site"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+    metadataBase: new URL(site.url),
     title: "TIPX",
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
@@ -26,8 +27,9 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         site: "@tipx",
+        title: "TIPX",
         description: "學生資訊系統",
-        images: `${site.url}/img/og.png`,
+        images: "/img/og.png",
     },
     openGraph: {
         type: "website",

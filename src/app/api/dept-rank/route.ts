@@ -19,7 +19,8 @@ export const GET = async (req: NextRequest) => {
     const deptRankList: FinalGradeRankClass[] = await getDeptRank(
         userid ?? "",
         year ?? "",
-        sem ?? ""
+        sem ?? "",
+        classid ?? "0"
     )
 
     return NextResponse.json(deptRankList)

@@ -57,6 +57,8 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
         return document
     }
 
+    console.time("fetching-class-rank")
+
     let document
     document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_semscolist.php", "GET")
 
@@ -136,6 +138,8 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
             },
         }
     }
+
+    console.timeEnd("fetching-class-rank")
 
     return finalGradeRankClass
 }
