@@ -10,7 +10,7 @@ import Title from "@/components/Title"
 import { FinalGradeRankClass } from "@/types"
 
 const DeptRankPage = () => {
-    const { data, isLoading } = useQuery<FinalGradeRankClass[]>({
+    const { data, isLoading, isError } = useQuery<FinalGradeRankClass[]>({
         queryKey: ["dept-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
         queryFn: async () => {
             const data = []
@@ -29,64 +29,16 @@ const DeptRankPage = () => {
                 data.push(await res.json())
                 await new Promise((resolve) => setTimeout(resolve, 2000))
             }
+
+            // 如果data裡面的物件都是空值，就拋出錯誤
+            if (data.every((item) => Object.keys(item).length === 0)) {
+                throw new Error("沒有資料")
+            }
+
             return data.flat()
         },
         refetchOnWindowFocus: false,
     })
-    //     const [data, setData] = useState<FinalGradeRank[]>([])
-    //     const [isLoading, setIsLoading] = useState(false)
-    //     const [isError, setIsError] = useState(false)
-    //     const [errorMsg, setErrorMsg] = useState("")
-
-    //     useEffect(() => {
-    //         let show = true
-    //         const fetchDate = async (i: number, j: number) => {
-    //             const res = await fetch(
-    //                 `/api/dept-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
-    //                     "cookie_sem"
-    //                 )}&classid=${i}&start=${j}&end=${j + 10}`,
-    //                 {
-    //                     method: "GET",
-    //                     headers: {
-    //                         "Content-Type": "application/json",
-    //                         Authorization: `Bearer ${Cookie.get("token")}`,
-    //                     },
-    //                 }
-    //             )
-    //             if (!res.ok) {
-    //                 setIsError(true)
-    //                 setErrorMsg("獲取資料失敗")
-    //                 setIsLoading(false)
-    //                 if (show) {
-    //                     toast.remove()
-    //                     toast.error("伺服器過載，請稍後再試")
-    //                     show = false
-    //                 }
-    //                 return
-    //             }
-    //             return await res.json()
-    //         }
-
-    //         const theard = async () => {
-    //             let promises = []
-    //             setIsLoading(true)
-    //             for (let i = 0; i < 3; i++) {
-    //                 for (let j = 0; j < 60; j += 10) {
-    //                     promises.push(fetchDate(i, j))
-    //                 }
-    //                 await new Promise((resolve) => setTimeout(resolve, 2000))
-    //             }
-    //             const data = await Promise.all(promises)
-    //             setData(data.flat())
-    //             setIsLoading(false)
-    //             if (show) {
-    //                 toast.remove()
-    //                 toast.success("載入成功")
-    //             }
-    //         }
-    //         toast.loading("資料量大，請稍等")
-    //         theard()
-    //     }, [])
 
     const title = {
         title: "系排名",
@@ -98,10 +50,10 @@ const DeptRankPage = () => {
         <>
             <div className='flex w-full flex-col items-center justify-center px-2 mb-2'>
                 <Title title={title} />
-                {/* {isError && (
+                {isError && (
                     <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
-                        <div className='flex h-full w-full flex-col items-center justify-center'>
-                            <div className='text-2xl'>{errorMsg}</div>
+                        <div className='flex h-full w-full flex-col items-center justify-center space-y-2'>
+                            <div className='text-2xl'>伺服器過載，請稍後再試</div>
                             <button
                                 className='rounded-md bg-main-color-1 p-2 text-xl'
                                 onClick={
@@ -113,7 +65,7 @@ const DeptRankPage = () => {
                             </button>
                         </div>
                     </div>
-                )} */}
+                )}
                 {isLoading && (
                     <>
                         {Array.from(Array(7).keys()).map((index) => (
@@ -141,7 +93,8 @@ const DeptRankPage = () => {
                     </>
                 )}
                 {/* 依分數排序 如果是 0 就排在最後 */}
-                {data &&
+                {!isError &&
+                    data &&
                     data.length > 0 &&
                     data
                         .sort((a, b) => {

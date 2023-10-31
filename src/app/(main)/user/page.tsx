@@ -117,7 +117,7 @@ const UserPage = async () => {
                 >
                     <div className='flex items-center'>
                         <IconBadges />
-                        <div className='ml-2'>系排名 (beta)</div>
+                        <div className='ml-2'>系排名</div>
                     </div>
                 </Link>
                 <Link
