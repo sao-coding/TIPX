@@ -31,6 +31,7 @@ const DeptRankPage = () => {
             const data = await Promise.all(promises)
             return data.flat()
         },
+        refetchOnWindowFocus: false,
     })
     //     const [data, setData] = useState<FinalGradeRank[]>([])
     //     const [isLoading, setIsLoading] = useState(false)

@@ -80,6 +80,7 @@ const ClassRankPage = () => {
             const data = await res.json()
             return data
         },
+        refetchOnWindowFocus: false,
     })
 
     const tite = {
