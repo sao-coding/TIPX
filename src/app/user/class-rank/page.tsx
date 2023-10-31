@@ -11,7 +11,12 @@ import { FinalGradeRankClass } from "@/types"
 
 const ClassRankPage = () => {
     const { data, isLoading, isError } = useQuery<FinalGradeRankClass[]>({
-        queryKey: ["class-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
+        queryKey: [
+            "class-rank",
+            Cookie.get("cookie_year"),
+            Cookie.get("cookie_sem"),
+            Cookie.get("cookie_userid"),
+        ],
         queryFn: async () => {
             const res = await fetch(
                 `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`,
