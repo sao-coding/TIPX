@@ -8,6 +8,7 @@ const getDeptRank = async (userid: string, year: string, sem: string, classid: s
 
     const deptID = userid?.slice(0, 6)
     const { major: majorOwn } = await getUser(userid)
+    // const majorOwn = "財務金融系"
 
     console.time("fetching-dept-rank")
 
