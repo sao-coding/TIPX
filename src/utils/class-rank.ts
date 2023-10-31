@@ -16,10 +16,11 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
             res = await fetch(url, {
                 method,
                 headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
                     cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
                     Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
                 },
-                body: JSON.stringify(body),
+                body: new URLSearchParams(body),
             })
         } else {
             res = await fetch(url, {
