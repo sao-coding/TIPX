@@ -1,106 +1,33 @@
 import { JSDOM } from "jsdom"
 import getUser from "@/utils/user"
-import getConduct from "@/utils/conduct"
+import getClassRank from "@/utils/class-rank"
 import { FinalGradeRankClass, FinalGradeRank, Conduct } from "@/types"
 
-const getDeptRank = async (
-    userid: string,
-    year: string,
-    sem: string,
-    classid: string,
-    start: string,
-    end: string
-) => {
-    let finalGradeRankClass: FinalGradeRankClass[] = []
+const getDeptRank = async (userid: string, year: string, sem: string) => {
+    const finalGradeRankClass: FinalGradeRankClass[] = []
 
-    let finalGradeRank: FinalGradeRank = {
-        year: "",
-        sem: "",
-        conduct: {
-            year: "",
-            sem: "",
-            score: 0,
-        },
-        avg: 0,
-        rank: 0,
-    }
-
-    const classId = userid?.slice(0, 6)
-
+    const deptID = userid?.slice(0, 6)
+    console.log({ deptID })
+    // for (let i = Number(start); i < Number(end); i++) {
+    //     const userid = classId + (Number(classid) + 1).toString() + i.toString().padStart(2, "0")
+    //     fetchPromises.push(fetchData(userid))
+    // }
     const { major: majorOwn } = await getUser(userid)
-
-    const fetchData = async (userid: string) => {
-        const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_rank.php", {
-            headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        })
-
-        const { name, img, major } = await getUser(userid)
-
-        const conduct = (await getConduct(userid, year ?? "", sem ?? "", "one")) as Conduct
-
-        if (majorOwn !== major) {
-            return null // If the major is not the same, return null
-        }
-
-        const buffer = await res.arrayBuffer()
-        const html = new TextDecoder("big5").decode(buffer)
-        const dom = new JSDOM(html)
-        const document = dom.window.document
-        const rows = Array.from(
-            document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
-        )
-
-        finalGradeRank = {
-            year: "",
-            sem: "",
-            conduct: { ...conduct },
-            avg: 0,
-            rank: 0,
-        }
-
-        rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td:not(:last-child) font"))
-            if (cells[0].textContent === year && cells[1].textContent === sem) {
-                cells.forEach((cell, index) => {
-                    const list = cell.textContent
-                    if (index === 0) {
-                        finalGradeRank.year = list ?? ""
-                    }
-                    if (index === 1) {
-                        finalGradeRank.sem = list ?? ""
-                    }
-                    if (index === 2) {
-                        finalGradeRank.avg = Number(list)
-                    }
-                    if (index === 3) {
-                        finalGradeRank.rank = Number(list)
-                    }
-                })
+    for (let i = 1; i <= 3; i++) {
+        for (let j = 1; j <= 5; j++) {
+            const { major } = await getUser(deptID + i + j.toString().padStart(2, "0"))
+            if (majorOwn === major) {
+                console.log({ majorOwn, major, deptID: deptID + i + j.toString().padStart(2, "0") })
+                const classRankList: FinalGradeRankClass[] = await getClassRank(
+                    deptID + i + j.toString().padStart(2, "0"),
+                    year,
+                    sem
+                )
+                finalGradeRankClass.push(...classRankList)
+                break
             }
-        })
-
-        return {
-            userid: userid ?? "",
-            img: img ?? "",
-            name: name ?? "",
-            data: { ...finalGradeRank },
         }
     }
-
-    const fetchPromises = []
-    console.time("fetching")
-    for (let i = Number(start); i < Number(end); i++) {
-        const userid = classId + (Number(classid) + 1).toString() + i.toString().padStart(2, "0")
-        fetchPromises.push(fetchData(userid))
-    }
-
-    const results = await Promise.all(fetchPromises)
-
-    console.timeEnd("fetching")
-    finalGradeRankClass = results.filter((result) => result !== null) as FinalGradeRankClass[]
 
     return finalGradeRankClass
 }
