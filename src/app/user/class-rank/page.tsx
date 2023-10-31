@@ -18,6 +18,7 @@ const ClassRankPage = () => {
             Cookie.get("cookie_userid"),
         ],
         queryFn: async () => {
+            const notify = toast.loading("資料量大，請稍等")
             const res = await fetch(
                 `/api/class-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get("cookie_sem")}`,
                 {
@@ -30,9 +31,10 @@ const ClassRankPage = () => {
             const data = await res.json()
 
             if (!res.ok) {
+                toast.error("資料載入失敗", { id: notify })
                 throw new Error("沒有資料")
             }
-
+            toast.success("資料載入成功", { id: notify })
             return data
         },
         refetchOnWindowFocus: false,

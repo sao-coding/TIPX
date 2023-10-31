@@ -5,7 +5,7 @@ import { IconUserCircle, IconUserStar, IconStar, IconCrown } from "@tabler/icons
 import Cookie from "js-cookie"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
-import toast, { useToasterStore } from "react-hot-toast"
+import toast from "react-hot-toast"
 import Title from "@/components/Title"
 import { FinalGradeRankClass } from "@/types"
 
@@ -18,6 +18,7 @@ const DeptRankPage = () => {
             Cookie.get("cookie_userid"),
         ],
         queryFn: async () => {
+            const notify = toast.loading("資料量大，請稍等")
             const data = []
             for (let i = 1; i <= 3; i++) {
                 const res = await fetch(
@@ -37,8 +38,11 @@ const DeptRankPage = () => {
 
             // 如果data裡面的物件都是空值，就拋出錯誤
             if (data.every((item) => Object.keys(item).length === 0)) {
+                toast.error("資料載入失敗", { id: notify })
                 throw new Error("沒有資料")
             }
+
+            toast.success("資料讀取成功", { id: notify })
 
             return data.flat()
         },
