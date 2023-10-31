@@ -60,14 +60,23 @@ const getTeacher = async (
             document.querySelector("#AutoNumber4 > tbody > tr:nth-child(2) > td > div > span")
                 ?.textContent ?? ""
     }
+    // #AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(3) > td:nth-child(2)
 
     document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teadept.php", "POST", {
         sname: teacherName,
     })
 
+    const teacherDeptLength = document.querySelectorAll(
+        "#AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:not(:first-child)"
+    ).length
+
+    // console.log({ teacherDeptLength })
+
     let teacherDept =
         document.querySelector(
-            "#AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > div"
+            `#AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(${
+                teacherDeptLength + 1
+            }) > td:nth-child(2)`
         )?.textContent ?? ""
 
     // 通識教育中心 => 通識中心
