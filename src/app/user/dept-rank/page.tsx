@@ -13,7 +13,7 @@ const DeptRankPage = () => {
     const { data, isLoading } = useQuery<FinalGradeRankClass[]>({
         queryKey: ["dept-rank", Cookie.get("cookie_year"), Cookie.get("cookie_sem")],
         queryFn: async () => {
-            const promises = []
+            const data = []
             for (let i = 1; i <= 3; i++) {
                 const res = await fetch(
                     `/api/dept-rank?year=${Cookie.get("cookie_year")}&sem=${Cookie.get(
@@ -26,9 +26,9 @@ const DeptRankPage = () => {
                         },
                     }
                 )
-                promises.push(res.json())
+                data.push(await res.json())
+                await new Promise((resolve) => setTimeout(resolve, 2000))
             }
-            const data = await Promise.all(promises)
             return data.flat()
         },
         refetchOnWindowFocus: false,
