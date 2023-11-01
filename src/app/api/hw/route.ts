@@ -106,10 +106,9 @@ export const GET = async (req: NextRequest) => {
         )
         // 排除 最後一個 tr
         rows = rows.slice(0, rows.length - 1)
-        console.log("crawler", id, rows.length)
+        // console.log("crawler", id, rows.length)
         if (rows.length === 0) {
             // 於期中考/期末考期間不提供下載功能
-            console.log(html)
             if (html.includes("考試期間不開放本功能")) {
                 console.log("於期中考/期末考期間不提供下載功能")
                 status = false
