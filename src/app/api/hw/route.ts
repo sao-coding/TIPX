@@ -13,6 +13,7 @@ export const GET = async (req: NextRequest) => {
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
 
+    let status = true
     let hwdata1: string[][] = []
     let hwdata2: string[][] = []
 
@@ -93,19 +94,27 @@ export const GET = async (req: NextRequest) => {
         }
         return hw
     }
-
     const crawler = async (res: Response, id: string) => {
         let hw: string[] = []
         const buffer = await res.arrayBuffer()
         let html = new TextDecoder("big5").decode(buffer)
         const dom = new JSDOM(html)
         const document = dom.window.document
+
         let rows = Array.from(
             document.querySelectorAll("form table tr td table tr:not(:nth-child(-n+2))")
         )
         // 排除 最後一個 tr
         rows = rows.slice(0, rows.length - 1)
-
+        console.log("crawler", id, rows.length)
+        if (rows.length === 0) {
+            // 於期中考/期末考期間不提供下載功能
+            console.log(html)
+            if (html.includes("考試期間不開放本功能")) {
+                console.log("於期中考/期末考期間不提供下載功能")
+                status = false
+            }
+        }
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
             hw = rules(id, cells)
@@ -142,7 +151,14 @@ export const GET = async (req: NextRequest) => {
     const res2 = await fetchURL("downhw")
     await crawler(res, "uploadhw")
     await crawler(res2, "downhw")
-    await writeHw(hwdata1, hwdata2)
+    if (!status) {
+        return NextResponse.json({
+            status: "error",
+            message: "於期中考/期末考期間不提供下載功能",
+        })
+    } else {
+        await writeHw(hwdata1, hwdata2)
+    }
     return NextResponse.json(hwlist)
 }
 

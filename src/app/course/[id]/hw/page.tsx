@@ -22,7 +22,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
         refetchOnWindowFocus: false,
     })
 
-    const { data, isLoading } = useQuery<HwList[]>({
+    const { data, isLoading } = useQuery({
         queryKey: ["hw", params.id],
         queryFn: async () => {
             const res = await fetch(`/api/hw?course=${params.id}`, {
@@ -52,9 +52,9 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                 </div>
             ) : (
                 <div className='w-full'>
-                    {data && data.length > 0 && course ? (
+                    {data && data.length > 0 && course && !data.status && (
                         <>
-                            {data.map((item, index) => (
+                            {data.map((item: HwList, index: number) => (
                                 <BottomToUpTransitionView key={index} custom={index}>
                                     <Card
                                         course={course.name}
@@ -64,8 +64,14 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                                 </BottomToUpTransitionView>
                             ))}
                         </>
-                    ) : (
+                    )}
+                    {data && data.length === 0 && !data.status && (
                         <div className='text-center text-2xl'>沒有作業</div>
+                    )}
+                    {data.status && (
+                        <div className='text-center text-2xl'>
+                            <div className='text-center text-2xl'> {data.message}</div>
+                        </div>
                     )}
                 </div>
             )}
