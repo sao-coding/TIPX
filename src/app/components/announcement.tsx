@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect } from "react"
 import Card from "@/app/components/card"
 import Loading from "@/app/components/loading"
@@ -16,6 +17,7 @@ const AnnouncementCP = () => {
             const res = await fetch(`/api/post?type=all&id=${pageParam}&limit=10`)
             return res.json()
         },
+        initialPageParam: 1,
         getNextPageParam: (lastPage, allPages) => {
             console.log({
                 lastPage,

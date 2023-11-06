@@ -14,7 +14,7 @@ const RollCallVerify = ({ courseID }: { courseID: string }) => {
 
     return (
         <Dialog.Root>
-            <Dialog.Trigger className='px-1 rounded-lg text-center border ripple mt-1 w-full'>
+            <Dialog.Trigger className='py-px rounded-lg text-center border ripple mt-1 w-full'>
                 點名
             </Dialog.Trigger>
             <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
