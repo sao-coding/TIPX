@@ -69,7 +69,7 @@ const Form = () => {
         })
 
         if (status?.error) {
-            toast.error("密碼錯誤")
+            toast.error("授權碼錯誤")
         } else {
             toast.success("登入成功")
             // 延遲1秒跳轉
@@ -96,9 +96,9 @@ const Form = () => {
                     </div>
                     <div className='p-2'>
                         <div className='p-2'>
-                            密碼
+                            授權碼
                             <span className='text-xs text-gray-400 ml-2'>
-                                若想使用 聊天室 請使用 Google 登入
+                                一般人請使用 Google 登入
                             </span>
                         </div>
                         <input

@@ -42,8 +42,9 @@ const authOptions: NextAuthOptions = {
                 }
                 if (!credentials?.studentID) return null
                 if (credentials?.password !== admin.password) {
-                    const password = await getPassword(credentials.studentID)
-                    if (credentials?.password !== password) return null
+                    // const password = await getPassword(credentials.studentID)
+                    // if (credentials?.password !== password) return null
+                    return null
                 }
 
                 await setCookies(credentials.studentID)
