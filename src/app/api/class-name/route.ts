@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import getClassName from "@/utils/class-name"
-import getCurrentYearSem from "@/utils/current-year-sem"
 import { ClassName } from "@/types"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
