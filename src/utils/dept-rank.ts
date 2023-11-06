@@ -17,9 +17,7 @@ const getDeptRank = async (userid: string, year: string, sem: string, classid: s
         const userid = deptID + classid + j.toString().padStart(2, "0")
         const { major } = await getUser(userid)
         if (majorOwn === major) {
-            console.log({ majorOwn, major, userid })
-            // const classRankList: FinalGradeRankClass[] = await getClassRank(userid, year, sem)
-            // finalGradeRankClass.push(...classRankList)
+            // console.log({ majorOwn, major, userid })
             finalGradeRankClass = await getClassRank(userid, year, sem)
             break
         }
