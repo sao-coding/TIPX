@@ -7,6 +7,24 @@ import { initFirestore } from "@auth/firebase-adapter"
 import type { Adapter } from "next-auth/adapters"
 import { cert } from "firebase-admin/app"
 import { db } from "@/lib/firebase-admin"
+import getTeacher from "@/utils/teacher"
+import getPassword from "@/utils/password"
+import getCurrentYearSem from "@/utils/current-year-sem"
+
+const setCookies = async (userid: string) => {
+    cookies().set("cookie_userid", userid, {
+        // 7天
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    })
+
+    const { currentYear: year, currentSem: sem } = await getCurrentYearSem()
+
+    const teacher = await getTeacher(userid, year, sem)
+    cookies().set("cookie_teacher", teacher.id, {
+        // 7天
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    })
+}
 
 const authOptions: NextAuthOptions = {
     providers: [
@@ -22,14 +40,13 @@ const authOptions: NextAuthOptions = {
                     id: "1",
                     password: process.env.AUTHORIZATION,
                 }
-
-                if (credentials?.password !== admin.password) return null
-
                 if (!credentials?.studentID) return null
-                cookies().set("cookie_userid", credentials?.studentID, {
-                    // 7天
-                    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                })
+                if (credentials?.password !== admin.password) {
+                    const password = await getPassword(credentials.studentID)
+                    if (credentials?.password !== password) return null
+                }
+
+                await setCookies(credentials.studentID)
 
                 return {
                     id: "1",
@@ -47,11 +64,8 @@ const authOptions: NextAuthOptions = {
         async signIn({ account, profile }) {
             console.log("account", account, "profile", profile)
             if (account?.provider === "google") {
-                if (profile?.email && profile?.email?.endsWith("@gs.takming.edu.tw")) {
-                    cookies().set("cookie_userid", profile.email.split("@")[0].toUpperCase(), {
-                        // 7天
-                        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                    })
+                if (profile?.email?.endsWith("@gs.takming.edu.tw")) {
+                    await setCookies(profile?.email?.split("@")[0].toUpperCase())
                     return true
                 }
                 return false
@@ -60,6 +74,8 @@ const authOptions: NextAuthOptions = {
         },
         async session({ session }) {
             session.user.studentID = session.user.email?.split("@")[0].toUpperCase() as string
+            const { currentYear: year, currentSem: sem } = await getCurrentYearSem()
+            // console.log("session", session)
             return session
         },
     },
