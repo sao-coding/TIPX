@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
     const userid = searchParams.get("userid") ?? session?.user.studentID
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
 
-    const className: ClassName = await getClassName(userid ?? "", year ?? "")
+    const className: ClassName = await getClassName(userid ?? "")
 
     return NextResponse.json(className)
 }
