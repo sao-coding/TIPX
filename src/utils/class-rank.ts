@@ -4,11 +4,11 @@ import getConduct from "@/utils/conduct"
 import getTeacher from "@/utils/teacher"
 import getClassName from "@/utils/class-name"
 import getCurrentYearSem from "@/utils/current-year-sem"
-import { FinalGradeRankClass, Conduct } from "@/types"
+import { Conduct } from "@/types"
 
 const getClassRank = async (userid: string, year: string, sem: string) => {
     const { currentYear, currentSem } = await getCurrentYearSem()
-    const teacherid = (await getTeacher(userid ?? "", currentYear ?? "", currentSem ?? "")).id
+    const teacherid = (await getTeacher(userid, currentYear, currentSem)).id
 
     const resUrl = async (url: string, method: string, body?: { [key: string]: string }) => {
         let res
@@ -17,7 +17,7 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
                 method,
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
+                    cookie: `cookie_userid=${teacherid}; cookie_year=${currentYear}; cookie_sem=${currentSem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
                     Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
                 },
                 body: new URLSearchParams(body),
@@ -26,7 +26,7 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
             res = await fetch(url, {
                 method,
                 headers: {
-                    cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
+                    cookie: `cookie_userid=${teacherid}; cookie_year=${currentYear}; cookie_sem=${currentSem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
                     Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
                 },
             })
@@ -41,20 +41,20 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
 
     console.time("fetching-class-rank")
 
-    const document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_semscolist.php", "GET")
+    const document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_ranklist.php", "GET")
 
     const classList = document.querySelectorAll(
         "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(2) > tbody > tr > td:nth-child(1) > select > option:not(:first-child)"
     )
 
-    const className = (await getClassName(userid, year)).class
+    const className = (await getClassName(userid)).class
 
     const classID = Array.from(classList)
         .find((e) => e.textContent === className)
         ?.getAttribute("value")
 
     const classRankDocument = await resUrl(
-        "https://netinfo.takming.edu.tw/tip/guide_semscolist.php",
+        "https://netinfo.takming.edu.tw/tip/guide_ranklist.php",
         "POST",
         {
             Class: classID ?? "",
@@ -72,8 +72,26 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
             const userid = element.querySelector("td:nth-child(2)")?.textContent ?? ""
             const { img, name } = await getUser(userid)
             const conduct = (await getConduct(userid, year ?? "", sem ?? "", "one")) as Conduct
-            const avg = Number(element.querySelector("td:nth-child(7)")?.textContent ?? "")
-            const rank = Number(element.querySelector("td:nth-child(8)")?.textContent ?? "")
+
+            const SemRank = (element.querySelector("td:nth-child(10)")?.innerHTML ?? "")
+                .replace('<font size="2">', "")
+                .replace("</font>", "")
+                .replace(/<br>$/, "")
+                .split("<br>")
+            console.log("name", name)
+            console.log("SemRank", SemRank)
+
+            let avg = 0
+            let rank = 0
+            for (let i = 0; i < SemRank.length; i++) {
+                const element = SemRank[i]
+                const YearSem = element.split("學期")[0]
+
+                if (YearSem === `${year}${sem}`) {
+                    avg = Number(element.split("平均成績:")[1].split("/")[0])
+                    rank = Number(element.split("名次:")[1])
+                }
+            }
 
             return {
                 userid,

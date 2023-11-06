@@ -9,13 +9,13 @@ import authOptions from "@/lib/auth"
 import RollCallVerify from "./roll-call-verify"
 
 const CourseListPage = async () => {
+    const session = await getServerSession(authOptions)
+
     const data = (await getCourse(
-        cookies().get("cookie_userid")?.value ?? "",
+        session?.user.studentID ?? "",
         cookies().get("cookie_year")?.value ?? "",
         cookies().get("cookie_sem")?.value ?? ""
     )) as Course[]
-
-    const session = await getServerSession(authOptions)
 
     const title = {
         title: "課程",
