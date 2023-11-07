@@ -24,6 +24,7 @@ import InfoBoard from "./infoBoard"
 import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
+import Count from "./count"
 import { site } from "@/config/site"
 
 // const getUserData = async () => {
@@ -44,7 +45,7 @@ const UserPage = async () => {
 
     return (
         <>
-            <div className='mb-14 w-full p-2'>
+            <div className='mb-14 w-full p-2 md:-mb-20'>
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
                 <Switch />
@@ -171,6 +172,7 @@ const UserPage = async () => {
                 </Link>
                 <Notify />
                 <Logout />
+                <Count />
             </div>
         </>
     )
