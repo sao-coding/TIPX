@@ -20,7 +20,7 @@ const LogPage = () => {
             const res = await fetch(`/api/log?id=${pageParam}&limit=10`)
             return res.json()
         },
-        initialPageParam: 1,
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             return lastPage.length === 10 ? lastPage[lastPage.length - 1].time : undefined
         },
