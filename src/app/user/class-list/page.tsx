@@ -16,11 +16,7 @@ const ClassListPage = async () => {
 
     const session = await getServerSession(authOptions)
 
-    const item = await getClassList(
-        session?.user.studentID ?? "",
-        cookies().get("cookie_year")?.value ?? "",
-        cookies().get("cookie_sem")?.value ?? ""
-    )
+    const item = await getClassList(session?.user.studentID ?? "")
 
     return (
         <div className='px-2 w-full'>

@@ -5,7 +5,7 @@ import getClassName from "@/utils/class-name"
 import getCurrentYearSem from "@/utils/current-year-sem"
 import { Student } from "@/types"
 
-const getClassList = async (userid: string, year: string, sem: string) => {
+const getClassList = async (userid: string) => {
     const { currentYear, currentSem } = await getCurrentYearSem()
     const teacherid = (await getTeacher(userid ?? "", currentYear ?? "", currentSem ?? "")).id
 
@@ -15,7 +15,7 @@ const getClassList = async (userid: string, year: string, sem: string) => {
         const res = await fetch(`${url}?${new URLSearchParams(body)}`, {
             method: "GET",
             headers: {
-                cookie: `cookie_userid=${teacherid}; cookie_year=${year}; cookie_sem=${sem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
+                cookie: `cookie_userid=${teacherid}; cookie_year=${currentYear}; cookie_sem=${currentSem}; cookie_worktype=1; cookie_level=1; cookie_logintimes=2; cookie_type=4;`,
                 Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
             },
         })

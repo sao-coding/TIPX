@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
     const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
 
-    const classList = await getClassList(userid ?? "", year ?? "", sem ?? "")
+    const classList = await getClassList(userid ?? "")
 
     return NextResponse.json(classList)
 }
