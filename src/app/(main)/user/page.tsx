@@ -11,6 +11,7 @@ import {
     IconCoins,
     IconAntennaBars5,
     IconLayoutDashboard,
+    IconList,
     IconArrowBadgeDown,
     IconBadges,
     IconBrandGoogleAnalytics,
@@ -24,6 +25,7 @@ import InfoBoard from "./infoBoard"
 import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
+import Count from "./count"
 import { site } from "@/config/site"
 
 // const getUserData = async () => {
@@ -44,7 +46,7 @@ const UserPage = async () => {
 
     return (
         <>
-            <div className='mb-14 w-full p-2'>
+            <div className='mb-14 w-full p-2 md:-mb-20'>
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
                 <Switch />
@@ -100,6 +102,15 @@ const UserPage = async () => {
                     <div className='flex items-center'>
                         <IconLayoutDashboard />
                         <div className='ml-2'>學期-操行 成績</div>
+                    </div>
+                </Link>
+                <Link
+                    href='/user/class-list'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                >
+                    <div className='flex items-center'>
+                        <IconList />
+                        <div className='ml-2'>班級名單</div>
                     </div>
                 </Link>
                 <Link
@@ -171,6 +182,7 @@ const UserPage = async () => {
                 </Link>
                 <Notify />
                 <Logout />
+                <Count />
             </div>
         </>
     )

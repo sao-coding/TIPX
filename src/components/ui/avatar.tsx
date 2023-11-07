@@ -34,7 +34,7 @@ const Avatar = (props: AvatarProps) => {
                         )}
                         alt={alt}
                         loading='lazy'
-                        onLoadingComplete={() => setLoading(false)}
+                        onLoad={() => setLoading(false)}
                         onError={() => setError(true)}
                         {...rest}
                     />
