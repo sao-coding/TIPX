@@ -17,7 +17,7 @@ const AnnouncementCP = () => {
             const res = await fetch(`/api/post?type=all&id=${pageParam}&limit=10`)
             return res.json()
         },
-        initialPageParam: 1,
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             console.log({
                 lastPage,
