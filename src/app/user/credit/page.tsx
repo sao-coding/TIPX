@@ -5,14 +5,19 @@ import Title from "@/components/Title"
 import { Credit } from "@/types"
 import { site } from "@/config/site"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
+import getCurrentYearSem from "@/utils/current-year-sem"
 
 const getData = async () => {
+    const { currentYear, currentSem } = getCurrentYearSem()
+    let cookie = cookies().toString()
+    // 替換 cookie_year 和 cookie_sem
+    cookie = cookie.replace(/cookie_year=\d{3}/, `cookie_year=${currentYear}`)
+    cookie = cookie.replace(/cookie_sem=\d/, `cookie_sem=${currentSem}`)
     const res = await fetch(`${site.url}/api/credit`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies().get("token")?.value}`,
-            Cookie: cookies().toString(),
+            Cookie: cookie,
         },
     })
 
@@ -25,6 +30,7 @@ const getData = async () => {
 
 const CreditPage = async () => {
     const data: Credit[] = await getData()
+    console.log({ data })
 
     // 及格率顏色
     // 0~59: text-red-500
