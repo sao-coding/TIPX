@@ -62,6 +62,7 @@ const Form = () => {
             return
         }
 
+        const toastId = toast.loading("登入中...")
         const status = await signIn("credentials", {
             redirect: false,
             studentID: (document.getElementById("studentID") as HTMLInputElement)?.value,
@@ -69,9 +70,9 @@ const Form = () => {
         })
 
         if (status?.error) {
-            toast.error("授權碼錯誤")
+            toast.error("授權碼錯誤", { id: toastId })
         } else {
-            toast.success("登入成功")
+            toast.success("登入成功", { id: toastId })
             // 延遲1秒跳轉
             setTimeout(() => {
                 window.location.href = searchParams.get("callbackUrl") ?? "/user"

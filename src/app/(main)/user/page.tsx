@@ -19,6 +19,7 @@ import {
     IconNotes,
     IconInfoCircle,
     IconMessageCircle,
+    IconHistory,
 } from "@tabler/icons-react"
 import Info from "./info"
 import InfoBoard from "./infoBoard"
@@ -138,6 +139,16 @@ const UserPage = async () => {
                     <div className='flex items-center'>
                         <IconMessageCircle />
                         <div className='ml-2'>聊天</div>
+                    </div>
+                </Link>
+                {/* 更新日誌 */}
+                <Link
+                    href='/user/git-log'
+                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                >
+                    <div className='flex items-center space-x-2'>
+                        <IconHistory />
+                        <div className='ml-2'>更新日誌</div>
                     </div>
                 </Link>
                 {session?.user.studentID === process.env.ADMINSTUDENTID && (
