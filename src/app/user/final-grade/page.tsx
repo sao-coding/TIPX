@@ -5,14 +5,20 @@ import Title from "@/components/Title"
 import { FinalGradeRank } from "@/types"
 import { site } from "@/config/site"
 import ScaleTransitionView from "@/components/transition/ScaleTransitionView"
+import getCurrentYearSem from "@/utils/current-year-sem"
 
 const getData = async () => {
+    const { currentYear, currentSem } = getCurrentYearSem()
+    let cookie = cookies().toString()
+    // 替換 cookie_year 和 cookie_sem
+    cookie = cookie.replace(/cookie_year=\d{3}/, `cookie_year=${currentYear}`)
+    cookie = cookie.replace(/cookie_sem=\d/, `cookie_sem=${currentSem}`)
     const res = await fetch(`${site.url}/api/final-grade`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${cookies().get("token")?.value}`,
-            Cookie: cookies().toString(),
+            Cookie: cookie,
         },
     })
 
