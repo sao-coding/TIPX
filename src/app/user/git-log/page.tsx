@@ -17,14 +17,16 @@ const GitLogPage = async () => {
             {/* 提交總次數: {data.length} */}
             <div className='sticky left-0 top-0 w-full text-center border rounded-xl p-2 mb-2 bg-slate-50'>
                 <div className=''>提交總次數: {data.length}</div>
-                <div className=''>最後提交時間: {data[0].date.toLocaleString("zh-TW")}</div>
+                <div className=''>
+                    最後提交時間: {new Date(data[0].date).toLocaleString("zh-TW")}
+                </div>
             </div>
             {data && (
                 <div className='flex flex-col space-y-2'>
                     {data.map((item) => (
                         <div key={item.hash} className='border rounded-xl p-2'>
                             <h2>{item.subject}</h2>
-                            <p>{item.date.toLocaleString("zh-TW")}</p>
+                            <p>{new Date(item.date).toLocaleString("zh-TW")}</p>
                         </div>
                     ))}
                 </div>
