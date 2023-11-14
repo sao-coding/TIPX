@@ -1,11 +1,10 @@
-import fs from "fs"
-import path from "path"
+import { promises as fs } from "fs"
 
 const getGitLog = async () => {
     // 讀取檔案
     // /app/src/data/git-log.json
     const commits = JSON.parse(
-        await fs.readFileSync(process.cwd() + "/app/src/data/git-log.json", "utf8")
+        await fs.readFile(process.cwd() + "/app/src/data/git-log.json", "utf8")
     )
     return commits
 }
