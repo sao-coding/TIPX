@@ -3,7 +3,7 @@ import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 
-const commits = await gitLog()
+const commits = await gitLog({ range: "dev" })
 // 寫入檔案 至 src/cofig/git-log.json
 // console.log("commits", commits)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
