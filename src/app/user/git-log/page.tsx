@@ -15,7 +15,7 @@ const GitLogPage = async () => {
         <div className='w-full px-2 mb-2'>
             <Title title={title} />
             {/* 提交總次數: {data.length} */}
-            <div className='sticky left-0 top-0 w-full text-center border rounded-xl p-2 mb-2 bg-slate-50'>
+            <div className='sticky left-0 top-0 w-full text-center border rounded-xl p-2 mb-2 bg-slate-50 md:top-14'>
                 <div className=''>提交總次數: {data.length}</div>
                 <div className=''>
                     最後提交時間: {new Date(data[0].date).toLocaleString("zh-TW")}
