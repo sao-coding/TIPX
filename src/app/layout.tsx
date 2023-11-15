@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/react"
 import GoogleAnalytics from "@/app/GoogleAnalytics"
 import UmamiAnalytics from "@/app/UmamiAnalytics"
 // import GoogleAdsense from "@/app/GoogleAdsense"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import Providers from "@/app/providers"
 import Header from "@/components/Header"
@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     title: "TIPX",
     description: "學生資訊系統",
     manifest: "/pwa/manifest.json",
-    themeColor: "#f8fafc",
     appleWebApp: true,
     twitter: {
         card: "summary_large_image",
@@ -68,6 +67,10 @@ export const metadata: Metadata = {
             url: "/safari-pinned-tab.svg",
         },
     ],
+}
+
+export const viewport: Viewport = {
+    themeColor: "#f8fafc",
 }
 
 export default async function RootLayout({
