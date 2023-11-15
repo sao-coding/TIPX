@@ -11,6 +11,9 @@ const GitLogPage = async () => {
 
     const data: Commit[] = await getGitLog()
 
+    let lastYear = new Date(data[0].date).getFullYear()
+    let lastMonth = new Date(data[0].date).getMonth()
+
     return (
         <div className='w-full px-2 mb-2'>
             <Title title={title} />
@@ -41,9 +44,35 @@ const GitLogPage = async () => {
             {data && (
                 <div className='pl-4'>
                     <ul className='flex flex-col space-y-2 border-l-4 border-main-color-2 p-2 md:pr-0'>
-                        {data.map((item) => (
+                        {data.map((item, index) => (
                             // 依照年分月份分類
                             <>
+                                {/* {new Date(item.date).getFullYear() !==
+                                    new Date(data[0].date).getFullYear() && (
+                                    <>
+                                        <li className='text-center text-xl font-bold'>
+                                            {new Date(item.date).getFullYear()}
+                                        </li>
+                                        <li className='text-center text-xl font-bold'>
+                                            {new Date(item.date).getMonth() + 1} 月
+                                        </li>
+                                    </>
+                                )} */}
+                                {new Date(item.date).getMonth() !== lastMonth &&
+                                    ((lastMonth = new Date(item.date).getMonth()),
+                                    (
+                                        <li
+                                            key={index}
+                                            className='ml-1 relative px-1 py-2 after:content-[""] after:block after:w-4 after:h-4 after:rounded-full after:absolute after:-left-[23px] after:top-1/2 after:transform after:-translate-y-1/2 after:bg-main-color-1 after:border-4 after:border-main-color-3 after:shadow-lg'
+                                        >
+                                            <div className='relative flex justify-center text-center text-xl font-bold before:content-[""] before:block before:w-full before:h-0 before:border before:absolute before:top-1/2'>
+                                                <div className='relative bg-slate-50 px-2'>
+                                                    {new Date(item.date).getMonth() + 1} 月
+                                                </div>
+                                            </div>
+                                        </li>
+                                    ))}
+
                                 <li
                                     key={item.hash}
                                     className='ml-1 relative border rounded-xl p-2 after:content-[""] after:block after:w-4 after:h-4 after:rounded-full after:absolute after:-left-[23px] after:top-1/2 after:transform after:-translate-y-1/2 after:bg-main-color-1 after:border-4 after:border-main-color-3 after:shadow-lg'
