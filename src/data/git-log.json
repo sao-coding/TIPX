@@ -1,5 +1,17 @@
 [
   {
+    "subject": "✨ 新增 viewport 到 metadata layout.tsx 中",
+    "date": "2023-11-15T18:49:33.000Z",
+    "hash": "f6dc11c73edd92f8cff80e301472830395da0c8e",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-11-15T18:43:30.000Z",
+    "hash": "8cd47ba2d7b3490c0875db17c4b1d665b9a637c6",
+    "body": ""
+  },
+  {
     "subject": "♻️ 重構 GitLogPage 元件",
     "date": "2023-11-15T18:42:53.000Z",
     "hash": "5991388312905e0c55aefbdfefea0e3ea8fd71ff",
