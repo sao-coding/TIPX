@@ -20,18 +20,20 @@ const GitLogPage = async () => {
             {/* 提交總次數: {data.length} */}
             <div className='sticky left-0 top-0 md:top-14 z-10 px-2 pb-2 md:p-0'>
                 <div className='w-full text-center border rounded-xl p-2 mb-2 bg-slate-50'>
-                    <div className=''>提交總次數: {data.length}</div>
-                    <div className=''>
-                        耗時:{" "}
-                        {Math.floor(
-                            (new Date(data[0].date).getTime() -
-                                new Date(data[data.length - 1].date).getTime()) /
-                                1000 /
-                                60 /
-                                60 /
-                                24
-                        )}{" "}
-                        天
+                    <div className='flex justify-center items-center space-x-16'>
+                        <div className=''>提交總次數: {data.length}</div>
+                        <div className=''>
+                            耗時:{" "}
+                            {Math.floor(
+                                (new Date(data[0].date).getTime() -
+                                    new Date(data[data.length - 1].date).getTime()) /
+                                    1000 /
+                                    60 /
+                                    60 /
+                                    24
+                            )}{" "}
+                            天
+                        </div>
                     </div>
                     <div className=''>
                         最後提交時間:{" "}
