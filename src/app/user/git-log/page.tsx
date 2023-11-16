@@ -12,8 +12,11 @@ const GitLogPage = async () => {
     const data: Commit[] = await getGitLog()
 
     let lastYear = new Date(data[0].date).getFullYear()
-    let lastMonth = new Date(new Date(data[0].date).getUTCHours() + 8).getMonth() + 1
-
+    let lastMonth =
+        new Date(
+            new Date(data[0].date).toLocaleString("en-US", { timeZone: "Asia/Taipei" })
+        ).getMonth() + 1
+    console.log("###", lastMonth)
     return (
         <div className='w-full px-2 mb-2'>
             <Title title={title} />
@@ -60,12 +63,28 @@ const GitLogPage = async () => {
                                         </li>
                                     </>
                                 )} */}
-                                {new Date(new Date(data[0].date).getUTCHours() + 8).getMonth() +
+                                {/* 轉 utc+8 在判斷月份 */}
+                                {console.log(
+                                    "###",
+                                    item.subject,
+                                    "lastMonth:",
+                                    lastMonth,
+                                    new Date(item.date).getMonth() + 1,
+                                    new Date(item.date).getHours()
+                                )}
+                                {new Date(
+                                    new Date(item.date).toLocaleString("en-US", {
+                                        timeZone: "Asia/Taipei",
+                                    })
+                                ).getMonth() +
                                     1 !==
                                     lastMonth &&
                                     ((lastMonth =
-                                        new Date(new Date(item.date).getUTCHours() + 8).getMonth() +
-                                        1),
+                                        new Date(
+                                            new Date(item.date).toLocaleString("en-US", {
+                                                timeZone: "Asia/Taipei",
+                                            })
+                                        ).getMonth() + 1),
                                     (
                                         <li
                                             key={index}
