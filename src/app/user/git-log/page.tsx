@@ -12,7 +12,7 @@ const GitLogPage = async () => {
     const data: Commit[] = await getGitLog()
 
     let lastYear = new Date(data[0].date).getFullYear()
-    let lastMonth = new Date(data[0].date).getMonth()
+    let lastMonth = new Date(new Date(data[0].date).getUTCHours() + 8).getMonth() + 1
 
     return (
         <div className='w-full px-2 mb-2'>
@@ -60,8 +60,12 @@ const GitLogPage = async () => {
                                         </li>
                                     </>
                                 )} */}
-                                {new Date(item.date).getMonth() !== lastMonth &&
-                                    ((lastMonth = new Date(item.date).getMonth()),
+                                {new Date(new Date(data[0].date).getUTCHours() + 8).getMonth() +
+                                    1 !==
+                                    lastMonth &&
+                                    ((lastMonth =
+                                        new Date(new Date(item.date).getUTCHours() + 8).getMonth() +
+                                        1),
                                     (
                                         <li
                                             key={index}
