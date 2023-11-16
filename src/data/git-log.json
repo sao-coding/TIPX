@@ -1,5 +1,17 @@
 [
   {
+    "subject": "🐛 修復 月份分類問題",
+    "date": "2023-11-16T04:06:18.000Z",
+    "hash": "cd28fa4dd83ea9c76999f1bb8c56139a944d223f",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-11-15T18:49:45.000Z",
+    "hash": "b22f7cab0927da58069a709cb0a44ef6321f829e",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增 viewport 到 metadata layout.tsx 中",
     "date": "2023-11-15T18:49:33.000Z",
     "hash": "f6dc11c73edd92f8cff80e301472830395da0c8e",
