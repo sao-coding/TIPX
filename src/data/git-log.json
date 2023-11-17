@@ -1,5 +1,17 @@
 [
   {
+    "subject": "🐛 修復 RollCall 元件中的 step 值",
+    "date": "2023-11-17T05:40:59.000Z",
+    "hash": "bef65cd4c827c0f913f24821eed942a17cf3e011",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-11-16T04:32:03.000Z",
+    "hash": "6d933e4fdf2ea48415ab7625543bd04b56ca1704",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 月份分類問題",
     "date": "2023-11-16T04:31:55.000Z",
     "hash": "b2af2e62f44e0f9bc095497e0600d5b88b664498",
