@@ -120,7 +120,7 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                                     className='bg-white rounded-lg p-1 h-8 md:w-1/3 md:border text-center'
                                     min={data?.start}
                                     max={data?.end}
-                                    // step={7}
+                                    step={7}
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                 />
