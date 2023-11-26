@@ -1,6 +1,6 @@
 "use client"
-import Image, { ImageProps } from "next/image"
-import { useState } from "react"
+// import Image, { ImageProps } from "next/image"
+import { useState, useEffect, useRef } from "react"
 import { cx } from "@/lib/utils"
 
 type AvatarProps = {
@@ -8,13 +8,27 @@ type AvatarProps = {
     alt: string
     width: number
     height: number
+    className?: string
     fallback: React.ReactNode
-} & ImageProps
+}
+// & ImageProps
 
 const Avatar = (props: AvatarProps) => {
     const { src, width, height, alt, fallback, className, ...rest } = props
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const imageRef = useRef<HTMLImageElement>(null)
+
+    useEffect(() => {
+        if (imageRef.current?.complete) {
+            setLoading(false)
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log("Loading:", loading)
+        console.log("Error:", error)
+    }, [loading, error])
 
     return (
         <>
@@ -22,7 +36,8 @@ const Avatar = (props: AvatarProps) => {
                 fallback
             ) : (
                 <div className={cx("", loading && "animate-pulse")}>
-                    <Image
+                    <img
+                        ref={imageRef}
                         src={src}
                         width={width}
                         height={height}
