@@ -5,6 +5,7 @@ import getUser from "@/utils/user"
 import getLineID from "@/utils/lineid"
 import { User } from "@/types"
 import {
+    IconUserSearch,
     IconUser,
     IconClipboardPlus,
     IconClipboardList,
@@ -44,6 +45,7 @@ const UserPage = async () => {
     const session = await getServerSession(authOptions)
     const userData: User = await getUser(session?.user.studentID as string)
     const lineID = await getLineID(session?.user.studentID as string)
+    console.log(session)
 
     return (
         <>
@@ -51,6 +53,17 @@ const UserPage = async () => {
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
                 <Switch />
+                {session?.user.provider === "credentials" && (
+                    <Link
+                        href='/user/search'
+                        className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    >
+                        <div className='flex items-center'>
+                            <IconUserSearch />
+                            <div className='ml-2'>查詢用戶</div>
+                        </div>
+                    </Link>
+                )}
                 <Link
                     href='/user/about'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
