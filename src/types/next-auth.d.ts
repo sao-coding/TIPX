@@ -5,6 +5,7 @@ declare module "next-auth" {
     interface Session {
         user: {
             studentID: string
+            provider: string
         } & DefaultSession["user"]
     }
     type User = DatabaseUser
