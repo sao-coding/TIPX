@@ -32,7 +32,7 @@ export const GET = async (req: NextRequest) => {
 
     let student: student[] = []
     // 判斷 search 第一個字是否為英文
-    if (isLetters(search[0]) && search.length > 5) {
+    if (isLetters(search[0]) && search.length > 2) {
         // 若是英文則將第一個字轉為大寫
         search = search[0].toUpperCase() + search.slice(1)
         student = await prisma.student.findMany({

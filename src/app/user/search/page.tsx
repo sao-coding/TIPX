@@ -99,7 +99,8 @@ const SearchPage = () => {
                                     <div>{item.name}</div>
                                     <Copy />
                                 </div>
-                                <ClassName userid={item.userid} />
+                                {/* <ClassName userid={item.userid} /> */}
+                                {item.major}
                                 <div className='flex items-center space-x-1'>
                                     <IconBrandLine />
                                     <div>{item.lineid === "" ? "未填寫 Line ID" : item.lineid}</div>
