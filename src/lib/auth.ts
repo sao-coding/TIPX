@@ -63,7 +63,7 @@ const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async signIn({ account, profile }) {
-            console.log("account", account, "profile", profile)
+            // console.log("account", account, "profile", profile)
             if (account?.provider === "google") {
                 if (profile?.email?.endsWith("@gs.takming.edu.tw")) {
                     await setCookies(profile?.email?.split("@")[0].toUpperCase())
@@ -73,10 +73,21 @@ const authOptions: NextAuthOptions = {
             }
             return true
         },
-        async session({ session }) {
+        async jwt({ token, account }) {
+            // console.log("account#", account)
+            if (account) {
+                return { ...token, provider: account.provider }
+            }
+            return token
+        },
+        async session({ session, token }) {
+            // console.log("token", token)
             session.user.studentID = session.user.email?.split("@")[0].toUpperCase() as string
-            const { currentYear: year, currentSem: sem } = await getCurrentYearSem()
-            // console.log("session", session)
+            if (!token) {
+                session.user.provider = "credentials"
+            } else {
+                session.user.provider = token.provider as string
+            }
             return session
         },
     },

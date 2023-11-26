@@ -1,5 +1,77 @@
 [
   {
+    "subject": "✅ 新增 postinstall script 至package.json",
+    "date": "2023-11-26T21:47:27.000Z",
+    "hash": "0768537ca695fae394674568805920d95462c5c1",
+    "body": ""
+  },
+  {
+    "subject": "🔥 修改成 img 標籤",
+    "date": "2023-11-26T21:45:03.000Z",
+    "hash": "99eaa24fee748f5363dd079ca52ffc954a420194",
+    "body": ""
+  },
+  {
+    "subject": "修復 標題樣式錯誤",
+    "date": "2023-11-26T21:44:43.000Z",
+    "hash": "d9d653c5a217cad5967220f466aa9b87c74128aa",
+    "body": ""
+  },
+  {
+    "subject": "新增 查詢用戶功能",
+    "date": "2023-11-26T21:43:31.000Z",
+    "hash": "ed2098f5d496594093153e3d837347e5c76d125d",
+    "body": ""
+  },
+  {
+    "subject": "🔥 移除 班級顯示 解決效能問題",
+    "date": "2023-11-26T21:42:20.000Z",
+    "hash": "fe3c9f8e6290e28dfc33261e2608d3fe9ffeb66f",
+    "body": ""
+  },
+  {
+    "subject": "新增 查詢用戶功能",
+    "date": "2023-11-26T21:37:08.000Z",
+    "hash": "7b10da51800a3e1f553de78a0a92d1f689de9793",
+    "body": ""
+  },
+  {
+    "subject": "➕ 更新 依賴",
+    "date": "2023-11-26T21:27:39.000Z",
+    "hash": "64b7877cb34f370131f479f3b95885332edc54b2",
+    "body": ""
+  },
+  {
+    "subject": "🙈 新增 .stu_data 到 .gitignore",
+    "date": "2023-11-26T21:27:16.000Z",
+    "hash": "f81f8e4132f9dccec630b450ca0a933a3480c974",
+    "body": ""
+  },
+  {
+    "subject": "📝 更新 自述文件",
+    "date": "2023-11-26T21:26:41.000Z",
+    "hash": "5b3b46ef979202cc0418d14e98410e78e8dbc002",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-11-17T05:47:26.000Z",
+    "hash": "0b682f6f25636be01bdcd0de592d6d91a12d7bb9",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 RollCall 元件中的 step 值",
+    "date": "2023-11-17T05:40:59.000Z",
+    "hash": "bef65cd4c827c0f913f24821eed942a17cf3e011",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-11-16T04:32:03.000Z",
+    "hash": "6d933e4fdf2ea48415ab7625543bd04b56ca1704",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 月份分類問題",
     "date": "2023-11-16T04:31:55.000Z",
     "hash": "b2af2e62f44e0f9bc095497e0600d5b88b664498",
