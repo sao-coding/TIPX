@@ -53,7 +53,7 @@ const UserPage = async () => {
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
                 <Switch />
-                {session?.user.provider === "credentials" && (
+                {/* {session?.user.provider === "credentials" && (
                     <Link
                         href='/user/search'
                         className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
@@ -63,8 +63,8 @@ const UserPage = async () => {
                             <div className='ml-2'>查詢用戶</div>
                         </div>
                     </Link>
-                )}
-                <Link
+                )} */}
+                {/* <Link
                     href='/user/about'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
@@ -72,7 +72,7 @@ const UserPage = async () => {
                         <IconUser />
                         <div className='ml-2'>個人資料</div>
                     </div>
-                </Link>
+                </Link> */}
                 <Link
                     href='/user/leave'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
@@ -155,7 +155,7 @@ const UserPage = async () => {
                     </div>
                 </Link>
                 {/* 更新日誌 */}
-                <Link
+                {/* <Link
                     href='/user/git-log'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
@@ -163,7 +163,7 @@ const UserPage = async () => {
                         <IconHistory />
                         <div className='ml-2'>更新日誌</div>
                     </div>
-                </Link>
+                </Link> */}
                 {session?.user.studentID === process.env.ADMINSTUDENTID && (
                     <>
                         <Link

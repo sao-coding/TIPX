@@ -25,7 +25,7 @@ const InfoPage = () => {
                     <span className='bg-main-color-2 px-1 py-0.5 rounded-lg'>tip.sao-x.com</span>
                     <div className='text-red-500'>若有任何損失，本網站概不負責！</div>
                 </div>
-                <h1 className='py-2 text-4xl font-bold w-full text-center'>貢獻</h1>
+                {/* <h1 className='py-2 text-4xl font-bold w-full text-center'>貢獻</h1>
                 <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
                     <div className='flex w-full flex-col items-center justify-center'>
                         <Avatar
@@ -96,7 +96,7 @@ const InfoPage = () => {
                             Meriser
                         </a>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )
