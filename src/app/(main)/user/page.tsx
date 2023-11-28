@@ -73,7 +73,7 @@ const UserPage = async () => {
                         <div className='ml-2'>個人資料</div>
                     </div>
                 </Link> */}
-                <Link
+                {/* <Link
                     href='/user/leave'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
                 >
@@ -81,7 +81,7 @@ const UserPage = async () => {
                         <IconClipboardPlus />
                         <div className='ml-2'>線上請假</div>
                     </div>
-                </Link>
+                </Link> */}
                 <Link
                     href='/user/attendance-record'
                     className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
