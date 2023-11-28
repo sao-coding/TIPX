@@ -206,7 +206,7 @@ const UserPage = async () => {
                 </Link>
                 <Notify />
                 <Logout />
-                <Count />
+                {/* <Count /> */}
             </div>
         </>
     )

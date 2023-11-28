@@ -14,7 +14,7 @@ const InfoPage = () => {
         <>
             <div className='w-full px-2'>
                 <Title title={title} />
-                <Count />
+                {/* <Count /> */}
                 <h1 className='py-2 text-4xl font-bold w-full text-center'>警告</h1>
                 <div className='text-center'>
                     此網站為非官方網站，為個人作品
