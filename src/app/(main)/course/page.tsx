@@ -45,7 +45,7 @@ const CourseListPage = async () => {
                                         </div>
                                     </div>
                                 </Link>
-                                <RollCallVerify courseID={course.id} />
+                                {/* <RollCallVerify courseID={course.id} /> */}
                             </ScaleTransitionView>
                         ))}
                 </div>
