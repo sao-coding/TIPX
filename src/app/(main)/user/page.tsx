@@ -24,7 +24,7 @@ import {
 } from "@tabler/icons-react"
 import Info from "./info"
 import InfoBoard from "./infoBoard"
-// import Weather from "./weather"
+import Weather from "./weather"
 import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
@@ -53,7 +53,7 @@ const UserPage = async () => {
             <div className='mb-14 w-full p-2 md:-mb-20 flex flex-col gap-2'>
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
-                {/* <Weather /> */}
+                <Weather />
                 <Switch />
                 {session?.user.provider === "credentials" && (
                     <Link
