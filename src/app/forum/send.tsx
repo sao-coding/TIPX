@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, use } from "react"
 import {
-    IconSend,
+    IconSend2,
     IconMicrophone,
     IconUser,
     IconSettings,
@@ -357,7 +357,7 @@ const SendCP = ({ user }: { user: User }) => {
                 <div className='flex items-center'>
                     <button className='p-2 rounded-md h-full' onClick={sendMessage}>
                         {/* 旋轉 icon 45 度 */}
-                        <IconSend size={25} className='rotate-45' />
+                        <IconSend2 size={25} />
                     </button>
                 </div>
             </div>

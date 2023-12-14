@@ -1,4 +1,4 @@
-![](https://tip.sao-x.com/img/og.png)
+![](https://tipx.sao-x.com/img/og.png)
 # 德明 TIP 個人入口網站
 
 這是 [Next.js](https://nextjs.org/) 專案，是使用 [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) 建立的。
