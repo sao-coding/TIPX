@@ -44,7 +44,7 @@ const Footer = () => {
     return (
         <footer
             className={clsx(
-                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-main-color-3 transition-all duration-300 md:hidden"
+                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-slate-50 transition-all duration-300 md:hidden border"
                 // { hidden: navbarHidden }
             )}
         >
@@ -63,17 +63,17 @@ const Footer = () => {
                             pathname.startsWith(link.href) && link.href !== "/"
                                 ? 30
                                 : link.href === "/" && pathname === "/"
-                                ? 30
-                                : 26
+                                  ? 30
+                                  : 26
                         }
                         // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
                         className={cx(
-                            "stroke-white/80",
+                            "stroke-black/80",
                             pathname.startsWith(link.href) && link.href !== "/"
-                                ? "fill-white/80 stroke-black stroke-1"
+                                ? "fill-main-color-3/80 stroke-black stroke-2"
                                 : link.href === "/" && pathname === "/"
-                                ? "fill-white/80 stroke-black stroke-1"
-                                : ""
+                                  ? "fill-main-color-3/80 stroke-black stroke-2"
+                                  : ""
                         )}
                     />
                 </Link>
