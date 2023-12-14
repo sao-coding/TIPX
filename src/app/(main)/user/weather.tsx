@@ -19,6 +19,7 @@ const Weather = () => {
 
             return data
         },
+        refetchOnWindowFocus: false,
     })
 
     const nowTime = (type: string) => {
