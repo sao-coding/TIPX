@@ -50,7 +50,7 @@ const FinalGradePage = async () => {
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
                     <ScaleTransitionView key={index} custom={index}>
-                        <div className='relative h-24 w-full rounded-xl border p-1 shadow-md'>
+                        <div className='relative h-24 w-full rounded-xl border p-1'>
                             <div className='absolute left-0 top-0 p-1 text-5xl text-neutral-300'>
                                 {item.year}
                             </div>

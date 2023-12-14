@@ -24,6 +24,7 @@ import {
 } from "@tabler/icons-react"
 import Info from "./info"
 import InfoBoard from "./infoBoard"
+// import Weather from "./weather"
 import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
@@ -49,42 +50,43 @@ const UserPage = async () => {
 
     return (
         <>
-            <div className='mb-14 w-full p-2 md:-mb-20'>
+            <div className='mb-14 w-full p-2 md:-mb-20 flex flex-col gap-2'>
                 <Info userData={userData} lineID={lineID.lineid} />
                 <InfoBoard />
+                {/* <Weather /> */}
                 <Switch />
-                {/* {session?.user.provider === "credentials" && (
+                {session?.user.provider === "credentials" && (
                     <Link
                         href='/user/search'
-                        className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                        className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                     >
                         <div className='flex items-center'>
                             <IconUserSearch />
                             <div className='ml-2'>查詢用戶</div>
                         </div>
                     </Link>
-                )} */}
-                {/* <Link
+                )}
+                <Link
                     href='/user/about'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconUser />
                         <div className='ml-2'>個人資料</div>
                     </div>
-                </Link> */}
-                {/* <Link
+                </Link>
+                <Link
                     href='/user/leave'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconClipboardPlus />
                         <div className='ml-2'>線上請假</div>
                     </div>
-                </Link> */}
+                </Link>
                 <Link
                     href='/user/attendance-record'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconClipboardList />
@@ -93,7 +95,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/credit'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconCoins />
@@ -102,7 +104,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/sem-grade'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconAntennaBars5 />
@@ -111,16 +113,16 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/final-grade'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconLayoutDashboard />
                         <div className='ml-2'>學期-操行 成績</div>
                     </div>
                 </Link>
-                {/* <Link
+                <Link
                     href='/user/class-list'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconList />
@@ -129,7 +131,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/class-rank'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconArrowBadgeDown />
@@ -138,16 +140,16 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/dept-rank'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconBadges />
                         <div className='ml-2'>系排名</div>
                     </div>
-                </Link> */}
+                </Link>
                 <Link
                     href='/forum'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconMessageCircle />
@@ -155,20 +157,20 @@ const UserPage = async () => {
                     </div>
                 </Link>
                 {/* 更新日誌 */}
-                {/* <Link
+                <Link
                     href='/user/git-log'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center space-x-2'>
                         <IconHistory />
                         <div className='ml-2'>更新日誌</div>
                     </div>
-                </Link> */}
+                </Link>
                 {session?.user.studentID === process.env.ADMINSTUDENTID && (
                     <>
                         <Link
                             href='/user/log'
-                            className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                            className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                         >
                             <div className='flex items-center'>
                                 <IconNotes />
@@ -179,7 +181,7 @@ const UserPage = async () => {
                 )}
                 <Link
                     href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconBrandGoogleAnalytics />
@@ -188,7 +190,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='https://tk-tipx.github.io/upptime'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconActivity />
@@ -197,7 +199,7 @@ const UserPage = async () => {
                 </Link>
                 <Link
                     href='/user/info'
-                    className='mt-2 block w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md ripple'
+                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
                         <IconInfoCircle />
@@ -206,7 +208,7 @@ const UserPage = async () => {
                 </Link>
                 <Notify />
                 <Logout />
-                {/* <Count /> */}
+                <Count />
             </div>
         </>
     )

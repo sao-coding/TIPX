@@ -135,7 +135,7 @@ const Switch = () => {
             }}
         >
             <Select.Trigger
-                className='mt-2 flex w-full cursor-pointer items-center rounded-xl border p-2 shadow-md focus-visible:outline-none'
+                className='flex w-full cursor-pointer items-center rounded-xl md:border p-2 focus-visible:outline-none'
                 title='點擊切換學年度'
                 aria-controls='下拉選單'
             >

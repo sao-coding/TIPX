@@ -45,7 +45,7 @@ const FinalGradePage = async () => {
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data?.map((item, index) => (
                     <ScaleTransitionView key={index} custom={index}>
-                        <div className='relative rounded-xl border p-2 shadow-md' key={index}>
+                        <div className='relative rounded-xl border p-2' key={index}>
                             <div
                                 className={clsx(
                                     "absolute right-0 top-0 m-1 rounded-md px-1 font-bold text-white",

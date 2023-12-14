@@ -70,7 +70,7 @@ const ClassRankPage = () => {
                     <>
                         {Array.from(Array(7).keys()).map((index) => (
                             <div
-                                className='mb-2 flex h-[116px] w-full animate-pulse items-center justify-between rounded-md bg-white p-2 shadow-md'
+                                className='mb-2 flex h-[116px] w-full animate-pulse items-center justify-between rounded-xl bg-white p-2 border'
                                 key={index}
                             >
                                 <div className='flex items-center'>
@@ -109,7 +109,7 @@ const ClassRankPage = () => {
                         })
                         .map((item, index) => (
                             <div
-                                className='relative mb-2 flex w-full items-center justify-between rounded-md bg-white p-2 shadow-md'
+                                className='relative mb-2 flex w-full items-center justify-between rounded-xl bg-white p-2 border'
                                 key={item.userid}
                             >
                                 {/* <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>

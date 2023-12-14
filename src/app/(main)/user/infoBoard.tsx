@@ -51,8 +51,8 @@ const InfoBoard = () => {
     }, [Cookie.get("cookie_year"), Cookie.get("cookie_sem")])
 
     return (
-        <div className='mt-2 flex items-center justify-between space-x-1'>
-            <div className='w-full rounded-xl border p-2 shadow-md'>
+        <div className='flex items-center justify-between space-x-1'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
                 <div className='flex items-center justify-between'>
                     <div>缺曠次數</div>
                     <div>
@@ -73,7 +73,7 @@ const InfoBoard = () => {
                     <div className='ml-0.5'>次</div>
                 </div>
             </div>
-            <div className='w-full rounded-xl border p-2 shadow-md'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
                 <div className='flex items-center justify-between'>
                     <div>缺曠時數</div>
                     <div>
@@ -84,25 +84,48 @@ const InfoBoard = () => {
                     {LeaveLoading ? (
                         <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
+                        // <>
+                        //     {courseAttendanceRecordData?.total.length > 0 &&
+                        //     document.body.clientWidth >= 380
+                        //         ? courseAttendanceRecordData?.total
+                        //               ?.reduce((total, item) => {
+                        //                   return total + Math.round(((item * 50) / 60) * 10) / 10
+                        //               }, 0)
+                        //               .toFixed(1)
+                        //         : courseAttendanceRecordData?.total
+                        //               ?.reduce((total, item) => {
+                        //                   return total + Math.round(((item * 50) / 60) * 10) / 10
+                        //               }, 0)
+                        //               .toFixed(0)}
+                        // </>
+                        // 若時數 的位數 超過 3 位數 則 四捨五入 總位數為 3 位數
                         <>
-                            {courseAttendanceRecordData?.total.length > 0 &&
-                            document.body.clientWidth >= 380
-                                ? courseAttendanceRecordData?.total
-                                      ?.reduce((total, item) => {
-                                          return total + Math.round(((item * 50) / 60) * 10) / 10
-                                      }, 0)
-                                      .toFixed(1)
-                                : courseAttendanceRecordData?.total
-                                      ?.reduce((total, item) => {
-                                          return total + Math.round(((item * 50) / 60) * 10) / 10
-                                      }, 0)
-                                      .toFixed(0)}
+                            {courseAttendanceRecordData?.total?.length > 0 &&
+                            courseAttendanceRecordData?.total
+                                ?.reduce((total, item) => {
+                                    return total + Math.round(((item * 50) / 60) * 10) / 10
+                                }, 0)
+                                .toFixed(1).length > 4 ? (
+                                <>
+                                    {courseAttendanceRecordData?.total?.reduce((total, item) => {
+                                        return total + Math.round((item * 50) / 60)
+                                    }, 0)}
+                                </>
+                            ) : (
+                                <>
+                                    {courseAttendanceRecordData?.total
+                                        ?.reduce((total, item) => {
+                                            return total + Math.round(((item * 50) / 60) * 10) / 10
+                                        }, 0)
+                                        .toFixed(1)}
+                                </>
+                            )}
                         </>
                     )}
                     <div className='ml-0.5'>小時</div>
                 </div>
             </div>
-            <div className='w-full rounded-xl border p-2 shadow-md'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
                 <div className='flex items-center justify-between'>
                     <div>目前操行</div>
                     <div>
