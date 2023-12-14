@@ -22,7 +22,7 @@ const InfoPage = () => {
                     不代表任何學校或組織的意見
                     <br />
                     使用本網站{" "}
-                    <span className='bg-main-color-2 px-1 py-0.5 rounded-lg'>tip.sao-x.com</span>
+                    <span className='bg-main-color-2 px-1 py-0.5 rounded-lg'>tipx.sao-x.com</span>
                     <div className='text-red-500'>若有任何損失，本網站概不負責！</div>
                 </div>
                 <h1 className='py-2 text-4xl font-bold w-full text-center'>貢獻</h1>
