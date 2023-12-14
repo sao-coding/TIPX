@@ -36,7 +36,7 @@ const Notify = () => {
 
     return (
         <div
-            className='mt-2 w-full cursor-pointer rounded-xl border bg-slate-50 p-2 shadow-md'
+            className='w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2'
             onClick={() => {
                 if ("Notification" in window) {
                     if (Notification.permission !== "granted") {

@@ -48,7 +48,7 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                 onMouseLeave={handleMouseLeave}
             >
                 <>
-                    <div className='user-info-front rounded-xl border bg-slate-50 p-2 shadow-md'>
+                    <div className='user-info-front rounded-xl border bg-slate-50 p-2'>
                         <div className='relative flex items-center'>
                             <div className='flex items-center'>
                                 {isImgError ? (
@@ -72,7 +72,7 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                             </div>
                             <div className='py-[3px] pl-4'>
                                 <div>{userData.name}</div>
-                                {/* <div>{userData.IDnumber}</div> */}
+                                <div>{userData.IDnumber}</div>
                                 <div className='max-xs:text-sm'>{userData.major}</div>
                                 <div className='flex'>
                                     <div className='bg-main-color-3 px-1 rounded-md text-neutral-200 max-xs:text-sm'>
@@ -92,7 +92,7 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                             </div>
                         </div>
                     </div>
-                    <div className='user-info-back rounded-xl border bg-slate-50 p-2 shadow-md'>
+                    <div className='user-info-back rounded-xl border bg-slate-50 p-2'>
                         <div className='py-[3px] pl-4'>
                             <div className='flex items-center'>
                                 <IconGenderBigender />
