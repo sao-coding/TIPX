@@ -16,14 +16,9 @@ export const GET = async (req: NextRequest) => {
     const res = await fetch(url.toString())
     const data = await res.json()
 
-    // 取得今天日期的資料 xxxx-xx-xx
+    // 取得今天日期的資料 xxxx-xx-xx 時區為台北
     const today = new Date()
-        .toLocaleString("zh-TW", {
-            timeZone: "Asia/Taipei",
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-        })
+        .toLocaleDateString("zh-TW", { timeZone: "Asia/Taipei" })
         .replace(/\//g, "-")
 
     // 取得今天日期的資料 降雨機率 早,晚 ，天氣現象 早,晚 ，最低溫度 早,晚 ，最高溫度 早,晚 若超過 2筆 以上取最後兩筆
