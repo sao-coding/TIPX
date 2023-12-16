@@ -1,5 +1,47 @@
 [
   {
+    "subject": "💄 更新 Weather 樣式",
+    "date": "2023-12-16T04:14:59.000Z",
+    "hash": "7b860035d41197206f90a22bf2e7d301669d286f",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 天氣現象顯示錯誤",
+    "date": "2023-12-16T04:08:56.000Z",
+    "hash": "a9b57b66c6909fd2114c424d3885a9fce04a325e",
+    "body": ""
+  },
+  {
+    "subject": "💄 更新 Footer 樣式",
+    "date": "2023-12-16T04:06:53.000Z",
+    "hash": "76e03a874b24fd2b4138fbf82f41479ca4c0316d",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 天氣 API 錯誤",
+    "date": "2023-12-16T03:35:55.000Z",
+    "hash": "b5b00565fca555ccee39f9ac27b3d91ad91be847",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 天氣 API 錯誤",
+    "date": "2023-12-15T04:05:59.000Z",
+    "hash": "ba42e6c442906d062f7999b6e48005398aa5fe89",
+    "body": ""
+  },
+  {
+    "subject": "✨ TIPX UI 3.0",
+    "date": "2023-12-14T11:11:08.000Z",
+    "hash": "915a4fe6b76e33a7bed3bca3f612a677251c72aa",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-14T10:42:39.000Z",
+    "hash": "bb88b0f7bb24e272d54e473fe54e08b6eac77b51",
+    "body": ""
+  },
+  {
     "subject": "✅ 取消 天氣即時更新",
     "date": "2023-12-14T10:41:18.000Z",
     "hash": "3802a5dd43a20cf4439fe1b904c37eeecb09cd4c",

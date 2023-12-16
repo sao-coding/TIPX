@@ -64,14 +64,14 @@ const GitLogPage = async () => {
                                     </>
                                 )} */}
                                 {/* 轉 utc+8 在判斷月份 */}
-                                {console.log(
+                                {/* {console.log(
                                     "###",
                                     item.subject,
                                     "lastMonth:",
                                     lastMonth,
                                     new Date(item.date).getMonth() + 1,
                                     new Date(item.date).getHours()
-                                )}
+                                )} */}
                                 {new Date(
                                     new Date(item.date).toLocaleString("en-US", {
                                         timeZone: "Asia/Taipei",
