@@ -123,7 +123,24 @@ const Weather = () => {
                     <div>%</div>
                 </div>
                 <div className='ml-auto'>
-                    <div className='text-xs text-gray-400'>晴時多雲</div>
+                    <div className='text-xs text-gray-400'>
+                        {/* Wx */}
+                        {isLoading ? (
+                            <IconLoader2 className='mx-1 animate-spin' />
+                        ) : (
+                            <>
+                                {data?.map((item) => {
+                                    if (item.elementName === "Wx") {
+                                        return (
+                                            <div key={item.elementName}>
+                                                {item.time[nowTime("Wx")].elementValue[0].value}
+                                            </div>
+                                        )
+                                    }
+                                })}
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
