@@ -36,6 +36,7 @@ export const GET = async (req: NextRequest) => {
             return {
                 elementName: item.elementName,
                 description: item.description,
+                today: todayFormat,
                 time,
             }
         }
