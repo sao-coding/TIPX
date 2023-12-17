@@ -2,13 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { IconTemperature, IconDropletHalf2Filled, IconLoader2 } from "@tabler/icons-react"
+import formatDatetime from "@/utils/format-datetime"
 import { Weather } from "@/types"
 
 const Weather = () => {
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
-            const res = await fetch("/api/weather", {
+            const res = await fetch(`/api/weather?date=${formatDatetime(new Date(), "weather")}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
