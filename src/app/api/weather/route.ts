@@ -5,17 +5,24 @@ import { Weather } from "@/types"
 export const dynamic = "force-dynamic"
 
 export const GET = async (req: NextRequest) => {
-    const today = new Date(new Date().toISOString())
-    const todayFormat = formatDatetime(today, "weather")
-    const tomorrowFormat = formatDatetime(new Date(today.setDate(today.getDate() + 1)), "weather")
+    const today =
+        req.nextUrl.searchParams.get("date") ??
+        formatDatetime(
+            new Date().toLocaleDateString("zh-TW", { timeZone: "Asia/Taipei" }),
+            "weather"
+        )
+    const tomorrow = formatDatetime(
+        new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000),
+        "weather"
+    )
     const url = new URL("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093")
     const params = new URLSearchParams({
         Authorization: "CWB-B2DD23C3-AAB7-4A12-A50C-2FB1EE813769",
         locationId: "F-D0047-063",
         locationName: "內湖區",
         elementName: "MinT,MaxT,PoP12h,Wx",
-        timeFrom: todayFormat,
-        timeTo: tomorrowFormat,
+        timeFrom: today,
+        timeTo: tomorrow,
     })
 
     url.search = params.toString()
@@ -36,7 +43,7 @@ export const GET = async (req: NextRequest) => {
             return {
                 elementName: item.elementName,
                 description: item.description,
-                today: todayFormat,
+                today,
                 time,
             }
         }
