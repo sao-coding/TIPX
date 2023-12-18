@@ -111,10 +111,16 @@ const UserAboutPage = async () => {
                             <h1 className='text-xl font-bold mb-1'>基本資料</h1>
                             <div className='flex items-center space-x-1'>
                                 <IconBrandLine />
-                                <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
-                                    {lineID.lineid ? lineID.lineid : "未填寫 Line ID"}
-                                </div>
-                                <Copy />
+                                {lineID.lineid ? (
+                                    <>
+                                        <div className='bg-main-color-3 px-1 rounded-md text-neutral-200'>
+                                            {lineID.lineid}
+                                        </div>
+                                        <Copy />
+                                    </>
+                                ) : (
+                                    <div className='text-gray-400'>未填寫 Line ID</div>
+                                )}
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconGenderBigender />
@@ -127,8 +133,14 @@ const UserAboutPage = async () => {
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconCake />
-                                <div>{data.birthday ? formatDate(data.birthday) : "未填寫"}</div>
-                                <Copy />
+                                {data.birthday ? (
+                                    <>
+                                        <div>{formatDate(data.birthday)}</div>
+                                        <Copy />
+                                    </>
+                                ) : (
+                                    <div className='text-gray-400'>未填寫生日</div>
+                                )}
                             </div>
                             <div className='flex items-center space-x-1'>
                                 <IconBuildingSkyscraper />
