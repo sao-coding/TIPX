@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import getSearchAuth from "@/utils/search-auth"
 import { student } from "@prisma/client"
 
 export const GET = async (req: NextRequest) => {
@@ -12,11 +13,7 @@ export const GET = async (req: NextRequest) => {
     const session = await getServerSession(authOptions)
     // prisma 尋找 user 資料表裡的 userid 若等於 session 裡的 user.studentID 則回傳 user 資料表裡的 id 若沒有則回傳 沒有權限
     // console.log(session?.user.studentID)
-    const auth = await prisma.user.findUnique({
-        where: {
-            userid: session?.user.studentID,
-        },
-    })
+    const auth = await getSearchAuth(session?.user.studentID ?? "")
     // console.log(auth)
     // 判斷是否找到
     if (!auth) {
