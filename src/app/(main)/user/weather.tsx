@@ -39,11 +39,11 @@ const Weather = () => {
         let indexValue = 0
         data?.map((item) => {
             if (item.elementName === type) {
-                console.log("item", item)
+                // console.log("item", item)
                 item.time.map((time, index) => {
-                    console.log("time", time)
+                    // console.log("time", time)
                     if (today >= time.startTime && today <= time.endTime) {
-                        console.log("index", index)
+                        // console.log("index", index)
                         indexValue = index
                     }
                 })
