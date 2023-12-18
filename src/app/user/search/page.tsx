@@ -10,6 +10,7 @@ import Fancybox from "@/components/fancybox"
 import Avatar from "@/components/ui/avatar"
 import Title from "@/components/Title"
 import Copy from "@/components/Copy"
+import Card from "./card"
 import Loading from "./loading"
 import { student } from "@prisma/client"
 
@@ -45,14 +46,6 @@ const SearchPage = () => {
         close: true,
     }
 
-    const status: { [key: string]: string } = {
-        新生未註冊: "bg-gray-500",
-        在學: "bg-green-500",
-        休學: "bg-yellow-500",
-        退學: "bg-red-500",
-        畢業: "bg-blue-500",
-    }
-
     return (
         <div className='w-full px-2 mb-2'>
             <Title title={title} />
@@ -73,132 +66,9 @@ const SearchPage = () => {
                         data.pages.map((page: student[]) =>
                             page.map((item, i) => {
                                 if (page.length === i + 1) {
-                                    return (
-                                        <div
-                                            ref={ref}
-                                            key={item.userid}
-                                            className='relative flex items-center border rounded-xl p-2'
-                                        >
-                                            <div
-                                                className={clsx(
-                                                    "absolute top-2 right-2 px-1 rounded-md text-neutral-200 font-bold",
-                                                    status[item.status]
-                                                )}
-                                            >
-                                                {item.status}
-                                            </div>
-                                            <Fancybox
-                                                options={{
-                                                    Carousel: {
-                                                        infinite: false,
-                                                    },
-                                                }}
-                                            >
-                                                <a
-                                                    href={item.img}
-                                                    data-fancybox='images'
-                                                    data-caption={item.name}
-                                                >
-                                                    <Avatar
-                                                        src={item.img}
-                                                        width={75}
-                                                        height={100}
-                                                        alt='大頭貼'
-                                                        fallback={
-                                                            <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
-                                                                <IconUserCircle size={75} />
-                                                            </div>
-                                                        }
-                                                    />
-                                                </a>
-                                            </Fancybox>
-                                            <div className='px-2 flex-grow'>
-                                                <div className='flex items-center space-x-1'>
-                                                    <div>{item.userid}</div>
-                                                    <Copy />
-                                                </div>
-                                                <div className='flex items-center space-x-1'>
-                                                    <div>{item.name}</div>
-                                                    <Copy />
-                                                </div>
-                                                <ClassName userid={item.userid} />
-                                                {/* {item.major} */}
-                                                <div className='flex items-center space-x-1'>
-                                                    <IconBrandLine />
-                                                    <div>
-                                                        {item.lineid === ""
-                                                            ? "未填寫 Line ID"
-                                                            : item.lineid}
-                                                    </div>
-                                                    <Copy />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
+                                    return <Card key={item.userid} ref={ref} student={item} />
                                 }
-                                return (
-                                    <div
-                                        key={item.userid}
-                                        className='relative flex items-center border rounded-xl p-2'
-                                    >
-                                        <div
-                                            className={clsx(
-                                                "absolute top-2 right-2 px-1 rounded-md text-neutral-200 font-bold",
-                                                status[item.status]
-                                            )}
-                                        >
-                                            {item.status}
-                                        </div>
-                                        <Fancybox
-                                            options={{
-                                                Carousel: {
-                                                    infinite: false,
-                                                },
-                                            }}
-                                        >
-                                            <a
-                                                href={item.img}
-                                                data-fancybox='images'
-                                                data-caption={item.name}
-                                            >
-                                                <Avatar
-                                                    src={item.img}
-                                                    width={75}
-                                                    height={100}
-                                                    alt='大頭貼'
-                                                    fallback={
-                                                        <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
-                                                            <IconUserCircle size={75} />
-                                                        </div>
-                                                    }
-                                                />
-                                            </a>
-                                        </Fancybox>
-                                        <div className='px-2 flex-grow'>
-                                            <div className='flex items-center space-x-1'>
-                                                <div>{item.userid}</div>
-                                                <Copy />
-                                            </div>
-                                            <div className='flex items-center space-x-1'>
-                                                <div>
-                                                    {item.name === "" ? "未填寫姓名" : item.name}
-                                                </div>
-                                                {item.name === "" ? "" : <Copy />}
-                                            </div>
-                                            <ClassName userid={item.userid} />
-                                            {/* {item.major === "" ? "未填寫系所" : item.major} */}
-                                            <div className='flex items-center space-x-1'>
-                                                <IconBrandLine />
-                                                <div>
-                                                    {item.lineid === ""
-                                                        ? "未填寫 Line ID"
-                                                        : item.lineid}
-                                                </div>
-                                                {item.lineid === "" ? "" : <Copy />}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
+                                return <Card key={item.userid} student={item} />
                             })
                         )}
                     {(isFetchingNextPage || !data) && !isError ? (
