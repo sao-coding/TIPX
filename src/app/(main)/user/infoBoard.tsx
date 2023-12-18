@@ -105,7 +105,7 @@ const InfoBoard = () => {
                                 ?.reduce((total, item) => {
                                     return total + Math.round(((item * 50) / 60) * 10) / 10
                                 }, 0)
-                                .toFixed(1).length > 4 ? (
+                                .toFixed(1).length >= 4 ? (
                                 <>
                                     {courseAttendanceRecordData?.total?.reduce((total, item) => {
                                         return total + Math.round((item * 50) / 60)
