@@ -18,7 +18,13 @@ const ClassName = ({ userid }: { userid: string }) => {
             {isLoading ? (
                 <div className='animate-pulse w-24 h-4 my-1 bg-gray-300 rounded-full' />
             ) : (
-                <div className=''>{data?.class}</div>
+                <>
+                    {data?.class !== "" ? (
+                        <div>{data?.class}</div>
+                    ) : (
+                        <div className='text-gray-400'>無班級</div>
+                    )}
+                </>
             )}
         </>
     )

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth"
 import authOptions from "@/lib/auth"
 import getUser from "@/utils/user"
 import getLineID from "@/utils/lineid"
+import getSearchAuth from "@/utils/search-auth"
 import { User } from "@/types"
 import {
     IconUserSearch,
@@ -46,6 +47,7 @@ const UserPage = async () => {
     const session = await getServerSession(authOptions)
     const userData: User = await getUser(session?.user.studentID as string)
     const lineID = await getLineID(session?.user.studentID as string)
+    const searchAuth = await getSearchAuth(session?.user.studentID as string)
     console.log(session)
 
     return (
@@ -55,7 +57,7 @@ const UserPage = async () => {
                 <InfoBoard />
                 <Weather />
                 <Switch />
-                {session?.user.provider === "credentials" && (
+                {searchAuth && (
                     <Link
                         href='/user/search'
                         className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'

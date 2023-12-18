@@ -1,5 +1,71 @@
 [
   {
+    "subject": "🐛 修復 用戶查詢卡片 錯誤",
+    "date": "2023-12-18T11:35:18.000Z",
+    "hash": "6c66c47e2b315cb56f211d8689734ec2e6277f0d",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 詳細用戶查詢內容",
+    "date": "2023-12-18T11:32:48.000Z",
+    "hash": "253c1efb997bcfaa27cfc30798fcc2f8d1b1a30b",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 copy 元件",
+    "date": "2023-12-18T11:31:46.000Z",
+    "hash": "8e0e18418b26efa9c513e7f0d93e62be77943d72",
+    "body": ""
+  },
+  {
+    "subject": "🗑️ 清理代碼",
+    "date": "2023-12-18T11:31:16.000Z",
+    "hash": "f3c308416a51e738b2adc24a6a996ca4f7c7cf24",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 用戶搜尋頁面 權限設置",
+    "date": "2023-12-18T09:35:06.000Z",
+    "hash": "fbc0ad274e19b62b1ef69bece5fd45f962563fbc",
+    "body": ""
+  },
+  {
+    "subject": "🚨 修復 資訊面板樣式錯誤",
+    "date": "2023-12-18T09:23:14.000Z",
+    "hash": "a579f7ac8eb4abc784c2c8a91372d0f828984578",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-18T06:48:04.000Z",
+    "hash": "dce8f943a92390af979f6ebbbffc0c43f1b0a536",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 loading 動畫到底部錯誤",
+    "date": "2023-12-18T06:48:04.000Z",
+    "hash": "b1b08151e102b50e420ddeddea68e85b55eb24b3",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 登入記錄 無限滾動錯誤",
+    "date": "2023-12-18T06:48:04.000Z",
+    "hash": "2c73d48b8c89a7759b3fd046e27c006fef828755",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 用戶搜尋頁面",
+    "date": "2023-12-18T06:47:31.000Z",
+    "hash": "cf84f184f356271ce1ddfff2ab8463ccea2ef41e",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-18T06:37:14.000Z",
+    "hash": "5b517c8d9cd4efa933e3ace0abbff44748cdc842",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 loading 動畫到底部錯誤",
     "date": "2023-12-18T06:36:54.000Z",
     "hash": "ae88e2c689f80633e02a64ca501691791bf6d55c",

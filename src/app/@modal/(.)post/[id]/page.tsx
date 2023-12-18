@@ -114,7 +114,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                                         </Link>
                                     </div>
                                 </div>
-                                <div className='md:h-[50vh] w-full md:overflow-y-auto  rounded-xl md:border'>
+                                <div className='md:h-[50vh] w-full md:overflow-y-auto rounded-xl md:border'>
                                     <div className='whitespace-pre-line break-words md:p-1'>
                                         {data.content}
                                     </div>
