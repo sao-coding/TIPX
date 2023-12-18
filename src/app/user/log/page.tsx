@@ -105,7 +105,6 @@ const LogPage = () => {
                             return (
                                 <div
                                     className='mb-2 rounded-xl border p-2 flex items-center relative'
-                                    ref={ref}
                                     key={data.id}
                                 >
                                     {/* <div>{data.id}</div> */}
