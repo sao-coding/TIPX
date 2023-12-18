@@ -16,7 +16,7 @@ const ClassName = ({ userid }: { userid: string }) => {
     return (
         <>
             {isLoading ? (
-                <div className='animate-pulse w-24 h-4 bg-gray-300 rounded-md' />
+                <div className='animate-pulse w-24 h-4 my-1 bg-gray-300 rounded-full' />
             ) : (
                 <div className=''>{data?.class}</div>
             )}
