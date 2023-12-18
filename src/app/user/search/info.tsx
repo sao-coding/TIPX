@@ -1,8 +1,17 @@
 "use client"
 
 import * as Dialog from "@radix-ui/react-dialog"
-import { IconX, IconIdBadge, IconLock } from "@tabler/icons-react"
+import {
+    IconX,
+    IconIdBadge,
+    IconLock,
+    IconDeviceMobile,
+    IconCake,
+    IconSchool,
+} from "@tabler/icons-react"
 import toCopy from "@/utils/copy"
+import formatDatetime from "@/utils/format-datetime"
+import Copy from "@/components/Copy"
 import { student } from "@prisma/client"
 
 const Info = ({ student }: { student: student }) => {
@@ -37,8 +46,30 @@ const Info = ({ student }: { student: student }) => {
                                 onClick={(e) => toCopy(e)}
                             >
                                 <IconLock />
-                                <span className='break-all'>{student.password}</span>
+                                <div>{student.password}</div>
                             </button>
+                        </div>
+                    </div>
+                    <div className='rounded-xl border p-1'>
+                        <div className='flex items-center space-x-1'>
+                            <IconDeviceMobile />
+                            <div>{student.phone}</div>
+                            <Copy />
+                        </div>
+                        <div className='flex items-center space-x-1'>
+                            <IconCake />
+                            {student.birthday ? (
+                                <>
+                                    <div>{formatDatetime(student.birthday, "birthday")}</div>
+                                    <Copy />
+                                </>
+                            ) : (
+                                <div className='text-gray-400'>未填寫生日</div>
+                            )}
+                        </div>
+                        <div className='flex items-center space-x-1'>
+                            <IconSchool />
+                            <div>{student.previousEducation}</div>
                         </div>
                     </div>
                     <div className='flex-1 w-full overflow-y-auto rounded-xl border'>
