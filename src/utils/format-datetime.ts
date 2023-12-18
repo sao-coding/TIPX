@@ -7,6 +7,25 @@ const formatDatetime = (datetime: string | Date, type: string) => {
     switch (type) {
         case "weather":
             return date.format("YYYY-MM-DDT00:00:00")
+        case "birthday":
+            if (typeof datetime === "string") {
+                let year = datetime.slice(0, 3)
+                if (year[0] === "0") {
+                    year = year.slice(1)
+                }
+                const month = datetime.slice(3, 5)
+                const day = datetime.slice(5, 7)
+
+                return `${year}-${month}-${day}`
+            } else {
+                return "YYYY-MM-DD"
+            }
+        case "date":
+            return date.format("YYYY-MM-DD")
+        case "time":
+            return date.format("HH:mm:ss")
+        case "datetime":
+            return date.format("YYYY-MM-DD HH:mm:ss")
         default:
             return date.format("YYYY-MM-DD HH:mm:ss")
     }
