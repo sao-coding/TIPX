@@ -79,4 +79,6 @@ const Card = React.forwardRef<HTMLDivElement, { student: student }>(({ student }
     )
 })
 
+Card.displayName = "Card"
+
 export default Card
