@@ -6,7 +6,7 @@ const formatDatetime = (datetime: string | Date, type: string) => {
 
     switch (type) {
         case "weather":
-            return date.format("YYYY-MM-DDT00:00:01")
+            return date.format("YYYY-MM-DDT00:00:00")
         case "birthday":
             if (typeof datetime === "string") {
                 let year = datetime.slice(0, 3)
