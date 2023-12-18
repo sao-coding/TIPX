@@ -71,8 +71,14 @@ const Card = React.forwardRef<HTMLDivElement, { student: student }>(({ student }
                 {/* {item.major} */}
                 <div className='flex items-center space-x-1'>
                     <IconBrandLine />
-                    <div>{student.lineid === "" ? "未填寫 Line ID" : student.lineid}</div>
-                    <Copy />
+                    {student.lineid !== "" ? (
+                        <>
+                            <div>{student.lineid}</div>
+                            <Copy />
+                        </>
+                    ) : (
+                        <div className='text-gray-400'>未填寫 Line ID</div>
+                    )}
                 </div>
             </div>
         </div>
