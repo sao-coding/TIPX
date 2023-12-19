@@ -3,7 +3,7 @@ import { useCallback, useRef } from "react"
 import Link from "next/link"
 import { IconShare2 } from "@tabler/icons-react"
 import Cookie from "js-cookie"
-import { OutTimeTable } from "@/types"
+import { TimeTable, OutTimeTable } from "@/types"
 import { site } from "@/config/site"
 import { toPng } from "html-to-image"
 import { useQuery } from "@tanstack/react-query"
@@ -46,8 +46,6 @@ import toast from "react-hot-toast"
 // }
 
 const TimeTablePage = () => {
-    // const data = await getData()
-
     const week = ["一", "二", "三", "四", "五", "六", "日"]
 
     const trackShareTimeTable = () => {
@@ -56,40 +54,35 @@ const TimeTablePage = () => {
         return data
     }
 
-    const { isLoading, isError, data } = useQuery<OutTimeTable>({
+    const { isLoading, data } = useQuery<OutTimeTable>({
         queryKey: ["timetable"],
         queryFn: async () => {
-            const res = await fetch(`${site.url}/api/timetable`, {
+            const res = await fetch(`${site.url}/api/timetable?type=all`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${Cookie.get("token")}`,
                 },
             })
 
-            // if (!res.ok) {
-            //     throw new Error("獲取資料失敗")
-            // }
-
-            const data = await res.json()
+            const data: TimeTable[] = await res.json()
 
             let timeTable: OutTimeTable = {
                 week: [],
                 timetable: [],
             }
 
-            if (!data.error) {
-                for (let i = 0; i < 7; i++) {
-                    timeTable.week.push(Object.keys(data)[i])
-                }
+            for (let i = 0; i < 7; i++) {
+                timeTable.week.push(data[i].week)
+            }
 
-                for (let i = 0; i < 14; i++) {
-                    timeTable.timetable.push([])
-                    for (let j = 0; j < 7; j++) {
-                        timeTable.timetable[i].push(data[timeTable.week[j]][i])
-                    }
+            for (let i = 0; i < 14; i++) {
+                timeTable.timetable.push([])
+                for (let j = 0; j < 7; j++) {
+                    timeTable.timetable[i].push(data[j].timetable[i])
                 }
             }
+
+            console.log("timetable", timeTable)
 
             return timeTable
         },
@@ -227,32 +220,20 @@ const TimeTablePage = () => {
                                                     <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
                                                         <div>{i + 1}</div>
                                                     </div>
-
-                                                    {item.map((value, index) => (
-                                                        // <div className='text-center' key={index}>
-                                                        //     {item}
-                                                        // </div>
-                                                        <div key={index}>
-                                                            {index !== 0 && (
-                                                                <>
-                                                                    {index === 1 ? (
-                                                                        <div className='text-center rounded-lg hover:bg-main-color-2'>
-                                                                            <Link
-                                                                                href={`/course/${item[0]}?tab=規範`}
-                                                                                className='text-blue-500 border-b-2 border-main-color-2'
-                                                                            >
-                                                                                {value}
-                                                                            </Link>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className='text-center'>
-                                                                            {value}
-                                                                        </div>
-                                                                    )}
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    ))}
+                                                    <div className='text-center rounded-lg hover:bg-main-color-2'>
+                                                        <Link
+                                                            href={`/course/${item.id}?tab=規範`}
+                                                            className='text-blue-500 border-b-2 border-main-color-2'
+                                                        >
+                                                            {item.course}
+                                                        </Link>
+                                                    </div>
+                                                    <div className='text-center'>
+                                                        {item.classroom}
+                                                    </div>
+                                                    <div className='text-center'>
+                                                        {item.teacher}
+                                                    </div>
                                                 </div>
                                             ))}
                                     </div>

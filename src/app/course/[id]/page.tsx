@@ -16,7 +16,7 @@ const CoursePage = async ({ params }: { params: { id: string } }) => {
     )) as Course
 
     const title = {
-        title: course.name,
+        title: course.course,
         position: "text-center",
         close: true,
     }

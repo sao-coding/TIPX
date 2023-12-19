@@ -12,6 +12,7 @@ import {
 import toCopy from "@/utils/copy"
 import formatDatetime from "@/utils/format-datetime"
 import Copy from "@/components/Copy"
+import Location from "./location"
 import { student } from "@prisma/client"
 
 const Info = ({ student }: { student: student }) => {
@@ -50,7 +51,8 @@ const Info = ({ student }: { student: student }) => {
                             </button>
                         </div>
                     </div>
-                    <div className='rounded-xl border p-1'>
+                    <Location userid={student.userid} />
+                    <div className='rounded-xl border p-2'>
                         <div className='flex items-center space-x-1'>
                             <IconDeviceMobile />
                             <div>{student.phone}</div>
@@ -72,8 +74,8 @@ const Info = ({ student }: { student: student }) => {
                             <div>{student.previousEducation}</div>
                         </div>
                     </div>
-                    <div className='flex-1 w-full overflow-y-auto rounded-xl border'>
-                        <div className='whitespace-pre-line break-words p-1'>
+                    <div className='flex-1 w-full overflow-y-auto rounded-xl border p-2'>
+                        <div className='whitespace-pre-line break-words'>
                             {/* 減去 \n, \r, \t, \v, \f, \0, \b, \u2028, \u2029 等空白字元 後沒有內容 */}
                             {student.desc.replace(/[\s\u2028\u2029]+/g, "").length === 0 ? (
                                 <div className='text-gray-400'>無資料</div>

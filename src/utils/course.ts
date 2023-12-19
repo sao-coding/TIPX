@@ -8,12 +8,12 @@ const getCourse = async (
     year: string,
     sem: string,
 
-    course?: string
+    courseID?: string
 ) => {
     const courselist: Course[] = []
 
     let res
-    if (course === undefined) {
+    if (courseID === undefined) {
         res = await fetch("https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php", {
             headers: {
                 cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
@@ -21,12 +21,15 @@ const getCourse = async (
             },
         })
     } else {
-        res = await fetch(`https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${course}`, {
-            headers: {
-                cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        })
+        res = await fetch(
+            `https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${courseID}`,
+            {
+                headers: {
+                    cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
+                    Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+                },
+            }
+        )
     }
 
     const buffer = await res.arrayBuffer()
@@ -34,7 +37,7 @@ const getCourse = async (
     const dom = new JSDOM(html)
     const document = dom.window.document
 
-    if (course === undefined) {
+    if (courseID === undefined) {
         const rows = Array.from(document.querySelectorAll("table tbody tr:not(:first-child)"))
 
         for (let i = 0; i < rows.length; i++) {
@@ -45,7 +48,7 @@ const getCourse = async (
                 const id = link?.split("=")[1]
                 courselist.push({
                     id: id ?? "",
-                    name: list ?? "",
+                    course: list ?? "",
                     teacher: await getCourseTeacher(userid, year, sem, id ?? ""),
                 })
             }
@@ -57,8 +60,8 @@ const getCourse = async (
             .querySelector("font[color='#800000']")
             ?.textContent?.replace("目前無公告資訊!!", "")
         return {
-            id: course,
-            name: name ?? "",
+            id: courseID,
+            course: name ?? "",
         } as Course
     }
 }
