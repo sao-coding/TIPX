@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
 import { IconMapPin, IconBook2, IconUserStar } from "@tabler/icons-react"
+import clsx from "clsx"
 import formatDatetime from "@/utils/format-datetime"
 import { Course } from "@/types"
 
@@ -23,20 +24,26 @@ const Location = ({ userid }: { userid: string }) => {
     })
 
     return (
-        <div className='flex flex-col space-y-2 border rounded-xl p-1'>
+        <div className='flex flex-col space-y-2 border rounded-xl p-2'>
             <div className='flex items-center space-x-1'>
                 <IconMapPin />
-                <span>目前位置</span>
-                {/* <div>{data?.classroom}</div> */}
+                {/* <span>目前位置</span> */}
                 {isLoading ? (
                     <div className='animate-pulse rounded-full bg-gray-200 m-1 p-1 h-4 w-16' />
                 ) : (
-                    <div>{data?.classroom}</div>
+                    <div
+                        className={clsx(
+                            data?.classroom === "行蹤不明" ? "bg-red-500" : "bg-orange-500",
+                            "text-white rounded-md px-1"
+                        )}
+                    >
+                        {data?.classroom}
+                    </div>
                 )}
             </div>
             <div className='flex items-center space-x-1'>
                 <IconBook2 />
-                <span>課程</span>
+                {/* <span>課程</span> */}
                 {isLoading ? (
                     <div className='animate-pulse rounded-full bg-gray-200 m-1 p-1 h-4 w-24' />
                 ) : (
@@ -52,7 +59,7 @@ const Location = ({ userid }: { userid: string }) => {
             </div>
             <div className='flex items-center space-x-1'>
                 <IconUserStar />
-                <span>教師</span>
+                {/* <span>教師</span> */}
                 {isLoading ? (
                     <div className='animate-pulse rounded-full bg-gray-200 m-1 p-1 h-4 w-14' />
                 ) : (
