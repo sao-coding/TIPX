@@ -157,7 +157,7 @@ export const GET = async (req: NextRequest) => {
                 id: "",
                 course: "沒有課程",
                 classroom: "行蹤不明",
-                teacher: "XXX",
+                teacher: "###",
             })
         }
 
@@ -166,7 +166,7 @@ export const GET = async (req: NextRequest) => {
                 id: "",
                 course: "沒有課程",
                 classroom: "行蹤不明",
-                teacher: "XXX",
+                teacher: "###",
             })
         }
         return NextResponse.json(timeTable[day - 1].timetable[nowCourse])
