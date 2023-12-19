@@ -14,15 +14,15 @@ export const GET = async (req: NextRequest) => {
     const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
     const userid = searchParams.get("userid") ?? session?.user.studentID
 
-    const timeTable: TimeTable = {
-        星期一: [],
-        星期二: [],
-        星期三: [],
-        星期四: [],
-        星期五: [],
-        星期六: [],
-        星期日: [],
-    }
+    const timeTable: TimeTable[] = [
+        { week: "星期一", timetable: [] },
+        { week: "星期二", timetable: [] },
+        { week: "星期三", timetable: [] },
+        { week: "星期四", timetable: [] },
+        { week: "星期五", timetable: [] },
+        { week: "星期六", timetable: [] },
+        { week: "星期日", timetable: [] },
+    ]
 
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
         headers: {
@@ -44,19 +44,19 @@ export const GET = async (req: NextRequest) => {
         const cells = Array.from(row.querySelectorAll("td:not(:first-child)"))
 
         cells.forEach((cell, index) => {
-            const day = Object.keys(timeTable)[index] as keyof TimeTable
             const daylist = cell.innerHTML.replace(/<font size="2">|<\/font>/g, "").split("<br>")
             if (daylist[0] === ".") {
-                timeTable[day].push(["", "", "", ""])
+                timeTable[index].timetable.push({ id: "", course: "", classroom: "", teacher: "" })
             } else {
-                timeTable[day].push(daylist)
+                timeTable[index].timetable.push({
+                    id: daylist[0],
+                    course: daylist[1],
+                    classroom: daylist[2],
+                    teacher: daylist[3],
+                })
             }
         })
     })
 
-    // console.log(weekList)
     return NextResponse.json(timeTable)
-    // }
-
-    // fetchData()
 }
