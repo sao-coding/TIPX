@@ -12,6 +12,7 @@ import {
 import toCopy from "@/utils/copy"
 import formatDatetime from "@/utils/format-datetime"
 import Copy from "@/components/Copy"
+import Location from "./location"
 import { student } from "@prisma/client"
 
 const Info = ({ student }: { student: student }) => {
@@ -50,6 +51,7 @@ const Info = ({ student }: { student: student }) => {
                             </button>
                         </div>
                     </div>
+                    <Location userid={student.userid} />
                     <div className='rounded-xl border p-1'>
                         <div className='flex items-center space-x-1'>
                             <IconDeviceMobile />
