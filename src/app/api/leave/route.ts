@@ -169,7 +169,7 @@ export const GET = async (req: NextRequest) => {
                 //     sem ?? "",
                 //     item?.getAttribute("value") ?? ""
                 // ))?.name as string,
-                name: course?.name ?? "",
+                name: course?.course ?? "",
                 value: item?.getAttribute("name") ?? "",
             })
         }
@@ -226,12 +226,12 @@ export const GET = async (req: NextRequest) => {
                             item?.querySelector("td:nth-child(7)")?.textContent === "已核可"
                                 ? "已核可"
                                 : item?.querySelector("td:nth-child(7)")?.textContent === "審核中"
-                                ? "審核中"
-                                : item?.querySelector("td:nth-child(7)")?.textContent === "請來談"
-                                ? "請來談"
-                                : item?.querySelector("td:nth-child(7)")?.textContent === "退件"
-                                ? "退件"
-                                : "",
+                                  ? "審核中"
+                                  : item?.querySelector("td:nth-child(7)")?.textContent === "請來談"
+                                    ? "請來談"
+                                    : item?.querySelector("td:nth-child(7)")?.textContent === "退件"
+                                      ? "退件"
+                                      : "",
                     })
                 }
             }
