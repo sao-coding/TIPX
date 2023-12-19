@@ -130,7 +130,8 @@ export const GET = async (req: NextRequest) => {
         // 轉換 time ISO格式 為 08:20 格式
 
         const date = time.split(" ")[0]
-        const now = time.split(" ")[1]
+        // 取消秒數
+        const now = time.split(" ")[1].slice(0, 5)
         // const now = "09:40"
 
         // 先比較日期是否是六日
@@ -145,14 +146,28 @@ export const GET = async (req: NextRequest) => {
         const nowCourse = timeList.findIndex((time) => {
             const start = time.start
             const end = time.end
-
             return now >= start && now <= end
         })
 
         // 若有則輸出該課程
         // 若 timeTable[day - 1].timetable[nowCourse].classroom === "" 則輸出 行蹤不明
+
+        if (nowCourse === -1) {
+            return NextResponse.json({
+                id: "",
+                course: "沒有課程",
+                classroom: "行蹤不明",
+                teacher: "XXX",
+            })
+        }
+
         if (timeTable[day - 1].timetable[nowCourse].classroom === "") {
-            return NextResponse.json({ id: "", course: "", classroom: "行蹤不明", teacher: "" })
+            return NextResponse.json({
+                id: "",
+                course: "沒有課程",
+                classroom: "行蹤不明",
+                teacher: "XXX",
+            })
         }
         return NextResponse.json(timeTable[day - 1].timetable[nowCourse])
     }
