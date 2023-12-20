@@ -1,6 +1,6 @@
 import React from "react"
 import clsx from "clsx"
-import { IconUserCircle, IconBrandLine } from "@tabler/icons-react"
+import { IconUserCircle, IconBrandLine, IconGenderBigender } from "@tabler/icons-react"
 import Avatar from "@/components/ui/avatar"
 import Fancybox from "@/components/fancybox"
 import Copy from "@/components/Copy"
@@ -62,6 +62,14 @@ const Card = React.forwardRef<HTMLDivElement, { student: student }>(({ student }
                             </>
                         ) : (
                             <div className='text-gray-400'>未填寫姓名</div>
+                        )}
+                        <IconGenderBigender />
+                        {student.gender !== "" ? (
+                            <>
+                                <div>{student.gender}</div>
+                            </>
+                        ) : (
+                            <div className='text-gray-400'>未知</div>
                         )}
                     </div>
                     <Info student={student} />
