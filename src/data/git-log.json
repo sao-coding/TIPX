@@ -1,5 +1,17 @@
 [
   {
+    "subject": "🐛 修復 複製問題",
+    "date": "2023-12-22T09:08:44.000Z",
+    "hash": "8a59d42e2326d3d9d377caa74db74a318c1d0375",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-20T09:30:22.000Z",
+    "hash": "177cdb2d40ff17cdb8604ab4196cb88e4973f7e8",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增 複雜搜索",
     "date": "2023-12-20T09:30:11.000Z",
     "hash": "c372be897c7684adeef6dfb26fdbf54eacbb13d6",
