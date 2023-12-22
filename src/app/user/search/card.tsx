@@ -55,14 +55,16 @@ const Card = React.forwardRef<HTMLDivElement, { student: student }>(({ student }
                 </div>
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center space-x-1'>
-                        {student.name !== "" ? (
-                            <>
-                                <div>{student.name}</div>
-                                <Copy />
-                            </>
-                        ) : (
-                            <div className='text-gray-400'>未填寫姓名</div>
-                        )}
+                        <div className='flex items-center space-x-1'>
+                            {student.name !== "" ? (
+                                <>
+                                    <div>{student.name}</div>
+                                    <Copy />
+                                </>
+                            ) : (
+                                <div className='text-gray-400'>未填寫姓名</div>
+                            )}
+                        </div>
                         <IconGenderBigender />
                         {student.gender !== "" ? (
                             <>
