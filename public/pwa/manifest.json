@@ -5,6 +5,7 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/user",
+    "id": "/?utm_source=pwa",
     "name": "TIPX",
     "short_name": "TIPX",
     "description": "學生資訊系統",
