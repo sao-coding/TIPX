@@ -18,7 +18,7 @@
         "client_mode": "auto"
     },
     "dir": "auto",
-    "orientation": "any",
+    "orientation": "portrait-primary",
     "categories": [
         "education"
     ],
