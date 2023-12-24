@@ -1,13 +1,21 @@
 {
     "lang": "zh-Hant-TW",
     "theme_color": "#f8fafc",
-    "background_color": "#f69435",
+    "background_color": "#91430e",
     "display": "standalone",
     "scope": "/",
     "start_url": "/user",
     "name": "TIPX",
     "short_name": "TIPX",
     "description": "學生資訊系統",
+    "dir": "auto",
+    "orientation": "any",
+    "categories": [
+        "education"
+    ],
+    "edge_side_panel": {
+        "preferred_width": 0
+    },
     "icons": [
         {
             "src": "/pwa/android-chrome-192x192.png",
