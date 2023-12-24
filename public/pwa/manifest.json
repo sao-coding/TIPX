@@ -4,6 +4,7 @@
     "background_color": "#91430e",
     "display": "standalone",
     "display_override": [
+        "window-controls-overlay",
         "standalone"
     ],
     "scope": "/",
@@ -17,7 +18,7 @@
         "client_mode": "auto"
     },
     "dir": "auto",
-    "orientation": "any",
+    "orientation": "portrait-primary",
     "categories": [
         "education"
     ],
