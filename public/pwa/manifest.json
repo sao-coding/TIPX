@@ -4,6 +4,7 @@
     "background_color": "#91430e",
     "display": "standalone",
     "display_override": [
+        "window-controls-overlay",
         "standalone"
     ],
     "scope": "/",
