@@ -219,7 +219,7 @@ const SendCP = ({ user }: { user: User }) => {
             navigator.serviceWorker.ready.then((registration) => {
                 registration.showNotification("通知訊息", {
                     body: "您已開啟通知",
-                    icon: "/pwa/android-chrome-192x192.png",
+                    icon: "/pwa/android-launchericon-192-192.png",
                     vibrate: [200, 100, 200, 100, 200, 100, 200],
                     tag: "notification",
                     renotify: true,

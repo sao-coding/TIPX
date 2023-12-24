@@ -23,14 +23,28 @@
     },
     "icons": [
         {
-            "src": "/pwa/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
+            "src": "/pwa/android-launchericon-512-512.png",
+            "sizes": "512x512"
         },
         {
-            "src": "/pwa/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "src": "/pwa/android-launchericon-192-192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/pwa/android-launchericon-144-144.png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "/pwa/android-launchericon-96-96.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "/pwa/android-launchericon-72-72.png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "/pwa/android-launchericon-48-48.png",
+            "sizes": "48x48"
         }
     ],
     "shortcuts": [
