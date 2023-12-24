@@ -8,6 +8,9 @@
     "name": "TIPX",
     "short_name": "TIPX",
     "description": "學生資訊系統",
+    "launch_handler": {
+        "client_mode": "auto"
+    },
     "dir": "auto",
     "orientation": "any",
     "categories": [
