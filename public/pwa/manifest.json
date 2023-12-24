@@ -3,6 +3,9 @@
     "theme_color": "#f8fafc",
     "background_color": "#91430e",
     "display": "standalone",
+    "display_override": [
+        "standalone"
+    ],
     "scope": "/",
     "start_url": "/user",
     "id": "/?utm_source=pwa",
