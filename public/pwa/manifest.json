@@ -62,5 +62,39 @@
                 }
             ]
         }
+    ],
+    "screenshots": [
+        {
+            "src": "/pwa/screenshot-1.jpg",
+            "sizes": "1080x2400",
+            "type": "image/jpg",
+            "platform": "android",
+            "form_factor": "narrow",
+            "label": "首頁"
+        },
+        {
+            "src": "/pwa/screenshot-2.jpg",
+            "sizes": "1080x2400",
+            "type": "image/jpg",
+            "platform": "android",
+            "form_factor": "narrow",
+            "label": "課表"
+        },
+        {
+            "src": "/pwa/screenshot-3.jpg",
+            "sizes": "1080x2400",
+            "type": "image/jpg",
+            "platform": "android",
+            "form_factor": "narrow",
+            "label": "課程"
+        },
+        {
+            "src": "/pwa/screenshot-4.jpg",
+            "sizes": "1080x2400",
+            "type": "image/jpg",
+            "platform": "android",
+            "form_factor": "narrow",
+            "label": "個人"
+        }
     ]
 }
