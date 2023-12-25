@@ -36,23 +36,25 @@ export const GET = async (req: NextRequest) => {
 
     let student: student[] = []
 
-    if (type === "simple") {
-        search = `%${search}%`
-        student =
-            await prisma.$queryRaw`SELECT * FROM student WHERE userid LIKE ${search} OR name LIKE ${search} ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
-    } else if (type === "complex") {
-        // 若有 undefined 則不加入搜尋條件
-        console.log(studentList)
-        for (let i = 0; i < studentList.length; i++) {
-            if (studentList[i] === undefined || studentList[i] === "") {
-                studentList[i] = "%"
-            } else {
-                studentList[i] = `%${studentList[i]}%`
+    if (search.length > 0) {
+        if (type === "simple") {
+            search = `%${search}%`
+            student =
+                await prisma.$queryRaw`SELECT * FROM student WHERE userid LIKE ${search} OR name LIKE ${search} ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
+        } else if (type === "complex") {
+            // 若有 undefined 則不加入搜尋條件
+            console.log(studentList)
+            for (let i = 0; i < studentList.length; i++) {
+                if (studentList[i] === undefined || studentList[i] === "") {
+                    studentList[i] = "%"
+                } else {
+                    studentList[i] = `%${studentList[i]}%`
+                }
             }
+            console.log(studentList)
+            student =
+                await prisma.$queryRaw`SELECT * FROM student WHERE (userid LIKE ${studentList[0]} AND gender LIKE ${studentList[1]} AND name LIKE ${studentList[2]}) ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
         }
-        console.log(studentList)
-        student =
-            await prisma.$queryRaw`SELECT * FROM student WHERE (userid LIKE ${studentList[0]} AND gender LIKE ${studentList[1]} AND name LIKE ${studentList[2]}) ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
     }
 
     return NextResponse.json(student)
