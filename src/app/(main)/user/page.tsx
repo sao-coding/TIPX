@@ -63,7 +63,7 @@ const UserPage = async () => {
                         className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                     >
                         <div className='flex items-center'>
-                            <IconUserSearch />
+                            <IconUserSearch className='stroke-red-500' />
                             <div className='ml-2'>查詢用戶</div>
                         </div>
                     </Link>
@@ -73,7 +73,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconUser />
+                        <IconUser className='stroke-orange-500' />
                         <div className='ml-2'>個人資料</div>
                     </div>
                 </Link>
@@ -82,7 +82,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconClipboardPlus />
+                        <IconClipboardPlus className='stroke-blue-500' />
                         <div className='ml-2'>線上請假</div>
                     </div>
                 </Link>
@@ -91,7 +91,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconClipboardList />
+                        <IconClipboardList className='stroke-red-500' />
                         <div className='ml-2'>請假缺曠記錄</div>
                     </div>
                 </Link>
@@ -100,7 +100,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconCoins />
+                        <IconCoins className='stroke-yellow-500' />
                         <div className='ml-2'>學分資訊</div>
                     </div>
                 </Link>
@@ -109,7 +109,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconAntennaBars5 />
+                        <IconAntennaBars5 className='stroke-rose-500' />
                         <div className='ml-2'>科目成績</div>
                     </div>
                 </Link>
@@ -118,7 +118,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconLayoutDashboard />
+                        <IconLayoutDashboard className='stroke-purple-500' />
                         <div className='ml-2'>學期-操行 成績</div>
                     </div>
                 </Link>
@@ -127,7 +127,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconList />
+                        <IconList className='stroke-pink-500' />
                         <div className='ml-2'>班級名單</div>
                     </div>
                 </Link>
@@ -136,7 +136,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconArrowBadgeDown />
+                        <IconArrowBadgeDown className='stroke-emerald-500' />
                         <div className='ml-2'>班級排名</div>
                     </div>
                 </Link>
@@ -145,7 +145,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconBadges />
+                        <IconBadges className='stroke-teal-500' />
                         <div className='ml-2'>系排名</div>
                     </div>
                 </Link>
@@ -154,7 +154,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconMessageCircle />
+                        <IconMessageCircle className='stroke-blue-500' />
                         <div className='ml-2'>聊天</div>
                     </div>
                 </Link>
@@ -164,7 +164,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center space-x-2'>
-                        <IconHistory />
+                        <IconHistory className='stroke-indigo-500' />
                         <div className='ml-2'>更新日誌</div>
                     </div>
                 </Link>
@@ -175,7 +175,7 @@ const UserPage = async () => {
                             className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                         >
                             <div className='flex items-center'>
-                                <IconNotes />
+                                <IconNotes className='stroke-orange-500' />
                                 <div className='ml-2'>日誌中心</div>
                             </div>
                         </Link>
@@ -186,7 +186,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconBrandGoogleAnalytics />
+                        <IconBrandGoogleAnalytics className='stroke-sky-400' />
                         <div className='ml-2'>網站數據統計</div>
                     </div>
                 </Link>
@@ -195,7 +195,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconActivity />
+                        <IconActivity className='stroke-red-500' />
                         <div className='ml-2'>系統狀態</div>
                     </div>
                 </Link>
@@ -204,7 +204,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconInfoCircle />
+                        <IconInfoCircle className='stroke-blue-500' />
                         <div className='ml-2'>關於</div>
                     </div>
                 </Link>
