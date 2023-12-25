@@ -68,7 +68,7 @@ const Weather = () => {
                                         return (
                                             <div
                                                 key={item.elementName}
-                                                className='text-2xl font-bold'
+                                                className='ml-1'
                                             >
                                                 {item.time[nowTime("MaxT")].elementValue[0].value}
                                             </div>
@@ -85,7 +85,7 @@ const Weather = () => {
                                 {data?.map((item) => {
                                     if (item.elementName === "MinT") {
                                         return (
-                                            <div key={item.elementName} className='ml-1'>
+                                            <div key={item.elementName}>
                                                 {item.time[nowTime("MinT")].elementValue[0].value}
                                             </div>
                                         )
