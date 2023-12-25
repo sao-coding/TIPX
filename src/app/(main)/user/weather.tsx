@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { IconTemperature, IconDropletHalf2Filled, IconLoader2 } from "@tabler/icons-react"
+import { IconTemperature, IconCloudRain, IconLoader2 } from "@tabler/icons-react"
 import formatDatetime from "@/utils/format-datetime"
 import { Weather } from "@/types"
 
@@ -56,7 +56,7 @@ const Weather = () => {
     return (
         <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
             <div className='flex items-center justify-between'>
-                <div className='flex items-center space-x-0.5'>
+                <div className='flex items-center'>
                     <IconTemperature className='text-red-500' />
                     <div className='text-2xl font-bold flex items-center'>
                         {isLoading ? (
@@ -85,7 +85,7 @@ const Weather = () => {
                                 {data?.map((item) => {
                                     if (item.elementName === "MinT") {
                                         return (
-                                            <div key={item.elementName}>
+                                            <div key={item.elementName} className='ml-1'>
                                                 {item.time[nowTime("MinT")].elementValue[0].value}
                                             </div>
                                         )
@@ -103,9 +103,9 @@ const Weather = () => {
                 </div>
             </div>
             <div className='flex items-center'>
-                <div className='flex items-center space-x-0.5'>
+                <div className='flex items-center'>
                     {/* 降雨機率 */}
-                    <IconDropletHalf2Filled className='text-blue-500' />
+                    <IconCloudRain className='text-blue-500' />
                     {isLoading ? (
                         <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
@@ -113,7 +113,7 @@ const Weather = () => {
                             {data?.map((item) => {
                                 if (item.elementName === "PoP12h") {
                                     return (
-                                        <div key={item.elementName}>
+                                        <div key={item.elementName} className='ml-1'>
                                             {item.time[nowTime("PoP12h")].elementValue[0].value}
                                         </div>
                                     )

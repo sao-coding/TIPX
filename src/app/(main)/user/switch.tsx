@@ -140,7 +140,7 @@ const Switch = () => {
                 aria-controls='下拉選單'
             >
                 <Select.Icon asChild>
-                    <IconSelector className='mr-2' />
+                    <IconSelector className='mr-2 stroke-purple-500' />
                 </Select.Icon>
                 <Select.Value>
                     {isLoading ? (

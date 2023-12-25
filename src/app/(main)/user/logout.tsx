@@ -29,7 +29,7 @@ const Logout = () => {
             }}
         >
             <div className='flex items-center'>
-                <IconLogout />
+                <IconLogout className='stroke-red-500' />
                 <div className='ml-2'>登出</div>
             </div>
         </div>

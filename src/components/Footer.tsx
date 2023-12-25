@@ -70,9 +70,9 @@ const Footer = () => {
                         className={cx(
                             "stroke-black/80",
                             pathname.startsWith(link.href) && link.href !== "/"
-                                ? "fill-main-color-3/70 stroke-black stroke-2"
+                                ? "fill-main-color-3 stroke-black stroke-2"
                                 : link.href === "/" && pathname === "/"
-                                  ? "fill-main-color-3/70 stroke-black stroke-2"
+                                  ? "fill-main-color-3 stroke-black stroke-2"
                                   : ""
                         )}
                     />

@@ -56,7 +56,7 @@ const InfoBoard = () => {
                 <div className='flex items-center justify-between'>
                     <div>缺曠次數</div>
                     <div>
-                        <IconListDetails size={20} />
+                        <IconListDetails size={20} className='stroke-blue-500' />
                     </div>
                 </div>
                 <div className='flex items-center text-2xl'>
@@ -77,7 +77,7 @@ const InfoBoard = () => {
                 <div className='flex items-center justify-between'>
                     <div>缺曠時數</div>
                     <div>
-                        <IconClock size={20} />
+                        <IconClock size={20} className='stroke-green-500' />
                     </div>
                 </div>
                 <div className='flex items-center text-2xl'>
@@ -129,7 +129,7 @@ const InfoBoard = () => {
                 <div className='flex items-center justify-between'>
                     <div>目前操行</div>
                     <div>
-                        <IconUserStar size={20} />
+                        <IconUserStar size={20} className='stroke-yellow-500' />
                     </div>
                 </div>
                 <div className='text-2xl'>{conductData.score}分</div>

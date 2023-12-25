@@ -49,7 +49,7 @@ const Notify = () => {
         >
             <div className='flex items-center justify-between'>
                 <div className='flex items-center'>
-                    <IconBell />
+                    <IconBell className='stroke-amber-500' />
                     <div className='ml-2'>訂閱系統通知</div>
                 </div>
                 <div>
