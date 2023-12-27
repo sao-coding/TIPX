@@ -1,5 +1,89 @@
 [
   {
+    "subject": "💄 修改 班系排 icon",
+    "date": "2023-12-27T03:33:57.000Z",
+    "hash": "a24a7ba6b4e88d10efb8bdb6b77b3e93f2dbde23",
+    "body": ""
+  },
+  {
+    "subject": "♻️  清理代碼 & ✅ 修復搜索效能",
+    "date": "2023-12-25T20:13:54.000Z",
+    "hash": "2c6ee442f2410cf8ba451724851b3bfa7985ba15",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 天氣元件樣式",
+    "date": "2023-12-25T07:36:26.000Z",
+    "hash": "cdc96355c2d4721d566c245ef32f2db868628f85",
+    "body": ""
+  },
+  {
+    "subject": "💄 修改 icon 顏色",
+    "date": "2023-12-25T04:42:11.000Z",
+    "hash": "36a32b22334a5698e29404c1bee8b2d600771198",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新manifest.json 文件",
+    "date": "2023-12-24T20:06:32.000Z",
+    "hash": "4130ddcd76a27787a0c3cb6496210c000eb93e58",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T17:11:21.000Z",
+    "hash": "826c4b1fa88709cd67f655224416423e677b9c72",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T17:07:46.000Z",
+    "hash": "997941c6c9612eca3781c9cd872e17eff0e6abc6",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T16:56:42.000Z",
+    "hash": "1829fcd662f9a342f2ed552f647c579564265f70",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T16:28:29.000Z",
+    "hash": "cee1cd2f9c737f00c15f44714b552ee08437355e",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T16:19:06.000Z",
+    "hash": "3f4819c0494ad9ad43d05c5a99730df71784db23",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T16:05:49.000Z",
+    "hash": "d8596ab47397d4407f8315eabaacf11817335b1f",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T15:59:43.000Z",
+    "hash": "5fd9aeb1b0a7a7addc31788b7d1a748b29fa58f3",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 manifest.json 文件",
+    "date": "2023-12-24T15:37:41.000Z",
+    "hash": "8ffe9edc8d54835f9e1f4bfea8b92614f31487fe",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-22T09:09:06.000Z",
+    "hash": "17d8954eccbeada6d89d0ec24f67992515d4b21e",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 複製問題",
     "date": "2023-12-22T09:08:44.000Z",
     "hash": "8a59d42e2326d3d9d377caa74db74a318c1d0375",
