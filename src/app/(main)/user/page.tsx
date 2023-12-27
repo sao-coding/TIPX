@@ -136,7 +136,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconArrowBadgeDown className='stroke-emerald-500' />
+                        <IconArrowBadgeDown className='stroke-emerald-500 rotate-180' />
                         <div className='ml-2'>班級排名</div>
                     </div>
                 </Link>
@@ -145,7 +145,7 @@ const UserPage = async () => {
                     className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
                 >
                     <div className='flex items-center'>
-                        <IconBadges className='stroke-teal-500' />
+                        <IconBadges className='stroke-teal-500 rotate-180' />
                         <div className='ml-2'>系排名</div>
                     </div>
                 </Link>
