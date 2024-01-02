@@ -1,5 +1,29 @@
 [
   {
+    "subject": "✨ 新增 刪除確認 & 修改 日期格式",
+    "date": "2024-01-02T15:27:18.000Z",
+    "hash": "c38147c198cda77d1d632dcabb3c0869ff77604f",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 期中考過後 往年科目學期成績不顯示問題",
+    "date": "2023-12-28T14:34:59.000Z",
+    "hash": "8e010bd7760aea17883610c69af789c37922d3cb",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2023-12-27T05:10:24.000Z",
+    "hash": "b2c29d7ac299882a620befcbdd0792fa54c0ac1c",
+    "body": ""
+  },
+  {
+    "subject": "🔧 新增 vercel 設定檔",
+    "date": "2023-12-27T05:10:20.000Z",
+    "hash": "b6bfbf42ce051412c1c6afab0263241a1b50b061",
+    "body": ""
+  },
+  {
     "subject": "💄 修改 班系排 icon",
     "date": "2023-12-27T03:33:57.000Z",
     "hash": "a24a7ba6b4e88d10efb8bdb6b77b3e93f2dbde23",
