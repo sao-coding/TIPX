@@ -1,18 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import Cookie from "js-cookie"
 import clsx from "clsx"
-import toast from "react-hot-toast"
+import formatDatetime from "@/utils/format-datetime"
 import { IconArrowsMoveVertical } from "@tabler/icons-react"
 import { Listbox } from "@headlessui/react"
+import Delete from "./delete"
 import { LeaveItemCheck } from "@/types"
 
 const List = () => {
     // 目前台灣月份 new Date().getMonth() + 1補0
     const [month, setMonth] = useState(`${new Date().getMonth() + 1}`.padStart(2, "0"))
-    const queryClient = useQueryClient()
     const { isLoading, isError, data } = useQuery<LeaveItemCheck[]>({
         queryKey: ["leaveList", month],
         queryFn: async () => {
@@ -38,31 +38,16 @@ const List = () => {
         退件: "bg-red-500",
     }
 
-    const formatDate = (date: string) => {
-        // 1120915(五) -> 2023/09/15(五)
+    // const formatDate = (date: string) => {
+    //     // 1120915(五) -> 2023/09/15(五)
 
-        const year = date.slice(0, 3)
-        const month = date.slice(3, 5)
-        const day = date.slice(5, 7)
-        const week = date.slice(8, 9)
+    //     const year = date.slice(0, 3)
+    //     const month = date.slice(3, 5)
+    //     const day = date.slice(5, 7)
+    //     const week = date.slice(8, 9)
 
-        return `${year}/${month}/${day} (${week})`
-    }
-
-    const deleteLeave = async (id: string) => {
-        const toastId = toast.loading("刪除中...")
-        const res = await fetch(`/api/leave`, {
-            method: "DELETE",
-            body: JSON.stringify({ id }),
-        })
-        const data = await res.json()
-        if (!res.ok) {
-            toast.error(data.message)
-            return
-        }
-        toast.success(data.message, { id: toastId })
-        queryClient.invalidateQueries({ queryKey: ["leaveList", month] })
-    }
+    //     return `${year}/${month}/${day} (${week})`
+    // }
 
     return (
         <>
@@ -128,7 +113,7 @@ const List = () => {
                                     {item.type}
                                 </div>
                             </div>
-                            <div className=''>{formatDate(item.date)}</div>
+                            <div className=''>{formatDatetime(item.date, "leave")}</div>
                             <div className=''>{item.course}</div>
                             <div className=''>{item.teacher}</div>
 
@@ -144,18 +129,7 @@ const List = () => {
                                 </div>
                             </div>
                             <div className='absolute bottom-2 right-2'>
-                                {item.id !== "" && (
-                                    <button
-                                        type='submit'
-                                        value={item.id}
-                                        className='bg-red-500 text-white px-2 py-0.5 rounded-lg'
-                                        onClick={(e) => {
-                                            deleteLeave(e.currentTarget.value)
-                                        }}
-                                    >
-                                        刪除
-                                    </button>
-                                )}
+                                {item.id !== "" && <Delete id={item.id} />}
                             </div>
                         </div>
                     ))}
