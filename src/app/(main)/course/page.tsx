@@ -45,7 +45,9 @@ const CourseListPage = async () => {
                                         </div>
                                     </div>
                                 </Link>
-                                {/* <RollCallVerify courseID={course.id} /> */}
+                                {session?.user.studentID === process.env.ADMINSTUDENTID && (
+                                    <RollCallVerify courseID={course.id} />
+                                )}
                             </ScaleTransitionView>
                         ))}
                 </div>
