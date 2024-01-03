@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
         new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000),
         "weather"
     ).replace("00:00:00", "00:00:01")
-    const url = new URL("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093")
+    const url = new URL("https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093")
     const params = new URLSearchParams({
         Authorization: "CWB-B2DD23C3-AAB7-4A12-A50C-2FB1EE813769",
         locationId: "F-D0047-063",
