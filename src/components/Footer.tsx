@@ -44,40 +44,41 @@ const Footer = () => {
     return (
         <footer
             className={clsx(
-                "fixed bottom-0 z-10 flex h-14 w-full items-center justify-around bg-slate-50 transition-all duration-300 md:hidden border"
+                "fixed bottom-3 z-10 h-14 w-full flex items-center justify-center transition-all duration-300 md:hidden px-2"
                 // { hidden: navbarHidden }
             )}
         >
-            {NAV_LINKS.map((link) => (
-                <Link
-                    key={link.href}
-                    href={link.href}
-                    title={link.text}
-                    className='flex items-center justify-center w-full h-full relative overflow-hidden'
-                    onClick={(e) => click(e)}
-                    // w-[30px] h-[30px] py-2
-                >
-                    <link.icon
-                        // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
-                        size={
-                            pathname.startsWith(link.href) && link.href !== "/"
-                                ? 30
-                                : link.href === "/" && pathname === "/"
-                                  ? 30
-                                  : 26
-                        }
-                        // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
-                        className={cx(
-                            "stroke-black/80",
-                            pathname.startsWith(link.href) && link.href !== "/"
-                                ? "fill-main-color-3 stroke-black stroke-2"
-                                : link.href === "/" && pathname === "/"
-                                  ? "fill-main-color-3 stroke-black stroke-2"
-                                  : ""
-                        )}
-                    />
-                </Link>
-            ))}
+            <div className='flex items-center justify-around w-full h-full border rounded-2xl bg-white/30 backdrop-blur-md shadow-sm saturate-100'>
+                {NAV_LINKS.map((link) => (
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        title={link.text}
+                        className='flex items-center justify-center w-full h-full relative overflow-hidden rounded-2xl'
+                        onClick={(e) => click(e)}
+                    >
+                        <link.icon
+                            // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
+                            size={
+                                pathname.startsWith(link.href) && link.href !== "/"
+                                    ? 30
+                                    : link.href === "/" && pathname === "/"
+                                      ? 30
+                                      : 26
+                            }
+                            // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
+                            className={cx(
+                                "stroke-black/80",
+                                pathname.startsWith(link.href) && link.href !== "/"
+                                    ? "fill-main-color-3 stroke-black stroke-2"
+                                    : link.href === "/" && pathname === "/"
+                                      ? "fill-main-color-3 stroke-black stroke-2"
+                                      : ""
+                            )}
+                        />
+                    </Link>
+                ))}
+            </div>
         </footer>
     )
 }
