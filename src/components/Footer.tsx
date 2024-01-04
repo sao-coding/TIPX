@@ -54,7 +54,7 @@ const Footer = () => {
                         key={link.href}
                         href={link.href}
                         title={link.text}
-                        className='flex items-center justify-center w-full h-full relative overflow-hidden rounded-2xl'
+                        className='flex items-center justify-center w-full h-full relative overflow-hidden rounded-2xl footer'
                         onClick={(e) => click(e)}
                     >
                         <link.icon
