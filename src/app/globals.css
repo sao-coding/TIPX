@@ -115,6 +115,10 @@ body {
     padding: 10px;
 } */
 
+.footer {
+    transform: translateZ(0);
+}
+
 .footer-ripple {
     position: absolute;
     left: 0;
