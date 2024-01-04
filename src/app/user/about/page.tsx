@@ -61,7 +61,7 @@ const UserAboutPage = async () => {
 
     return (
         <>
-            <div className='w-full px-2'>
+            <div className='w-full px-2 mb-2'>
                 <Title title={title} />
                 <BottomToUpTransitionView custom={0}>
                     <div className='mb-2 rounded-xl border p-2'>

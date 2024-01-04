@@ -49,7 +49,7 @@ const CreditPage = async () => {
     }
 
     return (
-        <div className='w-full px-2'>
+        <div className='w-full px-2 mb-2'>
             <Title title={title} />
             <div className='grid w-full grid-cols-2 gap-2'>
                 {data.map((item, index) => (

@@ -19,7 +19,7 @@ const ClassListPage = async () => {
     const item = await getClassList(session?.user.studentID ?? "")
 
     return (
-        <div className='px-2 w-full'>
+        <div className='px-2 w-full mb-2'>
             <Title title={tite} />
             <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
                 {item.length > 0 &&
