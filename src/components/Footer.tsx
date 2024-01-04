@@ -56,7 +56,6 @@ const Footer = () => {
                         title={link.text}
                         className='flex items-center justify-center w-full h-full relative overflow-hidden rounded-2xl'
                         onClick={(e) => click(e)}
-                        // w-[30px] h-[30px] py-2
                     >
                         <link.icon
                             // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
