@@ -141,7 +141,7 @@ const TimeTablePage = () => {
 
     return (
         <>
-            <div className='w-full rounded-md px-2 pb-2 md:bg-white md:p-4 md:shadow-md mb-14 md:mb-0'>
+            <div className='w-full rounded-md px-2 pb-2 md:bg-white md:p-4 md:shadow-md mb-16 md:mb-0'>
                 <div className='relative py-2 my-0.5 md:py-1 md:mb-2 md:rounded-xl md:border md:bg-white md:shadow-sm'>
                     <div className='text-center text-2xl font-bold'>課表</div>
                     <IconShare2
