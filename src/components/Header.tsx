@@ -4,7 +4,7 @@ import { NAV_LINKS } from "@/config/links"
 
 const Header = async () => {
     return (
-        <header className='fixed top-3 z-10 mx-auto h-14 max-w-5xl hidden md:flex items-center justify-between rounded-2xl bg-white/30 backdrop-blur-md shadow-sm px-4 py-2 inset-x-0 saturate-100 border'>
+        <header className='fixed top-3 z-10 mx-auto h-14 max-w-5xl hidden md:flex items-center justify-between rounded-2xl bg-white/30 backdrop-blur-md shadow-sm px-4 py-2 inset-x-0 saturate-100 border transition-colors duration-500'>
             <div className='flex items-center'>
                 <Link href='/'>
                     <Logo className='h-8 w-40 fill-black/80' />

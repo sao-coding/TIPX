@@ -1,11 +1,13 @@
 import Link from "next/link"
 import { getServerSession } from "next-auth"
+import clsx from "clsx"
 import authOptions from "@/lib/auth"
 import getUser from "@/utils/user"
 import getLineID from "@/utils/lineid"
 import getSearchAuth from "@/utils/search-auth"
 import { User } from "@/types"
 import {
+    Icon,
     IconUserSearch,
     IconUser,
     IconClipboardPlus,
@@ -43,6 +45,116 @@ import { site } from "@/config/site"
 //     })
 //     return await res.json()
 // }
+
+type LinkList = {
+    icon: Icon
+    color: string
+    className?: string
+    href: string
+    text: string
+}[]
+
+const LinkList: LinkList = [
+    {
+        icon: IconUserSearch,
+        color: "stroke-red-500",
+        href: "/user/search",
+        text: "查詢用戶",
+    },
+    {
+        icon: IconUser,
+        color: "stroke-orange-500",
+        href: "/user/about",
+        text: "個人資料",
+    },
+    {
+        icon: IconClipboardPlus,
+        color: "stroke-blue-500",
+        href: "/user/leave",
+        text: "線上請假",
+    },
+    {
+        icon: IconClipboardList,
+        color: "stroke-red-500",
+        href: "/user/attendance-record",
+        text: "請假缺曠記錄",
+    },
+    {
+        icon: IconCoins,
+        color: "stroke-yellow-500",
+        href: "/user/credit",
+        text: "學分資訊",
+    },
+    {
+        icon: IconAntennaBars5,
+        color: "stroke-rose-500",
+        href: "/user/sem-grade",
+        text: "科目成績",
+    },
+    {
+        icon: IconLayoutDashboard,
+        color: "stroke-purple-500",
+        href: "/user/final-grade",
+        text: "學期-操行 成績",
+    },
+    {
+        icon: IconList,
+        color: "stroke-pink-500",
+        href: "/user/class-list",
+        text: "班級名單",
+    },
+    {
+        icon: IconArrowBadgeDown,
+        color: "stroke-emerald-500",
+        className: "transform rotate-180",
+        href: "/user/class-rank",
+        text: "班級排名",
+    },
+    {
+        icon: IconBadges,
+        color: "stroke-teal-500",
+        className: "transform rotate-180",
+        href: "/user/dept-rank",
+        text: "系排名",
+    },
+    {
+        icon: IconMessageCircle,
+        color: "stroke-blue-500",
+        href: "/forum",
+        text: "聊天",
+    },
+    {
+        icon: IconHistory,
+        color: "stroke-indigo-500",
+        href: "/user/git-log",
+        text: "更新日誌",
+    },
+    {
+        icon: IconNotes,
+        color: "stroke-orange-500",
+        href: "/user/log",
+        text: "日誌中心",
+    },
+    {
+        icon: IconBrandGoogleAnalytics,
+        color: "stroke-sky-400",
+        href: "https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP",
+        text: "網站數據統計",
+    },
+    {
+        icon: IconActivity,
+        color: "stroke-red-500",
+        href: "https://tk-tipx.github.io/upptime",
+        text: "系統狀態",
+    },
+    {
+        icon: IconInfoCircle,
+        color: "stroke-blue-500",
+        href: "/user/info",
+        text: "關於",
+    },
+]
+
 const UserPage = async () => {
     const session = await getServerSession(authOptions)
     const userData: User = await getUser(session?.user.studentID as string)
@@ -57,157 +169,24 @@ const UserPage = async () => {
                 <InfoBoard />
                 <Weather />
                 <Switch />
-                {searchAuth && (
-                    <Link
-                        href='/user/search'
-                        className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                    >
-                        <div className='flex items-center'>
-                            <IconUserSearch className='stroke-red-500' />
-                            <div className='ml-2'>查詢用戶</div>
-                        </div>
-                    </Link>
-                )}
-                <Link
-                    href='/user/about'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconUser className='stroke-orange-500' />
-                        <div className='ml-2'>個人資料</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/leave'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconClipboardPlus className='stroke-blue-500' />
-                        <div className='ml-2'>線上請假</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/attendance-record'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconClipboardList className='stroke-red-500' />
-                        <div className='ml-2'>請假缺曠記錄</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/credit'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconCoins className='stroke-yellow-500' />
-                        <div className='ml-2'>學分資訊</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/sem-grade'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconAntennaBars5 className='stroke-rose-500' />
-                        <div className='ml-2'>科目成績</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/final-grade'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconLayoutDashboard className='stroke-purple-500' />
-                        <div className='ml-2'>學期-操行 成績</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/class-list'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconList className='stroke-pink-500' />
-                        <div className='ml-2'>班級名單</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/class-rank'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconArrowBadgeDown className='stroke-emerald-500 rotate-180' />
-                        <div className='ml-2'>班級排名</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/dept-rank'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconBadges className='stroke-teal-500 rotate-180' />
-                        <div className='ml-2'>系排名</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/forum'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconMessageCircle className='stroke-blue-500' />
-                        <div className='ml-2'>聊天</div>
-                    </div>
-                </Link>
-                {/* 更新日誌 */}
-                <Link
-                    href='/user/git-log'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center space-x-2'>
-                        <IconHistory className='stroke-indigo-500' />
-                        <div className='ml-2'>更新日誌</div>
-                    </div>
-                </Link>
-                {session?.user.studentID === process.env.ADMINSTUDENTID && (
-                    <>
+                {/* 要判斷查詢用戶 & 日誌中心 是否顯示 */}
+                {LinkList.map((link, index) =>
+                    // 若為查詢用戶 && 日誌中心，則要判斷是否顯示
+                    (link.text === "查詢用戶" && !searchAuth) ||
+                    (link.text === "日誌中心" &&
+                        session?.user.studentID !== process.env.ADMINSTUDENTID) ? null : (
                         <Link
-                            href='/user/log'
-                            className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
+                            key={index}
+                            href={link.href}
+                            className='block w-full cursor-pointer rounded-xl md:border p-2 ripple'
                         >
                             <div className='flex items-center'>
-                                <IconNotes className='stroke-orange-500' />
-                                <div className='ml-2'>日誌中心</div>
+                                <link.icon className={clsx(link.color, link.className)} />
+                                <div className='ml-2'>{link.text}</div>
                             </div>
                         </Link>
-                    </>
+                    )
                 )}
-                <Link
-                    href='https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconBrandGoogleAnalytics className='stroke-sky-400' />
-                        <div className='ml-2'>網站數據統計</div>
-                    </div>
-                </Link>
-                <Link
-                    href='https://tk-tipx.github.io/upptime'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconActivity className='stroke-red-500' />
-                        <div className='ml-2'>系統狀態</div>
-                    </div>
-                </Link>
-                <Link
-                    href='/user/info'
-                    className='block w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2 ripple'
-                >
-                    <div className='flex items-center'>
-                        <IconInfoCircle className='stroke-blue-500' />
-                        <div className='ml-2'>關於</div>
-                    </div>
-                </Link>
                 <Notify />
                 <Logout />
                 <Count />

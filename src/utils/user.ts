@@ -27,16 +27,23 @@ const getUser = async (userid: string) => {
         desc: "",
     }
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
-        headers: {
-            cookie: `cookie_rgno=${userid}; cookie_userid=${userid};`,
-            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-        },
-    })
-    const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
+    const resUrl = async (url: string) => {
+        const res = await fetch(url, {
+            headers: {
+                cookie: `cookie_rgno=${userid}; cookie_userid=${userid};`,
+                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+            },
+        })
+        const buffer = await res.arrayBuffer()
+        let html = new TextDecoder("big5").decode(buffer)
+        const dom = new JSDOM(html)
+        const document = dom.window.document
+        return document
+    }
+
+    let document
+
+    document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_data_new.php")
 
     infolist.userid =
         document.querySelector(
@@ -123,9 +130,12 @@ const getUser = async (userid: string) => {
         document.querySelector(
             "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(36)"
         )?.textContent ?? ""
-    infolist.desc =
-        document.querySelector("form > table tr td table:first-child tr td textarea")
-            ?.textContent ?? ""
+
+    // https://netinfo.takming.edu.tw/tip/stu_data_selfrpt.php
+
+    document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_data_selfrpt.php")
+
+    infolist.desc = document.querySelector("body > table > tbody > tr > td")?.textContent ?? ""
 
     return infolist
 }
