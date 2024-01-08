@@ -48,7 +48,7 @@ const Footer = () => {
                 // { hidden: navbarHidden }
             )}
         >
-            <div className='flex items-center justify-around w-full h-full border rounded-2xl bg-white/30 backdrop-blur-md shadow-sm saturate-100 transition-colors duration-500'>
+            <div className='flex items-center justify-around w-full h-full rounded-2xl bg-white/30 backdrop-blur-md shadow-sm saturate-100 transition-colors duration-500'>
                 {NAV_LINKS.map((link) => (
                     <Link
                         key={link.href}

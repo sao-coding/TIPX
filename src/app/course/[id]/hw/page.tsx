@@ -69,9 +69,14 @@ const HwPage = ({ params }: { params: { id: string } }) => {
                         <div className='text-center text-2xl'>沒有作業</div>
                     )}
                     {data.status && (
-                        <div className='text-center text-2xl'>
-                            <div className='text-center text-2xl'> {data.message}</div>
-                        </div>
+                        <>
+                            <div className='text-center text-2xl whitespace-pre-line border-2 border-dashed border-main-color-2 rounded-xl p-2'>
+                                {data.message}
+                            </div>
+                            <div className='w-full flex justify-center'>
+                                <img src='/img/QQ.png' alt='' />
+                            </div>
+                        </>
                     )}
                 </div>
             )}
