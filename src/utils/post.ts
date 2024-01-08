@@ -106,23 +106,21 @@ const getPost = async (type: string, id: number, limit?: number) => {
         const document = dom.window.document
         const rows = Array.from(document.querySelectorAll(".newstd"))
         rows.forEach((row, index) => {
-            if (index === 2) {
+            if (index === 3) {
                 postdata.push(row.textContent?.split("　")[0] ?? "")
-                const cells = Array.from(row.querySelectorAll("a"))
-                cells.forEach((cell, index) => {
-                    const name = cell.textContent
-                    const email = cell.getAttribute("href")?.replace("mailto:", "")
-                    post.publisher.name = name ?? ""
-                    post.publisher.email = email ?? ""
-                })
-            } else if (index === 6) {
+                const cell = row.querySelector("a")
+                const name = cell?.textContent
+                const email = cell?.getAttribute("href")?.replace("mailto:", "")
+                post.publisher.name = name ?? ""
+                post.publisher.email = email ?? ""
+            } else if (index === 7) {
                 const cells = Array.from(row.querySelectorAll("a"))
                 cells.forEach((cell, index) => {
                     const title = cell.textContent
                     const link = cell.getAttribute("href")
                     post.file.push({ title: title ?? "", link: link ?? "" })
                 })
-            } else if (index === 7) {
+            } else if (index === 8) {
                 const cells = Array.from(row.querySelectorAll("a"))
                 cells.forEach((cell, index) => {
                     const link = cell.getAttribute("href")
@@ -135,8 +133,8 @@ const getPost = async (type: string, id: number, limit?: number) => {
 
         post.title = postdata[0]
         post.date = postdata[1]
-        post.unit = postdata[2]
-        post.deadline = postdata[3]
+        post.deadline = postdata[2]
+        post.unit = postdata[3]
         post.category = postdata[4]
         post.content = postdata[5]
 
