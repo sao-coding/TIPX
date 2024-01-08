@@ -136,7 +136,7 @@ const getPost = async (type: string, id: number, limit?: number) => {
         post.deadline = postdata[2]
         post.unit = postdata[3]
         post.category = postdata[4]
-        post.content = postdata[5]
+        post.content = postdata[6]
 
         return post
     }
