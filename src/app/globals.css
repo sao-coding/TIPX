@@ -19,7 +19,7 @@
     }
 
     .dark {
-        --background: rgb(4, 1, 2, 1);
+        --background: rgb(4, 1, 2);
         --blur-background: rgb(4, 1, 2, 0.3);
         --text: 248, 250, 252;
         --main-color-1: rgb(63, 63, 63);
