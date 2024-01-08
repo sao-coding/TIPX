@@ -5,7 +5,7 @@ const ToasterNotify = () => {
         <Toaster
             position='top-center'
             toastOptions={{
-                className: "",
+                className: "bg-card-background dark:text-white !important",
             }}
         />
     )
