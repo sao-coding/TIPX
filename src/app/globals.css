@@ -20,7 +20,7 @@
 
     .dark {
         --background: rgb(4, 1, 2);
-        --blur-background: rgb(4, 1, 2, 0.3);
+        --blur-background: rgb(4, 1, 2, 0.1);
         --text: rgb(248, 250, 252);
         --main-color-1: rgb(27, 27, 27);
         --main-color-2: rgb(48, 48, 48);
@@ -39,7 +39,7 @@
     body {
         min-height: 100%;
         /* background-color: #f8fafc; */
-        background-color: var(--background);
+        /* background-color: var(--background); */
         color: var(--text);
         /* https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
         /* background-image: url("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
@@ -53,6 +53,9 @@
 @layer components {
     /* 毛玻璃效果 */
     .blur-background {
-        @apply backdrop-blur-md bg-[var(--blur-background)];
+        @apply backdrop-blur-[10px] bg-[var(--blur-background)];
+    }
+    .toast {
+        @apply bg-card-background dark:text-white !important;
     }
 }
