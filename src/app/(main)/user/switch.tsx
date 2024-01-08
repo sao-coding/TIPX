@@ -135,7 +135,7 @@ const Switch = () => {
             }}
         >
             <Select.Trigger
-                className='flex w-full cursor-pointer items-center rounded-xl md:border p-2 focus-visible:outline-none bg-slate-50'
+                className='flex w-full cursor-pointer items-center rounded-xl md:border p-2 focus-visible:outline-none'
                 title='點擊切換學年度'
                 aria-controls='下拉選單'
             >
@@ -158,7 +158,7 @@ const Switch = () => {
             </Select.Trigger>
 
             <Select.Portal>
-                <Select.Content className='rounded-md border bg-white p-2 shadow-md'>
+                <Select.Content className='rounded-md border bg-card-background p-2 shadow-md'>
                     <Select.ScrollUpButton className='flex items-center justify-center'>
                         <IconChevronUp />
                     </Select.ScrollUpButton>
@@ -167,7 +167,7 @@ const Switch = () => {
                             <Select.Item
                                 key={index}
                                 value={`${item.year}-${item.sem}`}
-                                className='cursor-pointer rounded-md p-1 outline-none hover:bg-gray-200'
+                                className='cursor-pointer rounded-md p-1 outline-none hover:bg-gray-200 dark:hover:bg-black'
                             >
                                 <Select.ItemText>
                                     {`${item.year}-${item.sem} 學年度`}

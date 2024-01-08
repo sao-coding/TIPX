@@ -22,7 +22,7 @@ const CoursePage = async ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className='h-full w-full md:rounded-md md:bg-white px-2 md:pt-4 md:shadow-md'>
+        <div className='h-full w-full md:rounded-md md:bg-card-background px-2 md:pt-4 md:shadow-md'>
             <Title title={title} />
             <Tabs id={params.id} />
         </div>

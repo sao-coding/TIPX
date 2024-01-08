@@ -53,11 +53,11 @@ const List = () => {
         <>
             <div className='relative mb-2'>
                 <Listbox value={month} onChange={(e) => setMonth(e)}>
-                    <Listbox.Button className='bg-white rounded-lg p-1 flex items-center justify-start w-full'>
+                    <Listbox.Button className='rounded-lg p-1 flex items-center justify-start w-full'>
                         <IconArrowsMoveVertical />
                         {month !== "all" ? `${month} 月` : "全部"}
                     </Listbox.Button>
-                    <Listbox.Options className='bg-white shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10 font-mono cursor-pointer'>
+                    <Listbox.Options className='bg-card-background shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10 font-mono cursor-pointer'>
                         {/* {data?.type.map((type, i) => (
                                             <Listbox.Option key={i} value={type}>
                                                 {type}

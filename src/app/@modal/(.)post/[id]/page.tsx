@@ -64,11 +64,11 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                 <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
                 <Dialog.Content asChild>
                     <motion.div
-                        className='md:overflow-hidden overflow-y-auto fixed left-1/2 top-1/2 z-10 md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] -translate-x-1/2 -translate-y-1/2 md:rounded-lg md:bg-white md:p-4 px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow h-full w-full bg-slate-50'
+                        className='md:overflow-hidden overflow-y-auto fixed left-1/2 top-1/2 z-10 md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] -translate-x-1/2 -translate-y-1/2 md:rounded-lg md:bg-card-background md:p-4 px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow h-full w-full bg-background'
                         initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
                         animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
                     >
-                        <div className='flex items-center justify-between sticky left-0 top-0 md:static w-full md:bg-white bg-slate-50 py-3 md:border-b-0 border-b mb-2'>
+                        <div className='flex items-center justify-between sticky left-0 top-0 md:static w-full md:bg-card-background bg-background py-3 md:border-b-0 border-b mb-2'>
                             <Dialog.Title asChild>
                                 <div className='flex items-center justify-center'>
                                     <div className='text-center pr-4 font-bold md:text-xl'>

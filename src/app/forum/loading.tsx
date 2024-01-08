@@ -16,7 +16,7 @@ const Loading = ({ index }: { index: number }) => {
 
                 {/* <div className='ml-1 bg-slate-200 w-14 h-4 rounded-full'></div> */}
             </div>
-            <div className='border rounded-2xl bg-white p-2 max-w-xl break-words whitespace-pre-line w-40 h-10'></div>
+            <div className='border rounded-2xl bg-card-background p-2 max-w-xl break-words whitespace-pre-line w-40 h-10'></div>
             {/* <div className='m-1 bg-slate-200 w-28 h-3 rounded-full'></div> */}
         </div>
     )

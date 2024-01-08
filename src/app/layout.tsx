@@ -1,4 +1,5 @@
 import "@/app/globals.css"
+import "@/app/custom.css"
 import { Analytics } from "@vercel/analytics/react"
 import GoogleAnalytics from "@/app/GoogleAnalytics"
 import UmamiAnalytics from "@/app/UmamiAnalytics"

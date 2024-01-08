@@ -252,7 +252,7 @@ const SendCP = ({ user }: { user: User }) => {
 
     return (
         <>
-            <div className='flex justify-between items-end bg-slate-100 py-2 px-4 w-full'>
+            <div className='flex justify-between items-end bg-background py-2 px-4 w-full'>
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
                         <div className='p-2 flex items-center justify-center'>
@@ -261,7 +261,7 @@ const SendCP = ({ user }: { user: User }) => {
                     </Dialog.Trigger>
                     <Dialog.Portal>
                         <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-                        <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[90vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg outline-none data-[state=open]:animate-contentShow'>
+                        <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[90vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card-background p-4 shadow-lg outline-none data-[state=open]:animate-contentShow'>
                             <Dialog.Close className='absolute right-0 flex items-center justify-end pr-4 outline-none'>
                                 <IconX />
                             </Dialog.Close>
@@ -272,7 +272,7 @@ const SendCP = ({ user }: { user: User }) => {
                             </Dialog.Title>
                             <div className='flex flex-col space-y-2'>
                                 <div className='flex items-center space-x-2'>
-                                    <div className='w-10 h-10 bg-orange-300 rounded-full flex items-center justify-center'>
+                                    <div className='w-10 h-10 bg-main-color-2 rounded-full flex items-center justify-center'>
                                         {user?.image && anonymous === false ? (
                                             <img
                                                 className='rounded-full'

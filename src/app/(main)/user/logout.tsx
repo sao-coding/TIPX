@@ -11,7 +11,7 @@ const Logout = () => {
 
     return (
         <div
-            className='w-full cursor-pointer rounded-xl md:border bg-slate-50 p-2'
+            className='w-full cursor-pointer rounded-xl md:border p-2'
             onClick={async () => {
                 console.log("logout")
                 // 刪除所有Cookie

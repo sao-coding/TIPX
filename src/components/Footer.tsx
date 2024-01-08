@@ -48,7 +48,7 @@ const Footer = () => {
                 // { hidden: navbarHidden }
             )}
         >
-            <div className='flex items-center justify-around w-full h-full rounded-2xl bg-white/30 backdrop-blur-md shadow-sm saturate-100 transition-colors duration-500'>
+            <div className='flex items-center justify-around w-full h-full rounded-2xl blur-background'>
                 {NAV_LINKS.map((link) => (
                     <Link
                         key={link.href}
@@ -68,11 +68,11 @@ const Footer = () => {
                             }
                             // 如果pathname 前面的路徑是link.href 且 pathname 不是首頁
                             className={cx(
-                                "stroke-black/80",
+                                "stroke-black/80 dark:stroke-white/80",
                                 pathname.startsWith(link.href) && link.href !== "/"
-                                    ? "fill-main-color-3 stroke-black stroke-2"
+                                    ? "fill-main-color-3 stroke-2"
                                     : link.href === "/" && pathname === "/"
-                                      ? "fill-main-color-3 stroke-black stroke-2"
+                                      ? "fill-main-color-3 stroke-2"
                                       : ""
                             )}
                         />

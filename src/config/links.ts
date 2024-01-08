@@ -19,6 +19,7 @@ import {
     IconInfoCircle,
     IconMessageCircle,
     IconHistory,
+    IconSettings,
 } from "@tabler/icons-react"
 
 type NavLinks = {
@@ -150,6 +151,12 @@ export const USER_LINKS: UserLinks = [
         color: "stroke-red-500",
         href: "https://tk-tipx.github.io/upptime",
         text: "系統狀態",
+    },
+    {
+        icon: IconSettings,
+        color: "stroke-gray-500",
+        href: "/user/settings",
+        text: "設定",
     },
     {
         icon: IconInfoCircle,

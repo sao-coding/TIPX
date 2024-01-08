@@ -6,6 +6,7 @@ module.exports = {
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/config/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    darkMode: "class", // or 'media' or 'class
     theme: {
         extend: {
             screens: {
@@ -23,10 +24,12 @@ module.exports = {
                 15: "repeat(15, minmax(0, 1fr))",
             },
             colors: {
-                "main-color-1": "#fceee9",
-                "main-color-2": "#FFBB98",
-                "main-color-3": "#a65a4c",
-                "main-color-4": "#344648",
+                background: "var(--background)",
+                "main-color-1": "var(--main-color-1)",
+                "main-color-2": "var(--main-color-2)",
+                "main-color-3": "var(--main-color-3)",
+                "main-color-4": "var(--main-color-4)",
+                "card-background": "var(--card-background)",
             },
             boxShadow: {
                 "tab-line": "inset 0-1px 0 0, 0 2px 0 0",

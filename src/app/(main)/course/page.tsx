@@ -25,14 +25,14 @@ const CourseListPage = async () => {
 
     return (
         <>
-            <div className='w-full rounded-md px-2 pb-2 mb-16 md:bg-white md:p-4 md:shadow-md'>
+            <div className='w-full rounded-md px-2 pb-2 mb-16 md:bg-card-background md:p-4 md:shadow-md'>
                 <Title title={title} />
                 <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
                     {data.length > 0 &&
                         data.map((course, index) => (
                             <ScaleTransitionView key={course.id} custom={index}>
                                 <Link
-                                    className='flex flex-col space-y-2 rounded-lg border p-2 ripple h-20 justify-center'
+                                    className='flex flex-col space-y-2 rounded-lg border p-2 ripple h-20 justify-center dark:bg-main-color-1 dark:border-none'
                                     href={`/course/${course.id}`}
                                 >
                                     <div className='overflow-ellipsis line-clamp-1'>
