@@ -52,7 +52,7 @@ const InfoBoard = () => {
 
     return (
         <div className='flex items-center justify-between space-x-1'>
-            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-transparent'>
                 <div className='flex items-center justify-between'>
                     <div>缺曠次數</div>
                     <div>
@@ -73,7 +73,7 @@ const InfoBoard = () => {
                     <div className='ml-0.5'>次</div>
                 </div>
             </div>
-            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-transparent'>
                 <div className='flex items-center justify-between'>
                     <div>缺曠時數</div>
                     <div>
@@ -125,7 +125,7 @@ const InfoBoard = () => {
                     <div className='ml-0.5'>小時</div>
                 </div>
             </div>
-            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
+            <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-transparent'>
                 <div className='flex items-center justify-between'>
                     <div>目前操行</div>
                     <div>

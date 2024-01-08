@@ -21,8 +21,8 @@ const GitLogPage = async () => {
         <div className='w-full px-2 mb-2'>
             <Title title={title} />
             {/* 提交總次數: {data.length} */}
-            <div className='sticky left-0 top-0 md:top-14 z-10 px-2 pb-2 md:p-0'>
-                <div className='w-full text-center border rounded-xl p-2 mb-2 bg-slate-50'>
+            <div className='sticky left-0 top-0 md:top-[68px] z-10 px-2 pb-2 md:p-0'>
+                <div className='w-full text-center border rounded-xl p-2 mb-2 bg-card-background'>
                     <div className='flex justify-center items-center space-x-16'>
                         <div className=''>提交總次數: {data.length}</div>
                         <div className=''>
@@ -91,7 +91,7 @@ const GitLogPage = async () => {
                                             className='ml-1 relative px-1 py-2 after:content-[""] after:block after:w-4 after:h-4 after:rounded-full after:absolute after:-left-[23px] after:top-1/2 after:transform after:-translate-y-1/2 after:bg-main-color-1 after:border-4 after:border-main-color-3 after:shadow-lg'
                                         >
                                             <div className='relative flex justify-center text-center text-xl font-bold before:content-[""] before:block before:w-full before:h-0 before:border before:absolute before:top-1/2'>
-                                                <div className='relative bg-slate-50 px-2'>
+                                                <div className='relative bg-background px-2'>
                                                     {new Date(item.date).getMonth() + 1} 月
                                                 </div>
                                             </div>

@@ -8,7 +8,7 @@ import List from "./list"
 const LeaveTabs = () => {
     return (
         <Tabs.Root defaultValue='請假'>
-            <div className='sticky left-0 top-0 bg-slate-50 z-10 md:bg-white md:top-14'>
+            <div className='sticky left-0 top-0 bg-background z-10 md:bg-card-background md:top-[68px]'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative py-1 -mt-2'>
                     <Tabs.Trigger
                         className='w-full p-2 peer/tabs-請假'

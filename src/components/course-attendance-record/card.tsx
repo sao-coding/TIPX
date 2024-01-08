@@ -28,7 +28,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
                 <div className='mt-2 flex items-center justify-center'>
                     <Link
                         href={`/user/leave?date=${formatDate(data.date)}`}
-                        className='block px-1 border-b-2 border-main-color-3 text-main-color-3 hover:text-white/80 hover:rounded-md  hover:bg-main-color-3'
+                        className='block px-1 border-b-2 border-main-color-4 text-main-color-4 hover:text-white/80 hover:rounded-md  hover:bg-main-color-3'
                     >
                         {data.course}
                     </Link>

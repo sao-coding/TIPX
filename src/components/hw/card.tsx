@@ -154,7 +154,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                             <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
                             <Dialog.Content asChild>
                                 <motion.div
-                                    className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'
+                                    className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'
                                     initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
                                     animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
                                 >
@@ -229,7 +229,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                         <input
                                             type='submit'
                                             value='上傳檔案'
-                                            className='bg-main-color-3 p-1 rounded-md text-white hover:bg-[#82453a] w-full'
+                                            className='bg-main-color-3 p-1 rounded-md text-white hover:bg-main-color-4 w-full'
                                         />
                                     </form>
                                 </motion.div>

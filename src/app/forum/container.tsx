@@ -177,7 +177,7 @@ const Container = ({ user }: { user: User }) => {
             >
                 <div className='flex items-center'>
                     {editMessage.status && (
-                        <div className='bg-orange-100 rounded-lg px-1 flex items-center'>
+                        <div className='bg-main-color-2 rounded-lg px-1 flex items-center'>
                             <div>編輯訊息</div>
                             <IconX
                                 className='ml-1 cursor-pointer'
@@ -193,7 +193,7 @@ const Container = ({ user }: { user: User }) => {
                         </div>
                     )}
                     {replyMessage.content && (
-                        <div className='bg-orange-200 rounded-lg px-1 flex items-center w-full justify-between'>
+                        <div className='bg-main-color-2 rounded-lg px-1 flex items-center w-full justify-between'>
                             <div>
                                 {replyMessage.author?.anonymous ? (
                                     <div className='text-xs text-gray-600'>回覆 匿名</div>

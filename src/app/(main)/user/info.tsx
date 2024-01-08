@@ -48,7 +48,7 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                 onMouseLeave={handleMouseLeave}
             >
                 <>
-                    <div className='user-info-front rounded-xl border bg-slate-50 p-2'>
+                    <div className='user-info-front rounded-xl border bg-transparent p-2'>
                         <div className='relative flex items-center'>
                             <div className='flex items-center'>
                                 {isImgError ? (
@@ -92,7 +92,7 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                             </div>
                         </div>
                     </div>
-                    <div className='user-info-back rounded-xl border bg-slate-50 p-2'>
+                    <div className='user-info-back rounded-xl border bg-transparent p-2'>
                         <div className='py-[3px] pl-4'>
                             <div className='flex items-center'>
                                 <IconGenderBigender />

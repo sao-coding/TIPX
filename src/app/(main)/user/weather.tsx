@@ -54,7 +54,7 @@ const Weather = () => {
     }
 
     return (
-        <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-slate-50'>
+        <div className='w-full rounded-xl p-2 bg-main-color-1 md:border md:bg-transparent'>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center'>
                     <IconTemperature className='text-red-500' />
@@ -66,10 +66,7 @@ const Weather = () => {
                                 {data?.map((item) => {
                                     if (item.elementName === "MaxT") {
                                         return (
-                                            <div
-                                                key={item.elementName}
-                                                className='ml-1'
-                                            >
+                                            <div key={item.elementName} className='ml-1'>
                                                 {item.time[nowTime("MaxT")].elementValue[0].value}
                                             </div>
                                         )

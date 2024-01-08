@@ -75,7 +75,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='sticky left-0 top-0 mb-2 rounded-xl border md:bg-white p-2 bg-slate-50 md:top-14'>
+                            <div className='sticky left-0 top-0 mb-2 rounded-xl border md:bg-card-background p-2 bg-background md:top-[68px]'>
                                 <div>總計</div>
                                 <div className='w-full text-right text-lg font-bold'>
                                     {data?.total.reduce((a, b) => a + b, 0)}

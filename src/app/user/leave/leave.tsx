@@ -91,9 +91,9 @@ const Leave = () => {
             <div className='flex items-center mb-2 space-x-1'>
                 <input
                     type='date'
-                    name=''
+                    name='date'
                     id=''
-                    className='bg-white rounded-lg p-1 h-8 md:w-1/3 md:border'
+                    className='bg-card-background rounded-lg p-1 h-8 md:w-1/3 md:border'
                     min={data?.start}
                     max={data?.end}
                     value={date}
@@ -104,11 +104,11 @@ const Leave = () => {
                 生理假 */}
                 <div className='relative md:w-1/3 w-28'>
                     <Listbox value={selected} onChange={(e) => setSelected(e)}>
-                        <Listbox.Button className='bg-white rounded-lg p-1 flex items-center justify-start w-full md:border h-8'>
+                        <Listbox.Button className='bg-card-background rounded-lg p-1 flex items-center justify-start w-full md:border h-8'>
                             <IconSelector />
                             {selected}
                         </Listbox.Button>
-                        <Listbox.Options className='bg-white shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10'>
+                        <Listbox.Options className='bg-card-background shadow-md p-2 rounded-lg w-full absolute top-10 left-0 z-10'>
                             {data?.type.map((type, i) => (
                                 <Listbox.Option key={i} value={type}>
                                     {type}
@@ -120,7 +120,7 @@ const Leave = () => {
                 <input
                     type='submit'
                     value='送出'
-                    className='bg-white rounded-lg p-1 flex-1 hover:bg-gray-200 md:w-1/3 md:border'
+                    className='bg-card-background rounded-lg p-1 flex-1 hover:bg-gray-200 md:w-1/3 md:border'
                 />
             </div>
             {isLoading ? (

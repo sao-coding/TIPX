@@ -72,7 +72,7 @@ const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message 
                 {!message.deleted_timestamp && (
                     <Popover.Root modal={true}>
                         <Popover.Trigger asChild>
-                            <div className='border rounded-2xl bg-white px-2 py-1 max-w-xs break-words whitespace-pre-line'>
+                            <div className='border rounded-2xl bg-card-background px-2 py-1 max-w-xs break-words whitespace-pre-line'>
                                 {message?.message_reference?.status && (
                                     <div className='flex'>
                                         <div className='w-1 bg-slate-700 rounded-full mr-1' />
@@ -119,7 +119,7 @@ const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message 
                         <Popover.Portal>
                             <Popover.Content asChild>
                                 <motion.div
-                                    className='w-48 bg-slate-100 outline-none border rounded-2xl p-2'
+                                    className='w-48 bg-background outline-none border rounded-2xl p-2'
                                     initial={{ opacity: 0, scale: 0.6 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.08 }}

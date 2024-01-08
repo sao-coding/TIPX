@@ -73,7 +73,7 @@ const CourseAttendanceRecordPage = async () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-slate-50 p-2 md:top-14'>
+                        <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-background p-2 md:top-[68px]'>
                             <div>總計</div>
                             <div className='w-full text-right text-lg font-bold'>
                                 {data?.total.reduce((a, b) => a + b, 0)}
