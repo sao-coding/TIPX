@@ -106,7 +106,6 @@ const getPost = async (type: string, id: number, limit?: number) => {
         const document = dom.window.document
         const rows = Array.from(document.querySelectorAll(".newstd"))
         rows.forEach((row, index) => {
-            console.log("index", index, "row", row.textContent)
             if (index === 3) {
                 postdata.push(row.textContent?.split("　")[0] ?? "")
                 const cell = row.querySelector("a")
