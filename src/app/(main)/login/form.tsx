@@ -92,7 +92,7 @@ const Form = () => {
                         <input
                             type='text'
                             id='studentID'
-                            className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                            className='box-border w-full rounded-full border border-gray-400 bg-card-background p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                         />
                     </div>
                     <div className='p-2'>
@@ -105,7 +105,7 @@ const Form = () => {
                         <input
                             type='text'
                             id='authcode'
-                            className='box-border w-full rounded-full border border-gray-400 bg-white p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
+                            className='box-border w-full rounded-full border border-gray-400 bg-card-background p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
                         />
                     </div>
                     <div className='p-2'>

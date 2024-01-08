@@ -40,7 +40,7 @@ const CourseListPage = async () => {
                                     </div>
                                     <div className='flex justify-between items-center'>
                                         <div>{course.id}</div>
-                                        <div className='px-1 bg-main-color-1 rounded-lg'>
+                                        <div className='px-1 bg-main-color-1 dark:bg-main-color-2 rounded-lg'>
                                             {course.teacher}
                                         </div>
                                     </div>

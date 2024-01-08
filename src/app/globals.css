@@ -9,7 +9,7 @@
     --background-end: 255, 255, 255; */
         --background: rgb(248 250 252);
         --blur-background: rgb(248, 250, 252, 0.3);
-        --text: 21, 32, 43;
+        --text: rgb(0, 0, 0);
         --main-color-1: rgb(252, 238, 233);
         --main-color-2: rgb(255, 187, 152);
         --main-color-3: rgb(166, 90, 76);
@@ -21,9 +21,9 @@
     .dark {
         --background: rgb(4, 1, 2);
         --blur-background: rgb(4, 1, 2, 0.3);
-        --text: 248, 250, 252;
-        --main-color-1: rgb(63, 63, 63);
-        --main-color-2: rgb(51, 51, 51);
+        --text: rgb(248, 250, 252);
+        --main-color-1: rgb(27, 27, 27);
+        --main-color-2: rgb(48, 48, 48);
         --main-color-3: rgb(100, 100, 100);
         --main-color-4: rgb(150, 150, 150);
         --card-background: rgb(21, 21, 21);
@@ -40,7 +40,7 @@
         min-height: 100%;
         /* background-color: #f8fafc; */
         background-color: var(--background);
-        color: rgb(var(--text));
+        color: var(--text);
         /* https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */
         /* background-image: url("https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
