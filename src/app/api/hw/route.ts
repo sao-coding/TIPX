@@ -153,7 +153,7 @@ export const GET = async (req: NextRequest) => {
     if (!status) {
         return NextResponse.json({
             status: "error",
-            message: "於期中考/期末考期間不提供下載功能",
+            message: "於期中考/期末考期間\n不提供下載功能",
         })
     } else {
         await writeHw(hwdata1, hwdata2)
