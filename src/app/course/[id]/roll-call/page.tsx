@@ -97,7 +97,7 @@ const RollCall = ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className='w-full rounded-md px-2 mb-2 md:bg-white md:p-4 md:shadow-md'>
+        <div className='w-full rounded-md px-2 mb-2 md:bg-card-background md:p-4 md:shadow-md'>
             {isLoading ? (
                 <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
                     <div className='flex h-full w-full items-center justify-center'>
@@ -117,7 +117,7 @@ const RollCall = ({ params }: { params: { id: string } }) => {
                             <div className='w-full text-center relative'>
                                 <input
                                     type='date'
-                                    className='bg-white rounded-lg p-1 h-8 md:w-1/3 md:border text-center'
+                                    className='bg-card-background rounded-lg p-1 h-8 md:w-1/3 md:border text-center'
                                     min={data?.start}
                                     max={data?.end}
                                     step={7}

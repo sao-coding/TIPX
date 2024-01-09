@@ -19,6 +19,8 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
             return data
         },
     })
+    // 只顯示曠課，事假，病假，生理假，公假，喪假
+    const leaveType = ["曠課", "事假", "病假", "生理假", "公假", "喪假"]
 
     return (
         <>
@@ -38,47 +40,19 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                     {data && (
                         <BottomToUpTransitionView>
                             <div className='mb-2 grid grid-cols-2 gap-2'>
-                                <div className='rounded-xl border p-2'>
-                                    <div>曠課</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[0]}
+                                {leaveType.map((item, index) => (
+                                    <div className='rounded-xl border p-2' key={index}>
+                                        <div>{item}</div>
+                                        <div className='w-full text-right text-lg font-bold'>
+                                            {data?.total[index].count}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='rounded-xl border p-2'>
-                                    <div>事假</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[2]}
-                                    </div>
-                                </div>
-                                <div className='rounded-xl border p-2'>
-                                    <div>病假</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[1]}
-                                    </div>
-                                </div>
-                                <div className='rounded-xl border p-2'>
-                                    <div>生理假</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[12]}
-                                    </div>
-                                </div>
-                                <div className='rounded-xl border p-2'>
-                                    <div>公假</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[3]}
-                                    </div>
-                                </div>
-                                <div className='rounded-xl border p-2'>
-                                    <div>喪假</div>
-                                    <div className='w-full text-right text-lg font-bold'>
-                                        {data?.total[7]}
-                                    </div>
-                                </div>
+                                ))}
                             </div>
-                            <div className='sticky left-0 top-0 mb-2 rounded-xl border md:bg-card-background p-2 bg-background md:top-[68px]'>
+                            <div className='sticky left-0 top-0 mb-2 rounded-xl border md:bg-card-background p-2 bg-background md:top-[117px]'>
                                 <div>總計</div>
                                 <div className='w-full text-right text-lg font-bold'>
-                                    {data?.total.reduce((a, b) => a + b, 0)}
+                                    {data?.total.reduce((a, b) => a + b.count, 0)}
                                 </div>
                             </div>
                             {data?.list?.map((item, index) => <Card key={index} data={item} />)}

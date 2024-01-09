@@ -1,3 +1,4 @@
+// 曠課	病假	事假	公假	朝會不到	朝會遲到	遲到	喪假	婚假	產假	育嬰假	哺育幼兒假	生理假	懷孕假 新生定向
 // {
 //     "list": [
 //         {
@@ -9,12 +10,19 @@
 //             "courseCode":"D11019139",
 //         }
 //     ],
-//     "total": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+//     "total": [
+//         {
+//             {
+//                 "name": "曠課",
+//                 "count": 0
+//               },
+//         }
+//     ]
 // }
 
 export type CourseAttendanceRecord = {
     list: CourseAttendanceRecordList[]
-    total: number[]
+    total: CourseAttendanceRecordCount[]
 }
 
 export type CourseAttendanceRecordList = {
@@ -26,4 +34,12 @@ export type CourseAttendanceRecordList = {
     courseID: string
 }
 
-export type CourseAttendanceRecordTotal = CourseAttendanceRecord["total"]
+export type CourseAttendanceRecordCount = {
+    name: string
+    count: number
+}
+
+export type CourseAttendanceRecordTotal = {
+    count: number
+    time: number
+}

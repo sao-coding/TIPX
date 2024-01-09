@@ -1,9 +1,5 @@
 import Link from "next/link"
-import {
-    CourseAttendanceRecord,
-    CourseAttendanceRecordList,
-    CourseAttendanceRecordTotal,
-} from "@/types"
+import { CourseAttendanceRecordList } from "@/types"
 
 const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
     const formatDate = (date: string) => {
