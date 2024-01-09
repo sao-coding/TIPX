@@ -37,7 +37,7 @@ import BottomToUpTransitionView from "@/components/transition/BottomToUpTransiti
 
 const UserAboutPage = async () => {
     const session = await getServerSession(authOptions)
-    const data: User = await getUser(session?.user.studentID as string)
+    const data: User = await getUser(session?.user.studentID as string, "about")
     const lineID = await getLineID(session?.user.studentID as string)
     const formatDate = (date: string) => {
         // 0900928 -> 90/09/28

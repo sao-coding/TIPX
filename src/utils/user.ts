@@ -1,7 +1,8 @@
 import { JSDOM } from "jsdom"
+import getUserDesc from "./description"
 import { User } from "@/types"
 
-const getUser = async (userid: string) => {
+const getUser = async (userid: string, type?: string) => {
     const infolist: User = {
         userid: "",
         img: "",
@@ -27,23 +28,16 @@ const getUser = async (userid: string) => {
         desc: "",
     }
 
-    const resUrl = async (url: string) => {
-        const res = await fetch(url, {
-            headers: {
-                cookie: `cookie_rgno=${userid}; cookie_userid=${userid};`,
-                Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-            },
-        })
-        const buffer = await res.arrayBuffer()
-        let html = new TextDecoder("big5").decode(buffer)
-        const dom = new JSDOM(html)
-        const document = dom.window.document
-        return document
-    }
-
-    let document
-
-    document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_data_new.php")
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
+        headers: {
+            cookie: `cookie_rgno=${userid}; cookie_userid=${userid};`,
+            Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
+        },
+    })
+    const buffer = await res.arrayBuffer()
+    let html = new TextDecoder("big5").decode(buffer)
+    const dom = new JSDOM(html)
+    const document = dom.window.document
 
     infolist.userid =
         document.querySelector(
@@ -130,12 +124,9 @@ const getUser = async (userid: string) => {
         document.querySelector(
             "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(36)"
         )?.textContent ?? ""
-
-    // https://netinfo.takming.edu.tw/tip/stu_data_selfrpt.php
-
-    document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_data_selfrpt.php")
-
-    infolist.desc = document.querySelector("body > table > tbody > tr > td")?.textContent ?? ""
+    if (type === "about") {
+        infolist.desc = await getUserDesc(userid)
+    }
 
     return infolist
 }
