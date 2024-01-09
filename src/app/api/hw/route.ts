@@ -39,6 +39,7 @@ export const GET = async (req: NextRequest) => {
                 let list = cell.textContent
 
                 if (list) {
+                    console.log(index, list)
                     if (index === 0) {
                         // 移除空白
                         list = list.replace(/\s/g, "")
@@ -74,6 +75,7 @@ export const GET = async (req: NextRequest) => {
                     hw.push(link)
                 }
             })
+            console.log("陣列回傳", hw)
         } else if (id === "downhw") {
             cells.forEach((cell, index) => {
                 let list = cell.textContent
@@ -101,9 +103,9 @@ export const GET = async (req: NextRequest) => {
         const dom = new JSDOM(html)
         const document = dom.window.document
 
-        let rows = Array.from(
-            document.querySelectorAll("form table tr td table tr:not(:nth-child(-n+2))")
-        )
+        // 選擇不包含前兩個 tr
+        let rows = Array.from(document.querySelectorAll("form table tr td table tr"))
+        rows = rows.slice(2)
         // 排除 最後一個 tr
         rows = rows.slice(0, rows.length - 1)
         // console.log("crawler", id, rows.length)
@@ -114,10 +116,15 @@ export const GET = async (req: NextRequest) => {
                 status = false
             }
         }
+        console.log("rows", rows.length)
+        console.log(
+            "rows",
+            rows.forEach((row) => console.log(row.textContent))
+        )
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
             hw = rules(id, cells)
-
+            console.log("回傳作業", hw)
             if (id === "uploadhw") {
                 hwdata1.push(hw)
             }
