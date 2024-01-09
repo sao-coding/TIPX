@@ -58,11 +58,8 @@ const getCourseAttendanceRecord = async (
             "body > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr:not(:first-child)"
         )
 
-        // console.log("leaveListHTML", leaveListHTML.length)
-
         for (let i = 0; i < leaveListHTML.length; i++) {
             const leaveListItemHTML = leaveListHTML[i]
-            // console.log("leaveListItemHTML", leaveListItemHTML.textContent)
             courseAttendanceRecordList.push({
                 date: leaveListItemHTML.children[0].textContent ?? "",
                 week: leaveListItemHTML.children[1].textContent ?? "",
@@ -72,7 +69,6 @@ const getCourseAttendanceRecord = async (
                 courseID: leaveListItemHTML.children[4].textContent ?? "",
             })
         }
-        // console.log("courseAttendanceRecordList", courseAttendanceRecordList)
         courseAttendanceRecord.list = courseAttendanceRecordList
     }
 
@@ -106,7 +102,6 @@ const getCourseAttendanceRecord = async (
     ]
 
     const getTotal = () => {
-        console.log("courseAttendanceRecord", courseAttendanceRecord.list.length)
         total = []
         for (let i = 0; i < leaveNameList.length; i++) {
             const leaveName = leaveNameList[i]

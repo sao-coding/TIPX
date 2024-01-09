@@ -1,13 +1,25 @@
 "use client"
 
+import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import * as Tabs from "@radix-ui/react-tabs"
 import { motion } from "framer-motion"
 import Leave from "./leave"
 import List from "./list"
 
 const LeaveTabs = () => {
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const tab = searchParams.get("tab") || "請假"
+    const [activeTab, setActiveTab] = useState(tab)
+
+    const handleTabChange = (value: string) => {
+        setActiveTab(value)
+        router.replace(`/user/leave?tab=${value}`)
+    }
+
     return (
-        <Tabs.Root defaultValue='請假'>
+        <Tabs.Root defaultValue='請假' onValueChange={handleTabChange} value={activeTab}>
             <div className='sticky left-0 top-0 bg-background z-10 md:bg-card-background md:top-[68px]'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative py-1 -mt-2'>
                     <Tabs.Trigger
