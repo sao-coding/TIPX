@@ -37,7 +37,6 @@ export const GET = async (req: NextRequest) => {
         if (id === "uploadhw") {
             cells.forEach((cell, index) => {
                 let list = cell.textContent
-
                 if (list) {
                     if (index === 0) {
                         // 移除空白
@@ -101,9 +100,9 @@ export const GET = async (req: NextRequest) => {
         const dom = new JSDOM(html)
         const document = dom.window.document
 
-        let rows = Array.from(
-            document.querySelectorAll("form table tr td table tr:not(:nth-child(-n+2))")
-        )
+        // 選擇不包含前兩個 tr
+        let rows = Array.from(document.querySelectorAll("form table tr td table tr"))
+        rows = rows.slice(2)
         // 排除 最後一個 tr
         rows = rows.slice(0, rows.length - 1)
         // console.log("crawler", id, rows.length)
@@ -117,7 +116,6 @@ export const GET = async (req: NextRequest) => {
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
             hw = rules(id, cells)
-
             if (id === "uploadhw") {
                 hwdata1.push(hw)
             }
