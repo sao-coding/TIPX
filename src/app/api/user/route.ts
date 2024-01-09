@@ -11,12 +11,9 @@ export const GET = async (req: NextRequest) => {
     const userid = searchParams.get("userid") ?? session?.user.studentID
     const year = cookies().get("cookie_year")?.value
     const sem = cookies().get("cookie_sem")?.value
+    const type = searchParams.get("type")
 
-    const infolist: User = await getUser(userid ?? "")
-
-    if (req.nextUrl.searchParams.has("img")) {
-        return NextResponse.redirect(infolist.img)
-    }
+    const infolist: User = await getUser(userid ?? "", type ?? "")
 
     return NextResponse.json(infolist)
 }

@@ -10,7 +10,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
     return (
         <>
             <div className='mb-2 w-full border-b'>
-                <div className='flex p-2'>
+                <div className='flex p-2 w-full'>
                     <div className='p-2'>
                         {isImgError ? (
                             <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
@@ -41,21 +41,21 @@ const Card = ({ data }: { data: CourseStuList }) => {
                             </Fancybox>
                         )}
                     </div>
-                    <div className='flex items-center p-2'>
-                        <div>
+                    <div className='flex items-center p-2 flex-grow md:flex-grow-0'>
+                        <div className='w-full'>
                             <div className='flex items-center justify-between p-1 flex-wrap'>
                                 <div className='flex items-center'>
                                     <IconUserCircle />
-                                    <div className='pl-1'>{data.name}</div>
+                                    <div className='pl-1'>姓名:{data.name}</div>
                                 </div>
                                 <div className='flex items-center'>
                                     <IconGenderBigender />
-                                    <div className='pl-1'>{data.gender}</div>
+                                    <div className='pl-1'>性別:{data.gender}</div>
                                 </div>
                             </div>
                             <div className='flex items-center p-1'>
                                 <IconStar />
-                                <div className='pl-1'>{data.id}</div>
+                                <div className='pl-1'>學號:{data.id}</div>
                             </div>
                             <div className='flex items-center justify-between flex-wrap'>
                                 <a
