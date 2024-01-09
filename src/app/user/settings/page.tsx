@@ -43,9 +43,11 @@ const SettingsPage = () => {
                                 // document.documentElement.classList.add("dark")
                                 if (e === "dark") {
                                     document.documentElement.classList.add("dark")
+                                    document.documentElement.classList.remove("light")
                                     localStorage.setItem("theme", e)
                                 } else if (e === "light") {
                                     document.documentElement.classList.remove("dark")
+                                    document.documentElement.classList.add("light")
                                     localStorage.setItem("theme", e)
                                 } else {
                                     // 跟隨系統
@@ -54,9 +56,11 @@ const SettingsPage = () => {
                                     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
                                         // 系統暗黑模式
                                         document.documentElement.classList.add("dark")
+                                        document.documentElement.classList.remove("light")
                                     } else {
                                         // 系統明亮模式
                                         document.documentElement.classList.remove("dark")
+                                        document.documentElement.classList.add("light")
                                     }
                                 }
                             }}

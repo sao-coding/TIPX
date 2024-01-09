@@ -87,7 +87,7 @@ export default async function RootLayout({
     const session = await getServerSession(authOptions)
 
     return (
-        <html lang='zh-hant-TW'>
+        <html lang='zh-hant-TW' suppressHydrationWarning>
             <head>
                 <InfoLog />
                 <GoogleAnalytics />

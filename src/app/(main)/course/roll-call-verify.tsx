@@ -18,12 +18,12 @@ const RollCallVerify = ({ courseID }: { courseID: string }) => {
                 點名
             </Dialog.Trigger>
             <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-            <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow flex flex-col justify-center items-center space-y-2'>
+            <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow flex flex-col justify-center items-center space-y-2'>
                 <Dialog.Title className='text-center text-xl font-bold'>請輸入授權碼</Dialog.Title>
                 <Dialog.Description className='flex justify-center'>
                     <input
                         type='password'
-                        className='bg-white rounded-lg p-1 h-8 border text-center'
+                        className='bg-card-background rounded-lg p-1 h-8 border text-center'
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Dialog.Description>
@@ -31,7 +31,7 @@ const RollCallVerify = ({ courseID }: { courseID: string }) => {
                     <IconX />
                 </Dialog.Close>
                 <button
-                    className='w-20 p-1 rounded-lg text-center border hover:bg-gray-200'
+                    className='w-20 p-1 rounded-lg text-center border hover:bg-main-color-3'
                     onClick={async () => {
                         // if (password === "") {
                         //     toast.error("請輸入授權碼")
