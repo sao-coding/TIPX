@@ -37,15 +37,20 @@ const CourseAttendanceRecordPage = async () => {
                 {data?.list?.length > 0 ? (
                     <>
                         <div className='mb-2 grid grid-cols-2 gap-2'>
-                            {leaveType.map((item, index) => {
-                                return (
-                                    <div key={index} className='rounded-xl border p-2'>
-                                        <div>{item}</div>
-                                        <div className='w-full text-right text-lg font-bold'>
-                                            {data?.total[index].count}
+                            {data?.total.map((item, index) => {
+                                if (leaveType.includes(item.type)) {
+                                    return (
+                                        <div
+                                            key={index}
+                                            className='rounded-xl border bg-background p-2'
+                                        >
+                                            <div>{item.type}</div>
+                                            <div className='w-full text-right text-lg font-bold'>
+                                                {item.count}
+                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
+                                }
                             })}
                         </div>
                         <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-background p-2 md:top-[68px]'>

@@ -80,8 +80,11 @@ const InfoBoard = () => {
                                     <>{Math.round(courseAttendanceRecordData.time / 60)}</>
                                 ) : (
                                     <>
-                                        {(Math.round(courseAttendanceRecordData.time / 60) * 10) /
-                                            10}
+                                        {(
+                                            Math.round(
+                                                (courseAttendanceRecordData.time / 60) * 100
+                                            ) / 100
+                                        ).toFixed(1)}
                                     </>
                                 ))}
                         </>

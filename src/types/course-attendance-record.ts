@@ -35,7 +35,7 @@ export type CourseAttendanceRecordList = {
 }
 
 export type CourseAttendanceRecordCount = {
-    name: string
+    type: string
     count: number
 }
 
