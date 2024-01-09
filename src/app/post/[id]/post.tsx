@@ -64,7 +64,7 @@ const Post = ({ params }: { params: { id: string } }) => {
                     transition={{ duration: 0.5 }}
                 >
                     <div className='flex flex-col items-center justify-center w-full'>
-                        <div className='sticky left-0 top-0 flex items-center justify-between w-full border-b bg-background py-3 md:bg-card-background md:text-xl'>
+                        <div className='sticky left-0 top-0 flex items-center justify-between w-full border-b bg-background py-3 md:top-[68px] md:bg-card-background md:text-xl'>
                             <div className='text-center font-bold pr-4 w-full'>{data.title}</div>
                             <button
                                 className='self-start outline-none md:hidden'
