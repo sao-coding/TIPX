@@ -1,6 +1,7 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import * as Tabs from "@radix-ui/react-tabs"
 import Hw from "@/app/course/[id]/hw/page"
 import CourseStuList from "@/app/course/[id]/course-stu-list/page"
@@ -9,7 +10,10 @@ import CourseInfo from "@/app/course/[id]/course-info/page"
 import { motion } from "framer-motion"
 
 const CourseTabs = ({ id }: { id: string }) => {
+    const router = useRouter()
     const searchParams = useSearchParams()
+    const tab = searchParams.get("tab") || "作業"
+    const [activeTab, setActiveTab] = useState(tab)
     const tabList = [
         { value: "作業" },
         { value: "學生" },
@@ -18,8 +22,14 @@ const CourseTabs = ({ id }: { id: string }) => {
         // { value: "評價" },
     ]
     const tabsClassName = ["peer/tabs-作業", "peer/tabs-學生", "peer/tabs-出缺勤", "peer/tabs-規範"]
+
+    const handleTabChange = (value: string) => {
+        setActiveTab(value)
+        router.replace(`/course/${id}?tab=${value}`)
+    }
+
     return (
-        <Tabs.Root defaultValue={searchParams.get("tab") || "作業"}>
+        <Tabs.Root defaultValue='作業' onValueChange={handleTabChange} value={activeTab}>
             <div className='sticky left-0 top-0 z-10 md:top-[68px] bg-background md:bg-card-background'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative py-1 -mt-2'>
                     {tabList?.map((item, index) => (
