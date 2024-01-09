@@ -20,7 +20,7 @@ const CourseTabs = ({ id }: { id: string }) => {
     const tabsClassName = ["peer/tabs-作業", "peer/tabs-學生", "peer/tabs-出缺勤", "peer/tabs-規範"]
     return (
         <Tabs.Root defaultValue={searchParams.get("tab") || "作業"}>
-            <div className='sticky left-0 top-0 z-10 md:top-[68px]'>
+            <div className='sticky left-0 top-0 z-10 md:top-[68px] bg-background md:bg-card-background'>
                 <Tabs.List className='flex justify-around border-b border-main-color-3 relative py-1 -mt-2'>
                     {tabList?.map((item, index) => (
                         <Tabs.Trigger
