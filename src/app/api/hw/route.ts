@@ -37,9 +37,7 @@ export const GET = async (req: NextRequest) => {
         if (id === "uploadhw") {
             cells.forEach((cell, index) => {
                 let list = cell.textContent
-
                 if (list) {
-                    console.log(index, list)
                     if (index === 0) {
                         // 移除空白
                         list = list.replace(/\s/g, "")
@@ -75,7 +73,6 @@ export const GET = async (req: NextRequest) => {
                     hw.push(link)
                 }
             })
-            console.log("陣列回傳", hw)
         } else if (id === "downhw") {
             cells.forEach((cell, index) => {
                 let list = cell.textContent
@@ -116,15 +113,9 @@ export const GET = async (req: NextRequest) => {
                 status = false
             }
         }
-        console.log("rows", rows.length)
-        console.log(
-            "rows",
-            rows.forEach((row) => console.log(row.textContent))
-        )
         rows.forEach((row) => {
             const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
             hw = rules(id, cells)
-            console.log("回傳作業", hw)
             if (id === "uploadhw") {
                 hwdata1.push(hw)
             }
