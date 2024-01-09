@@ -95,15 +95,15 @@ export default async function RootLayout({
                 {/* <GoogleAdsense /> */}
             </head>
             <body className={inter.className}>
-                <Toaster />
-                <Header />
-                <Container>
-                    <Providers session={session}>
+                <Providers session={session}>
+                    <Toaster />
+                    <Header />
+                    <Container>
                         {children}
                         {modal}
-                    </Providers>
-                </Container>
-                <Analytics />
+                    </Container>
+                    <Analytics />
+                </Providers>
             </body>
         </html>
     )
