@@ -109,7 +109,7 @@ const getCourseAttendanceRecord = async (
                 (item) => item.type === leaveName
             ).length
             total.push({
-                name: leaveName,
+                type: leaveName,
                 count: leaveCount,
             })
         }

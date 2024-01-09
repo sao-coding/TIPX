@@ -40,14 +40,21 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                     {data && (
                         <BottomToUpTransitionView>
                             <div className='mb-2 grid grid-cols-2 gap-2'>
-                                {leaveType.map((item, index) => (
-                                    <div className='rounded-xl border p-2' key={index}>
-                                        <div>{item}</div>
-                                        <div className='w-full text-right text-lg font-bold'>
-                                            {data?.total[index].count}
-                                        </div>
-                                    </div>
-                                ))}
+                                {data?.total.map((item, index) => {
+                                    if (leaveType.includes(item.type)) {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className='rounded-xl border md:bg-card-background p-2 bg-background'
+                                            >
+                                                <div>{item.type}</div>
+                                                <div className='w-full text-right text-lg font-bold'>
+                                                    {item.count}
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                })}
                             </div>
                             <div className='sticky left-0 top-0 mb-2 rounded-xl border md:bg-card-background p-2 bg-background md:top-[117px]'>
                                 <div>總計</div>
