@@ -34,60 +34,54 @@ export const GET = async (req: NextRequest) => {
     const dom = new JSDOM(html)
     const document = dom.window.document
 
-    const rows = Array.from(document.querySelectorAll("form > table:nth-child(2) > tbody > tr"))
+    const stuListTable = Array.from(
+        document.querySelectorAll(
+            "body > table:nth-child(7) > tbody > tr > td > form > table:nth-child(2) > tbody >tr"
+        )
+    )
 
-    rows.forEach((row) => {
+    const stuListTableLength = stuListTable.length
+
+    for (let i = 1; i < stuListTableLength; i++) {
         stuList = []
-        const cells = Array.from(row.querySelectorAll("td font"))
+        const stuInfo = stuListTable[i].querySelectorAll("td:nth-child(2) > p")
+        const stuInfoLength = stuInfo.length
 
-        cells.forEach((cell, index) => {
-            let list = cell.textContent
-            const img = cell.querySelector("img")
-            if (index === 0) {
-                const img = cell.querySelector("img")
-                // 取得img src
-                list = img?.getAttribute("src") || ""
-            } else if (index === 5) {
-                // <font size=\"2\">Mail:<a href='mailto:weihongh90@gmail.com'>常用Mail</a> ; <a
-                // href='mailto:D10619233@mail.takming.edu.tw'>學校Mail</a></font>
-                // 取得mail
-                const maillist: string[] = []
-                const mail = cell.querySelectorAll("a")
-
-                mail.forEach((m) => {
-                    // mail.takming.edu.tw 改 gs.takming.edu.tw
-                    // maillist.push(m.getAttribute("href")?.replace("mailto:", "") || "")
-                    // 如果 m 是 undefined 就改成空字串
-
-                    if (mail.length === 1) {
-                        maillist.push("")
-                    }
-
-                    maillist.push(
-                        m
+        for (let j = 0; j < stuInfoLength; j++) {
+            // 若是最後一個 用email的方式取得
+            if (j === stuInfoLength - 1) {
+                // 取 mailto: 後面的字串
+                const email = stuInfo[j].querySelectorAll("a")
+                const emailLength = email.length
+                for (let k = 0; k < emailLength; k++) {
+                    // 若是 takming.edu.tw 的信箱 則換成 gs.takming.edu.tw
+                    stuList.push(
+                        email[k]
                             .getAttribute("href")
                             ?.replace("mailto:", "")
-                            .replace("mail.takming.edu.tw", "gs.takming.edu.tw") || ""
+                            .replace("@takming.edu.tw", "@gs.takming.edu.tw") ?? ""
                     )
-                })
-                // console.log("maillist", maillist)
-                list = maillist.join(";")
+                }
             } else {
-                // 移除空白
-                list = list?.replace(/\s/g, "") || list
+                // 去除空白等奇怪的字元
+                stuList.push(stuInfo[j].textContent?.trim() ?? "")
             }
-            // console.log(list)
-            stuList.push(list ?? "")
-        })
-        courseStuList.push({
-            img: stuList[0],
-            class: stuList[1],
-            id: stuList[2],
-            name: stuList[3],
-            gender: stuList[4],
-            email: stuList[5].split(";"),
-        })
-    })
+        }
+        const stuData: CourseStuList = {
+            img:
+                stuListTable[i]
+                    .querySelector("td:nth-child(1) > font > img")
+                    ?.getAttribute("src") ?? "",
+            class: stuList[0].replace("班級:", ""),
+            id: stuList[1].replace("學號:", ""),
+            gender: stuList[3].replace("性別:", ""),
+            name: stuList[2].replace("姓名:", ""),
+            email: [stuList[4], stuList[5]],
+        }
+        courseStuList.push(stuData)
+    }
+
+    // console.log(rows.forEach((row) => console.log(row.textContent)))
 
     return NextResponse.json(courseStuList)
 }
