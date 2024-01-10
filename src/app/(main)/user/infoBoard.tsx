@@ -80,9 +80,7 @@ const InfoBoard = () => {
                                     Math.round((courseAttendanceRecordData.time / 60) * 10) / 10
                                 ).toFixed(1).length >= 4 ? (
                                     <Counter
-                                        count={Math.round(
-                                            (courseAttendanceRecordData.time / 60) * 100
-                                        )}
+                                        count={Math.round(courseAttendanceRecordData.time / 60)}
                                     />
                                 ) : (
                                     <Counter
