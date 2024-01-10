@@ -3,7 +3,16 @@
 import { useEffect, useRef } from "react"
 import { useInView, useMotionValue, useSpring } from "framer-motion"
 
-const Counter = ({ count, decimals = 0 }: { count: number; decimals?: number }) => {
+// 參數: 數字, 小數點位數 補零幾位
+const Counter = ({
+    count = 0,
+    length = 0,
+    decimals = 0,
+}: {
+    count: number
+    length?: number
+    decimals?: number
+}) => {
     const ref = useRef<HTMLSpanElement>(null)
     const motionValue = useMotionValue(0)
     const springValue = useSpring(motionValue, {
@@ -26,7 +35,7 @@ const Counter = ({ count, decimals = 0 }: { count: number; decimals?: number }) 
 
         const unsubscribe = springValue.onChange((latest) => {
             if (ref.current) {
-                ref.current.textContent = latest.toFixed(decimals)
+                ref.current.textContent = latest.toFixed(decimals).padStart(length, "0")
             }
         })
 

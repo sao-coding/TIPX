@@ -31,13 +31,13 @@ const CreateTime = () => {
         <div className='flex flex-col items-center justify-center p-10 w-full'>
             <div className='flex items-center space-x-1 text-xl font-bold md:text-5xl'>
                 {/* {day} 天 {hour} 時 {minute} 分 {second} 秒 */}
-                {day !== 0 ? <Counter count={day} /> : <>--</>}
+                {day !== 0 ? <Counter count={day} /> : <span>00</span>}
                 <span>天</span>
-                {hour !== 0 ? <Counter count={hour} /> : <>--</>}
+                {hour !== 0 ? <Counter count={hour} /> : <span>00</span>}
                 <span>時</span>
-                {minute !== 0 ? <Counter count={minute} /> : <>--</>}
+                {minute !== 0 ? <Counter count={minute} length={2} /> : <span>00</span>}
                 <span>分</span>
-                {second !== 0 ? <Counter count={second} /> : <>--</>}
+                {second !== 0 ? <Counter count={second} length={2} /> : <span>00</span>}
                 <span>秒</span>
             </div>
             <div className='text-2xl'>已運行時間</div>
