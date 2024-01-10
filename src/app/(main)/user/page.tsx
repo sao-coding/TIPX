@@ -13,6 +13,7 @@ import Switch from "./switch"
 import Notify from "./notify"
 import Logout from "./logout"
 import Count from "./count"
+import CreateTime from "./create-time"
 import { USER_LINKS } from "@/config/links"
 import { site } from "@/config/site"
 
@@ -63,6 +64,7 @@ const UserPage = async () => {
                 <Notify />
                 <Logout />
                 <Count />
+                <CreateTime />
             </div>
         </>
     )
