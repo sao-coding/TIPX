@@ -1,7 +1,7 @@
 import { IconUserCircle } from "@tabler/icons-react"
 import Avatar from "@/components/ui/avatar"
 import Title from "@/components/Title"
-import Count from "./count"
+import Count from "@/app/(main)/user/count"
 
 const InfoPage = () => {
     const title = {

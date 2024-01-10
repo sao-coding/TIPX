@@ -3,7 +3,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { IconListDetails, IconClock, IconUserStar, IconLoader2 } from "@tabler/icons-react"
 import Cookie from "js-cookie"
+import Counter from "@/components/transition/Counter"
 import { CourseAttendanceRecordTotal, Conduct } from "@/types"
+
 const InfoBoard = () => {
     const { data: courseAttendanceRecordData, isLoading: LeaveLoading } =
         useQuery<CourseAttendanceRecordTotal>({
@@ -56,7 +58,7 @@ const InfoBoard = () => {
                     {LeaveLoading ? (
                         <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
-                        <>{courseAttendanceRecordData?.count}</>
+                        <Counter count={courseAttendanceRecordData?.count || 0} />
                     )}
                     <div className='ml-0.5'>次</div>
                 </div>
@@ -77,15 +79,20 @@ const InfoBoard = () => {
                                 ((
                                     Math.round((courseAttendanceRecordData.time / 60) * 10) / 10
                                 ).toFixed(1).length >= 4 ? (
-                                    <>{Math.round(courseAttendanceRecordData.time / 60)}</>
+                                    <Counter
+                                        count={Math.round(
+                                            (courseAttendanceRecordData.time / 60) * 100
+                                        )}
+                                    />
                                 ) : (
-                                    <>
-                                        {(
+                                    <Counter
+                                        count={
                                             Math.round(
                                                 (courseAttendanceRecordData.time / 60) * 100
                                             ) / 100
-                                        ).toFixed(1)}
-                                    </>
+                                        }
+                                        decimals={1}
+                                    />
                                 ))}
                         </>
                     )}
@@ -103,7 +110,7 @@ const InfoBoard = () => {
                     {conductLoading ? (
                         <IconLoader2 className='mx-1 animate-spin' />
                     ) : (
-                        <>{conductData?.score}</>
+                        <Counter count={conductData?.score || 0} decimals={1} />
                     )}
                     <div className='ml-0.5'>分</div>
                 </div>
