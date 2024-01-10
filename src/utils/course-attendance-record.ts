@@ -4,7 +4,6 @@ import {
     CourseAttendanceRecordList,
     CourseAttendanceRecordCount,
 } from "@/types"
-import { time } from "console"
 
 const getCourseAttendanceRecord = async (
     userid: string,
@@ -72,17 +71,6 @@ const getCourseAttendanceRecord = async (
         courseAttendanceRecord.list = courseAttendanceRecordList
     }
 
-    // 曠課	病假	事假	公假	朝會不到	朝會遲到	遲到	喪假	婚假	產假	育嬰假	哺育幼兒假	生理假	懷孕假 新生定向
-    // 取得 各種假別的總數 放入
-    //     "total": [
-    //         {
-    //             {
-    //                 "name": "曠課",
-    //                 "count": 0
-    //               },
-    //         }
-    //     ]
-
     const leaveNameList = [
         "曠課",
         "病假",
@@ -127,7 +115,7 @@ const getCourseAttendanceRecord = async (
         )
 
         courseAttendanceRecord.list = courseAttendanceRecordFilter
-        console.log("courseAttendanceRecordxx", courseAttendanceRecord.list.length)
+
         // 取得 各種假別的總數 放入
         getTotal()
 
@@ -151,24 +139,6 @@ const getCourseAttendanceRecord = async (
         // // 第十三節 20:15~21:00
         // // 第十四節 21:05~21:45
 
-        // // 創建平日 時間表
-        // const weekdayTimeList = [
-        //     { start: "08:20", end: "09:10" },
-        //     { start: "09:20", end: "10:10" },
-        //     { start: "10:20", end: "11:10" },
-        //     { start: "11:20", end: "12:10" },
-        //     { start: "12:20", end: "13:10" },
-        //     { start: "13:20", end: "14:10" },
-        //     { start: "14:20", end: "15:10" },
-        //     { start: "15:20", end: "16:10" },
-        //     { start: "16:20", end: "17:00" },
-        //     { start: "17:00", end: "18:30" },
-        //     { start: "18:30", end: "19:15" },
-        //     { start: "19:20", end: "20:05" },
-        //     { start: "20:15", end: "21:00" },
-        //     { start: "21:05", end: "21:45" },
-        // ]
-
         // // 假日
         // // 第一節 09:00~09:45
         // // 第二節 09:50~10:35
@@ -185,22 +155,6 @@ const getCourseAttendanceRecord = async (
         // // 第十三節 19:50~20:35
         // // 第十四節 20:40~21:25
 
-        // const holidayTimeList = [
-        //     { start: "09:00", end: "09:45" },
-        //     { start: "09:50", end: "10:35" },
-        //     { start: "10:40", end: "11:25" },
-        //     { start: "11:30", end: "12:15" },
-        //     { start: "13:10", end: "13:55" },
-        //     { start: "14:00", end: "14:45" },
-        //     { start: "14:50", end: "15:35" },
-        //     { start: "15:40", end: "16:25" },
-        //     { start: "16:30", end: "17:15" },
-        //     { start: "17:20", end: "18:05" },
-        //     { start: "18:10", end: "18:55" },
-        //     { start: "19:00", end: "19:45" },
-        //     { start: "19:50", end: "20:35" },
-        //     { start: "20:40", end: "21:25" },
-        // ]
         // 平日每節上課時長
         const weekTime = [50, 50, 50, 50, 50, 50, 50, 50, 40, 90, 45, 45, 45, 40]
         // 假日每節上課時長
