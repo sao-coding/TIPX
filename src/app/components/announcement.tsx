@@ -48,7 +48,9 @@ const AnnouncementCP = () => {
             {isFetchingNextPage || !data
                 ? Array.from(Array(5).keys()).map((index) => <Loading key={index} />)
                 : !hasNextPage && (
-                      <div className='text-center text-gray-500 mb-4'>沒有更多公告了</div>
+                      <div className='text-center text-gray-500 mb-4 border-t md:border-0'>
+                          沒有更多公告了
+                      </div>
                   )}
         </>
     )

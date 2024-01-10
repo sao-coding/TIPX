@@ -9,7 +9,7 @@ const HomePage = () => {
     }
     return (
         <>
-            <div className='w-full px-3 pb-2 mb-14'>
+            <div className='w-full px-3 pb-2 mb-14 md:-mb-20'>
                 {/* <div className='mb-2 md:rounded-xl md:border md:bg-white text-center text-2xl font-bold md:shadow-sm border-b'>
                 學校公告
             </div> */}
