@@ -24,7 +24,7 @@ const CreateTime = () => {
         setHour(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
         setMinute(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
         setSecond(Math.floor((distance % (1000 * 60)) / 1000))
-        console.log({ day, hour, minute, second })
+        // console.log({ day, hour, minute, second })
     }, [nowTime, dateTime])
 
     return (
