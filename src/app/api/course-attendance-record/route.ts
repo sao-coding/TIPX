@@ -19,8 +19,6 @@ export const GET = async (req: NextRequest) => {
         await getCourseAttendanceRecord(userid ?? "", year ?? "", sem ?? "", type ?? "")
 
     // 取得courseID的請假數
-    // req.nextUrl.searchParams.get("course")
-    console.log("courseAPI", req.nextUrl.searchParams.get("course"))
     if (req.nextUrl.searchParams.get("course")) {
         const courseAttendanceRecord: CourseAttendanceRecord = (await getCourseAttendanceRecord(
             userid ?? "",
