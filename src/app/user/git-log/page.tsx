@@ -22,7 +22,7 @@ const GitLogPage = async () => {
             <Title title={title} />
             {/* 提交總次數: {data.length} */}
             <div className='sticky left-0 top-0 md:top-[68px] z-10 px-2 pb-2 md:p-0'>
-                <div className='w-full text-center border rounded-xl p-2 mb-2 bg-card-background'>
+                <div className='w-full text-center border rounded-xl p-2 mb-2 bg-background'>
                     <div className='flex justify-center items-center space-x-16'>
                         <div className=''>提交總次數: {data.length}</div>
                         <div className=''>
