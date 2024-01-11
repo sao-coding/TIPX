@@ -31,7 +31,7 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
                     {data.category}
                 </motion.div>
                 <motion.div
-                    className='h-12 px-1 text-left md:text-center overflow-ellipsis line-clamp-2'
+                    className='h-12 px-1 text-left md:text-center text-ellipsis line-clamp-2'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
