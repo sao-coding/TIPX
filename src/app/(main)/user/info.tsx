@@ -73,7 +73,9 @@ const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
                             <div className='py-[3px] pl-4'>
                                 <div>{userData.name}</div>
                                 <div>{userData.IDnumber}</div>
-                                <div className='max-xs:text-sm'>{userData.major}</div>
+                                <div className='max-xs:text-sm text-ellipsis line-clamp-1'>
+                                    {userData.major}
+                                </div>
                                 <div className='flex'>
                                     <div className='bg-main-color-3 px-1 rounded-md text-neutral-200 max-xs:text-sm'>
                                         {lineID ? lineID : "未填寫 Line ID"}

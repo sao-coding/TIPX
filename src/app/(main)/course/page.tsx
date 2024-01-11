@@ -35,7 +35,7 @@ const CourseListPage = async () => {
                                     className='flex flex-col space-y-2 rounded-lg border p-2 ripple h-20 justify-center dark:bg-main-color-1 dark:border-none'
                                     href={`/course/${course.id}`}
                                 >
-                                    <div className='overflow-ellipsis line-clamp-1'>
+                                    <div className='text-ellipsis line-clamp-1'>
                                         {course.course}
                                     </div>
                                     <div className='flex justify-between items-center'>

@@ -55,7 +55,7 @@ const FinalGradePage = async () => {
                                 {item.type}
                             </div>
                             <div>{item.id}</div>
-                            <div className='overflow-ellipsis line-clamp-1'>{item.name}</div>
+                            <div className='text-ellipsis line-clamp-1'>{item.name}</div>
                             <div>{item.category}</div>
                             <div className='flex items-center space-x-1'>
                                 <IconCoins className='animate-pulse stroke-yellow-500' />
@@ -65,7 +65,7 @@ const FinalGradePage = async () => {
                                 <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                                 <div>{item.finalGrade}</div>
                             </div>
-                            <div className='overflow-ellipsis line-clamp-1'>{item.class}</div>
+                            <div className='text-ellipsis line-clamp-1'>{item.class}</div>
                         </div>
                     </ScaleTransitionView>
                 ))}
