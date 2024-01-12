@@ -1,20 +1,42 @@
 "use client"
 
+import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { IconTemperature, IconCloudRain, IconLoader2 } from "@tabler/icons-react"
 import formatDatetime from "@/utils/format-datetime"
 import { Weather } from "@/types"
 
 const Weather = () => {
+    const [location, setLocation] = useState("內湖區")
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
-            const res = await fetch(`/api/weather?date=${formatDatetime(new Date(), "weather")}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
+            if (localStorage.getItem("location") === "true") {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude
+                    const lng = position.coords.longitude
+
+                    const locationRes = await fetch(`/api/location?lat=${lat}&lng=${lng}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+
+                    const locationData = await locationRes.json()
+                    setLocation(locationData.location)
+                })
+            }
+
+            const res = await fetch(
+                `/api/weather?date=${formatDatetime(new Date(), "weather")}&location=${location}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            )
 
             const data = await res.json()
 
@@ -92,6 +114,43 @@ const Weather = () => {
                         )}
                     </div>
                     <div>°C</div>
+                    {/* 體感溫度 最低 最高 */}
+                    <div className='ml-2 text-xs text-gray-400'>
+                        {isLoading ? (
+                            <IconLoader2 size={16} className='mx-1 animate-spin' />
+                        ) : (
+                            <>
+                                {data?.map((item) => {
+                                    if (item.elementName === "MaxAT") {
+                                        return (
+                                            <div key={item.elementName}>
+                                                {item.time[nowTime("MaxAT")].elementValue[0].value}
+                                            </div>
+                                        )
+                                    }
+                                })}
+                            </>
+                        )}
+                    </div>
+                    <div className='text-xs text-gray-400'>/</div>
+                    <div className='text-xs text-gray-400'>
+                        {isLoading ? (
+                            <IconLoader2 size={16} className='mx-1 animate-spin' />
+                        ) : (
+                            <>
+                                {data?.map((item) => {
+                                    if (item.elementName === "MinAT") {
+                                        return (
+                                            <div key={item.elementName}>
+                                                {item.time[nowTime("MinAT")].elementValue[0].value}
+                                            </div>
+                                        )
+                                    }
+                                })}
+                            </>
+                        )}
+                    </div>
+                    <div className='text-xs text-gray-400'>°C</div>
                 </div>
                 <div className='ml-auto'>
                     <div className='text-xs text-gray-400'>
@@ -120,7 +179,13 @@ const Weather = () => {
                     )}
                     <div>%</div>
                 </div>
-                <div className='ml-auto'>
+                <div className='ml-auto flex items-center space-x-2'>
+                    {/* 目前地區 */}
+                    {isLoading ? (
+                        <IconLoader2 className='mx-1 animate-spin' />
+                    ) : (
+                        <div className=''>{location}</div>
+                    )}
                     <div className='text-xs text-gray-400'>
                         {/* Wx */}
                         {isLoading ? (

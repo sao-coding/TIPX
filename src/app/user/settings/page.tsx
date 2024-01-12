@@ -1,12 +1,39 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { IconPaint, IconSelector, IconDeviceDesktop, IconSun, IconMoon } from "@tabler/icons-react"
+import {
+    IconPaint,
+    IconSelector,
+    IconDeviceDesktop,
+    IconSun,
+    IconMoon,
+    IconBell,
+    IconMapPin,
+} from "@tabler/icons-react"
+import clsx from "clsx"
 import { Listbox } from "@headlessui/react"
+import * as Switch from "@radix-ui/react-switch"
 import Title from "@/components/Title"
 
 const SettingsPage = () => {
     const [theme, setTheme] = useState("system")
+    const [notification, setNotification] = useState(false)
+    const [location, setLocation] = useState(false)
+
+    useEffect(() => {
+        if (localStorage.getItem("notification") === "true") {
+            setNotification(true)
+        }
+        if (localStorage.getItem("notification") === "false") {
+            setNotification(false)
+        }
+        if (localStorage.getItem("location") === "true") {
+            setLocation(true)
+        }
+        if (localStorage.getItem("location") === "false") {
+            setLocation(false)
+        }
+    }, [])
 
     useEffect(() => {
         if (localStorage.theme === "dark") {
@@ -17,6 +44,59 @@ const SettingsPage = () => {
             setTheme("system")
         }
     }, [])
+
+    const handleNotification = async () => {
+        // 開關通知
+        if (notification) {
+            localStorage.setItem("notification", "false")
+            setNotification(false)
+        }
+        if (!notification) {
+            localStorage.setItem("notification", "true")
+            setNotification(true)
+            navigator.serviceWorker.ready.then((registration) => {
+                registration.showNotification("通知訊息", {
+                    body: "您已開啟通知",
+                    icon: "/pwa/android-launchericon-192-192.png",
+                    vibrate: [200, 100, 200, 100, 200, 100, 200],
+                    tag: "notification",
+                    renotify: true,
+                })
+            })
+
+            // 註冊通知
+            // 是否允許瀏覽器通知
+            await Notification.requestPermission()
+            if (Notification.permission === "granted") {
+                setNotification(true)
+            }
+            if (Notification.permission === "denied") {
+                setNotification(false)
+            }
+        }
+    }
+
+    const handleLocation = async () => {
+        // 是否允許瀏覽器定位
+        if (location) {
+            localStorage.setItem("location", "false")
+            setLocation(false)
+        }
+        if (!location) {
+            localStorage.setItem("location", "true")
+            setLocation(true)
+        }
+
+        // 註冊定位
+        await navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log("position", position)
+            },
+            (error) => {
+                console.log("error", error)
+            }
+        )
+    }
 
     const title = {
         title: "設定",
@@ -30,7 +110,7 @@ const SettingsPage = () => {
             {/* 主題 */}
             <div className='w-full px-2 mb-2'>
                 <Title title={title} />
-                <div className='px-2'>
+                <div className='px-2 flex flex-col gap-2'>
                     <div className='relative flex justify-between items-center'>
                         <div className='flex items-center space-x-2'>
                             <IconPaint className='stroke-pink-500' />
@@ -107,6 +187,54 @@ const SettingsPage = () => {
                                 </Listbox.Option>
                             </Listbox.Options>
                         </Listbox>
+                    </div>
+                    <div className='flex items-center justify-between'>
+                        <div className='flex items-center space-x-2'>
+                            <IconBell className='stroke-yellow-500' />
+                            <div className=''>通知訊息</div>
+                        </div>
+                        <div className='flex items-center space-x-2'>
+                            <div
+                                className={clsx(
+                                    "text-xs",
+                                    notification ? "text-green-500" : "text-red-500"
+                                )}
+                            >
+                                {notification ? "已開啟" : "已關閉"}
+                            </div>
+                            <Switch.Root
+                                className='bg-black rounded-full w-11 h-6 data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300 outline-none'
+                                defaultChecked={notification}
+                                onCheckedChange={handleNotification}
+                                checked={notification}
+                            >
+                                <Switch.Thumb className='bg-white rounded-full h-5 w-5 block transition-transform data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-0.5' />
+                            </Switch.Root>
+                        </div>
+                    </div>
+                    <div className='flex items-center justify-between'>
+                        <div className='flex items-center space-x-2'>
+                            <IconMapPin className='stroke-red-500' />
+                            <div className=''> 天氣定位</div>
+                        </div>
+                        <div className='flex items-center space-x-2'>
+                            <div
+                                className={clsx(
+                                    "text-xs",
+                                    location ? "text-green-500" : "text-red-500"
+                                )}
+                            >
+                                {location ? "已開啟" : "已關閉"}
+                            </div>
+                            <Switch.Root
+                                className='bg-black rounded-full w-11 h-6 data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300 outline-none'
+                                defaultChecked={location}
+                                onCheckedChange={handleLocation}
+                                checked={location}
+                            >
+                                <Switch.Thumb className='bg-white rounded-full h-5 w-5 block transition-transform data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-0.5' />
+                            </Switch.Root>
+                        </div>
                     </div>
                 </div>
             </div>
