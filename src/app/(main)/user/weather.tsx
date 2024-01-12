@@ -7,7 +7,7 @@ import formatDatetime from "@/utils/format-datetime"
 import { Weather } from "@/types"
 
 const Weather = () => {
-    const fetchWeather = async (city: string = "台北市", location: string = "內湖區") => {
+    const fetchWeather = async (city: string, location: string) => {
         const res = await fetch(
             `/api/weather?date=${formatDatetime(
                 new Date(),
@@ -29,8 +29,8 @@ const Weather = () => {
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
-            let city: string = ""
-            let location: string = ""
+            let city = "臺北市"
+            let location = "內湖區"
             let data
             if (localStorage.getItem("location") === "true") {
                 navigator.geolocation.getCurrentPosition(async (position) => {
@@ -53,7 +53,7 @@ const Weather = () => {
                 })
                 data = await fetchWeather(city, location)
             } else {
-                data = await fetchWeather()
+                data = await fetchWeather(city, location)
             }
             return data
         },
