@@ -33,6 +33,7 @@ export const GET = async (req: NextRequest) => {
         cityCode.find((item) => item.city === req.nextUrl.searchParams.get("city"))?.code ??
         "F-D0047-063"
     const location = req.nextUrl.searchParams.get("location") ?? "內湖區"
+    console.log(city, location)
     const today =
         req.nextUrl.searchParams.get("date") ??
         formatDatetime(
@@ -57,7 +58,7 @@ export const GET = async (req: NextRequest) => {
 
     const res = await fetch(url.toString())
     const data = await res.json()
-
+    console.log(data)
     const weatherData = data.records.locations[0].location[0].weatherElement.map(
         (item: Weather) => {
             const time = item.time.map((item) => {

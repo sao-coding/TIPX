@@ -9,7 +9,10 @@ import { Weather } from "@/types"
 const Weather = () => {
     const fetchWeather = async (city: string, location: string) => {
         const res = await fetch(
-            `/api/weather?date=2024-01-13T12:00:00&city=${city}&location=${location}`,
+            `/api/weather?date=${formatDatetime(
+                new Date(),
+                "weather"
+            )}&city=${city}&location=${location}`,
             {
                 method: "GET",
                 headers: {
@@ -20,12 +23,11 @@ const Weather = () => {
         const data = await res.json()
         return data
     }
-    const [city, setCity] = useState("臺中市")
-    const [location, setLocation] = useState("西區")
+    const [city, setCity] = useState("")
+    const [location, setLocation] = useState("")
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather", city, location],
         queryFn: async () => {
-            let data
             if (localStorage.getItem("location") === "true") {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const lat = position.coords.latitude
@@ -41,8 +43,8 @@ const Weather = () => {
                     setCity(locationData.city)
                     setLocation(locationData.suburb)
                 })
-                data = await fetchWeather(city, location)
             }
+            const data = await fetchWeather(city, location)
             return data
         },
         refetchOnWindowFocus: false,
