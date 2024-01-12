@@ -29,8 +29,8 @@ const Weather = () => {
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
-            let city = "臺北市"
-            let location = "內湖區"
+            let city: string = ""
+            let location: string = ""
             let data
             if (localStorage.getItem("location") === "true") {
                 navigator.geolocation.getCurrentPosition(async (position) => {
