@@ -16,14 +16,17 @@ export const GET = async (req: NextRequest) => {
         no_annotations: "1",
     })
 
-    // 返回目前縣市
+    // 返回目前縣市代號
     url.search = params.toString()
     const res = await fetch(url.toString())
     const data = await res.json()
 
     const locationData: Location = data.results[0].components
 
-    const location = locationData.suburb ?? "內湖區"
-    console.log(location)
-    return NextResponse.json({ location })
+    const location = {
+        city: locationData.city,
+        suburb: locationData.suburb,
+    }
+
+    return NextResponse.json(location)
 }
