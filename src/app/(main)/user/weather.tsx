@@ -7,10 +7,31 @@ import formatDatetime from "@/utils/format-datetime"
 import { Weather } from "@/types"
 
 const Weather = () => {
+    const fetchWeather = async (city: string = "台北市", location: string = "內湖區") => {
+        const res = await fetch(
+            `/api/weather?date=${formatDatetime(
+                new Date(),
+                "weather"
+            )}&city=${city}&location=${location}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+
+        const data = await res.json()
+
+        return data
+    }
     const [location, setLocation] = useState("內湖區")
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
+            let city: string = ""
+            let location: string = ""
+            let data
             if (localStorage.getItem("location") === "true") {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const lat = position.coords.latitude
@@ -24,22 +45,16 @@ const Weather = () => {
                     })
 
                     const locationData = await locationRes.json()
-                    setLocation(locationData.location)
+                    city = locationData.city
+                    location = locationData.suburb
+                    setLocation(locationData.suburb)
+
+                    data = await fetchWeather(city, location)
                 })
+                data = await fetchWeather(city, location)
+            } else {
+                data = await fetchWeather()
             }
-
-            const res = await fetch(
-                `/api/weather?date=${formatDatetime(new Date(), "weather")}&location=${location}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
-
-            const data = await res.json()
-
             return data
         },
         refetchOnWindowFocus: false,
