@@ -5,6 +5,7 @@ import { Weather } from "@/types"
 export const dynamic = "force-dynamic"
 
 export const GET = async (req: NextRequest) => {
+    const location = req.nextUrl.searchParams.get("location") ?? "內湖區"
     const today =
         req.nextUrl.searchParams.get("date") ??
         formatDatetime(
@@ -19,8 +20,8 @@ export const GET = async (req: NextRequest) => {
     const params = new URLSearchParams({
         Authorization: "CWB-B2DD23C3-AAB7-4A12-A50C-2FB1EE813769",
         locationId: "F-D0047-063",
-        locationName: "內湖區",
-        elementName: "MinT,MaxT,PoP12h,Wx",
+        locationName: location,
+        elementName: "MinT,MaxT,MinAT,MaxAT,PoP12h,Wx",
         timeFrom: today,
         timeTo: tomorrow,
     })
