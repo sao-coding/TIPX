@@ -20,18 +20,14 @@ const Weather = () => {
                 },
             }
         )
-
         const data = await res.json()
-
         return data
     }
+    const [city, setCity] = useState("")
     const [location, setLocation] = useState("")
     const { isLoading, data } = useQuery<Weather[]>({
-        queryKey: ["weather"],
+        queryKey: ["weather", city, location],
         queryFn: async () => {
-            let city = "臺北市"
-            let location = "內湖區"
-            let data
             if (localStorage.getItem("location") === "true") {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const lat = position.coords.latitude
@@ -43,18 +39,12 @@ const Weather = () => {
                             "Content-Type": "application/json",
                         },
                     })
-
                     const locationData = await locationRes.json()
-                    city = locationData.city
-                    location = locationData.suburb
+                    setCity(locationData.city)
                     setLocation(locationData.suburb)
-
-                    data = await fetchWeather(city, location)
                 })
-                data = await fetchWeather(city, location)
-            } else {
-                data = await fetchWeather(city, location)
             }
+            const data = await fetchWeather(city, location)
             return data
         },
         refetchOnWindowFocus: false,
