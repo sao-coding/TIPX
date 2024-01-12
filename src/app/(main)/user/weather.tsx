@@ -25,7 +25,7 @@ const Weather = () => {
 
         return data
     }
-    const [location, setLocation] = useState("內湖區")
+    const [location, setLocation] = useState("")
     const { isLoading, data } = useQuery<Weather[]>({
         queryKey: ["weather"],
         queryFn: async () => {
