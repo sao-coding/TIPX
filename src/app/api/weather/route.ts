@@ -30,10 +30,9 @@ export const GET = async (req: NextRequest) => {
         { city: "金門縣", code: "F-D0047-087" },
     ]
     const city =
-        cityCode.find((item) => item.city === req.nextUrl.searchParams.get("city"))?.code ??
+        cityCode.find((item) => item.city === req.nextUrl.searchParams.get("city"))?.code ||
         "F-D0047-063"
-    const location = req.nextUrl.searchParams.get("location") ?? "內湖區"
-    console.log(city, location)
+    const location = req.nextUrl.searchParams.get("location") || "內湖區"
     const today =
         req.nextUrl.searchParams.get("date") ??
         formatDatetime(
@@ -68,12 +67,13 @@ export const GET = async (req: NextRequest) => {
                     elementValue: item.elementValue,
                 }
             })
-
             return {
                 elementName: item.elementName,
                 description: item.description,
                 today,
                 tomorrow,
+                city,
+                location,
                 time,
             }
         }
