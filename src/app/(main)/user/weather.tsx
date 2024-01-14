@@ -41,7 +41,7 @@ const Weather = () => {
                     })
                     const locationData = await locationRes.json()
                     setCity(locationData.city)
-                    setLocation(locationData.suburb)
+                    setLocation(locationData.location)
                 })
             }
             const data = await fetchWeather(city, location)
