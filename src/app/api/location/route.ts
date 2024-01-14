@@ -24,8 +24,8 @@ export const GET = async (req: NextRequest) => {
     const locationData: Location = data.results[0].components
 
     const location = {
-        city: locationData.city,
-        suburb: locationData.suburb,
+        city: locationData.city || locationData.county,
+        location: locationData.suburb || locationData.town,
     }
 
     return NextResponse.json(location)
