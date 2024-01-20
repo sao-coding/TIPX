@@ -1,3 +1,3 @@
 export type ClassName = {
-    class: string
+  class: string
 }

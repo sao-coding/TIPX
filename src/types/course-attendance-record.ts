@@ -21,25 +21,25 @@
 // }
 
 export type CourseAttendanceRecord = {
-    list: CourseAttendanceRecordList[]
-    total: CourseAttendanceRecordCount[]
+  list: CourseAttendanceRecordList[]
+  total: CourseAttendanceRecordCount[]
 }
 
 export type CourseAttendanceRecordList = {
-    date: string
-    week: string
-    period: string
-    type: string
-    course: string
-    courseID: string
+  date: string
+  week: string
+  period: string
+  type: string
+  course: string
+  courseID: string
 }
 
 export type CourseAttendanceRecordCount = {
-    type: string
-    count: number
+  type: string
+  count: number
 }
 
 export type CourseAttendanceRecordTotal = {
-    count: number
-    time: number
+  count: number
+  time: number
 }

@@ -27,26 +27,26 @@
 // }
 
 export type User = {
-    userid: string
-    img: string
-    name: string
-    status: string
-    // dept: string
-    // es: string
-    major: string
-    enName: string
-    IDnumber: string
-    gender: string
-    birthday: string
-    birthplace: string
-    address: string
-    phone: string
-    homePhone: string
-    date: string
-    previousEducation: string
-    parentName: string
-    parentAddress: string
-    parentPhone: string
-    parentJob: string
-    desc: string
+  userid: string
+  img: string
+  name: string
+  status: string
+  // dept: string
+  // es: string
+  major: string
+  enName: string
+  IDnumber: string
+  gender: string
+  birthday: string
+  birthplace: string
+  address: string
+  phone: string
+  homePhone: string
+  date: string
+  previousEducation: string
+  parentName: string
+  parentAddress: string
+  parentPhone: string
+  parentJob: string
+  desc: string
 }

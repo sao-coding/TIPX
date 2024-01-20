@@ -1,123 +1,122 @@
 "use client"
 
-import Image from "next/image"
 import { useState } from "react"
-import {
-    IconUserCircle,
-    IconGenderBigender,
-    IconCake,
-    IconBuildingSkyscraper,
-    IconDeviceMobile,
-} from "@tabler/icons-react"
+import Image from "next/image"
 import clsx from "clsx"
+
 import { User } from "@/types"
+import {
+  IconBuildingSkyscraper,
+  IconCake,
+  IconDeviceMobile,
+  IconGenderBigender,
+  IconUserCircle
+} from "@tabler/icons-react"
 const Info = ({ userData, lineID }: { userData: User; lineID: string }) => {
-    const [isImgError, setIsImgError] = useState(false)
-    const [userInfo, setUserInfo] = useState("")
+  const [isImgError, setIsImgError] = useState(false)
+  const [userInfo, setUserInfo] = useState("")
 
-    const handleMouseEnter = () => {
-        console.log("handleMouseEnter")
-        setUserInfo("active")
+  const handleMouseEnter = () => {
+    console.log("handleMouseEnter")
+    setUserInfo("active")
+  }
+
+  const handleMouseLeave = () => {
+    console.log("handleMouseLeave")
+    setUserInfo("")
+  }
+
+  const formatDate = (date: string) => {
+    // 0900928 -> 90/09/28
+    // 若年份開頭為 0，則刪除 0
+
+    let year = date.slice(0, 3)
+    if (year[0] === "0") {
+      year = year.slice(1)
     }
+    const month = date.slice(3, 5)
+    const day = date.slice(5, 7)
 
-    const handleMouseLeave = () => {
-        console.log("handleMouseLeave")
-        setUserInfo("")
-    }
+    return `${year}/${month}/${day}`
+  }
+  // 延長 10秒 return
 
-    const formatDate = (date: string) => {
-        // 0900928 -> 90/09/28
-        // 若年份開頭為 0，則刪除 0
-
-        let year = date.slice(0, 3)
-        if (year[0] === "0") {
-            year = year.slice(1)
-        }
-        const month = date.slice(3, 5)
-        const day = date.slice(5, 7)
-
-        return `${year}/${month}/${day}`
-    }
-    // 延長 10秒 return
-
-    return (
+  return (
+    <>
+      <div
+        className={clsx("user-info", userInfo)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <>
-            <div
-                className={clsx("user-info", userInfo)}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <>
-                    <div className='user-info-front rounded-xl border bg-transparent p-2'>
-                        <div className='relative flex items-center'>
-                            <div className='flex items-center'>
-                                {isImgError ? (
-                                    <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
-                                        <IconUserCircle size={75} />
-                                    </div>
-                                ) : (
-                                    <Image
-                                        src={userData.img}
-                                        alt='大頭貼'
-                                        width='0'
-                                        height='0'
-                                        sizes='fill'
-                                        loading='lazy'
-                                        placeholder='blur'
-                                        blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
-                                        className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
-                                        onError={() => setIsImgError(true)}
-                                    />
-                                )}
-                            </div>
-                            <div className='py-[3px] pl-4'>
-                                <div>{userData.name}</div>
-                                <div>{userData.IDnumber}</div>
-                                <div className='max-xs:text-sm text-ellipsis line-clamp-1'>
-                                    {userData.major}
-                                </div>
-                                <div className='flex'>
-                                    <div className='bg-main-color-3 px-1 rounded-md text-neutral-200 max-xs:text-sm'>
-                                        {lineID ? lineID : "未填寫 Line ID"}
-                                    </div>
-                                </div>
-                                {/* <div className='flex items-center space-x-2'>
+          <div className='user-info-front rounded-xl border bg-transparent p-2'>
+            <div className='relative flex items-center'>
+              <div className='flex items-center'>
+                {isImgError ? (
+                  <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
+                    <IconUserCircle size={75} />
+                  </div>
+                ) : (
+                  <Image
+                    src={userData.img}
+                    alt='大頭貼'
+                    width='0'
+                    height='0'
+                    sizes='fill'
+                    loading='lazy'
+                    placeholder='blur'
+                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABLCAYAAABJNhZ0AAAAKklEQVR42u3KMQ0AMAgAsKF8NvCCOLDATdq70ZX/LYQoiqIoiqIoigfiANYf04f83WXIAAAAAElFTkSuQmCC'
+                    className='h-[100px] w-[75px] rounded-md object-cover shadow-md'
+                    onError={() => setIsImgError(true)}
+                  />
+                )}
+              </div>
+              <div className='py-[3px] pl-4'>
+                <div>{userData.name}</div>
+                <div>{userData.IDnumber}</div>
+                <div className='line-clamp-1 text-ellipsis max-xs:text-sm'>{userData.major}</div>
+                <div className='flex'>
+                  <div className='rounded-md bg-main-color-3 px-1 text-neutral-200 max-xs:text-sm'>
+                    {lineID ? lineID : "未填寫 Line ID"}
+                  </div>
+                </div>
+                {/* <div className='flex items-center space-x-2'>
                                     <div>{userData.dept}</div>
                                     <div>{userData.es + "　"}</div>
                                 </div> */}
-                            </div>
-                            <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
-                                {userData.status}
-                            </div>
-                            <div className='absolute bottom-0 right-0 rounded-md bg-main-color-3 px-1 text-neutral-200'>
-                                {userData.userid}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='user-info-back rounded-xl border bg-transparent p-2'>
-                        <div className='py-[3px] pl-4'>
-                            <div className='flex items-center'>
-                                <IconGenderBigender />
-                                {userData.gender}
-                            </div>
-                            <div className='flex items-center'>
-                                <IconCake />
-                                {userData.birthday ? formatDate(userData.birthday) : "未填寫"}
-                            </div>
-                            <div className='flex items-center'>
-                                <IconBuildingSkyscraper />
-                                {userData.birthplace}
-                            </div>
-                            <div className='flex items-center'>
-                                <IconDeviceMobile />
-                                <div>{userData.phone}</div>
-                            </div>
-                        </div>
-                    </div>
-                </>
+              </div>
+              <div className='absolute right-0 top-0 rounded-md bg-main-color-3 px-1 font-bold text-neutral-200'>
+                {userData.status}
+              </div>
+              <div className='absolute bottom-0 right-0 rounded-md bg-main-color-3 px-1 text-neutral-200'>
+                {userData.userid}
+              </div>
             </div>
+          </div>
+          <div className='user-info-back rounded-xl border bg-transparent p-2'>
+            <div className='py-[3px] pl-4'>
+              <div className='flex items-center'>
+                <IconGenderBigender />
+                {userData.gender}
+              </div>
+              <div className='flex items-center'>
+                <IconCake />
+                {userData.birthday ? formatDate(userData.birthday) : "未填寫"}
+              </div>
+              <div className='flex items-center'>
+                <IconBuildingSkyscraper />
+                {userData.birthplace}
+              </div>
+              <div className='flex items-center'>
+                <IconDeviceMobile />
+                <div>{userData.phone}</div>
+              </div>
+            </div>
+          </div>
         </>
-    )
+      </div>
+    </>
+  )
 }
 
 export default Info

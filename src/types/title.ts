@@ -1,5 +1,5 @@
 export type Title = {
-    title: string
-    position: string
-    close: boolean
+  title: string
+  position: string
+  close: boolean
 }

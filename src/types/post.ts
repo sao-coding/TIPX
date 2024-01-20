@@ -9,23 +9,23 @@
 // 相關網址
 
 type Publisher = {
-    name: string
-    email: string
+  name: string
+  email: string
 }
 
 type File = {
-    title: string
-    link: string
+  title: string
+  link: string
 }
 
 export type Post = {
-    title: string
-    date: string
-    unit: string
-    publisher: Publisher
-    deadline: string
-    category: string
-    content: string
-    file: File[]
-    link: string
+  title: string
+  date: string
+  unit: string
+  publisher: Publisher
+  deadline: string
+  category: string
+  content: string
+  file: File[]
+  link: string
 }
