@@ -34,15 +34,16 @@ export const GET = async (req: NextRequest) => {
   const html = new TextDecoder("big5").decode(buffer)
   const dom = new JSDOM(html)
   const document = dom.window.document
+
   const stuListTable = Array.from(
     document.querySelectorAll(
-      "body > table:nth-child(7) > tbody > tr > td > form > table:nth-child(2) > tbody > tr"
+      "body > table:nth-child(7) > tbody > tr > td > form > table:nth-child(2) > tbody >tr"
     )
   )
 
   const stuListTableLength = stuListTable.length
 
-  for (let i = 1; i < stuListTableLength; i++) {
+  for (let i = 0; i < stuListTableLength; i++) {
     stuList = []
     const stuInfo = stuListTable[i].querySelectorAll("td:nth-child(2) > p")
     const stuInfoLength = stuInfo.length
