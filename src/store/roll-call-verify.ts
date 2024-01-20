@@ -19,11 +19,11 @@ import { create } from "zustand"
 // }))
 
 type RollCallVerifyStore = {
-    rollCallPassword: string
-    setRollCallPassword: (password: string) => void
+  rollCallPassword: string
+  setRollCallPassword: (password: string) => void
 }
 
 export const useRollCallVerifyStore = create<RollCallVerifyStore>((set) => ({
-    rollCallPassword: "",
-    setRollCallPassword: (password) => set({ rollCallPassword: password }),
+  rollCallPassword: "",
+  setRollCallPassword: (password) => set({ rollCallPassword: password })
 }))

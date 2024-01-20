@@ -2,16 +2,16 @@
 import { Conduct } from "@/types"
 
 export type FinalGradeRankClass = {
-    userid: string
-    img: string
-    name: string
-    data: FinalGradeRank
+  userid: string
+  img: string
+  name: string
+  data: FinalGradeRank
 }
 
 export type FinalGradeRank = {
-    year: string
-    sem: string
-    conduct: Conduct
-    avg: number
-    rank: number
+  year: string
+  sem: string
+  conduct: Conduct
+  avg: number
+  rank: number
 }

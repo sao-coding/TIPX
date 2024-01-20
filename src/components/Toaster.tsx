@@ -1,14 +1,14 @@
 import { Toaster } from "react-hot-toast"
 
 const ToasterNotify = () => {
-    return (
-        <Toaster
-            position='top-center'
-            toastOptions={{
-                className: "toast",
-            }}
-        />
-    )
+  return (
+    <Toaster
+      position='top-center'
+      toastOptions={{
+        className: "toast"
+      }}
+    />
+  )
 }
 
 export default ToasterNotify
