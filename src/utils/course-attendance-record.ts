@@ -173,7 +173,7 @@ const getCourseAttendanceRecord = async (
     const holidayTotal = courseAttendanceRecord.list
       .filter((item) => item.week === "六" || item.week === "日")
       .map((item) => {
-        console.log("item", item)
+        // console.log("item", item)
         const period = parseInt(item.period)
         const index = period - 1
         const time = holidayTime[index]

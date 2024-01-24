@@ -48,7 +48,8 @@ const UserPage = async () => {
         {USER_LINKS.map((link, index) =>
           // 若為查詢用戶 && 日誌中心，則要判斷是否顯示
           (link.text === "查詢用戶" && !searchAuth) ||
-          (link.text === "日誌中心" &&
+          (link.text === "日誌中心" && session?.user.studentID !== process.env.ADMINSTUDENTID) ||
+          (link.text === "註冊名單" &&
             session?.user.studentID !== process.env.ADMINSTUDENTID) ? null : (
             <Link
               key={index}

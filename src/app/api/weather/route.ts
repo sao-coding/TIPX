@@ -55,7 +55,7 @@ export const GET = async (req: NextRequest) => {
 
   const res = await fetch(url.toString())
   const data = await res.json()
-  console.log(data)
+
   const weatherData = data.records.locations[0].location[0].weatherElement.map((item: Weather) => {
     const time = item.time.map((item) => {
       return {
