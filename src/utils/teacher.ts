@@ -1,7 +1,8 @@
 import iconv from "iconv-lite"
 import { JSDOM } from "jsdom"
 
-import getCourseTeacher from "@/utils/course-teacher"
+import getClassName from "./class-name"
+import getCourseTeacher from "./course-teacher"
 
 const getTeacher = async (
   userid: string,
@@ -28,7 +29,7 @@ const getTeacher = async (
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
-          Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php"
+          Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
         },
         body: bodyContent
       })
@@ -37,7 +38,7 @@ const getTeacher = async (
         method,
         headers: {
           cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
-          Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php"
+          Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
         }
       })
     }
@@ -55,13 +56,30 @@ const getTeacher = async (
   if (type === "course") {
     teacherName = await getCourseTeacher(userid ?? "", year ?? "", sem ?? "", course ?? "")
   } else {
-    document = await resUrl("https://netinfo.takming.edu.tw/tip/stu_absrec.php", "GET")
+    document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_guide.php", "POST", {
+      Div: "5"
+    })
 
+    const teacherList = Array.from(
+      document.querySelectorAll(
+        "body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(2) > tbody > tr:not(:first-child)"
+      )
+    )
+
+    // 尋找學生班級
+    const { class: className } = await getClassName(userid ?? "")
+
+    // 對應的班導師
     teacherName =
-      document.querySelector("#AutoNumber4 > tbody > tr:nth-child(2) > td > div > span")
-        ?.textContent ?? ""
+      teacherList
+        .find((e) => {
+          // console.log(e.querySelector("td:nth-child(1) > p > span > font")?.textContent)
+          const teacherClass =
+            e.querySelector("td:nth-child(1) > p > span > font")?.textContent ?? ""
+          return teacherClass === className
+        })
+        ?.querySelector("td:nth-child(2) > p > span > font")?.textContent ?? ""
   }
-  // #AutoNumber1 > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(3) > td:nth-child(2)
 
   document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teadept.php", "POST", {
     sname: teacherName
