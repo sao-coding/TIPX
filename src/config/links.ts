@@ -19,7 +19,8 @@ import {
   IconNotes,
   IconSettings,
   IconUser,
-  IconUserSearch
+  IconUserSearch,
+  IconUsersGroup
 } from "@tabler/icons-react"
 
 type NavLinks = {
@@ -139,6 +140,12 @@ export const USER_LINKS: UserLinks = [
     color: "stroke-orange-500",
     href: "/user/log",
     text: "日誌中心"
+  },
+  {
+    icon: IconUsersGroup,
+    color: "stroke-green-500",
+    href: "/user/registration",
+    text: "註冊名單"
   },
   {
     icon: IconBrandGoogleAnalytics,
