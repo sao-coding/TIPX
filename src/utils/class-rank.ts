@@ -79,8 +79,8 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
         .replace("</font>", "")
         .replace(/<br>$/, "")
         .split("<br>")
-      console.log("name", name)
-      console.log("SemRank", SemRank)
+      // console.log("name", name)
+      // console.log("SemRank", SemRank)
 
       let avg = 0
       let rank = 0

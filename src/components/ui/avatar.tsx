@@ -26,10 +26,10 @@ const Avatar = (props: AvatarProps) => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log("Loading:", loading)
-    console.log("Error:", error)
-  }, [loading, error])
+  // useEffect(() => {
+  //   console.log("Loading:", loading)
+  //   console.log("Error:", error)
+  // }, [loading, error])
 
   return (
     <>
