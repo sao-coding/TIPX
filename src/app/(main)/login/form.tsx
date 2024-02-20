@@ -42,7 +42,7 @@ const Form = () => {
     // 判斷上下學期
     // year 8 ~ 12 || year+1 1 ~ 2
     // year 2 ~ 7
-    if (month >= 8 || month <= 2) {
+    if (month >= 8 || month <= 1) {
       Cookie.set("cookie_sem", "1", { expires: 7 })
       console.log("cookie_sem", 1)
     } else {
