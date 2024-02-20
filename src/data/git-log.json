@@ -1,5 +1,59 @@
 [
   {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-02-20T16:52:05.000Z",
+    "hash": "0fa0a0e011f52225daccfeefffee6f9fc47eb06b",
+    "body": ""
+  },
+  {
+    "subject": "🗑️ 刪除 Header 的 async",
+    "date": "2024-02-20T16:51:18.000Z",
+    "hash": "d4d8da34cb364bff54665880d7fd99e6e41cf37f",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-02-20T16:43:31.000Z",
+    "hash": "5af699bc778950a652b08d63a22ad83446bd404c",
+    "body": ""
+  },
+  {
+    "subject": "刪除 Header 的 async",
+    "date": "2024-02-20T16:42:21.000Z",
+    "hash": "b7e6fffee0ce055af1703cd101a13cf7ac259ff0",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 輸入框 黑暗模式顏色",
+    "date": "2024-02-20T16:41:50.000Z",
+    "hash": "59995c44a1007c3ff550ccb1294ccf3966cfdcd4",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 目前學期邏輯",
+    "date": "2024-02-20T16:41:18.000Z",
+    "hash": "54791d242bad29f3103e865b4e6e8e9282bf7475",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 post api 有 \\n",
+    "date": "2024-02-20T16:40:52.000Z",
+    "hash": "4f4745a71988a5031f31d1d1519e4f2459db6820",
+    "body": ""
+  },
+  {
+    "subject": "➕ 更新依賴",
+    "date": "2024-02-20T16:40:14.000Z",
+    "hash": "63bbbd92acd1e605044146a87145e6dced498470",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-01-24T12:18:16.000Z",
+    "hash": "f80fb653a30b58723f0defe847b2addefcade47d",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增註冊名單",
     "date": "2024-01-24T12:18:01.000Z",
     "hash": "511eb297e62cc1648c9013447bc595a18b74920a",

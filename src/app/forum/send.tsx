@@ -324,7 +324,7 @@ const SendCP = ({ user }: { user: User }) => {
         {/* </div> */}
         <textarea
           className={clsx(
-            "h-full w-4/6 border px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300",
+            "h-full w-4/6 border bg-card-background px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300",
             changes === 1 && "rounded-full",
             changes > 1 && "rounded-xl"
           )}
