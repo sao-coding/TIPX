@@ -41,7 +41,7 @@ const getPost = async (type: string, id: number, limit?: number) => {
       announcement.link = id ?? ""
 
       cells.forEach((cell, index) => {
-        const list = cell.textContent
+        const list = cell.textContent?.replace(/\n/g, "")
         // console.log("index", index, "list", list)
         if (index === 0) {
           announcement.category = list ?? ""
