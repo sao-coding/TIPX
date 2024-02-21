@@ -128,14 +128,14 @@ const getPost = async (type: string, id: number, limit?: number) => {
           post.link = link ?? ""
         })
       } else {
-        postdata.push(row.textContent?.replace(/\n/g, "") ?? "")
+        postdata.push(row.textContent ?? "")
       }
     })
 
     post.title = postdata[0]
     post.date = postdata[1]
     post.deadline = postdata[2]
-    post.unit = postdata[3]
+    post.unit = postdata[3].replace(/\n/g, "")
     post.category = postdata[4]
     post.content = postdata[6]
 
