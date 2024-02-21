@@ -8,10 +8,10 @@ const getPost = async (type: string, id: number, limit?: number) => {
   // 獲取公告 全部貼文
   if (type === "all" && id !== undefined && limit !== undefined) {
     let announcement: Announcement = {
-      category: "",
+      id: "",
       title: "",
       sticky: false,
-      link: "",
+      category: "",
       unit: "",
       date: "",
       deadline: ""
@@ -38,7 +38,7 @@ const getPost = async (type: string, id: number, limit?: number) => {
       // post_OneShow.php?SerialItem=103304
       // 取得網址的ID
       const id = link?.split("=")[1]
-      announcement.link = id ?? ""
+      announcement.id = id ?? ""
 
       cells.forEach((cell, index) => {
         const list = cell.textContent?.replace(/\n/g, "")
@@ -58,10 +58,10 @@ const getPost = async (type: string, id: number, limit?: number) => {
 
       announcementListAll.push(announcement)
       announcement = {
-        category: "",
+        id: "",
         title: "",
         sticky: false,
-        link: "",
+        category: "",
         unit: "",
         date: "",
         deadline: ""
@@ -82,6 +82,7 @@ const getPost = async (type: string, id: number, limit?: number) => {
   // if (req.nextUrl.searchParams.get("type") === "one" && req.nextUrl.searchParams.get("id")) {
   if (type === "one" && id !== undefined) {
     const post: Post = {
+      id: id.toString(),
       title: "",
       date: "",
       deadline: "",

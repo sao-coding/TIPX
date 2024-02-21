@@ -9,14 +9,14 @@ import toast from "react-hot-toast"
 import { Post } from "@/types"
 import * as Dialog from "@radix-ui/react-dialog"
 import {
+  IconArrowLeft,
   IconCalendarOff,
   IconCalendarTime,
   IconDownload,
   IconExternalLink,
   IconLink,
   IconPaperclip,
-  IconShare2,
-  IconX
+  IconShare
 } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -60,45 +60,58 @@ const PostModal = ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <Dialog.Root defaultOpen onOpenChange={(open) => !open && dismiss()}>
-      <Dialog.Portal>
-        <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-        <Dialog.Content asChild>
-          <motion.div
-            className='fixed left-1/2 top-1/2 z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-background px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] md:overflow-hidden md:rounded-lg md:bg-card-background md:p-4'
-            initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
-            animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
-          >
-            <div className='sticky left-0 top-0 mb-2 flex w-full items-center justify-between border-b bg-background py-3 md:static md:border-b-0 md:bg-card-background'>
-              <Dialog.Title asChild>
-                <div className='flex items-center justify-center'>
-                  <div className='pr-4 text-center font-bold md:text-xl'>{data?.title}</div>
+    <>
+      {data && (
+        <Dialog.Root defaultOpen onOpenChange={(open) => !open && dismiss()}>
+          <Dialog.Portal>
+            <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
+            <Dialog.Content asChild>
+              <motion.div
+                className='fixed left-1/2 top-1/2 z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-background px-4 pb-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-h-[85vh] md:w-[95vw] md:max-w-[800px] md:overflow-hidden md:rounded-lg md:bg-card-background md:p-4'
+                initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
+                animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
+              >
+                <div className='sticky left-0 top-0 mb-2 flex w-full items-center justify-between border-b bg-background py-3 md:static md:border-b-0 md:bg-card-background'>
+                  <Dialog.Title asChild>
+                    <div className='flex items-center justify-center'>
+                      <Dialog.Close className='self-start outline-none'>
+                        <IconArrowLeft size={26} />
+                      </Dialog.Close>
+                      <div className='line-clamp-1 pr-4 text-center font-bold md:text-xl'>
+                        {data?.title}
+                      </div>
+                      <button
+                        className='flex items-center rounded-md px-1'
+                        onClick={() => {
+                          Share(data.title, data.content, path)
+                        }}
+                      >
+                        <IconShare />
+                        {/* 分享 */}
+                      </button>
+                    </div>
+                  </Dialog.Title>
                 </div>
-              </Dialog.Title>
-              <Dialog.Close className='self-start outline-none'>
-                <IconX />
-              </Dialog.Close>
-            </div>
-            {data && (
-              <>
+
                 <div className='flex flex-col space-y-1'>
+                  <div className='w-full pr-4 text-lg font-bold md:hidden'>{data.title}</div>
                   <div className='flex items-center justify-between'>
-                    <div className='flex items-center'>
-                      <div className='mr-1'>{data.unit}</div>
-                      <div className='ml-1 text-blue-500'>
+                    <div className='flex items-center gap-2'>
+                      <div>{data.unit}</div>
+                      <div className='text-blue-500'>
                         <a href={`mailto:${data.publisher.email}`}>{data.publisher.name}</a>
                       </div>
                     </div>
                     <div className='rounded-md md:bg-main-color-1 md:px-1'>{data.category}</div>
                   </div>
                   <div className='flex items-center justify-between'>
-                    <div className='flex items-center'>
+                    <div className='flex items-center gap-1'>
                       <IconCalendarTime size={20} />
-                      <div className='pl-1'>{data.date}</div>
+                      <div>{data.date}</div>
                     </div>
-                    <div className='flex items-center'>
+                    <div className='flex items-center gap-1'>
                       <IconCalendarOff size={20} />
-                      <div className='pl-1'>{data.deadline}</div>
+                      <div>{data.deadline}</div>
                     </div>
                     <Link href={`/post/${id}`} target='_parent' className='hidden md:block'>
                       <IconExternalLink />
@@ -146,7 +159,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                     </div>
                   )}
                 </div>
-                <div className='mt-2 w-full border-t pt-2'>
+                {/* <div className='mt-2 w-full border-t pt-2'>
                   <div className='flex items-center justify-end'>
                     <button
                       className='flex items-center rounded-md bg-main-color-1 px-1'
@@ -158,28 +171,29 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                       分享
                     </button>
                   </div>
-                </div>
-              </>
-            )}
-            {isLoading && (
-              <div className='flex h-full items-center justify-center'>
-                <div className='cat'>
-                  <div className='cat__body'></div>
-                  <div className='cat__body'></div>
-                  <div className='cat__tail'></div>
-                  <div className='cat__head'></div>
-                </div>
-              </div>
-            )}
-            {isError && (
-              <div className='flex h-full items-center justify-center'>
-                <div className='text-red-500'>沒有這篇公告</div>
-              </div>
-            )}
-          </motion.div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+                </div> */}
+
+                {isLoading && (
+                  <div className='flex h-full items-center justify-center'>
+                    <div className='cat'>
+                      <div className='cat__body'></div>
+                      <div className='cat__body'></div>
+                      <div className='cat__tail'></div>
+                      <div className='cat__head'></div>
+                    </div>
+                  </div>
+                )}
+                {isError && (
+                  <div className='flex h-full items-center justify-center'>
+                    <div className='text-red-500'>沒有這篇公告</div>
+                  </div>
+                )}
+              </motion.div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+      )}{" "}
+    </>
   )
 }
 
