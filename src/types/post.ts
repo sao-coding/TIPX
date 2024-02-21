@@ -19,6 +19,7 @@ type File = {
 }
 
 export type Post = {
+  id: string
   title: string
   date: string
   unit: string

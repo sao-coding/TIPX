@@ -5,10 +5,11 @@
 // 公告日
 // 期限
 export type Announcement = {
-  category: string
+  // link: string
+  id: string
   title: string
   sticky: boolean
-  link: string
+  category: string
   unit: string
   date: string
   deadline: string

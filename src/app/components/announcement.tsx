@@ -41,9 +41,9 @@ const AnnouncementCP = () => {
         data.pages.map((page: Announcement[]) =>
           page.map((data, i) => {
             if (page.length === i + 1) {
-              return <Card ref={ref} key={data.link} data={data} />
+              return <Card ref={ref} key={data.id} data={data} />
             }
-            return <Card key={data.link} data={data} />
+            return <Card key={data.id} data={data} />
           })
         )}
       {isFetchingNextPage || !data
