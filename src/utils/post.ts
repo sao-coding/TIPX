@@ -128,7 +128,7 @@ const getPost = async (type: string, id: number, limit?: number) => {
           post.link = link ?? ""
         })
       } else {
-        postdata.push(row.textContent ?? "")
+        postdata.push(row.textContent?.replace(/\n/g, "") ?? "")
       }
     })
 
