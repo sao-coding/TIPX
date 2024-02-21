@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import toast from "react-hot-toast"
 
+import Close from "@/components/Close"
 import { Post as PostType } from "@/types"
 import {
   IconCalendarOff,
@@ -11,8 +12,7 @@ import {
   IconDownload,
   IconLink,
   IconPaperclip,
-  IconShare2,
-  IconX
+  IconShare
 } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -66,34 +66,37 @@ const Post = ({ params }: { params: { id: string } }) => {
         >
           <div className='flex w-full flex-col items-center justify-center'>
             <div className='sticky left-0 top-0 flex w-full items-center justify-between border-b bg-background py-3 md:top-[68px] md:bg-card-background md:text-xl'>
-              <div className='w-full pr-4 text-center font-bold'>{data.title}</div>
+              <Close className='static p-0' />
+              <div className='line-clamp-1 w-full pr-4 text-center font-bold'>{data.title}</div>
               <button
-                className='self-start outline-none md:hidden'
+                className='flex items-center rounded-md px-1'
                 onClick={() => {
-                  router.push("/")
+                  Share(data.title, data.content, path)
                 }}
               >
-                <IconX />
+                <IconShare />
+                {/* 分享 */}
               </button>
             </div>
             <div className='flex w-full flex-col space-y-1 pt-2 md:px-24'>
+              <div className='w-full pr-4 text-lg font-bold md:hidden'>{data.title}</div>
               <div className='flex w-full items-center justify-between'>
-                <div className='flex items-center'>
-                  <div className='mr-1'>{data.unit}</div>
-                  <div className='ml-1 text-blue-500'>
+                <div className='flex items-center gap-2'>
+                  <div>{data.unit}</div>
+                  <div className='text-blue-500'>
                     <a href={`mailto:${data.publisher.email}`}>{data.publisher.name}</a>
                   </div>
                 </div>
                 <div>{data.category}</div>
               </div>
               <div className='flex w-full items-center justify-between'>
-                <div className='flex items-center'>
+                <div className='flex items-center gap-1'>
                   <IconCalendarTime size={20} />
-                  <div className='pl-1'>{data.date}</div>
+                  <div>{data.date}</div>
                 </div>
-                <div className='flex items-center'>
+                <div className='flex items-center gap-1'>
                   <IconCalendarOff size={20} />
-                  <div className='pl-1'>{data.deadline}</div>
+                  <div>{data.deadline}</div>
                 </div>
               </div>
             </div>
@@ -138,7 +141,7 @@ const Post = ({ params }: { params: { id: string } }) => {
                 </div>
               )}
             </div>
-            <div className='mt-2 w-full border-t pt-2'>
+            {/* <div className='mt-2 w-full border-t pt-2'>
               <div className='flex items-center justify-end'>
                 <button
                   className='flex items-center rounded-md bg-main-color-1 px-1'
@@ -146,11 +149,11 @@ const Post = ({ params }: { params: { id: string } }) => {
                     Share(data.title, data.content, path)
                   }}
                 >
-                  <IconShare2 />
+                  <IconShare />
                   分享
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       )}
