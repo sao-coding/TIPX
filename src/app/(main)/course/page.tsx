@@ -27,7 +27,7 @@ const CourseListPage = async () => {
 
   return (
     <>
-      <div className='mb-16 w-full rounded-md px-2 pb-2 md:bg-card-background md:p-4 md:shadow-md'>
+      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:bg-card-background md:p-6 md:shadow-md'>
         <Title title={title} />
         <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
           {data.length > 0 &&

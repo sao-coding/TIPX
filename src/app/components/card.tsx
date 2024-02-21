@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { motion } from "framer-motion"
 
 import { Announcement } from "@/types"
-import { IconCalendarOff, IconCalendarTime, IconPinFilled } from "@tabler/icons-react"
+import { IconCalendarOff, IconCalendarTime, IconCategory, IconPinFilled } from "@tabler/icons-react"
 
 const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ data }, ref) => {
   // React.forwardRef<ref 的 type, props 的 type>((props, ref) => {})
@@ -12,7 +12,7 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
     <Link
       ref={ref}
       href={`/post/${data.id}`}
-      className='mb-2 block h-36 w-full border-t p-2 md:mb-5 md:rounded-xl md:border-none md:bg-main-color-1 md:shadow-md'
+      className='block h-36 min-w-full rounded-xl p-2 hover:bg-main-color-1 md:border-none md:bg-main-color-1 md:shadow-md'
     >
       <motion.div className='relative h-full' whileTap={{ scale: 0.95 }}>
         <div
@@ -24,11 +24,12 @@ const CardCP = React.forwardRef<HTMLAnchorElement, { data: Announcement }>(({ da
           {data.sticky ? <IconPinFilled size={20} /> : ""}
         </div>
         <motion.div
-          className='p-1'
+          className='flex items-center gap-1 p-1'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
+          <IconCategory size={20} />
           {data.category}
         </motion.div>
         <motion.div

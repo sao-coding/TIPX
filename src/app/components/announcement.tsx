@@ -36,14 +36,25 @@ const AnnouncementCP = () => {
   }, [inView, fetchNextPage, hasNextPage])
 
   return (
-    <>
+    <div className='flex flex-col gap-2 md:gap-5'>
       {isSuccess &&
         data.pages.map((page: Announcement[]) =>
           page.map((data, i) => {
             if (page.length === i + 1) {
-              return <Card ref={ref} key={data.id} data={data} />
+              // return <Card ref={ref} key={data.id} data={data} />
+              return (
+                <>
+                  <hr className='block md:hidden' />
+                  <Card ref={ref} key={data.id} data={data} />
+                </>
+              )
             }
-            return <Card key={data.id} data={data} />
+            return (
+              <>
+                <hr className='block md:hidden' />
+                <Card key={data.id} data={data} />
+              </>
+            )
           })
         )}
       {isFetchingNextPage || !data
@@ -53,7 +64,7 @@ const AnnouncementCP = () => {
               沒有更多公告了
             </div>
           )}
-    </>
+    </div>
   )
 }
 
