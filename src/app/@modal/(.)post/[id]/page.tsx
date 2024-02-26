@@ -73,12 +73,14 @@ const PostModal = ({ params }: { params: { id: string } }) => {
               >
                 <div className='sticky left-0 top-0 mb-2 flex w-full items-center justify-between border-b bg-background py-3 md:static md:border-b-0 md:bg-card-background'>
                   <Dialog.Title asChild>
-                    <div className='flex items-center justify-center'>
-                      <Dialog.Close className='self-start outline-none'>
-                        <IconArrowLeft size={26} />
-                      </Dialog.Close>
-                      <div className='line-clamp-1 pr-4 text-center font-bold md:text-xl'>
-                        {data?.title}
+                    <div className='flex w-full items-center justify-between'>
+                      <div className='flex items-center gap-1'>
+                        <Dialog.Close className='self-start outline-none'>
+                          <IconArrowLeft size={26} />
+                        </Dialog.Close>
+                        <div className='line-clamp-1 pr-4 text-center font-bold md:text-xl'>
+                          {data?.title}
+                        </div>
                       </div>
                       <button
                         className='flex items-center rounded-md px-1'
