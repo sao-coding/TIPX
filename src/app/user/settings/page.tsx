@@ -7,7 +7,6 @@ import Title from "@/components/Title"
 import { Listbox } from "@headlessui/react"
 import * as Switch from "@radix-ui/react-switch"
 import {
-  IconBell,
   IconDeviceDesktop,
   IconMapPin,
   IconMoon,
@@ -16,18 +15,13 @@ import {
   IconSun
 } from "@tabler/icons-react"
 
+import Notify from "./notify"
+
 const SettingsPage = () => {
   const [theme, setTheme] = useState("system")
-  const [notification, setNotification] = useState(false)
   const [location, setLocation] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem("notification") === "true") {
-      setNotification(true)
-    }
-    if (localStorage.getItem("notification") === "false") {
-      setNotification(false)
-    }
     if (localStorage.getItem("location") === "true") {
       setLocation(true)
     }
@@ -45,37 +39,6 @@ const SettingsPage = () => {
       setTheme("system")
     }
   }, [])
-
-  const handleNotification = async () => {
-    // 開關通知
-    if (notification) {
-      localStorage.setItem("notification", "false")
-      setNotification(false)
-    }
-    if (!notification) {
-      localStorage.setItem("notification", "true")
-      setNotification(true)
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification("通知訊息", {
-          body: "您已開啟通知",
-          icon: "/pwa/android-launchericon-192-192.png",
-          vibrate: [200, 100, 200, 100, 200, 100, 200],
-          tag: "notification",
-          renotify: true
-        })
-      })
-
-      // 註冊通知
-      // 是否允許瀏覽器通知
-      await Notification.requestPermission()
-      if (Notification.permission === "granted") {
-        setNotification(true)
-      }
-      if (Notification.permission === "denied") {
-        setNotification(false)
-      }
-    }
-  }
 
   const handleLocation = async () => {
     // 是否允許瀏覽器定位
@@ -189,25 +152,7 @@ const SettingsPage = () => {
               </Listbox.Options>
             </Listbox>
           </div>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center space-x-2'>
-              <IconBell className='stroke-yellow-500' />
-              <div className=''>通知訊息</div>
-            </div>
-            <div className='flex items-center space-x-2'>
-              <div className={clsx("text-xs", notification ? "text-green-500" : "text-red-500")}>
-                {notification ? "已開啟" : "已關閉"}
-              </div>
-              <Switch.Root
-                className='h-6 w-11 rounded-full bg-black outline-none data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300'
-                defaultChecked={notification}
-                onCheckedChange={handleNotification}
-                checked={notification}
-              >
-                <Switch.Thumb className='block h-5 w-5 rounded-full bg-white transition-transform data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-0.5' />
-              </Switch.Root>
-            </div>
-          </div>
+          <Notify />
           <div className='flex items-center justify-between'>
             <div className='flex items-center space-x-2'>
               <IconMapPin className='stroke-red-500' />

@@ -14,7 +14,6 @@ import CreateTime from "./create-time"
 import Info from "./info"
 import InfoBoard from "./infoBoard"
 import Logout from "./logout"
-import Notify from "./notify"
 import Switch from "./switch"
 import Weather from "./weather"
 
@@ -63,7 +62,7 @@ const UserPage = async () => {
             </Link>
           )
         )}
-        <Notify />
+        {/* <Notify /> */}
         <Logout />
         <Count />
         <CreateTime />
