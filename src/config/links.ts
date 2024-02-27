@@ -7,6 +7,7 @@ import {
   IconBook2,
   IconBrandGoogleAnalytics,
   IconCalendarEvent,
+  IconCircleDot,
   IconClipboardList,
   IconClipboardPlus,
   IconCoins,
@@ -170,5 +171,11 @@ export const USER_LINKS: UserLinks = [
     color: "stroke-blue-500",
     href: "/user/info",
     text: "關於"
+  },
+  {
+    icon: IconCircleDot,
+    color: "stroke-green-500",
+    href: "https://www.notion.so/sao-x/b90072976b454d569b43eafb3dd18ee7",
+    text: "問題報告"
   }
 ]
