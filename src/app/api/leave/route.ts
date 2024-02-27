@@ -91,7 +91,7 @@ export const GET = async (req: NextRequest) => {
     // 判斷上下學期
     // year 8 ~ 12 || year+1 1 ~ 2
     // year 2 ~ 7
-    if (checkMonth >= 8 || checkMonth <= 2) {
+    if (checkMonth >= 8 || checkMonth <= 1) {
       currentSem = 1
     } else {
       currentSem = 2
