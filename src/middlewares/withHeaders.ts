@@ -4,6 +4,8 @@ import { NextFetchEvent, NextMiddleware, NextRequest } from "next/server"
 import { MiddlewareFactory } from "./types"
 export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
+    // /api/post 允許跨域請求
+
     const res = await next(request, _next)
     if (res) {
       res.headers.set("X-Content-Type-Options", "nosniff")
@@ -13,8 +15,7 @@ export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
       res.headers.set("X-XSS-Protection", "1; mode=block")
       res.headers.set("X-Download-Options", "noopen")
       res.headers.set("Set-Cookie", "Secure")
-      // /api/post 允許跨域請求
-      if (request.nextUrl.pathname === "/api/post") {
+      if (request.nextUrl.pathname.startsWith("/api/post")) {
         res.headers.set("Access-Control-Allow-Origin", "*")
       }
     }
