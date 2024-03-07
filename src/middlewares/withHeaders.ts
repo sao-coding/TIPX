@@ -13,6 +13,10 @@ export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
       res.headers.set("X-XSS-Protection", "1; mode=block")
       res.headers.set("X-Download-Options", "noopen")
       res.headers.set("Set-Cookie", "Secure")
+      // /api/post 允許跨域請求
+      if (request.nextUrl.pathname === "/api/post") {
+        res.headers.set("Access-Control-Allow-Origin", "*")
+      }
     }
     return res
   }
