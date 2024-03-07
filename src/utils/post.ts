@@ -4,7 +4,7 @@ import { JSDOM } from "jsdom"
 import { Announcement } from "@/types"
 import { Post } from "@/types"
 
-const getPost = async (type: string, id: number, limit?: number) => {
+const getPost = async (type: string, id: number, limit?: number, exclude?: string) => {
   // 獲取公告 全部貼文
   if (type === "all" && id !== undefined && limit !== undefined) {
     let announcement: Announcement = {
@@ -40,9 +40,12 @@ const getPost = async (type: string, id: number, limit?: number) => {
       const id = link?.split("=")[1]
       announcement.id = id ?? ""
 
+      if (exclude === "outside" && cells[0].textContent?.includes("校外事項")) {
+        return
+      }
+
       cells.forEach((cell, index) => {
         const list = cell.textContent?.replace(/\n/g, "")
-        // console.log("index", index, "list", list)
         if (index === 0) {
           announcement.category = list ?? ""
         } else if (index === 1) {
