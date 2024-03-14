@@ -29,6 +29,7 @@ https://blog.huli.tw/2021/02/19/cors-guide-2/
 https://ithelp.ithome.com.tw/articles/10196695  
 https://netinfo.takming.edu.tw/tip/stu_setphone.php  
 https://netinfo.takming.edu.tw/tip/stu_setphone_x.php  
+https://blog.logrocket.com/using-cors-next-js-handle-cross-origin-requests/
 Phone: 0925385500  
 NPhone: 0925385500  
 

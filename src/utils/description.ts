@@ -12,7 +12,7 @@ const getUserDesc = async (userid: string) => {
   const dom = new JSDOM(html)
   const document = dom.window.document
 
-  const desc = document.querySelector("body > table > tbody > tr > td")?.textContent ?? ""
+  const desc = document.querySelector("body")?.textContent?.split("姓名:  ")[1] ?? ""
 
   return desc
 }
