@@ -1,5 +1,59 @@
 [
   {
+    "subject": "🐛 修復 自介API",
+    "date": "2024-03-14T16:21:21.000Z",
+    "hash": "3608b660c497dea120015ee300da32e6280d3c5a",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 自介API",
+    "date": "2024-03-14T16:16:53.000Z",
+    "hash": "9e6c789c0d5f7d45cf5c41cc72571c5714ee12c7",
+    "body": ""
+  },
+  {
+    "subject": "✨ /api/post 允許跨域請求",
+    "date": "2024-03-07T08:22:11.000Z",
+    "hash": "ad7826282ad744cca8e14a24bc4eb8b41df185a8",
+    "body": ""
+  },
+  {
+    "subject": "✨ /api/post 允許跨域請求",
+    "date": "2024-03-07T08:17:41.000Z",
+    "hash": "376814aca0b9634346fea07904ed68ac23c229ed",
+    "body": ""
+  },
+  {
+    "subject": "✨ /api/post 允許跨域請求",
+    "date": "2024-03-07T07:41:51.000Z",
+    "hash": "e0c12482c36ca9347be19fe56931558176be06d0",
+    "body": ""
+  },
+  {
+    "subject": "✨ 學校公告 API 新增排除校外功能",
+    "date": "2024-03-07T07:35:35.000Z",
+    "hash": "43376a5d22a29593346554b2190c21d615d19cf1",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增問題報告",
+    "date": "2024-02-27T23:09:57.000Z",
+    "hash": "806572ff3e16e3805cb56900ebb0b3a4f040c81c",
+    "body": ""
+  },
+  {
+    "subject": "🔨 修改 notify",
+    "date": "2024-02-27T23:09:29.000Z",
+    "hash": "bb7c22aa2ac876d2fccc84fb91fe19387c22b6d8",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-02-27T07:02:41.000Z",
+    "hash": "0a0f3fffd855d94bb7a298d331bab7011aede86a",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 線上請假當前學期錯誤",
     "date": "2024-02-27T07:01:46.000Z",
     "hash": "0654de997c440d7c57645ad332c7e85864b1e8aa",
