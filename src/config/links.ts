@@ -6,6 +6,7 @@ import {
   IconBadges,
   IconBook2,
   IconBrandGoogleAnalytics,
+  IconBrowser,
   IconCalendarEvent,
   IconCircleDot,
   IconClipboardList,
@@ -67,6 +68,12 @@ export const USER_LINKS: UserLinks = [
     color: "stroke-red-500",
     href: "/user/search",
     text: "查詢用戶"
+  },
+  {
+    icon: IconBrowser,
+    color: "stroke-red-500",
+    href: "https://takming-forum.sao-x.com",
+    text: "德明課程評價(beta) 開放試用 !!!"
   },
   {
     icon: IconUser,
