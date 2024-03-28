@@ -8,6 +8,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import {
   IconCake,
   IconDeviceMobile,
+  IconId,
   IconIdBadge,
   IconLock,
   IconSchool,
@@ -52,6 +53,11 @@ const Info = ({ student }: { student: student }) => {
           </div>
           <Location userid={student.userid} />
           <div className='rounded-xl border p-2'>
+            <div className='flex items-center space-x-1'>
+              <IconId />
+              <div>{student.IDNumber}</div>
+              <Copy />
+            </div>
             <div className='flex items-center space-x-1'>
               <IconDeviceMobile />
               <div>{student.phone}</div>
