@@ -53,9 +53,20 @@ const HwPage = ({ params }: { params: { id: string } }) => {
         </div>
       ) : (
         <div className='w-full'>
-          {data && data.length > 0 && course && !data.status && (
+          {data.status && (
             <>
-              {data.map((item: HwList, index: number) => (
+              <div className='whitespace-pre-line rounded-xl border-2 border-dashed border-main-color-2 p-2 text-center text-2xl'>
+                {data.message}
+              </div>
+              <div className='flex w-full justify-center border-b'>
+                <img src='/img/QQ.png' alt='' />
+              </div>
+            </>
+          )}
+          {data.data && data.data.length > 0 && course && (
+            <>
+              {console.log(data.data)}
+              {data.data.map((item: HwList, index: number) => (
                 <BottomToUpTransitionView key={index} custom={index}>
                   <Card
                     course={course.name}
@@ -66,19 +77,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
               ))}
             </>
           )}
-          {data && data.length === 0 && !data.status && (
-            <div className='text-center text-2xl'>沒有作業</div>
-          )}
-          {data.status && (
-            <>
-              <div className='whitespace-pre-line rounded-xl border-2 border-dashed border-main-color-2 p-2 text-center text-2xl'>
-                {data.message}
-              </div>
-              <div className='flex w-full justify-center'>
-                <img src='/img/QQ.png' alt='' />
-              </div>
-            </>
-          )}
+          {data && data.length === 0 && <div className='text-center text-2xl'>沒有作業</div>}
         </div>
       )}
     </>

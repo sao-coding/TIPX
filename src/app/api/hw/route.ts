@@ -150,14 +150,21 @@ export const GET = async (req: NextRequest) => {
   await crawler(res, "uploadhw")
   await crawler(res2, "downhw")
   if (!status) {
+    // 產生空陣列
+    for (let i = 0; i < hwdata1.length; i++) {
+      hwdata2.push(["", ""])
+    }
+    await writeHw(hwdata1, hwdata2)
     return NextResponse.json({
-      status: "error",
-      message: "於期中考/期末考期間\n不提供下載功能"
+      status: "段考期間",
+      message: "於期中考/期末考期間\n不提供下載功能",
+      data: hwlist
     })
   } else {
+    // console.log("writeHw", "hwdata1", hwdata1, "hwdata2", hwdata2)
     await writeHw(hwdata1, hwdata2)
   }
-  return NextResponse.json(hwlist)
+  return NextResponse.json({ data: hwlist })
 }
 
 export const POST = async (req: NextRequest) => {
@@ -170,12 +177,14 @@ export const POST = async (req: NextRequest) => {
   if (id) {
     bodyContent.append("id", id)
   } else {
+    // TODO:使用 fetch status 來判斷是否成功
     return NextResponse.json({ status: "error", message: "沒有作業ID" })
   }
 
   if (file && file !== "null") {
     bodyContent.append("userfile", file)
   } else {
+    // TODO:使用 fetch status 來判斷是否成功
     return NextResponse.json({ status: "error", message: "沒有檔案" })
   }
 
@@ -188,6 +197,7 @@ export const POST = async (req: NextRequest) => {
   })
 
   if (!res.ok) {
+    // TODO:使用 fetch status 來判斷是否成功
     return NextResponse.json({ status: "error", message: "上傳失敗" })
   }
 
