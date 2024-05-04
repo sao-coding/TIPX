@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 
 import Card from "@/app/components/card"
@@ -10,22 +10,22 @@ import { useInfiniteQuery } from "@tanstack/react-query"
 
 const AnnouncementCP = () => {
   const { ref, inView } = useInView()
+  const limit = 10
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
     Announcement[]
   >({
     queryKey: ["announcement"],
-    queryFn: async ({ pageParam = 0 }) => {
-      const res = await fetch(`/api/post?type=all&id=${pageParam}&limit=10`)
+    queryFn: async ({ pageParam }) => {
+      const res = await fetch(`/api/post?type=all&page=${pageParam}&limit=${limit}`)
       return res.json()
     },
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      console.log({
-        lastPage,
-        allPages
-      })
-
-      return lastPage.length === 10 ? allPages.length * 10 : undefined
+      //   console.log({
+      //     lastPage,
+      //     allPages
+      //   })
+      return lastPage.length === limit ? allPages.length + 1 : undefined
     }
   })
 
@@ -40,20 +40,11 @@ const AnnouncementCP = () => {
       {isSuccess &&
         data.pages.map((page: Announcement[]) =>
           page.map((data, i) => {
-            if (page.length === i + 1) {
-              // return <Card ref={ref} key={data.id} data={data} />
-              return (
-                <>
-                  <hr className='block md:hidden' />
-                  <Card ref={ref} key={data.id} data={data} />
-                </>
-              )
-            }
             return (
-              <>
+              <React.Fragment key={data.id}>
                 <hr className='block md:hidden' />
-                <Card key={data.id} data={data} />
-              </>
+                {page.length === i + 1 ? <Card ref={ref} data={data} /> : <Card data={data} />}
+              </React.Fragment>
             )
           })
         )}

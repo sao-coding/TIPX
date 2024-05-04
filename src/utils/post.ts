@@ -4,9 +4,15 @@ import { JSDOM } from "jsdom"
 import { Announcement } from "@/types"
 import { Post } from "@/types"
 
-const getPost = async (type: string, id: number, limit?: number, exclude?: string) => {
+const getPost = async (
+  type: string,
+  id?: number,
+  page?: number,
+  limit?: number,
+  exclude?: string
+) => {
   // 獲取公告 全部貼文
-  if (type === "all" && id !== undefined && limit !== undefined) {
+  if (type === "all") {
     let announcement: Announcement = {
       id: "",
       title: "",
@@ -70,16 +76,16 @@ const getPost = async (type: string, id: number, limit?: number, exclude?: strin
         deadline: ""
       }
     })
-    // const id = Number(req.nextUrl.searchParams.get("id"))
-    // const limit = Number(req.nextUrl.searchParams.get("limit"))
-    // console.log("id", id, "limit", limit)
-    for (let i = id; i < id + limit; i++) {
-      // console.log("起始值", id, "結束值", id + limit)
-      // console.log(postListAll[i])
-      if (announcementListAll[i]) {
-        announcementList.push(announcementListAll[i])
-      }
+
+    if (page != undefined && limit != undefined) {
+      const start = (page - 1) * limit
+      const end = start + limit
+      announcementList.push(...announcementListAll.slice(start, end))
+    } else {
+      console.log("limit and page are not defined")
+      announcementList.push(...announcementListAll)
     }
+
     return announcementList
   }
   // if (req.nextUrl.searchParams.get("type") === "one" && req.nextUrl.searchParams.get("id")) {
