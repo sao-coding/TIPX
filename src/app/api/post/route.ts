@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest) => {
   // 獲取除了校外公告的全部貼文
   if (req.nextUrl.searchParams.get("type") === "all") {
     const exclude = req.nextUrl.searchParams.get("exclude")
-    const page = Number(req.nextUrl.searchParams.get("page")) || undefined
+    const page = Number(req.nextUrl.searchParams.get("page")) || 1
     const limit = Number(req.nextUrl.searchParams.get("limit")) || undefined
     const PostListAll = await getPost("all", undefined, page, limit, exclude || "")
 

@@ -77,8 +77,8 @@ const getPost = async (
       }
     })
 
-    if (page != undefined && limit != undefined) {
-      const start = (page - 1) * limit
+    if (page && limit) {
+      const start = page * limit - limit
       const end = start + limit
       announcementList.push(...announcementListAll.slice(start, end))
     } else {
