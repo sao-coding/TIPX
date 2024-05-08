@@ -5,7 +5,7 @@ import toast from "react-hot-toast"
 
 import Title from "@/components/Title"
 import { useRollCallVerifyStore } from "@/store/roll-call-verify"
-import { RollCall } from "@/types"
+import { RollCall as RollCallType } from "@/types/roll-call"
 import { IconReload } from "@tabler/icons-react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -37,7 +37,7 @@ const RollCall = ({ params }: { params: { id: string } }) => {
     verify()
   }, [])
 
-  const { isLoading, data } = useQuery<RollCall>({
+  const { isLoading, data } = useQuery<RollCallType>({
     queryKey: ["roll-call", params.id, date],
     queryFn: async () => {
       const res = await fetch(`/api/roll-call?course=${params.id}&date=${date}`)
