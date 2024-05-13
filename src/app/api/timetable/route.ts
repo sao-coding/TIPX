@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth"
 import { JSDOM } from "jsdom"
 
 import authOptions from "@/lib/auth"
+import redis from "@/lib/redis"
 import { TimeTable } from "@/types"
 
 export const GET = async (req: NextRequest) => {
@@ -83,7 +84,7 @@ export const GET = async (req: NextRequest) => {
     { start: "20:40", end: "21:25" }
   ]
 
-  const timeTable: TimeTable[] = [
+  let timeTable: TimeTable[] = [
     { week: "星期一", timetable: [] },
     { week: "星期二", timetable: [] },
     { week: "星期三", timetable: [] },
@@ -93,44 +94,72 @@ export const GET = async (req: NextRequest) => {
     { week: "星期日", timetable: [] }
   ]
 
-  const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
-    headers: {
-      cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-      Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
-    }
-  })
-
-  const buffer = await res.arrayBuffer()
-  const html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
-
-  const rows = Array.from(
-    document.querySelectorAll('table[bgcolor="#CCCCCC"] tbody tr:not(:first-child)')
-  )
-
-  rows.forEach((row) => {
-    const cells = Array.from(row.querySelectorAll("td:not(:first-child)"))
-
-    cells.forEach((cell, index) => {
-      const daylist = cell.innerHTML.replace(/<font size="2">|<\/font>/g, "").split("<br>")
-      if (daylist[0] === ".") {
-        timeTable[index].timetable.push({
-          id: "",
-          course: "",
-          classroom: "",
-          teacher: ""
-        })
-      } else {
-        timeTable[index].timetable.push({
-          id: daylist[0],
-          course: daylist[1],
-          classroom: daylist[2],
-          teacher: daylist[3]
-        })
+  const getData = async () => {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_weeklist.php", {
+      headers: {
+        cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
+        Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
       }
     })
-  })
+
+    const buffer = await res.arrayBuffer()
+    const html = new TextDecoder("big5").decode(buffer)
+    const dom = new JSDOM(html)
+    const document = dom.window.document
+
+    const rows = Array.from(
+      document.querySelectorAll('table[bgcolor="#CCCCCC"] tbody tr:not(:first-child)')
+    )
+
+    rows.forEach((row) => {
+      const cells = Array.from(row.querySelectorAll("td:not(:first-child)"))
+
+      cells.forEach((cell, index) => {
+        const daylist = cell.innerHTML.replace(/<font size="2">|<\/font>/g, "").split("<br>")
+        if (daylist[0] === ".") {
+          timeTable[index].timetable.push({
+            id: "",
+            course: "",
+            classroom: "",
+            teacher: ""
+          })
+        } else {
+          timeTable[index].timetable.push({
+            id: daylist[0],
+            course: daylist[1],
+            classroom: daylist[2],
+            teacher: daylist[3]
+          })
+        }
+      })
+    })
+  }
+
+  // 若有快取則使用快取
+  // 若沒有則發送請求
+  const cache = (await redis.call("JSON.GET", `timetable_${year}_${sem}_${userid}`)) as
+    | string
+    | null
+  if (!cache) {
+    console.log("no cache")
+    await getData()
+    // 假如是 5,6月 或 12,1月 快取時間為 1 小時 否則為 1 天
+    // 快取課表
+    const month = new Date().getMonth()
+    const expire = month === 5 || month === 6 || month === 11 || month === 0 ? 3600 : 86400
+    await redis.call(
+      "JSON.SET",
+      `timetable_${year}_${sem}_${userid}`,
+      "$",
+      JSON.stringify(timeTable)
+    )
+    await redis.call("EXPIRE", `timetable_${year}_${sem}_${userid}`, expire)
+  } else {
+    console.log("use cache")
+    // 把快取的資料轉換成 JSON 格式
+    timeTable = JSON.parse(cache)
+  }
+
   if (type === "now") {
     // 輸出目前正在上課的課程
     // 轉換 time ISO格式 為 08:20 格式
