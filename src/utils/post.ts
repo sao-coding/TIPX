@@ -1,6 +1,7 @@
 // 學校公告
 import { JSDOM } from "jsdom"
 
+import redis from "@/lib/redis"
 import { Announcement } from "@/types"
 import { Post } from "@/types"
 
@@ -26,56 +27,72 @@ const getPost = async (
     const announcementListAll: Announcement[] = []
     const announcementList: Announcement[] = []
 
-    const res = await fetch("https://netinfo.takming.edu.tw/tip/post/post_index_all.php")
+    // 查尋是否有快取
+    const cache = (await redis.call("JSON.GET", "announcement")) as string | null
 
-    const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-    const rows = Array.from(
-      document.querySelectorAll("table[bordercolor='#FFFFFF' ] tr:not(:first-child)")
-    )
+    const getData = async () => {
+      console.log("no cache")
+      const res = await fetch("https://netinfo.takming.edu.tw/tip/post/post_index_all.php")
 
-    rows.forEach((row) => {
-      const cells = Array.from(row.querySelectorAll("td"))
-      const sticky = cells[1].querySelector("img") ? true : false
-      announcement.sticky = sticky
-      const link = cells[1].querySelector("a")?.getAttribute("href")
-      // post_OneShow.php?SerialItem=103304
-      // 取得網址的ID
-      const id = link?.split("=")[1]
-      announcement.id = id ?? ""
+      const buffer = await res.arrayBuffer()
+      let html = new TextDecoder("big5").decode(buffer)
+      const dom = new JSDOM(html)
+      const document = dom.window.document
+      const rows = Array.from(
+        document.querySelectorAll("table[bordercolor='#FFFFFF' ] tr:not(:first-child)")
+      )
 
-      if (exclude === "outside" && cells[0].textContent?.includes("校外事項")) {
-        return
-      }
+      rows.forEach((row) => {
+        const cells = Array.from(row.querySelectorAll("td"))
+        const sticky = cells[1].querySelector("img") ? true : false
+        announcement.sticky = sticky
+        const link = cells[1].querySelector("a")?.getAttribute("href")
+        // post_OneShow.php?SerialItem=103304
+        // 取得網址的ID
+        const id = link?.split("=")[1]
+        announcement.id = id ?? ""
 
-      cells.forEach((cell, index) => {
-        const list = cell.textContent?.replace(/\n/g, "")
-        if (index === 0) {
-          announcement.category = list ?? ""
-        } else if (index === 1) {
-          announcement.title = list ?? ""
-        } else if (index === 2) {
-          announcement.unit = list ?? ""
-        } else if (index === 3) {
-          announcement.date = list ?? ""
-        } else if (index === 4) {
-          announcement.deadline = list ?? ""
+        if (exclude === "outside" && cells[0].textContent?.includes("校外事項")) {
+          return
+        }
+
+        cells.forEach((cell, index) => {
+          const list = cell.textContent?.replace(/\n/g, "")
+          if (index === 0) {
+            announcement.category = list ?? ""
+          } else if (index === 1) {
+            announcement.title = list ?? ""
+          } else if (index === 2) {
+            announcement.unit = list ?? ""
+          } else if (index === 3) {
+            announcement.date = list ?? ""
+          } else if (index === 4) {
+            announcement.deadline = list ?? ""
+          }
+        })
+
+        announcementListAll.push(announcement)
+        announcement = {
+          id: "",
+          title: "",
+          sticky: false,
+          category: "",
+          unit: "",
+          date: "",
+          deadline: ""
         }
       })
+    }
 
-      announcementListAll.push(announcement)
-      announcement = {
-        id: "",
-        title: "",
-        sticky: false,
-        category: "",
-        unit: "",
-        date: "",
-        deadline: ""
-      }
-    })
+    if (!cache) {
+      await getData()
+      // 快取公告 設定快取時間為 1 小時
+      await redis.call("JSON.SET", "announcement", "$", JSON.stringify(announcementListAll))
+      await redis.call("EXPIRE", "announcement", 3600)
+    } else {
+      console.log("use cache")
+      announcementListAll.push(...JSON.parse(cache))
+    }
 
     if (page && limit) {
       const start = page * limit - limit
