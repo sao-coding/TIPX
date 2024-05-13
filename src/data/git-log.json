@@ -1,5 +1,23 @@
 [
   {
+    "subject": "✨ 新增 redis 快取伺服器",
+    "date": "2024-05-13T21:21:12.000Z",
+    "hash": "99c86e8ebdb0aeb680704ce536b1db0ef1bbf49c",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-05-07T20:38:18.000Z",
+    "hash": "b3c0118e137140729c6ece8266deeaeccb052616",
+    "body": ""
+  },
+  {
+    "subject": "✏️ 修復 命名衝突問題",
+    "date": "2024-05-07T20:38:10.000Z",
+    "hash": "31be547592993768975e6daae7aaef1b791866a3",
+    "body": ""
+  },
+  {
     "subject": "✅ 更新 post api 參數",
     "date": "2024-05-04T16:53:27.000Z",
     "hash": "878ef2cc9786bd2e47c680d2917bf26dc31166ae",
