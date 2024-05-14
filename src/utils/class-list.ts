@@ -91,8 +91,11 @@ const getClassList = async (userid: string) => {
       "$",
       JSON.stringify(studentList)
     )
-    // 設定快取時間為 4 個月
-    await redis.call("EXPIRE", `classlist_${currentYear}_${currentSem}_${userid}`, 10368000)
+    // 假如是 5,6月 或 12,1月 快取時間為 1 小時 否則為 4 個月
+    const month = new Date().getMonth() + 1
+    const expire =
+      month === 5 || month === 6 || month === 12 || month === 1 ? 60 * 60 : 60 * 60 * 24 * 30 * 4
+    await redis.expire(`classlist_${currentYear}_${currentSem}_${userid}`, expire)
   } else {
     console.log("cache")
     studentList.push(...JSON.parse(cache))
