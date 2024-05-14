@@ -1,5 +1,6 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
+import redis from "@/lib/redis"
 import { Credit } from "@/types"
 
 const getCredit = async (userid: string, year: string, sem: string) => {
@@ -9,45 +10,59 @@ const getCredit = async (userid: string, year: string, sem: string) => {
 
   const credit: Credit[] = []
 
-  const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
-    headers: {
-      cookie: `cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
-      Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
-    }
-  })
-  const buffer = await res.arrayBuffer()
-  let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
-  const rows = Array.from(
-    document.querySelectorAll(
-      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p:nth-child(13) > table > tbody > tr"
-    )
-  )
+  const getData = async () => {
+    const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
+      headers: {
+        cookie: `cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
+        Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+      }
+    })
+    const buffer = await res.arrayBuffer()
+    let html = new TextDecoder("big5").decode(buffer)
 
-  for (let i = 0; i < rows.length; i++) {
-    const cells = Array.from(rows[i].querySelectorAll("td"))
-    for (let j = 0; j < cells.length; j++) {
-      if (i === 0 && j === 0) continue
-      if (i === 0) {
-        title.push(cells[j].textContent ?? "")
+    const $ = cheerio.load(html)
+    const rows = Array.from(
+      $(
+        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p:nth-child(13) > table > tbody > tr"
+      )
+    )
+
+    for (let i = 0; i < rows.length; i++) {
+      const cells = Array.from($(rows[i]).find("td"))
+      for (let j = 0; j < cells.length; j++) {
+        if (i === 0 && j === 0) continue
+        if (i === 0) {
+          title.push($(cells[j]).text() ?? "")
+        }
+        if (i === 1 && j !== 0) {
+          total.push(Number($(cells[j]).text() ?? ""))
+        }
+        if (i === 2 && j !== 0) {
+          get.push(Number($(cells[j]).text() ?? ""))
+        }
       }
-      if (i === 1 && j !== 0) {
-        total.push(Number(cells[j].textContent ?? ""))
-      }
-      if (i === 2 && j !== 0) {
-        get.push(Number(cells[j].textContent ?? ""))
-      }
+    }
+
+    for (let i = 0; i < title.length; i++) {
+      credit.push({
+        year: title[i].slice(0, 3),
+        sem: title[i].slice(3, 4) === "上" ? "1" : "2", // "上" => "1" "下" => "2
+        total: Number(total[i]),
+        get: Number(get[i])
+      })
     }
   }
 
-  for (let i = 0; i < title.length; i++) {
-    credit.push({
-      year: title[i].slice(0, 3),
-      sem: title[i].slice(3, 4) === "上" ? "1" : "2", // "上" => "1" "下" => "2
-      total: Number(total[i]),
-      get: Number(get[i])
-    })
+  const cache = (await redis.call("JSON.GET", `credit_${userid}_${year}_${sem}`)) as string | null
+  if (!cache) {
+    console.log("no cache")
+    await getData()
+    // 設定快取時間為 1 個月
+    await redis.call("JSON.SET", `credit_${userid}_${year}_${sem}`, "$", JSON.stringify(credit))
+    await redis.call("EXPIRE", `credit_${userid}_${year}_${sem}`, 2592000)
+  } else {
+    console.log("use cache")
+    return JSON.parse(cache)
   }
 
   return credit
