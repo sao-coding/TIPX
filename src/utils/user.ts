@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import redis from "@/lib/redis"
 import { User } from "@/types"
@@ -40,131 +40,81 @@ const getUser = async (userid: string, type?: string) => {
     })
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-
+    const $ = cheerio.load(html)
     let noImg = 0
 
-    infolist.userid =
-      document.querySelector(
-        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(1)"
-      )?.textContent ?? ""
+    infolist.userid = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(1)"
+    ).text()
     infolist.img =
-      document
-        .querySelector(
-          "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > img"
-        )
-        ?.getAttribute("src") ?? ""
+      $(
+        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > img"
+      ).attr("src") ?? ""
     if (infolist.img === "") {
       noImg = 1
     }
-    infolist.name =
-      document.querySelector(
-        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(2)"
-      )?.textContent ?? ""
-    infolist.status =
-      document.querySelector(
-        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(3)"
-      )?.textContent ?? ""
-    // infolist.dept =
-    //     document.querySelector(
-    //         "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(6)"
-    //     )?.textContent ?? ""
-    // infolist.es =
-    //     document.querySelector(
-    //         "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(7)"
-    //     )?.textContent ?? ""
-    infolist.major =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          9 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.enName =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          12 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.IDnumber =
-      document
-        .querySelector(
-          `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-            14 - noImg
-          })`
-        )
-        ?.textContent?.replace("　", "") ?? ""
-    infolist.gender =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          15 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.birthday =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          16 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.birthplace =
-      document
-        .querySelector(
-          `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-            18 - noImg
-          })`
-        )
-        ?.textContent?.replace("　", "") ?? ""
-    infolist.address =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          20 - noImg
-        })`
-      )?.textContent ?? ""
-    const phone = document
-      .querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          22 - noImg
-        })`
-      )
-      ?.textContent?.split("  ") ?? ["", ""]
+    infolist.name = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(2)"
+    ).text()
+    infolist.status = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(3)"
+    ).text()
+    // infolist.dept = $(
+    //   "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(6)"
+    // ).text()
+    // infolist.es = $(
+    //   "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(7)"
+    // ).text()
+    infolist.major = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(9)"
+    ).text()
+    infolist.enName = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(12)"
+    ).text()
+    infolist.IDnumber = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(14)"
+    )
+      .text()
+      .replace("　", "")
+    infolist.gender = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(15)"
+    ).text()
+    infolist.birthday = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(16)"
+    ).text()
+    infolist.birthplace = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(18)"
+    )
+      .text()
+      .replace("　", "")
+    infolist.address = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(20)"
+    ).text()
+    const phone = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(22)"
+    )
+      .text()
+      .split("  ")
     infolist.phone = phone[0]
     infolist.homePhone = phone[1]
-    infolist.previousEducation =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          24 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.date =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          26 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.parentName =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          30 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.parentAddress =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          32 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.parentPhone =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          34 - noImg
-        })`
-      )?.textContent ?? ""
-    infolist.parentJob =
-      document.querySelector(
-        `body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(${
-          36 - noImg
-        })`
-      )?.textContent ?? ""
+    infolist.previousEducation = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(24)"
+    ).text()
+    infolist.date = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(26)"
+    ).text()
+    infolist.parentName = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(30)"
+    ).text()
+    infolist.parentAddress = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(32)"
+    ).text()
+    infolist.parentPhone = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(34)"
+    ).text()
+    infolist.parentJob = $(
+      "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > font > font:nth-child(36)"
+    ).text()
     if (type === "about") {
       infolist.desc = await getUserDesc(userid)
     }

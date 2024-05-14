@@ -34,7 +34,7 @@ const UserPage = async () => {
   const userData: User = await getUser(session?.user.studentID as string)
   const lineID = await getLineID(session?.user.studentID as string)
   const searchAuth = await getSearchAuth(session?.user.studentID as string)
-  console.log(session)
+  // console.log(session)
 
   return (
     <>

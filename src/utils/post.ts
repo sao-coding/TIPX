@@ -1,5 +1,5 @@
 // 學校公告
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import redis from "@/lib/redis"
 import { Announcement } from "@/types"
@@ -36,38 +36,34 @@ const getPost = async (
 
       const buffer = await res.arrayBuffer()
       let html = new TextDecoder("big5").decode(buffer)
-      const dom = new JSDOM(html)
-      const document = dom.window.document
-      const rows = Array.from(
-        document.querySelectorAll("table[bordercolor='#FFFFFF' ] tr:not(:first-child)")
-      )
 
-      rows.forEach((row) => {
-        const cells = Array.from(row.querySelectorAll("td"))
-        const sticky = cells[1].querySelector("img") ? true : false
+      const $ = cheerio.load(html)
+      $("table[bordercolor='#FFFFFF' ] tr:not(:first-child)").map((_, row) => {
+        const cells = $(row).find("td")
+        const sticky = cells.eq(1).find("img").length ? true : false
         announcement.sticky = sticky
-        const link = cells[1].querySelector("a")?.getAttribute("href")
+        const link = cells.eq(1).find("a").attr("href")
         // post_OneShow.php?SerialItem=103304
         // 取得網址的ID
         const id = link?.split("=")[1]
         announcement.id = id ?? ""
 
-        if (exclude === "outside" && cells[0].textContent?.includes("校外事項")) {
+        if (exclude === "outside" && cells.eq(0).text().includes("校外事項")) {
           return
         }
 
-        cells.forEach((cell, index) => {
-          const list = cell.textContent?.replace(/\n/g, "")
+        cells.each((index, cell) => {
+          const list = $(cell).text().replace(/\n/g, "")
           if (index === 0) {
-            announcement.category = list ?? ""
+            announcement.category = list
           } else if (index === 1) {
-            announcement.title = list ?? ""
+            announcement.title = list
           } else if (index === 2) {
-            announcement.unit = list ?? ""
+            announcement.unit = list
           } else if (index === 3) {
-            announcement.date = list ?? ""
+            announcement.date = list
           } else if (index === 4) {
-            announcement.deadline = list ?? ""
+            announcement.deadline = list
           }
         })
 
@@ -130,32 +126,31 @@ const getPost = async (
     )
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-    const rows = Array.from(document.querySelectorAll(".newstd"))
-    rows.forEach((row, index) => {
+
+    const $ = cheerio.load(html)
+    $(".newstd").map((index, row) => {
       if (index === 3) {
-        postdata.push(row.textContent?.split("　")[0] ?? "")
-        const cell = row.querySelector("a")
-        const name = cell?.textContent
-        const email = cell?.getAttribute("href")?.replace("mailto:", "")
+        postdata.push($(row).text().split("　")[0])
+        const cell = $(row).find("a")
+        const name = cell.text()
+        const email = cell.attr("href")?.replace("mailto:", "")
         post.publisher.name = name ?? ""
         post.publisher.email = email ?? ""
       } else if (index === 7) {
-        const cells = Array.from(row.querySelectorAll("a"))
-        cells.forEach((cell) => {
-          const title = cell.textContent
-          const link = cell.getAttribute("href")
+        const cells = $(row).find("a")
+        cells.each((_, cell) => {
+          const title = $(cell).text()
+          const link = $(cell).attr("href")
           post.file.push({ title: title ?? "", link: link ?? "" })
         })
       } else if (index === 8) {
-        const cells = Array.from(row.querySelectorAll("a"))
-        cells.forEach((cell) => {
-          const link = cell.getAttribute("href")
+        const cells = $(row).find("a")
+        cells.each((_, cell) => {
+          const link = $(cell).attr("href")
           post.link = link ?? ""
         })
       } else {
-        postdata.push(row.textContent ?? "")
+        postdata.push($(row).text())
       }
     })
 
