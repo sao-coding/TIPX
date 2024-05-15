@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { useRouter } from "next/navigation"
 import { Commit } from "git-log"
 import Cookie from "js-cookie"
 
@@ -11,6 +12,7 @@ const Notify = () => {
   const [open, setOpen] = React.useState<boolean>(false)
   const [gitLog, setGitLog] = React.useState<Commit[]>([])
   const [loading, setLoading] = React.useState<boolean>(true)
+  const router = useRouter()
 
   React.useEffect(() => {
     if (Cookie.get("update-log") !== "false") {
@@ -56,7 +58,18 @@ const Notify = () => {
         <div className='mt-4 space-y-4'>
           {/* 已知問題 */}
           <div>
-            <h2 className='text-lg font-semibold'>已知問題</h2>
+            <div className='flex items-center justify-between'>
+              <h2 className='text-lg font-semibold'>已知問題</h2>
+              <Dialog.Close
+                className='text-blue-500'
+                onClick={() => {
+                  Cookie.set("update-log", "false", { expires: 1 })
+                  router.push("/forum")
+                }}
+              >
+                查看更多
+              </Dialog.Close>
+            </div>
             <ul className='list-inside list-disc'>
               {knownIssues.map((item, index) => (
                 <li key={index}>💥 {item}</li>
@@ -65,16 +78,27 @@ const Notify = () => {
           </div>
           {/* 更新日誌 */}
           <div>
-            <h2 className='text-lg font-semibold'>新增&修復</h2>
+            <div className='flex items-center justify-between'>
+              <h2 className='text-lg font-semibold'>新增&修復</h2>
+              <Dialog.Close
+                className='text-blue-500'
+                onClick={() => {
+                  Cookie.set("update-log", "false", { expires: 1 })
+                  router.push("/user/git-log")
+                }}
+              >
+                查看更多
+              </Dialog.Close>
+            </div>
+
             <ul className='list-inside list-disc'>
               {loading && (
                 <div className='flex w-full justify-center'>
                   <IconLoader2 className='h-6 w-6 animate-spin' />
                 </div>
               )}
-              {gitLog.map((item, index) => (
-                <li key={index}>{item.subject}</li>
-              ))}
+              {gitLog.length > 0 &&
+                gitLog.map((item, index) => <li key={index}>{item.subject}</li>)}
             </ul>
           </div>
         </div>
