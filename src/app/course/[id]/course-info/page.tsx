@@ -45,7 +45,7 @@ const CourseInfoPage = ({ params }: { params: { id: string } }) => {
     // <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
     //     <img src='https://www.lazyweb.com.tw/images/coming_soon.jpg' alt='' />
     // </div>
-    <div className=''>
+    <div>
       {isLoading ? (
         <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
           <div className='flex h-full w-full items-center justify-center'>
@@ -127,9 +127,9 @@ const CourseInfoPage = ({ params }: { params: { id: string } }) => {
                   </div>
                   {data.content.map((item) => (
                     <div className='mb-2 border-b pb-2 last:border-b-0' key={item.week}>
-                      <div className=''>{item.week}</div>
-                      <div className=''>{item.content}</div>
-                      <div className=''>{item.remark}</div>
+                      <div>{item.week}</div>
+                      <div>{item.content}</div>
+                      <div>{item.remark}</div>
                     </div>
                   ))}
                 </div>

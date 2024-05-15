@@ -110,9 +110,9 @@ const List = () => {
                   {item.type}
                 </div>
               </div>
-              <div className=''>{formatDatetime(item.date, "leave")}</div>
-              <div className=''>{item.course}</div>
-              <div className=''>{item.teacher}</div>
+              <div>{formatDatetime(item.date, "leave")}</div>
+              <div>{item.course}</div>
+              <div>{item.teacher}</div>
 
               <div className='absolute right-2 top-2 flex flex-col items-end space-y-1'>
                 <div className='rounded-lg bg-main-color-3 px-1 text-white'>{`第${item.section}節`}</div>

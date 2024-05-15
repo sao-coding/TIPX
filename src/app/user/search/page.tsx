@@ -55,7 +55,7 @@ const SearchPage = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        {/* <div className=''>{isLoading ? "載入中" : ""}</div> */}
+        {/* <div>{isLoading ? "載入中" : ""}</div> */}
         <div className='flex flex-col gap-2'>
           {isSuccess &&
             !isError &&
