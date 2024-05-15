@@ -13,8 +13,8 @@ import Link from "next/link"
 //         <html>
 //             <body>
 //                 <h1>發生錯誤</h1>
-//                 <div className=''>
-//                     <div className=''>{error.message}</div>
+//                 <div>
+//                     <div>{error.message}</div>
 //                     <Link href='https://tk-tipx.github.io/upptime/'>查看系統狀態</Link>
 //                 </div>
 //                 <button onClick={() => reset()}>重新整理</button>

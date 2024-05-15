@@ -84,7 +84,7 @@ const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message 
                           : message?.message_reference?.author?.username}{" "}
                         的訊息
                       </div>
-                      <div className=''>
+                      <div>
                         {message?.message_reference?.deleted_timestamp === "" ? (
                           <>
                             {

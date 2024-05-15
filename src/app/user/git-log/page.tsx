@@ -27,8 +27,8 @@ const GitLogPage = async () => {
       <div className='sticky left-0 top-0 z-10 px-2 pb-2 md:top-[68px] md:p-0'>
         <div className='mb-2 w-full rounded-xl border bg-background p-2 text-center'>
           <div className='flex items-center justify-center space-x-16'>
-            <div className=''>提交總次數: {data.length}</div>
-            <div className=''>
+            <div>提交總次數: {data.length}</div>
+            <div>
               耗時:{" "}
               {Math.floor(
                 (new Date(data[0].date).getTime() -
@@ -41,7 +41,7 @@ const GitLogPage = async () => {
               天
             </div>
           </div>
-          <div className=''>
+          <div>
             最後提交時間:{" "}
             {new Date(data[0].date).toLocaleString("zh-TW", {
               timeZone: "Asia/Taipei"

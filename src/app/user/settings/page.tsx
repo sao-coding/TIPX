@@ -156,7 +156,7 @@ const SettingsPage = () => {
           <div className='flex items-center justify-between'>
             <div className='flex items-center space-x-2'>
               <IconMapPin className='stroke-red-500' />
-              <div className=''> 天氣定位</div>
+              <div> 天氣定位</div>
             </div>
             <div className='flex items-center space-x-2'>
               <div className={clsx("text-xs", location ? "text-green-500" : "text-red-500")}>

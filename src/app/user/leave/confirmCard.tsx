@@ -32,8 +32,8 @@ const ConfirmCard = ({
         }}
       />
       <div className='absolute right-2 top-2 rounded-lg bg-main-color-3 px-1 text-white'>{`第${leave.id}節`}</div>
-      <div className=''>{leave.name}</div>
-      <div className=''>{leave.courseID}</div>
+      <div>{leave.name}</div>
+      <div>{leave.courseID}</div>
     </label>
   )
 }

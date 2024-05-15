@@ -64,7 +64,7 @@ const Notify = () => {
     <div className='flex items-center justify-between'>
       <div className='flex items-center space-x-2'>
         <IconBell className='stroke-yellow-500' />
-        <div className=''>通知訊息</div>
+        <div>通知訊息</div>
       </div>
       <div className='flex items-center space-x-2'>
         <div className={clsx("text-xs", notification ? "text-green-500" : "text-red-500")}>

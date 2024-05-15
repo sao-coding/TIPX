@@ -15,7 +15,8 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       if (
         req.nextUrl.pathname.startsWith("/api/og") ||
         req.nextUrl.pathname.startsWith("/api/post") ||
-        req.nextUrl.pathname.startsWith("/api/auth")
+        req.nextUrl.pathname.startsWith("/api/auth") ||
+        req.nextUrl.pathname.startsWith("/api/git-log")
       ) {
         // return 這個return會造成 withHeaders.ts 的設定無效
       } else if (!nextAuthToken) {

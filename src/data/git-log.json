@@ -1,5 +1,77 @@
 [
   {
+    "subject": "🐛 修復 訊息通知彈窗",
+    "date": "2024-05-15T06:19:08.000Z",
+    "hash": "4f405adb6974440c41e4e5674af902912c815d83",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-05-15T06:02:12.000Z",
+    "hash": "026d76066d0ffd40eda26762f4d81b34a2b2108f",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 訊息通知彈窗",
+    "date": "2024-05-15T06:01:53.000Z",
+    "hash": "a5bdb5dc56883192693fda66cafd37e9ec47fba0",
+    "body": ""
+  },
+  {
+    "subject": "🗑️ 清理代碼",
+    "date": "2024-05-15T06:00:51.000Z",
+    "hash": "a2e44d2c4b3c3873293907f817ef870e4aa55184",
+    "body": ""
+  },
+  {
+    "subject": "✨ user api 改用 cheerio 提高速度",
+    "date": "2024-05-14T06:01:07.000Z",
+    "hash": "71a63e5eb3d3cd26cde875506fd355fe838d40bb",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 學分 redis 快取 & cheerio",
+    "date": "2024-05-14T06:00:49.000Z",
+    "hash": "8df69bdd4af50588a4aa6c11d35d468f7ea1707a",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 SearchAuth redis 快取",
+    "date": "2024-05-14T06:00:03.000Z",
+    "hash": "f259008b652b706d9e402632d8e163f7bf43cd12",
+    "body": ""
+  },
+  {
+    "subject": "🔥 移除 log",
+    "date": "2024-05-14T05:59:00.000Z",
+    "hash": "bb2a3fa4e52f0a4855dd20bcc6c82a1bc2ddedf4",
+    "body": ""
+  },
+  {
+    "subject": "✨ post api 改用 cheerio 提高速度",
+    "date": "2024-05-14T05:25:49.000Z",
+    "hash": "14d1df202b3c7f294634c5b5cb58e33a6ab384c5",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 班級清單緩存策略錯誤",
+    "date": "2024-05-14T05:00:22.000Z",
+    "hash": "71d6c8282c88107d85e58209c5eedde93d8d11f4",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 redis 錯誤",
+    "date": "2024-05-13T21:36:34.000Z",
+    "hash": "78ca59408b52d06a580e2e13072f8291897c143a",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-05-13T21:22:37.000Z",
+    "hash": "c8aca5163c89987791a8f595ad74d4800d3a77d6",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增 redis 快取伺服器",
     "date": "2024-05-13T21:21:12.000Z",
     "hash": "99c86e8ebdb0aeb680704ce536b1db0ef1bbf49c",

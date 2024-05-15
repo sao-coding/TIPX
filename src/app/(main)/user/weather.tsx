@@ -187,11 +187,7 @@ const Weather = () => {
         </div>
         <div className='ml-auto flex items-center space-x-2'>
           {/* 目前地區 */}
-          {isLoading ? (
-            <IconLoader2 className='mx-1 animate-spin' />
-          ) : (
-            <div className=''>{location}</div>
-          )}
+          {isLoading ? <IconLoader2 className='mx-1 animate-spin' /> : <div>{location}</div>}
           <div className='text-xs text-gray-400'>
             {/* Wx */}
             {isLoading ? (

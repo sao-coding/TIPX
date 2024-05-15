@@ -270,13 +270,13 @@ const SendCP = ({ user }: { user: User }) => {
                       <IconUser />
                     )}
                   </div>
-                  <div className=''>{user.email}</div>
+                  <div>{user.email}</div>
                 </div>
-                <div className=''>{user.name}</div>
+                <div>{user.name}</div>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center space-x-2'>
                     <IconBell />
-                    <div className=''>通知訊息</div>
+                    <div>通知訊息</div>
                   </div>
                   <div className='flex items-center space-x-2'>
                     <div
@@ -297,7 +297,7 @@ const SendCP = ({ user }: { user: User }) => {
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center space-x-2'>
                     <IconSpy />
-                    <div className=''>匿名模式</div>
+                    <div>匿名模式</div>
                   </div>
                   <div className='flex items-center space-x-2'>
                     <div className={clsx("text-xs", anonymous ? "text-green-500" : "text-red-500")}>

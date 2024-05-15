@@ -14,6 +14,8 @@ import { site } from "@/config/site"
 import authOptions from "@/lib/auth"
 import { Analytics } from "@vercel/analytics/react"
 
+import Notify from "./notify"
+
 import "@/app/globals.css"
 import "@/app/custom.css"
 import "@/app/loaderCat.css"
@@ -100,6 +102,7 @@ export default async function RootLayout({
         <Providers session={session}>
           <Toaster />
           <Header />
+          <Notify />
           <Container>
             {children}
             {modal}

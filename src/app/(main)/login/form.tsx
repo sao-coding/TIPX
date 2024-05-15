@@ -82,7 +82,7 @@ const Form = () => {
   }
 
   return (
-    <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center p-4'>
+    <div className='fixed left-0 top-0 flex h-full w-full items-center justify-center p-4'>
       <div className='rounded-xl bg-white/30 p-4 shadow-md saturate-100 backdrop-blur-md transition-colors duration-500'>
         <div className='pb-2 text-center'>
           <Logo className='h-10 w-full md:hidden' />
