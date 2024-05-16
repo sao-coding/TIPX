@@ -158,7 +158,7 @@ export const USER_LINKS: UserLinks = [
   {
     icon: IconBrandGoogleAnalytics,
     color: "stroke-sky-400",
-    href: "https://umami.sao-x.com/share/yXMhXlD7ra7teJAM/TIP",
+    href: "https://umami.sao-x.com/share/AACCNyiPSOrqzGZC/tipx.sao-x.com",
     text: "網站數據統計"
   },
   {
