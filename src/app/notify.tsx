@@ -41,8 +41,8 @@ const Notify = () => {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-      <Dialog.Content className='fixed left-1/2 top-1/2 z-10 max-h-[50vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
+      <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
+      <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[50vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
         <div className='flex items-center justify-between'>
           <Dialog.Title>更新日誌</Dialog.Title>
           {/* 設定一天內不再顯示 */}
