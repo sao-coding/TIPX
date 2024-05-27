@@ -37,7 +37,7 @@ const Notify = () => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-      <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[50vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
+      <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
         <div className='flex items-center justify-between'>
           <Dialog.Title>更新日誌</Dialog.Title>
           {/* 設定一天內不再顯示 */}
@@ -46,9 +46,15 @@ const Notify = () => {
           </Dialog.Close>
         </div>
         <Dialog.Description>
-          當前
-          <code className='mx-1'>3.0.0</code>
-          版本
+          <div>
+            當前
+            <code className='mx-1'>3.0.0</code>
+            版本
+          </div>
+          <div>
+            最後更新
+            <code className='mx-1'>{new Date(gitLog[0]?.date).toLocaleDateString()}</code>
+          </div>
         </Dialog.Description>
         <div className='mt-4 space-y-4'>
           {/* 已知問題 */}
@@ -93,7 +99,11 @@ const Notify = () => {
                 </div>
               )}
               {gitLog.length > 0 &&
-                gitLog.map((item, index) => <li key={index}>{item.subject}</li>)}
+                gitLog.map((item, index) => (
+                  <li key={index} className='line-clamp-1'>
+                    {item.subject}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
