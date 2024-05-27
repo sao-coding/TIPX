@@ -32,28 +32,30 @@ const Notify = () => {
   }, [])
 
   // 已知問題
-  const knownIssues = [
-    "班級名單無法正確顯示",
-    "班排名無法正確顯示",
-    "系排名無法正確顯示",
-    "無法看到最新課表"
-  ]
+  const knownIssues = ["班級名單無法正確顯示", "班排名無法正確顯示", "系排名無法正確顯示"]
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Overlay className='fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
-      <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[50vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
+      <Dialog.Content className='fixed left-1/2 top-1/2 z-20 max-h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow md:max-w-[500px] md:overflow-hidden'>
         <div className='flex items-center justify-between'>
-          <Dialog.Title>更新日誌</Dialog.Title>
+          <Dialog.Title className='text-lg font-semibold'>更新日誌 😴</Dialog.Title>
           {/* 設定一天內不再顯示 */}
           <Dialog.Close onClick={() => Cookie.set("update-log", "false", { expires: 1 })}>
             <IconX />
           </Dialog.Close>
         </div>
         <Dialog.Description>
-          當前
-          <code className='mx-1'>3.0.0</code>
-          版本
+          最後更新時間
+          <br />
+          {loading ? (
+            "-- -- --"
+          ) : (
+            <>
+              <code className='mx-1'>{new Date(gitLog[0]?.date).toLocaleDateString()}</code>
+              <code className='mx-1'>{new Date(gitLog[0]?.date).toLocaleTimeString()}</code>
+            </>
+          )}
         </Dialog.Description>
         <div className='mt-4 space-y-4'>
           {/* 已知問題 */}
@@ -70,9 +72,15 @@ const Notify = () => {
                 查看更多
               </Dialog.Close>
             </div>
-            <ul className='list-inside list-disc'>
+            <ul>
               {knownIssues.map((item, index) => (
-                <li key={index}>💥 {item}</li>
+                <li
+                  key={index}
+                  // before 偽元素 水平對齊='center' 垂直對齊='center'
+                  className='flex items-center before:mr-1 before:text-xs before:content-["🔸"]'
+                >
+                  <span className='line-clamp-1'>💥 {item}</span>
+                </li>
               ))}
             </ul>
           </div>
@@ -91,14 +99,21 @@ const Notify = () => {
               </Dialog.Close>
             </div>
 
-            <ul className='list-inside list-disc'>
+            <ul>
               {loading && (
                 <div className='flex w-full justify-center'>
                   <IconLoader2 className='h-6 w-6 animate-spin' />
                 </div>
               )}
               {gitLog.length > 0 &&
-                gitLog.map((item, index) => <li key={index}>{item.subject}</li>)}
+                gitLog.map((item, index) => (
+                  <li
+                    key={index}
+                    className='flex items-center before:mr-1 before:text-xs before:content-["🔸"]'
+                  >
+                    <span className='line-clamp-1'>{item.subject}</span>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

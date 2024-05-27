@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 import clsx from "clsx"
+import Cookie from "js-cookie"
+import toast from "react-hot-toast"
 
 import Title from "@/components/Title"
 import { Listbox } from "@headlessui/react"
@@ -12,7 +14,8 @@ import {
   IconMoon,
   IconPaint,
   IconSelector,
-  IconSun
+  IconSun,
+  IconTrash
 } from "@tabler/icons-react"
 
 import Notify from "./notify"
@@ -60,6 +63,23 @@ const SettingsPage = () => {
         console.log("error", error)
       }
     )
+  }
+
+  // 清除快取
+  const clearCache = async () => {
+    const res = await fetch("/api/clear", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userid: Cookie.get("cookie_userid") })
+    })
+    const data = await res.json()
+    if (data.message === "success") {
+      toast.success("清除成功")
+    } else {
+      toast.error("清除失敗")
+    }
   }
 
   const title = {
@@ -171,6 +191,20 @@ const SettingsPage = () => {
                 <Switch.Thumb className='block h-5 w-5 rounded-full bg-white transition-transform data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-0.5' />
               </Switch.Root>
             </div>
+          </div>
+          {/* 清除快取 */}
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center space-x-2'>
+              <IconTrash className='stroke-gray-500' />
+              <div>清除快取</div>
+            </div>
+            <button
+              onClick={clearCache}
+              className='flex items-center space-x-2 rounded-md bg-red-500 px-2 py-1 text-white'
+            >
+              <IconTrash />
+              <div>清除</div>
+            </button>
           </div>
         </div>
       </div>

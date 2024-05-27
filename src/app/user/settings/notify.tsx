@@ -41,7 +41,7 @@ const Notify = () => {
           vibrate: [200, 100, 200, 100, 200, 100, 200],
           tag: "notification",
           renotify: true
-        })
+        } as NotificationOptions) // Add 'as NotificationOptions' to specify the type
       })
 
       // 註冊通知
