@@ -8,7 +8,7 @@ import getTeacher from "@/utils/teacher"
 import getUser from "@/utils/user"
 
 const getClassRank = async (userid: string, year: string, sem: string) => {
-  const { currentYear, currentSem } = await getCurrentYearSem()
+  const { currentYear, currentSem } = getCurrentYearSem()
   const teacherid = (await getTeacher(userid, currentYear, currentSem)).id
 
   const resUrl = async (url: string, method: string, body?: { [key: string]: string }) => {

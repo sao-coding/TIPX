@@ -8,7 +8,7 @@ import getTeacher from "@/utils/teacher"
 import getUser from "@/utils/user"
 
 const getClassList = async (userid: string) => {
-  const { currentYear, currentSem } = await getCurrentYearSem()
+  const { currentYear, currentSem } = getCurrentYearSem()
   const teacherid = (await getTeacher(userid ?? "", currentYear ?? "", currentSem ?? "")).id
 
   const studentList: Student[] = []
