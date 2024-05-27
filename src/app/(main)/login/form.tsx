@@ -8,6 +8,8 @@ import toast, { useToasterStore } from "react-hot-toast"
 
 // import iconv from "iconv-lite"
 import Logo from "@/components/logo"
+import { site } from "@/config/site"
+import getCurrentYearSem from "@/utils/current-year-sem"
 import { IconBrandGoogle } from "@tabler/icons-react"
 
 const Form = () => {
@@ -28,27 +30,12 @@ const Form = () => {
     Object.keys(Cookie.get()).forEach((cookieName) => {
       Cookie.remove(cookieName)
     })
-    const year = new Date().getFullYear()
-    const month = new Date().getMonth() + 1
-    console.log("year", year)
-    console.log("month", month)
-    if (month >= 8) {
-      Cookie.set("cookie_year", (year - 1911).toString(), { expires: 7 })
-      console.log("cookie_year", year - 1911)
-    } else {
-      Cookie.set("cookie_year", (year - 1912).toString(), { expires: 7 })
-      console.log("cookie_year", year - 1912)
+    const setCurrentYearSem = async () => {
+      const { currentYear, currentSem } = getCurrentYearSem()
+      Cookie.set("cookie_year", currentYear, { expires: site.cookie.expires })
+      Cookie.set("cookie_sem", currentSem, { expires: site.cookie.expires })
     }
-    // 判斷上下學期
-    // year 8 ~ 12 || year+1 1 ~ 2
-    // year 2 ~ 7
-    if (month >= 8 || month <= 1) {
-      Cookie.set("cookie_sem", "1", { expires: 7 })
-      console.log("cookie_sem", 1)
-    } else {
-      Cookie.set("cookie_sem", "2", { expires: 7 })
-      console.log("cookie_sem", 2)
-    }
+    setCurrentYearSem()
   }, [])
 
   const fetchLogin = async (e: React.FormEvent<HTMLFormElement>) => {

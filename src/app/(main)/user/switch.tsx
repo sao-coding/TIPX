@@ -4,6 +4,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Cookie from "js-cookie"
 
+import { site } from "@/config/site"
+import getCurrentYearSem from "@/utils/current-year-sem"
 import * as Select from "@radix-ui/react-select"
 import { IconChevronDown, IconChevronUp, IconLoader2, IconSelector } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
@@ -16,99 +18,16 @@ type Sem = {
 const Switch = () => {
   const [year, setYear] = useState(Cookie.get("cookie_year"))
   const [sem, setSem] = useState(Cookie.get("cookie_sem"))
-  // const [data, setData] = useState<Sem[]>([])
   const router = useRouter()
-
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //         let year = new Date().getFullYear()
-  //         let sem = "1"
-  //         const month = new Date().getMonth() + 1
-  //         console.log("year", year)
-  //         console.log("month", month)
-  //         if (month >= 8) {
-  //             // Cookie.set("cookie_year", (year - 1911).toString(), { expires: 7 })
-  //             // console.log("cookie_year", year - 1911)
-  //             year = year - 1911
-  //         } else {
-  //             // Cookie.set("cookie_year", (year - 1912).toString(), { expires: 7 })
-  //             // console.log("cookie_year", year - 1912)
-  //             year = year - 1912
-  //         }
-  //         // 判斷上下學期
-  //         // year 8 ~ 12 || year+1 1 ~ 2
-  //         // year 2 ~ 7
-  //         if (month >= 8 || month <= 2) {
-  //             // Cookie.set("cookie_sem", "1", { expires: 7 })
-  //             // console.log("cookie_sem", 1)
-  //             sem = "1"
-  //         } else {
-  //             // Cookie.set("cookie_sem", "2", { expires: 7 })
-  //             // console.log("cookie_sem", 2)
-  //             sem = "2"
-  //         }
-  //         const res = await fetch(`/api/credit?year=${year}&sem=${sem}`, {
-  //             method: "GET",
-  //             headers: {
-  //                 "Content-Type": "application/json",
-  //                 Authorization: `Bearer ${Cookie.get("token")}`,
-  //             },
-  //         })
-
-  //         const data = await res.json()
-
-  //         for (let i = 0; i < data.length; i++) {
-  //             setData((prev) => [
-  //                 ...prev,
-  //                 {
-  //                     year: data[i].year,
-  //                     sem: data[i].sem,
-  //                 },
-  //             ])
-  //         }
-  //     }
-
-  //     fetchData()
-  // }, [])
-
-  // useEffect(() => {
-  //     console.log(year, sem)
-  // }, [year, sem])
 
   const { isLoading, isError, data } = useQuery<Sem[]>({
     queryKey: ["credit"],
     queryFn: async () => {
-      let year = new Date().getFullYear()
-      let sem = "1"
-      const month = new Date().getMonth() + 1
-      console.log("year", year)
-      console.log("month", month)
-      if (month >= 8) {
-        // Cookie.set("cookie_year", (year - 1911).toString(), { expires: 7 })
-        // console.log("cookie_year", year - 1911)
-        year = year - 1911
-      } else {
-        // Cookie.set("cookie_year", (year - 1912).toString(), { expires: 7 })
-        // console.log("cookie_year", year - 1912)
-        year = year - 1912
-      }
-      // 判斷上下學期
-      // year 8 ~ 12 || year+1 1 ~ 2
-      // year 2 ~ 7
-      if (month >= 8 || month <= 1) {
-        // Cookie.set("cookie_sem", "1", { expires: 7 })
-        // console.log("cookie_sem", 1)
-        sem = "1"
-      } else {
-        // Cookie.set("cookie_sem", "2", { expires: 7 })
-        // console.log("cookie_sem", 2)
-        sem = "2"
-      }
-      const res = await fetch(`/api/credit?year=${year}&sem=${sem}`, {
+      const { currentYear, currentSem } = getCurrentYearSem()
+      const res = await fetch(`/api/credit?year=${currentYear}&sem=${currentSem}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookie.get("token")}`
+          "Content-Type": "application/json"
         }
       })
       const data = await res.json()
@@ -121,8 +40,8 @@ const Switch = () => {
     const sem = value.split("-")[1]
     setYear(year)
     setSem(sem)
-    Cookie.set("cookie_year", year, { expires: 7 })
-    Cookie.set("cookie_sem", sem, { expires: 7 })
+    Cookie.set("cookie_year", year, { expires: site.cookie.expires })
+    Cookie.set("cookie_sem", sem, { expires: site.cookie.expires })
 
     // 重新整理()
     router.refresh()

@@ -4,6 +4,7 @@ import type { Adapter } from "next-auth/adapters"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 
+import { site } from "@/config/site"
 import { db } from "@/lib/firebase-admin"
 import getCurrentYearSem from "@/utils/current-year-sem"
 import getTeacher from "@/utils/teacher"
@@ -11,16 +12,16 @@ import { FirestoreAdapter } from "@auth/firebase-adapter"
 
 const setCookies = async (userid: string) => {
   cookies().set("cookie_userid", userid, {
-    // 7天
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    // 一年
+    expires: new Date(Date.now() + site.cookie.expires * 24 * 60 * 60 * 1000)
   })
 
-  const { currentYear: year, currentSem: sem } = await getCurrentYearSem()
+  const { currentYear: year, currentSem: sem } = getCurrentYearSem()
 
   const teacher = await getTeacher(userid, year, sem)
   cookies().set("cookie_teacher", teacher.id, {
-    // 7天
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    // 一年
+    expires: new Date(Date.now() + site.cookie.expires * 24 * 60 * 60 * 1000)
   })
 }
 
@@ -94,7 +95,8 @@ const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60
+    // 到期時間一年
+    maxAge: site.cookie.expires * 24 * 60 * 60
   },
   adapter: FirestoreAdapter(db) as Adapter
 }
