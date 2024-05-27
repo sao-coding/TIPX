@@ -32,12 +32,7 @@ const Notify = () => {
   }, [])
 
   // 已知問題
-  const knownIssues = [
-    "班級名單無法正確顯示",
-    "班排名無法正確顯示",
-    "系排名無法正確顯示",
-    "無法看到最新課表"
-  ]
+  const knownIssues = ["班級名單無法正確顯示", "班排名無法正確顯示", "系排名無法正確顯示"]
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>

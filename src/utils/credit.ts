@@ -13,7 +13,7 @@ const getCredit = async (userid: string, year: string, sem: string) => {
   const getData = async () => {
     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_new.php", {
       headers: {
-        cookie: `cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
+        cookie: `cookie_rgno=${userid}; cookie_userid=${userid}; cookie_year=${year + 1}; cookie_sem=${sem};`,
         Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
       }
     })
@@ -62,6 +62,8 @@ const getCredit = async (userid: string, year: string, sem: string) => {
     await redis.call("EXPIRE", `credit_${userid}_${year}_${sem}`, 2592000)
   } else {
     console.log("use cache")
+    // 清除快取
+    await redis.call("DEL", `credit_${userid}_${year}_${sem}`)
     return JSON.parse(cache)
   }
 
