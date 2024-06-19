@@ -15,7 +15,7 @@ import Info from "./info"
 import InfoBoard from "./infoBoard"
 import Logout from "./logout"
 import Switch from "./switch"
-import Weather from "./weather"
+import WeatherType from "./weather"
 
 // const getUserData = async () => {
 //     const res = await fetch(`${site.url}/api/user`, {
@@ -41,7 +41,7 @@ const UserPage = async () => {
       <div className='mb-14 flex w-full flex-col gap-2 p-2 md:-mb-20'>
         <Info userData={userData} lineID={lineID.lineid} />
         <InfoBoard />
-        <Weather />
+        <WeatherType />
         <Switch />
         {/* 要判斷查詢用戶 & 日誌中心 是否顯示 */}
         {USER_LINKS.map((link, index) =>

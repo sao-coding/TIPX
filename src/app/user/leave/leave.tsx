@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import toast from "react-hot-toast"
 
 import ConfirmCard from "@/app/user/leave/confirmCard"
-import { Leave } from "@/types"
+import { Leave as LeaveType } from "@/types"
 import { Listbox } from "@headlessui/react"
 import { IconSelector } from "@tabler/icons-react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
@@ -21,7 +21,7 @@ const Leave = () => {
   const [date, setDate] = useState(searchParams.get("date") || nowDate)
   const [selected, setSelected] = useState("病假")
   const queryClient = useQueryClient()
-  const { isLoading, data } = useQuery<Leave>({
+  const { isLoading, data } = useQuery<LeaveType>({
     queryKey: ["leave", date],
     queryFn: async () => {
       const res = await fetch(`/api/leave?date=${date}`)

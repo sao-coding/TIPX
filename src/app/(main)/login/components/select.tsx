@@ -1,4 +1,4 @@
-import { LoginSelect } from "@/types"
+import { LoginSelect as LoginSelectType } from "@/types"
 import * as Select from "@radix-ui/react-select"
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react"
 
@@ -6,7 +6,7 @@ const LoginSelect = ({
   data,
   setValue
 }: {
-  data: LoginSelect[]
+  data: LoginSelectType[]
   setValue: (value: string) => void
 }) => {
   return (

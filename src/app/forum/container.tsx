@@ -22,6 +22,7 @@ import { useEditMessageStore } from "@/store/edit"
 import { useReplyMessageStore } from "@/store/reply"
 import { Message } from "@/types"
 import { IconX } from "@tabler/icons-react"
+
 const Container = ({ user }: { user: User }) => {
   const { editMessage, setEditMessage } = useEditMessageStore()
   const { replyMessage, setReplyMessage, resetReplyMessage } = useReplyMessageStore()
@@ -35,6 +36,10 @@ const Container = ({ user }: { user: User }) => {
   const [lastMessageId, setLastMessageId] = useState<string | null>(null)
   const [isMouseDown, setIsMouseDown] = useState(false)
   const { deleteMessage } = useDeleteMessageStore()
+
+  interface ExtendedNotificationOptions extends NotificationOptions {
+    vibrate?: number | number[]
+  }
 
   useEffect(() => {
     if (user) {
@@ -91,7 +96,7 @@ const Container = ({ user }: { user: User }) => {
                               icon: "/icons/icon-192x192.png"
                             }
                           ]
-                        }
+                        } as ExtendedNotificationOptions
                       )
                     })
                   }

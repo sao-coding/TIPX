@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 
 import * as Tabs from "@radix-ui/react-tabs"
 
-import Leave from "./leave"
+import LeaveType from "./leave"
 import List from "./list"
 
 const LeaveTabs = () => {
@@ -40,7 +40,7 @@ const LeaveTabs = () => {
         </Tabs.List>
       </div>
       <Tabs.Content className='rounded-b-md pt-2' value='請假' aria-labelledby='請假' id='請假'>
-        <Leave />
+        <LeaveType />
       </Tabs.Content>
       <Tabs.Content className='rounded-b-md pt-2' value='列表' aria-labelledby='列表' id='列表'>
         <List />

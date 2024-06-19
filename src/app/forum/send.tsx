@@ -25,6 +25,10 @@ const SendCP = ({ user }: { user: User }) => {
   const { replyMessage, setReplyMessage, resetReplyMessage } = useReplyMessageStore()
   const { editMessage, setEditMessage } = useEditMessageStore()
 
+  interface ExtendedNotificationOptions extends NotificationOptions {
+    vibrate?: number | number[]
+  }
+
   useEffect(() => {
     if (localStorage.getItem("notification") === "true") {
       setNotification(true)
@@ -216,7 +220,7 @@ const SendCP = ({ user }: { user: User }) => {
           vibrate: [200, 100, 200, 100, 200, 100, 200],
           tag: "notification",
           renotify: true
-        })
+        } as ExtendedNotificationOptions)
       })
 
       // 註冊通知

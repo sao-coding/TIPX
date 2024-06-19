@@ -86,7 +86,7 @@ const LogPage = () => {
                       {data.path}
                     </Link>
                     <div>{data.class}</div>
-                    <div className='col-span-2  justify-self-end'>
+                    <div className='col-span-2 justify-self-end'>
                       {new Date(data.time).toLocaleString("zh-TW", {
                         timeZone: "Asia/Taipei"
                       })}
@@ -134,7 +134,7 @@ const LogPage = () => {
                     {data.path}
                   </Link>
                   <div>{data.class}</div>
-                  <div className='col-span-2  justify-self-end'>
+                  <div className='col-span-2 justify-self-end'>
                     {new Date(data.time).toLocaleString("zh-TW", {
                       timeZone: "Asia/Taipei"
                     })}

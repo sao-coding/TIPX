@@ -8,13 +8,13 @@ import { db } from "@/lib/firebase"
 import { useDeleteMessageStore } from "@/store/delete"
 import { useEditMessageStore } from "@/store/edit"
 import { useReplyMessageStore } from "@/store/reply"
-import { Message } from "@/types"
+import { Message as MessageType } from "@/types"
 // import dayjs from "dayjs"
 import updateMessage from "@/utils/updateMessage"
 import * as Popover from "@radix-ui/react-popover"
 import { IconUser } from "@tabler/icons-react"
 
-const Message = React.forwardRef<HTMLDivElement, { user: User; message: Message }>(
+const Message = React.forwardRef<HTMLDivElement, { user: User; message: MessageType }>(
   ({ user, message }, ref) => {
     const { replyMessage, setReplyMessage, resetReplyMessage } = useReplyMessageStore()
     const { setEditMessage } = useEditMessageStore()

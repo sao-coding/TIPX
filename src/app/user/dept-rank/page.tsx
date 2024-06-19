@@ -172,7 +172,7 @@ const DeptRankPage = () => {
                   <div className='px-1 text-lg font-bold'>
                     {(index + 1).toString().padStart(3, "0")}
                   </div>
-                  <div className='absolute  bottom-0 right-0 px-3 text-lg font-bold'>
+                  <div className='absolute bottom-0 right-0 px-3 text-lg font-bold'>
                     {item.data.rank.toString().padStart(2, "0")}
                   </div>
                 </div>
