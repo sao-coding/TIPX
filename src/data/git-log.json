@@ -1,5 +1,59 @@
 [
   {
+    "subject": "✏️ 修改命名",
+    "date": "2024-06-19T21:38:02.000Z",
+    "hash": "0ba37eb2ec90f095c172cbe1344e9d226bfe5d0f",
+    "body": ""
+  },
+  {
+    "subject": "⬆️ 更新依賴",
+    "date": "2024-06-19T21:37:34.000Z",
+    "hash": "763feef5f01605a4a60c3c09d4f9910270018411",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 定時啟動",
+    "date": "2024-06-19T18:53:03.000Z",
+    "hash": "4f81da5b2f60cce9a1f5c199ae4df2c7b5db0560",
+    "body": ""
+  },
+  {
+    "subject": "⬆️ 更新依賴",
+    "date": "2024-06-19T18:52:44.000Z",
+    "hash": "37bfedc3f59b5b463fc1458db2cef72604d44ea0",
+    "body": ""
+  },
+  {
+    "subject": "✅ 登入 type password",
+    "date": "2024-06-19T18:51:53.000Z",
+    "hash": "8383f178b9b523db125633cb3f3046e2c68f1c2b",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 git log api 延遲問題",
+    "date": "2024-05-27T12:43:57.000Z",
+    "hash": "8400d75d71e1e3b2ba368e921595d423f5b9a3a4",
+    "body": ""
+  },
+  {
+    "subject": "📝 修改 通知",
+    "date": "2024-05-27T12:36:14.000Z",
+    "hash": "53aa4addfd6214a82257721cec9bf489f13d47a9",
+    "body": ""
+  },
+  {
+    "subject": "💄 修改 通知彈窗 UI",
+    "date": "2024-05-27T12:24:53.000Z",
+    "hash": "530a64db05487948f1ff955e91c305552436f0ba",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-05-27T11:52:29.000Z",
+    "hash": "d2a05980145f529513d479e228309e874681bbca",
+    "body": ""
+  },
+  {
     "subject": "💄 修改 通知彈窗 UI",
     "date": "2024-05-27T11:51:55.000Z",
     "hash": "db540a5d62a0f1351ebd1d5ceb3d80354d9cc439",

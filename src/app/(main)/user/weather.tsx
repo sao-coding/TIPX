@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Weather } from "@/types"
+import { Weather as WeatherType } from "@/types"
 import formatDatetime from "@/utils/format-datetime"
 import { IconCloudRain, IconLoader2, IconTemperature } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
@@ -26,7 +26,7 @@ const Weather = () => {
   }
   const [city, setCity] = useState("")
   const [location, setLocation] = useState("")
-  const { isLoading, data } = useQuery<Weather[]>({
+  const { isLoading, data } = useQuery<WeatherType[]>({
     queryKey: ["weather", city, location],
     queryFn: async () => {
       if (localStorage.getItem("location") === "true") {
