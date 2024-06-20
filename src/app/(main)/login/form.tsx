@@ -89,7 +89,7 @@ const Form = () => {
               <span className='ml-2 text-xs text-gray-400'>一般人請使用 Google 登入</span>
             </div>
             <input
-              type='password'
+              type='text'
               id='authcode'
               className='box-border w-full rounded-full border border-gray-400 bg-card-background p-1 px-4 text-xl hover:border-gray-600 focus-visible:outline-none'
             />
