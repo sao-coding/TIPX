@@ -1,26 +1,9 @@
-// import GoogleAdsense from "@/app/GoogleAdsense"
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
-import { getServerSession } from "next-auth"
 
-import GoogleAnalytics from "@/app/GoogleAnalytics"
-import InfoLog from "@/app/info"
-import Providers from "@/app/providers"
-import UmamiAnalytics from "@/app/UmamiAnalytics"
-import Container from "@/components/Container"
-import Header from "@/components/Header"
-import Toaster from "@/components/Toaster"
 import { site } from "@/config/site"
-import authOptions from "@/lib/auth"
-import { Analytics } from "@vercel/analytics/react"
 
-import Notify from "./notify"
-
-import "@/app/globals.css"
-import "@/app/custom.css"
-import "@/app/loaderCat.css"
-
-const inter = Inter({ subsets: ["latin"] })
+import "./custom.css"
+import "./globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -81,35 +64,14 @@ export const viewport: Viewport = {
   ]
 }
 
-export default async function RootLayout({
-  children,
-  modal
-}: {
+export default function RootLayout({
+  children
+}: Readonly<{
   children: React.ReactNode
-  modal: React.ReactNode
-}) {
-  const session = await getServerSession(authOptions)
-
+}>) {
   return (
-    <html lang='zh-hant-TW' suppressHydrationWarning>
-      <head>
-        <InfoLog />
-        <GoogleAnalytics />
-        <UmamiAnalytics />
-        {/* <GoogleAdsense /> */}
-      </head>
-      <body className={inter.className}>
-        <Providers session={session}>
-          <Toaster />
-          <Header />
-          <Notify />
-          <Container>
-            {children}
-            {modal}
-          </Container>
-          <Analytics />
-        </Providers>
-      </body>
+    <html lang='zh-Hant-TW' className='dark'>
+      <body>{children}</body>
     </html>
   )
 }

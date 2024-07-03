@@ -1,74 +1,74 @@
 /* 卷軸樣式 只有在電腦版才會出現 */
 
 @media screen and (min-width: 768px) {
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 6px;
-    }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
 
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 12px;
-    }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 12px;
+  }
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
-    ::-webkit-scrollbar-track-piece {
-        background: #f1f1f1;
-    }
+  ::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
 
-    ::-webkit-scrollbar-corner {
-        background: #f1f1f1;
-    }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 
-    ::-webkit-scrollbar-button {
-        display: none;
-    }
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
 }
 
 .user-info {
-    position: relative;
-    perspective: 150rem;
-    width: theme("width.full");
-    height: 120px;
+  position: relative;
+  perspective: 150rem;
+  width: theme("width.full");
+  height: 120px;
 }
 
 @media screen and (min-width: 768px) {
-    .user-info {
-        perspective: 300rem;
-    }
+  .user-info {
+    perspective: 300rem;
+  }
 }
 
 .user-info-front,
 .user-info-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    transition: all 0.8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
 }
 
 .user-info-front {
 }
 
 .user-info-back {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .user-info.active .user-info-front {
-    transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
 }
 
 .user-info.active .user-info-back {
-    transform: rotateY(0);
+  transform: rotateY(0);
 }
 
 /* .infinite-scroll-component {
@@ -78,66 +78,66 @@
 } */
 
 .footer {
-    transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .footer-ripple {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 15px;
-    height: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    animation: footer-ripple 1.5s linear;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  animation: footer-ripple 1.5s linear;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes footer-ripple {
-    100% {
-        width: 1000px;
-        height: 1000px;
-        opacity: 0;
-    }
+  100% {
+    width: 1000px;
+    height: 1000px;
+    opacity: 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .ripple {
-        position: relative;
-        overflow: hidden;
-    }
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
 
-    .ripple:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 5px;
-        height: 5px;
-        background: rgba(100, 100, 100, 0.1);
-        opacity: 0;
-        border-radius: 100%;
-        transform: scale(1, 1) translate(-50%);
-        transform-origin: 50% 50%;
-    }
+  .ripple:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(100, 100, 100, 0.1);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
 
-    .ripple:hover:after {
-        animation: ripple 1s ease-out;
-    }
+  .ripple:hover:after {
+    animation: ripple 1s ease-out;
+  }
 
-    @keyframes ripple {
-        0% {
-            transform: scale(0, 0);
-            opacity: 1;
-        }
-        20% {
-            transform: scale(200, 200);
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-            transform: scale(500, 500);
-        }
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 1;
     }
+    20% {
+      transform: scale(200, 200);
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(500, 500);
+    }
+  }
 }

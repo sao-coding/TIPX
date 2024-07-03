@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -36,19 +37,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# pwa
-# sw.js
-# workbox-*.js
-# sw.js.map
-# workbox-*.js.map
-
+# custom
 /public/manifest.json
 /public/sw.js
 /public/sw.js.map
 /public/workbox-*.js
 /public/workbox-*.js.map
-/src/app/og/*
 /src/app/test/*
 /src/app/api/test/*
-.VSCodeCounter
-.stu_data
