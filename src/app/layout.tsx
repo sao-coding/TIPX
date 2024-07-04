@@ -70,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='zh-Hant-TW' className='dark'>
+    <html lang='zh-Hant-TW' className=''>
       <body>{children}</body>
     </html>
   )
