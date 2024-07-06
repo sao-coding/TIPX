@@ -1,5 +1,29 @@
 [
   {
+    "subject": "🐛修復 設置 lazyConnect 為 true，以延遲連接到 Redis 服務器",
+    "date": "2024-07-06T18:32:54.000Z",
+    "hash": "85df92b0985fbcf73c5e25cc2b2a89bca641d76f",
+    "body": ""
+  },
+  {
+    "subject": "✅ 登入 type text",
+    "date": "2024-06-20T19:34:25.000Z",
+    "hash": "a0a3256d75ec38a475e9047a3179ee42bc21f159",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 定時啟動",
+    "date": "2024-06-19T21:43:33.000Z",
+    "hash": "8bcc8e130c10571171350a2e4bdc079f4bbb1c67",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新 日誌",
+    "date": "2024-06-19T21:38:29.000Z",
+    "hash": "31256936bf20c9499abb9fcdc50bff3c5b3f9eda",
+    "body": ""
+  },
+  {
     "subject": "✏️ 修改命名",
     "date": "2024-06-19T21:38:02.000Z",
     "hash": "0ba37eb2ec90f095c172cbe1344e9d226bfe5d0f",
