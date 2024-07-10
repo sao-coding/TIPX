@@ -13,10 +13,32 @@ const getClassName = async (userid: string) => {
   const dom = new JSDOM(html)
   const document = dom.window.document
 
+  let className =
+    document.querySelector("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)")
+      ?.textContent ?? ""
+
+  // 四甲 -> 三甲
+  // 三乙 -> 二乙
+  // 二丙 -> 一丙
+  // 尋找字串 倒數第二個字元 是否為 "四"
+
+  const grade = className.slice(-2, -1)
+
+  // 變更倒數第二個字元
+  switch (grade) {
+    case "四":
+      className = className.slice(0, -2) + "三" + className.slice(-1)
+      break
+    case "三":
+      className = className.slice(0, -2) + "二" + className.slice(-1)
+      break
+    case "二":
+      className = className.slice(0, -2) + "一" + className.slice(-1)
+      break
+  }
+
   return {
-    class:
-      document.querySelector("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)")
-        ?.textContent ?? ""
+    class: className
   }
 }
 
