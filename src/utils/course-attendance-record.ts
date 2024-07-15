@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import {
   CourseAttendanceRecord,
@@ -33,42 +33,51 @@ const getCourseAttendanceRecord = async (
     )
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-    return document
+    // const dom = new JSDOM(html)
+    // const document = dom.window.document
+    // return document
+    return cheerio.load(html)
   }
 
-  let document
-  document = await resUrl()
-  const count = document
-    .querySelector("table:nth-child(3) tr td font a:last-child")
-    ?.getAttribute("href")
-    ?.split("&")[0]
-    .split("=")[1]
+  let $
+  $ = await resUrl()
+  // const pageTotal = document
+  //   .querySelector("table:nth-child(3) tr td font a:last-child")
+  //   ?.getAttribute("href")
+  //   ?.split("&")[0]
+  //   .split("=")[1]
   // ?page_num=8&RgNo=D11019248
   // 取得總頁數
-  console.log("count", count)
 
-  for (let i = 1; i <= parseInt(count ?? "1"); i++) {
-    document = await resUrl(i)
-    // body > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr
-    // 第一個tr是標題
+  const pageTotal = $("table:nth-child(3) tr td font a:last-child")
+    .attr("href")
+    ?.split("&")[0]
+    .split("=")[1]
 
-    const leaveListHTML = document.querySelectorAll(
+  console.log("count", pageTotal)
+
+  for (let i = 1; i <= parseInt(pageTotal ?? "1"); i++) {
+    // document = await resUrl(i)
+    $ = await resUrl(i)
+
+    const leaveListHTML = $(
       "body > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr:not(:first-child)"
     )
+
+    console.log(leaveListHTML.length)
 
     for (let i = 0; i < leaveListHTML.length; i++) {
       const leaveListItemHTML = leaveListHTML[i]
       courseAttendanceRecordList.push({
-        date: leaveListItemHTML.children[0].textContent ?? "",
-        week: leaveListItemHTML.children[1].textContent ?? "",
-        period: leaveListItemHTML.children[2].textContent ?? "",
-        type: leaveListItemHTML.children[3].textContent ?? "",
-        course: leaveListItemHTML.children[5].textContent ?? "",
-        courseID: leaveListItemHTML.children[4].textContent ?? ""
+        date: $(leaveListItemHTML).find("td:nth-child(1)").text() ?? "",
+        week: $(leaveListItemHTML).find("td:nth-child(2)").text() ?? "",
+        period: $(leaveListItemHTML).find("td:nth-child(3)").text() ?? "",
+        type: $(leaveListItemHTML).find("td:nth-child(4)").text() ?? "",
+        course: $(leaveListItemHTML).find("td:nth-child(6)").text() ?? "",
+        courseID: $(leaveListItemHTML).find("td:nth-child(5)").text() ?? ""
       })
     }
+
     courseAttendanceRecord.list = courseAttendanceRecordList
   }
 

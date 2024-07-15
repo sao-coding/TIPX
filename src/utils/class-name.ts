@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 const getClassName = async (userid: string) => {
   const res = await fetch("https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php", {
@@ -10,13 +10,9 @@ const getClassName = async (userid: string) => {
 
   const buffer = await res.arrayBuffer()
   let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
 
   return {
-    class:
-      document.querySelector("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)")
-        ?.textContent ?? ""
+    class: cheerio.load(html)("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)").text()
   }
 }
 

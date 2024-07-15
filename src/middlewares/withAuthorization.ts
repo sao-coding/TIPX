@@ -13,10 +13,11 @@ export const withAuthorization: MiddlewareFactory = (next) => {
     if (req.nextUrl.pathname.startsWith("/api")) {
       console.log("middleware: api")
       if (
-        req.nextUrl.pathname.startsWith("/api/og") ||
-        req.nextUrl.pathname.startsWith("/api/post") ||
-        req.nextUrl.pathname.startsWith("/api/auth") ||
-        req.nextUrl.pathname.startsWith("/api/git-log")
+        // req.nextUrl.pathname.startsWith("/api/og") ||
+        // req.nextUrl.pathname.startsWith("/api/post") ||
+        // req.nextUrl.pathname.startsWith("/api/auth") ||
+        // req.nextUrl.pathname.startsWith("/api/git-log")
+        req.nextUrl.pathname.startsWith("/api")
       ) {
         // return 這個return會造成 withHeaders.ts 的設定無效
       } else if (!nextAuthToken) {
@@ -39,7 +40,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       if (!nextAuthToken) {
         console.log("middleware: no token")
         return NextResponse.redirect(
-          new URL(`/login?callbackUrl=${req.nextUrl.pathname}`, req.nextUrl)
+          new URL(`/login?redirect=${req.nextUrl.pathname}`, req.nextUrl)
         )
       }
     }

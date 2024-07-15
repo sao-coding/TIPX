@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 const getCourseTeacher = async (
   userid: string,
@@ -19,13 +19,11 @@ const getCourseTeacher = async (
 
   const buffer = await res.arrayBuffer()
   const html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
 
-  const teacher =
-    document.querySelector(
-      "#AutoNumber1 > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)"
-    )?.textContent ?? ""
+  const $ = cheerio.load(html)
+  const teacher = $(
+    "#AutoNumber1 > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)"
+  ).text()
 
   return teacher
 }

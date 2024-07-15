@@ -11,6 +11,7 @@ export const GET = async (req: NextRequest) => {
   const session = await getServerSession(authOptions)
   const userid = searchParams.get("userid") ?? session?.user.studentID
   const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
+  console.log("userid", userid)
 
   const className: ClassName = await getClassName(userid ?? "")
 

@@ -1,5 +1,5 @@
 // 課堂資訊
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import redis from "@/lib/redis"
 import { Course } from "@/types"
@@ -18,9 +18,10 @@ const getCourse = async (
   const generateHtml = async (res: Response) => {
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-    return document
+    // const dom = new JSDOM(html)
+    // const document = dom.window.document
+    // return document
+    return cheerio.load(html)
   }
 
   if (courseID === undefined) {
@@ -31,14 +32,14 @@ const getCourse = async (
           Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
         }
       })
-      const document = await generateHtml(res)
-      const rows = Array.from(document.querySelectorAll("table tbody tr:not(:first-child)"))
+      const $ = await generateHtml(res)
+      const rows = $("table tbody tr:not(:first-child)")
 
       for (let i = 0; i < rows.length; i++) {
-        const cells = Array.from(rows[i].querySelectorAll("td:not(:first-child) font span a"))
+        const cells = $(rows[i]).find("td:not(:first-child) font span a")
         for (let j = 0; j < cells.length; j++) {
-          const list = cells[j].textContent
-          const link = cells[j].getAttribute("href")
+          const list = $(cells[j]).text()
+          const link = $(cells[j]).attr("href")
           const id = link?.split("=")[1]
           courselist.push({
             id: id ?? "",
@@ -84,10 +85,11 @@ const getCourse = async (
         }
       }
     )
-    const document = await generateHtml(res)
-    const name = document
-      .querySelector("font[color='#800000']")
-      ?.textContent?.replace("目前無公告資訊!!", "")
+    const $ = await generateHtml(res)
+    // const name = $
+    //   .querySelector("font[color='#800000']")
+    //   ?.textContent?.replace("目前無公告資訊!!", "")
+    const name = $("font[color='#800000']").text().replace("目前無公告資訊!!", "")
     return {
       id: courseID,
       course: name ?? ""

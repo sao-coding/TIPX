@@ -64,7 +64,7 @@ const Login = () => {
       toast.success("登入成功", { id: toastId })
       // 延遲1秒跳轉
       setTimeout(() => {
-        window.location.href = searchParams.get("callbackUrl") ?? "/user"
+        window.location.href = searchParams.get("redirect") ?? "/user"
       }, 1000)
     }
   }
@@ -72,18 +72,22 @@ const Login = () => {
   return (
     <>
       <div className='grid gap-4'>
-        <div className='grid gap-3'>
-          <Label htmlFor='studentId'>學號</Label>
-          <Input />
-        </div>
-        <div className='grid gap-3'>
-          <Label htmlFor='authcode'>
-            授權碼<span className='ml-2 text-xs text-gray-400'>一般人請使用 Google 登入</span>
-          </Label>
-          <Input />
-        </div>
-        <Button>登入</Button>
-        <Button>
+        <form onSubmit={(e) => fetchLogin(e)} className='grid gap-4'>
+          <div className='grid gap-3'>
+            <Label htmlFor='studentId'>學號</Label>
+            <Input />
+          </div>
+          <div className='grid gap-3'>
+            <Label htmlFor='authcode'>
+              授權碼<span className='ml-2 text-xs text-gray-400'>一般人請使用 Google 登入</span>
+            </Label>
+            <Input />
+          </div>
+          <Button type='submit' className='w-full'>
+            登入
+          </Button>
+        </form>
+        <Button onClick={() => signIn("google")}>
           <IconBrandGoogle size={20} className='mx-1' />
           使用 Google 登入
         </Button>

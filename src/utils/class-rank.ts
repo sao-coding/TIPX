@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import { Conduct } from "@/types"
 import getClassName from "@/utils/class-name"
@@ -34,47 +34,38 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
     }
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
+    const $ = cheerio.load(html)
 
-    return document
+    return $
   }
 
   console.time("fetching-class-rank")
 
-  const document = await resUrl("https://netinfo.takming.edu.tw/tip/guide_ranklist.php", "GET")
-
-  const classList = document.querySelectorAll(
-    "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(2) > tbody > tr > td:nth-child(1) > select > option:not(:first-child)"
-  )
+  const $ = await resUrl("https://netinfo.takming.edu.tw/tip/guide_ranklist.php", "GET")
 
   const className = (await getClassName(userid)).class
 
-  const classID = Array.from(classList)
-    .find((e) => e.textContent === className)
-    ?.getAttribute("value")
+  const classID = $(`option:contains(${className})`).attr("value")
 
-  const classRankDocument = await resUrl(
-    "https://netinfo.takming.edu.tw/tip/guide_ranklist.php",
-    "POST",
-    {
-      Class: classID ?? ""
-    }
-  )
+  const classRank$ = await resUrl("https://netinfo.takming.edu.tw/tip/guide_ranklist.php", "POST", {
+    Class: classID ?? ""
+  })
 
-  const classRankList = classRankDocument.querySelectorAll(
-    "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:not(:first-child)"
+  const classRankList = Array.from(
+    classRank$(
+      "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(3) > tbody > tr:not(:first-child)"
+    )
   )
 
   console.log("此班", classRankList.length, "人")
 
   const finalGradeRankClass = await Promise.all(
     Array.from(classRankList).map(async (element) => {
-      const userid = element.querySelector("td:nth-child(2)")?.textContent ?? ""
+      const userid = classRank$(element).find("td:nth-child(2)").text() ?? ""
       const { img, name } = await getUser(userid)
       const conduct = (await getConduct(userid, year ?? "", sem ?? "", "one")) as Conduct
 
-      const SemRank = (element.querySelector("td:nth-child(10)")?.innerHTML ?? "")
+      const SemRank = (classRank$(element).find("td:nth-child(10)").html() ?? "")
         .replace('<font size="2">', "")
         .replace("</font>", "")
         .replace(/<br>$/, "")

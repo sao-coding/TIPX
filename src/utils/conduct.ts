@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import { Conduct } from "@/types"
 
@@ -20,19 +20,26 @@ const getConduct = async (userid: string, year: string, sem: string, type: strin
 
   const buffer = await res.arrayBuffer()
   let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
-  const rows = Array.from(
-    document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
-  )
+  // const dom = new JSDOM(html)
+  // const document = dom.window.document
+
+  const $ = cheerio.load(html)
+
+  // const rows = Array.from(
+  //   document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
+  // )
+
+  const rows = Array.from($("table[bgcolor='#CCCCCC' ] tr:not(:first-child)"))
 
   rows.forEach((row) => {
-    const cells = Array.from(row.querySelectorAll("td:not(:last-child)"))
+    // const cells = Array.from(row.querySelectorAll("td:not(:last-child)"))
+    const cells = Array.from($(row).find("td:not(:last-child)"))
     conduct.year = ""
     conduct.sem = ""
     conduct.score = 0
     cells.forEach((cell, index) => {
-      const list = cell.textContent
+      // const list = cell.textContent
+      const list = $(cell).text()
       if (index === 0) {
         conduct.year = list ?? ""
       }
