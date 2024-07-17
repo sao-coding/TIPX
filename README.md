@@ -2,22 +2,16 @@
 
 - [x] class-list.ts
 - [x] class-name.ts
-- [ ] class-rank.ts
-- [ ] conduct.ts
-- [ ] copy.ts
-- [ ] course-attendance-record.ts
-- [ ] course-teacher.ts
-- [ ] course.ts
-- [ ] credit.ts
-- [ ] current-year-sem.ts
-- [ ] dept-rank.ts
-- [ ] description.ts
-- [ ] final-grade.ts
-- [ ] format-datetime.ts
-- [ ] gender.ts
-- [ ] git-log.ts
-- [ ] ip.ts
-- [ ] lineid.ts
+- [x] class-rank.ts
+- [x] conduct.ts
+- [x] course-attendance-record.ts
+- [x] course-teacher.ts
+- [x] course.ts
+- [x] credit.ts
+- [x] description.ts
+- [x] final-grade.ts
+- [x] gender.ts
+- [x] lineid.ts
 - [ ] password.ts
 - [ ] post.ts
 - [ ] search-auth.ts

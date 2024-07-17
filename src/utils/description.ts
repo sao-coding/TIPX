@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 const getUserDesc = async (userid: string) => {
   const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_data_selfrpt.php", {
@@ -9,13 +9,9 @@ const getUserDesc = async (userid: string) => {
   })
   const buffer = await res.arrayBuffer()
   let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
 
-  const desc =
-    document.querySelector("body")?.textContent?.split("姓名:  ")[1].replace("\n\n", "") ?? ""
-
-  return desc
+  const $ = cheerio.load(html)
+  return $("body").text().split("姓名:  ")[1].replace("\n\n", "") ?? ""
 }
 
 export default getUserDesc

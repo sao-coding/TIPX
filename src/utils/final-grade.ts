@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import { Conduct, FinalGradeRank } from "@/types"
 import getConduct from "@/utils/conduct"
@@ -43,17 +43,15 @@ const getFinalGrade = async (userid: string, year: string, sem: string) => {
 
   const buffer = await res.arrayBuffer()
   let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
-  const rows = Array.from(
-    document.querySelectorAll("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
-  )
+  const $ = cheerio.load(html)
+
+  const rows = $("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")
 
   for (let i = 0; i < rows.length; i++) {
-    const cells = Array.from(rows[i].querySelectorAll("td:not(:last-child) font"))
+    const cells = rows.eq(i).find("td:not(:last-child) font")
 
     for (let j = 0; j < cells.length; j++) {
-      const list = cells[j].textContent
+      const list = cells.eq(j).text()
       if (j === 0) {
         finalGradeRank.year = list ?? ""
       }

@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 const getLineID = async (userid: string) => {
   const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_setmail.php", {
@@ -10,17 +10,15 @@ const getLineID = async (userid: string) => {
 
   const buffer = await res.arrayBuffer()
   let html = new TextDecoder("big5").decode(buffer)
-  const dom = new JSDOM(html)
-  const document = dom.window.document
+  const $ = cheerio.load(html)
 
   return {
     // 移除前後空白:
     lineid:
-      document
-        .querySelector(
-          "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=text]"
-        )
-        ?.getAttribute("value")
+      $(
+        "body > form > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2) > input[type=text]"
+      )
+        .attr("value")
         ?.trim() ?? ""
   }
 }
