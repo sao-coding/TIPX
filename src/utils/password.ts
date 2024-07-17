@@ -1,4 +1,4 @@
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 const getPassword = async (userid: string) => {
   // 如果userid不是0開頭，就是學生
@@ -23,11 +23,8 @@ const getPassword = async (userid: string) => {
     })
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
-    const password =
-      document.querySelector("body > center > form > table > tbody > tr:nth-child(8) > td > font")
-        ?.textContent ?? ""
+    const $ = cheerio.load(html)
+    const password = $("body > center > form > table > tbody > tr:nth-child(8) > td > font").text()
     return password
   }
 
