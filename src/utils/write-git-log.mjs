@@ -1,5 +1,5 @@
-import gitLog from "git-log"
 import fs from "fs"
+import gitLog from "git-log"
 import path from "path"
 import { fileURLToPath } from "url"
 

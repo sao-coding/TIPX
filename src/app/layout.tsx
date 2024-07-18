@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next"
 
 import { site } from "@/config/site"
 
+import Providers from "./providers"
+
 import "./custom.css"
 import "./globals.css"
 
@@ -71,7 +73,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='zh-Hant-TW' className=''>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

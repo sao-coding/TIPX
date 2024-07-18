@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import * as cheerio from "cheerio"
 
-import getGender from "@/utils/gender"
 import getLineID from "@/utils/lineid"
 
 export const dynamic = "force-dynamic"

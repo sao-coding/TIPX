@@ -1,42 +1,41 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
-import { Session } from "next-auth"
+import React from "react"
+// import { usePathname } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 
-import getIP from "@/utils/ip"
+// import getIP from "@/utils/ip"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const Providers = ({
-  children,
-  session
+  children
+  // session
 }: {
   children: React.ReactNode
-  session: Session | null
+  // session: Session | null
 }) => {
-  const [queryClient] = useState(() => new QueryClient())
-  const pathname = usePathname()
+  const [queryClient] = React.useState(() => new QueryClient())
+  // const pathname = usePathname()
 
-  useEffect(() => {
-    const writeLog = async () => {
-      await fetch("/api/log", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ip: await getIP(),
-          stuID: session?.user.studentID,
-          name: session?.user.name,
-          path: pathname
-        })
-      })
-    }
-    if (session?.user.name) {
-      writeLog()
-    }
-  }, [pathname])
+  // useEffect(() => {
+  //   const writeLog = async () => {
+  //     await fetch("/api/log", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({
+  //         ip: await getIP(),
+  //         stuID: session?.user.studentID,
+  //         name: session?.user.name,
+  //         path: pathname
+  //       })
+  //     })
+  //   }
+  //   if (session?.user.name) {
+  //     writeLog()
+  //   }
+  // }, [pathname])
 
   return (
     <ThemeProvider attribute='class' disableTransitionOnChange>

@@ -1,4 +1,4 @@
-const Logo = (props: React.SVGProps<SVGSVGElement>) => {
+const IconLogoText = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -16,4 +16,4 @@ const Logo = (props: React.SVGProps<SVGSVGElement>) => {
   )
 }
 
-export default Logo
+export default IconLogoText
