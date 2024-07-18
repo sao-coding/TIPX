@@ -1,4 +1,3 @@
-// import { JSDOM } from "jsdom"
 import * as cheerio from "cheerio"
 import iconv from "iconv-lite"
 
@@ -45,10 +44,7 @@ const getTeacher = async (
     }
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder("big5").decode(buffer)
-    // const dom = new JSDOM(html)
-    // const document = dom.window.document
 
-    // return document
     return cheerio.load(html)
   }
 
@@ -62,12 +58,6 @@ const getTeacher = async (
       Div: "5"
     })
 
-    // const teacherList = Array.from(
-    //   document.querySelectorAll(
-    //     "body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(2) > tbody > tr:not(:first-child)"
-    //   )
-    // )
-
     const teacherList = document(
       "body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(2) > tbody > tr:not(:first-child)"
     )
@@ -78,15 +68,6 @@ const getTeacher = async (
     // 對應的班導師
     // td:nth-child(1) > p > span > font
     // 印出所有班級名稱
-    // teacherList.each((index, element) => {
-    //   console.log(document(element).find("td:nth-child(1) > p > span > font").text())
-    // })
-
-    // const test = teacherList.filter((index, element) => {
-    //   return document(element).find("td:nth-child(1) > p > span > font").text() === className
-    // })
-
-    // console.log(test.find("td:nth-child(2) > p > span > font").text())
 
     teacherName = teacherList
       .filter((_, element) => {
@@ -95,7 +76,7 @@ const getTeacher = async (
       .find("td:nth-child(2) > p > span > font")
       .text()
 
-    console.log(teacherName)
+    // console.log(teacherName)
 
     // 先找到相同班級的元素，再找到老師名稱
   }
@@ -122,26 +103,19 @@ const getTeacher = async (
 
   document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teach2.php", "GET")
 
-  // const selectDept = document.querySelector(
-  //   "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(1) > tbody > tr > td > p > select:nth-child(5)"
-  // ) as HTMLSelectElement
-
   const selectDept = document(
     "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(1) > tbody > tr > td > p > select:nth-child(5)"
-  )[0]
-
-  console.log({ selectDept: selectDept.children.length })
+  )
 
   // 尋找 teacherDept 代碼
-
-  // const teacherDeptId = Array.from(selectDept.options).find(
-  //   (option) => option.textContent === teacherDept
-  // )?.value
-
-  #FIXME: 這裡有問題，因為 cheerio 不支援 options
-
-  // 尋找 select 的 option value
-  console.log({ teacherDeptId })
+  // select 遍歷所有 option 的 value
+  // 印出所有 option 的 value
+  const teacherDeptId = selectDept
+    .find("option")
+    .filter((_, element) => {
+      return document(element).text() === teacherDept
+    })
+    .val() as string
 
   document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teach2.php", "POST", {
     Year: year ?? "",
@@ -150,17 +124,16 @@ const getTeacher = async (
     Teacher: "0310"
   })
 
-  // const selectTeacher = document.querySelector(
-  //   "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(1) > tbody > tr > td > p > select:nth-child(7)"
-  // ) as HTMLSelectElement
-
   const selectTeacher = document(
     "body > table > tbody > tr:nth-child(2) > td > form > table:nth-child(1) > tbody > tr > td > p > select:nth-child(7)"
-  )[0] as unknown as HTMLSelectElement
+  )
 
-  const teacherId =
-    Array.from(selectTeacher.options).find((option) => option.textContent === teacherName)?.value ??
-    ""
+  const teacherId = selectTeacher
+    .find("option")
+    .filter((_, element) => {
+      return document(element).text() === teacherName
+    })
+    .val() as string
 
   document = await resUrl("https://netinfo.takming.edu.tw/tip/comm_teach2.php", "POST", {
     Year: year ?? "",

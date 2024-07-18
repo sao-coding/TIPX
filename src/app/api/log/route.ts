@@ -61,6 +61,45 @@ export const GET = async (req: NextRequest) => {
 
       return NextResponse.json(logData)
     }
+  } else {
+    // 圖表
+    // 獲取近五天的所有資料 = 全部資料篩選欄位 time 目前日期 00:00:00 - 5天
+    const before = new Date()
+    before.setDate(before.getDate() - 6)
+    before.setHours(0, 0, 0, 0)
+
+    const log = await db
+      .collection("log")
+      .orderBy("time", "desc")
+      .where("time", ">", before.toISOString())
+      .get()
+
+    const logData = []
+    for (const doc of log.docs) {
+      const data = doc.data()
+      data.class = await (await getClassName(data.stuID)).class
+      data.id = doc.id
+      logData.push(data)
+    }
+
+    // day user_active
+    // xx/xx 12
+    // 5/12 12
+
+    // 計算每日登入人數
+    const chartData = []
+    for (let i = 0; i < 7; i++) {
+      const date = new Date().setDate(new Date().getDate() - i)
+      const count = logData.filter((data) => {
+        return new Date(data.time).getDate() === new Date(date).getDate()
+      }).length
+      chartData.push({
+        day: `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}`,
+        user_active: count
+      })
+    }
+
+    return NextResponse.json(chartData)
   }
 }
 

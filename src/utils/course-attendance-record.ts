@@ -33,9 +33,7 @@ const getCourseAttendanceRecord = async (
     )
     const buffer = await res.arrayBuffer()
     let html = new TextDecoder("big5").decode(buffer)
-    // const dom = new JSDOM(html)
-    // const document = dom.window.document
-    // return document
+
     return cheerio.load(html)
   }
 
