@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Announcement from "./announcement"
 import Chart from "./chart"
 import LoginButton from "./login-button"
+import TodayCount from "./today-count"
+import UserCount from "./user-count"
 // import { useQuery } from "@tanstack/react-query"
 
 const HomePage = () => {
@@ -63,13 +65,17 @@ const HomePage = () => {
           <Card className='w-1/2'>
             <CardHeader>
               <CardDescription>使用者</CardDescription>
-              <CardTitle>75</CardTitle>
+              <CardTitle>
+                <UserCount />
+              </CardTitle>
             </CardHeader>
           </Card>
           <Card className='w-1/2'>
             <CardHeader>
               <CardDescription>今日登入</CardDescription>
-              <CardTitle>17</CardTitle>
+              <CardTitle>
+                <TodayCount />
+              </CardTitle>
             </CardHeader>
           </Card>
         </div>

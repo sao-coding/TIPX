@@ -61,7 +61,7 @@ export const GET = async (req: NextRequest) => {
 
       return NextResponse.json(logData)
     }
-  } else {
+  } else if (req.nextUrl.searchParams.get("type") === "chart") {
     // 圖表
     // 獲取近五天的所有資料 = 全部資料篩選欄位 time 目前日期 00:00:00 - 5天
     const before = new Date()
@@ -86,7 +86,7 @@ export const GET = async (req: NextRequest) => {
     // xx/xx 12
     // 5/12 12
 
-    // 計算每日登入人數
+    // 計算每日登入人數 順序反轉
     const chartData = []
     for (let i = 0; i < 7; i++) {
       const date = new Date().setDate(new Date().getDate() - i)
@@ -99,7 +99,31 @@ export const GET = async (req: NextRequest) => {
       })
     }
 
-    return NextResponse.json(chartData)
+    return NextResponse.json(chartData.reverse())
+  } else if (req.nextUrl.searchParams.get("type") === "today") {
+    // 今日登入人數
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const log = await db
+      .collection("log")
+      .orderBy("time", "desc")
+      .where("time", ">", today.toISOString())
+      .get()
+
+    const logData = []
+    for (const doc of log.docs) {
+      const data = doc.data()
+      data.class = await (await getClassName(data.stuID)).class
+      data.id = doc.id
+      logData.push(data)
+    }
+
+    // {
+    //   count: logData.length
+    // }
+
+    return NextResponse.json({ count: logData.length })
   }
 }
 

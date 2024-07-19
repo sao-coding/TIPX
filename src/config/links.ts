@@ -120,14 +120,14 @@ export const USER_LINKS: UserLinks = [
   {
     icon: IconArrowBadgeDown,
     color: "stroke-emerald-500",
-    className: "transform rotate-180",
+    className: "rotate-180",
     href: "/user/class-rank",
     text: "班級排名"
   },
   {
     icon: IconBadges,
     color: "stroke-teal-500",
-    className: "transform rotate-180",
+    className: "rotate-180",
     href: "/user/dept-rank",
     text: "系排名"
   },
