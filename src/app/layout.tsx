@@ -72,7 +72,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='zh-Hant-TW' className=''>
+    // ThemeProvider 需使用 suppressHydrationWarning
+    <html lang='zh-Hant-TW' suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>

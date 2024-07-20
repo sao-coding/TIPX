@@ -7,4 +7,5 @@ export type HwList = {
   download: string
   size: string
   status: string
+  course?: string
 }

@@ -4,9 +4,14 @@ import clsx from "clsx"
 import IconLogoText from "@/components/icons/logo-text"
 import { USER_LINKS } from "@/config/links"
 import getSearchAuth from "@/utils/search-auth"
+import { IconBookDownload } from "@tabler/icons-react"
 
+import Hw from "./hw"
 const HomePage = async () => {
   const searchAuth = await getSearchAuth("D11019139")
+
+  const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
+
   return (
     <div className='flex h-dvh'>
       <div className='relative h-dvh w-[250px] space-y-2 overflow-auto'>
@@ -34,7 +39,17 @@ const HomePage = async () => {
         </div>
       </div>
       <div className='flex-1 border'>內容</div>
-      <div className='w-[350px]'>3</div>
+      <div className='h-dvh w-[350px] p-4'>
+        <div className='overflow-hidden rounded-xl'>
+          <header className='flex items-center gap-1 bg-background1 px-3 py-2'>
+            <IconBookDownload className='h-6 w-6' />
+            未完成作業
+          </header>
+          <div className='h-56 bg-background2'>
+            <Hw />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -36,12 +36,12 @@ const getCourse = async (
       for (let i = 0; i < rows.length; i++) {
         const cells = $(rows[i]).find("td:not(:first-child) font span a")
         for (let j = 0; j < cells.length; j++) {
-          const list = $(cells[j]).text()
+          const name = $(cells[j]).text().trim()
           const link = $(cells[j]).attr("href")
           const id = link?.split("=")[1]
           courselist.push({
             id: id ?? "",
-            course: list ?? "",
+            name: name,
             teacher: await getCourseTeacher(userid, year, sem, id ?? "")
           })
         }
@@ -90,7 +90,7 @@ const getCourse = async (
     const name = $("font[color='#800000']").text().replace("目前無公告資訊!!", "")
     return {
       id: courseID,
-      course: name ?? ""
+      name
     } as Course
   }
 }

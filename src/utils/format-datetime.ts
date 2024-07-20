@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 
-const formatDatetime = (datetime: string | Date, type: string) => {
+const formatDatetime = (type: string, datetime: string | Date) => {
   // 全部 為 台北 時區
   const date = dayjs(datetime).locale("zh-tw")
 
@@ -33,6 +33,8 @@ const formatDatetime = (datetime: string | Date, type: string) => {
       } else {
         return "YYYY-MM-DD"
       }
+    case "hw":
+      return date.format("YYYY-MM-DD HH:mm")
     case "date":
       return date.format("YYYY-MM-DD")
     case "time":

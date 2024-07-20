@@ -73,7 +73,7 @@ export const USER_LINKS: UserLinks = [
     icon: IconBrowser,
     color: "stroke-red-500",
     href: "https://takming-forum.sao-x.com",
-    text: "德明課程評價(beta) 開放試用 !!!"
+    text: "德明課程評價"
   },
   {
     icon: IconUser,

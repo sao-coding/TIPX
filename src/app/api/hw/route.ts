@@ -2,10 +2,11 @@
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { JSDOM } from "jsdom"
+import * as cheerio from "cheerio"
 
 import authOptions from "@/lib/auth"
-import { HwList } from "@/types"
+import { Course, HwList } from "@/types"
+import getCourse from "@/utils/course"
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
@@ -13,157 +14,175 @@ export const GET = async (req: NextRequest) => {
   const year = searchParams.get("year") ?? cookies().get("cookie_year")?.value
   const sem = searchParams.get("sem") ?? cookies().get("cookie_sem")?.value
   const userid = searchParams.get("userid") ?? session?.user.studentID
+  const course = searchParams.get("course") ?? ""
+  const type = searchParams.get("type") ?? "hw"
 
-  let status = true
-  let hwdata1: string[][] = []
-  let hwdata2: string[][] = []
+  let hwlist: HwList[] = []
 
-  const hwlist: HwList[] = []
-
-  const fetchURL = async (id: string) => {
-    const url = `https://netinfo.takming.edu.tw/tip/list_course_${id}.php?opno=${req.nextUrl.searchParams.get(
-      "course"
-    )}`
-    let res = fetch(url, {
+  const fetchURL = async (type: string, course?: string) => {
+    const url = `https://netinfo.takming.edu.tw/tip/list_course_${type}.php?opno=${course}`
+    let res = await fetch(url, {
       headers: {
         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
         Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
       }
     })
-    return res
-  }
 
-  const rules = (id: string, cells: Element[]) => {
-    let hw: string[] = []
-    if (id === "uploadhw") {
-      cells.forEach((cell, index) => {
-        let list = cell.textContent
-        if (list) {
-          if (index === 0) {
-            // 移除空白
-            list = list.replace(/\s/g, "")
-          }
-          if (index === 4) {
-            if (list === "已上傳本作業") {
-              list = "已繳交"
-            } else {
-              list = "未繳交"
-            }
-          }
-          if (index !== 3) {
-            hw.push(list)
-          }
-        }
-
-        if (index === 0) {
-          let link = cell.querySelector("input")?.getAttribute("onclick") ?? ""
-          // <input type="button" value="下載" onclick="DownDoc("teach_n/1112/T11120000162.docx")">
-          // 取得下載連結
-          link = link.replace(/DownDoc\(\"|\"\)/g, "")
-          hw.push(link)
-        }
-        if (index === 3) {
-          let link = cell.querySelector("input")?.getAttribute("onclick") ?? ""
-          if (list === "未到或已過上傳時間") {
-            link = ""
-          } else {
-            // <input type=button value='我要上傳作業' onclick='OpenWin(98892);'>
-            // 取得上傳連結 並去除";"
-            link = link.replace(/OpenWin\(|\);/g, "")
-          }
-          hw.push(link)
-        }
-      })
-    } else if (id === "downhw") {
-      cells.forEach((cell, index) => {
-        let list = cell.textContent
-        if (list) {
-          if (index === 3) {
-            let link = cell.querySelector("input")?.getAttribute("onclick") ?? ""
-            link = link.replace(/DownDoc\(\"|\"\)/g, "")
-            list = link
-            hw.push(link)
-          }
-          if (index === 4) {
-            // 去除bytes
-            list = list.replace(/bytes/g, "")
-            hw.push(list)
-          }
-        }
-      })
-    }
-    return hw
-  }
-  const crawler = async (res: Response, id: string) => {
-    let hw: string[] = []
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
+    const html = new TextDecoder("big5").decode(buffer)
 
-    // 選擇不包含前兩個 tr
-    let rows = Array.from(document.querySelectorAll("form table tr td table tr"))
-    rows = rows.slice(2)
-    // 排除 最後一個 tr
-    rows = rows.slice(0, rows.length - 1)
-    // console.log("crawler", id, rows.length)
-    if (rows.length === 0) {
-      // 於期中考/期末考期間不提供下載功能
-      if (html.includes("考試期間不開放本功能")) {
-        console.log("於期中考/期末考期間不提供下載功能")
-        status = false
-      }
-    }
-    rows.forEach((row) => {
-      const cells = Array.from(row.querySelectorAll('td[bgcolor="#FFFFCC"]  font'))
-      hw = rules(id, cells)
-      if (id === "uploadhw") {
-        hwdata1.push(hw)
-      }
-      if (id === "downhw") {
-        hwdata2.push(hw)
-      }
-    })
+    return cheerio.load(html)
   }
 
-  const writeHw = (hw1: string[][], hw2: string[][]) => {
-    for (let i = 0; i < hw1.length; i++) {
-      hw1[i].splice(5, 0, hw2[i][0])
-      hw1[i].splice(6, 0, hw2[i][1])
-    }
-    hw1.forEach((hw) => {
-      hwlist.push({
-        title: hw[0],
-        file: hw[1],
-        start: hw[2],
-        end: hw[3],
-        upload: hw[4],
-        download: hw[5],
-        size: hw[6],
-        status: hw[7]
+  const crawler = async (courseId: string, courseName?: string) => {
+    const hwdata1: string[][] = []
+    const hwdata2: string[][] = []
+
+    let $: cheerio.CheerioAPI
+
+    $ = await fetchURL("uploadhw", courseId)
+    // 剔除前兩行 跟 最後一行
+    const rows = $("body >  form > table > tbody > tr > td > table > tbody > tr").slice(2, -1)
+    rows.each((_, ele) => {
+      const cells = $(ele).find("td[bgcolor='#FFFFCC'] font")
+      const hw: string[] = []
+      cells.each((i, cell) => {
+        let text = $(cell).text().trim()
+        switch (i) {
+          case 0:
+            const file =
+              $(cell)
+                .find("input")
+                .attr("onclick")
+                ?.replace(/DownDoc\(\"|\"\)/g, "") ?? ""
+            // console.log(i + " " + text + "\n" + file)
+            hw.push(text)
+            hw.push(file)
+            break
+          case 3:
+            const upload =
+              $(cell)
+                .find("input")
+                .attr("onclick")
+                ?.replace(/OpenWin\(|\);/g, "") ?? ""
+            // console.log(i + " " + upload)
+            hw.push(upload)
+            break
+          case 4:
+            if (text === "已上傳本作業") {
+              text = "已繳交"
+            } else {
+              text = "未繳交"
+            }
+            // console.log(i + " " + text)
+            hw.push(text)
+            break
+          default:
+            // console.log(i + " " + text)
+            hw.push(text)
+            break
+        }
       })
+      // console.log("-------------------------")
+      hwdata1.push(hw)
     })
+
+    $ = await fetchURL("downhw", courseId)
+    // 剔除前兩行 跟 最後一行
+    const rows2 = $("body > form > table > tbody > tr > td > table > tbody > tr").slice(2, -1)
+    if (rows2.length === 0) {
+      // 於期中考/期末考期間不提供下載功能
+      if ($("body").text().includes("考試期間不開放本功能")) {
+        for (let i = 0; i < hwdata1.length; i++) {
+          hwlist.push({
+            title: hwdata1[i][0],
+            file: hwdata1[i][1],
+            start: hwdata1[i][3],
+            end: hwdata1[i][4],
+            upload: hwdata1[i][2],
+            download: "考試期間不開放本功能",
+            size: "考試期間不開放本功能",
+            status: hwdata1[i][5]
+          })
+        }
+        return NextResponse.json({
+          status: "段考期間",
+          msg: "於期中考/期末考期間\n不提供下載功能",
+          data: hwlist
+        })
+      }
+    }
+
+    rows2.each((_, ele) => {
+      const cells = $(ele).find("td[bgcolor='#FFFFCC'] font")
+      const hw: string[] = []
+      cells.each((i, cell) => {
+        switch (i) {
+          case 3:
+            const link =
+              $(cell)
+                .find("input")
+                .attr("onclick")
+                ?.replace(/DownDoc\(\"|\"\)/g, "") ?? ""
+            // console.log(i + " " + link)
+            hw.push(link)
+            break
+          case 4:
+            // const text = $(cell).text().replace(/bytes/g, "").trim()
+            const text = $(cell).text().split("bytes")[0].trim()
+            // console.log(i + " " + text)
+            // 若有包含 請同學重新上傳 表示檔案已被刪除
+            if (text === "0") {
+              hw.push("檔案已被刪除")
+            } else {
+              hw.push(text)
+            }
+            // if (text.includes("請同學重新上傳")) {
+            //   hw.push("檔案已被刪除")
+            // } else {
+            //   hw.push(text)
+            // }
+            break
+          default:
+            // console.log(i + " " + $(cell).text().trim())
+            break
+        }
+      })
+      // console.log("-------------------------")
+      hwdata2.push(hw)
+    })
+
+    for (let i = 0; i < hwdata1.length; i++) {
+      hwlist.push({
+        title: hwdata1[i][0],
+        file: hwdata1[i][1],
+        start: hwdata1[i][2],
+        end: hwdata1[i][3],
+        upload: hwdata1[i][4],
+        download: hwdata2[i][0],
+        size: hwdata2[i][1],
+        status: hwdata1[i][5],
+        course: courseName
+      })
+    }
   }
 
-  const res = await fetchURL("uploadhw")
-  const res2 = await fetchURL("downhw")
-  await crawler(res, "uploadhw")
-  await crawler(res2, "downhw")
-  if (!status) {
-    // 產生空陣列
-    for (let i = 0; i < hwdata1.length; i++) {
-      hwdata2.push(["", ""])
+  if (type === "tool") {
+    const courseList = (await getCourse(userid ?? "", year ?? "", sem ?? "")) as Course[]
+    for (const course of courseList) {
+      await crawler(course.id, course.name)
+      // 篩選出尚未繳交的作業
+      hwlist = hwlist.filter((hw) => {
+        if (hw.status === "未繳交") {
+          // console.log(hw)
+          return hw
+        }
+      })
     }
-    await writeHw(hwdata1, hwdata2)
-    return NextResponse.json({
-      status: "段考期間",
-      message: "於期中考/期末考期間\n不提供下載功能",
-      data: hwlist
-    })
   } else {
-    // console.log("writeHw", "hwdata1", hwdata1, "hwdata2", hwdata2)
-    await writeHw(hwdata1, hwdata2)
+    await crawler(course)
   }
+
   return NextResponse.json({ data: hwlist })
 }
 
