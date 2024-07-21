@@ -1,6 +1,6 @@
-import { FinalGradeRankClass } from "@/types"
-import getClassRank from "@/utils/class-rank"
-import getUser from "@/utils/user"
+import { FinalGradeRankClass } from '@/types'
+import getClassRank from '@/utils/class-rank'
+import getUser from '@/utils/user'
 
 const getDeptRank = async (userid: string, year: string, sem: string, classid: string) => {
   let finalGradeRankClass: FinalGradeRankClass[] = []
@@ -9,11 +9,11 @@ const getDeptRank = async (userid: string, year: string, sem: string, classid: s
   const { major: majorOwn } = await getUser(userid)
   // const majorOwn = "財務金融系"
 
-  console.time("fetching-dept-rank")
+  console.time('fetching-dept-rank')
 
   // for (let i = 1; i <= 3; i++) {
   for (let j = 1; j <= 5; j++) {
-    const userid = deptID + classid + j.toString().padStart(2, "0")
+    const userid = deptID + classid + j.toString().padStart(2, '0')
     const { major } = await getUser(userid)
     if (majorOwn === major) {
       // console.log({ majorOwn, major, userid })
@@ -23,7 +23,7 @@ const getDeptRank = async (userid: string, year: string, sem: string, classid: s
   }
   // }
 
-  console.timeEnd("fetching-dept-rank")
+  console.timeEnd('fetching-dept-rank')
 
   return finalGradeRankClass
 }

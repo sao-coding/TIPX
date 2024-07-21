@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
 
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent
-} from "@/components/ui/chart"
-import { IconLoader2 } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
+} from '@/components/ui/chart'
+import { IconLoader2 } from '@tabler/icons-react'
+import { useQuery } from '@tanstack/react-query'
 
 const Chart = () => {
   type ChartData = {
@@ -22,20 +22,20 @@ const Chart = () => {
     isError,
     data: chartData
   } = useQuery<ChartData[]>({
-    queryKey: ["login-chart"],
+    queryKey: ['login-chart'],
     queryFn: async () => {
       const res = await fetch(`/api/log?type=chart`)
       const data = await res.json()
       // error
-      if (!res.ok) throw new Error("沒有這篇公告")
+      if (!res.ok) throw new Error('沒有這篇公告')
       return data
     }
   })
 
   const chartConfig = {
     user_active: {
-      label: "活躍人數",
-      color: "hsl(var(--chart-1))"
+      label: '活躍人數',
+      color: 'hsl(var(--chart-1))'
     }
   } satisfies ChartConfig
 

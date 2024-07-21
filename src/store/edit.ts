@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { create } from 'zustand'
 
 type EditMessageStore = {
   editMessage: {
@@ -12,9 +12,9 @@ type EditMessageStore = {
 
 export const useEditMessageStore = create<EditMessageStore>((set) => ({
   editMessage: {
-    id: "",
-    email: "",
-    content: "",
+    id: '',
+    email: '',
+    content: '',
     status: false
   },
   setEditMessage: (message) => set({ editMessage: message })

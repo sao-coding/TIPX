@@ -1,22 +1,22 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server'
 
-import { db } from "@/lib/firebase-admin"
-import { Log } from "@/types"
-import getClassName from "@/utils/class-name"
-import getUser from "@/utils/user"
+import { db } from '@/lib/firebase-admin'
+import { Log } from '@/types'
+import getClassName from '@/utils/class-name'
+import getUser from '@/utils/user'
 
 export const GET = async (req: NextRequest) => {
-  if (req.nextUrl.searchParams.has("id") && req.nextUrl.searchParams.has("limit")) {
-    const id = req.nextUrl.searchParams.get("id")
-    const limits = req.nextUrl.searchParams.get("limit") ?? "10"
+  if (req.nextUrl.searchParams.has('id') && req.nextUrl.searchParams.has('limit')) {
+    const id = req.nextUrl.searchParams.get('id')
+    const limits = req.nextUrl.searchParams.get('limit') ?? '10'
 
     // const log =
     //     await prisma.$queryRaw`SELECT * FROM log ORDER BY time DESC LIMIT ${id}, ${limit}`
 
     // return NextResponse.json(log)
 
-    if (id === "0") {
-      const log = await db.collection("log").orderBy("time", "desc").limit(parseInt(limits)).get()
+    if (id === '0') {
+      const log = await db.collection('log').orderBy('time', 'desc').limit(parseInt(limits)).get()
 
       // return NextResponse.json(
       //     log.docs.map((doc) => {
@@ -36,8 +36,8 @@ export const GET = async (req: NextRequest) => {
       return NextResponse.json(logData)
     } else {
       const log = await db
-        .collection("log")
-        .orderBy("time", "desc")
+        .collection('log')
+        .orderBy('time', 'desc')
         .startAfter(id)
         .limit(parseInt(limits))
         .get()
@@ -61,7 +61,7 @@ export const GET = async (req: NextRequest) => {
 
       return NextResponse.json(logData)
     }
-  } else if (req.nextUrl.searchParams.get("type") === "chart") {
+  } else if (req.nextUrl.searchParams.get('type') === 'chart') {
     // 圖表
     // 獲取近五天的所有資料 = 全部資料篩選欄位 time 目前日期 00:00:00 - 5天
     const before = new Date()
@@ -69,9 +69,9 @@ export const GET = async (req: NextRequest) => {
     before.setHours(0, 0, 0, 0)
 
     const log = await db
-      .collection("log")
-      .orderBy("time", "desc")
-      .where("time", ">", before.toISOString())
+      .collection('log')
+      .orderBy('time', 'desc')
+      .where('time', '>', before.toISOString())
       .get()
 
     const logData = []
@@ -100,15 +100,15 @@ export const GET = async (req: NextRequest) => {
     }
 
     return NextResponse.json(chartData.reverse())
-  } else if (req.nextUrl.searchParams.get("type") === "today") {
+  } else if (req.nextUrl.searchParams.get('type') === 'today') {
     // 今日登入人數
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
     const log = await db
-      .collection("log")
-      .orderBy("time", "desc")
-      .where("time", ">", today.toISOString())
+      .collection('log')
+      .orderBy('time', 'desc')
+      .where('time', '>', today.toISOString())
       .get()
 
     const logData = []
@@ -144,9 +144,9 @@ export const POST = async (req: NextRequest) => {
   // })
 
   // 如果是開發環境就不要寫入資料庫
-  if (process.env.NODE_ENV === "production" && res.stuID !== process.env.ADMINSTUDENTID) {
+  if (process.env.NODE_ENV === 'production' && res.stuID !== process.env.ADMINSTUDENTID) {
     const { img } = await getUser(res.stuID)
-    await db.collection("log").add({
+    await db.collection('log').add({
       ip: res.ip,
       img: img,
       stuID: res.stuID,
@@ -156,5 +156,5 @@ export const POST = async (req: NextRequest) => {
     })
   }
 
-  return NextResponse.json({ status: "success", stuID: res.stuID })
+  return NextResponse.json({ status: 'success', stuID: res.stuID })
 }

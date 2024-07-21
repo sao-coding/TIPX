@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { create } from 'zustand'
 
 type DeleteMessageStore = {
   deleteMessage: {
@@ -11,8 +11,8 @@ type DeleteMessageStore = {
 
 export const useDeleteMessageStore = create<DeleteMessageStore>((set) => ({
   deleteMessage: {
-    id: "",
-    email: "",
+    id: '',
+    email: '',
     status: false
   },
   setDeleteMessage: (message) => set({ deleteMessage: message })

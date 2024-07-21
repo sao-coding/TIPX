@@ -1,48 +1,16 @@
-import { IconLogo } from "@/components/icons/logo"
-import IconLogoText from "@/components/icons/logo-text"
+import { IconLogo } from '@/components/icons/logo'
+import IconLogoText from '@/components/icons/logo-text'
 // import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
-import Announcement from "./announcement"
-import Chart from "./chart"
-import LoginButton from "./login-button"
-import TodayCount from "./today-count"
-import UserCount from "./user-count"
+import Announcement from './announcement'
+import Chart from './chart'
+import LoginDialog from './login-dialog'
+import TodayCount from './today-count'
+import UserCount from './user-count'
 // import { useQuery } from "@tanstack/react-query"
 
-const HomePage = () => {
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: haha
-  // } = useQuery<Log>({
-  //   queryKey: ["post"],
-  //   queryFn: async () => {
-  //     const res = await fetch(`/api/post?type=one&id`)
-  //     const json = await res.json()
-  //     // error
-  //     if (!res.ok) throw new Error("沒有這篇公告")
-  //     return json
-  //   }
-  // })
-
-  // const chartData = [
-  //   { day: "7/18", user_active: 0 },
-  //   { day: "7/17", user_active: 3 },
-  //   { day: "7/16", user_active: 37 },
-  //   { day: "7/15", user_active: 0 },
-  //   { day: "7/14", user_active: 2 },
-  //   { day: "7/13", user_active: 25 },
-  //   { day: "7/12", user_active: 13 }
-  // ]
-
-  // const chartConfig = {
-  //   user_active: {
-  //     label: "活躍人數",
-  //     color: "hsl(var(--chart-1))"
-  //   }
-  // } satisfies ChartConfig
-
+const LoginPage = () => {
   return (
     <div className='min-h-screen'>
       <div className='fixed left-0 top-0 h-screen w-screen bg-slate-900'></div>
@@ -58,7 +26,7 @@ const HomePage = () => {
             <CardDescription>學生資訊系統</CardDescription>
           </CardHeader>
           <CardContent>
-            <LoginButton />
+            <LoginDialog />
           </CardContent>
         </Card>
         <div className='flex space-x-4'>
@@ -97,4 +65,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default LoginPage

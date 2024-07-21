@@ -15,9 +15,9 @@
 // export const db = getFirestore(app)
 // 判斷是不是有 app 存在了，有就用，沒有就初始一個
 
-import { cert } from "firebase-admin/app"
+import { cert } from 'firebase-admin/app'
 
-import { initFirestore } from "@auth/firebase-adapter"
+import { initFirestore } from '@auth/firebase-adapter'
 
 export const db = initFirestore({
   credential: cert({

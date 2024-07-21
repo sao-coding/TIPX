@@ -1,4 +1,3 @@
-import Login from "@/components/login"
 import {
   Dialog,
   DialogContent,
@@ -6,9 +5,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 
-const LoginButton = () => {
+import LoginForm from './login-form'
+
+const LoginDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -19,10 +20,10 @@ const LoginButton = () => {
           <DialogTitle>TIPX</DialogTitle>
           <DialogDescription>登入以繼續使用TIPX</DialogDescription>
         </DialogHeader>
-        <Login />
+        <LoginForm />
       </DialogContent>
     </Dialog>
   )
 }
 
-export default LoginButton
+export default LoginDialog

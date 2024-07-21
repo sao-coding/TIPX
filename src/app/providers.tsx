@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import React from "react"
+import React from 'react'
 // import { usePathname } from "next/navigation"
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from 'next-themes'
 
 // import getIP from "@/utils/ip"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const Providers = ({
   children

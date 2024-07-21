@@ -1,9 +1,9 @@
 // 課堂資訊
-import * as cheerio from "cheerio"
+import * as cheerio from 'cheerio'
 
-import redis from "@/lib/redis"
-import { Course } from "@/types"
-import getCourseTeacher from "@/utils/course-teacher"
+import redis from '@/lib/redis'
+import { Course } from '@/types'
+import getCourseTeacher from '@/utils/course-teacher'
 
 const getCourse = async (
   userid: string,
@@ -17,32 +17,32 @@ const getCourse = async (
   // 生成html 傳入 res 並回傳 document
   const generateHtml = async (res: Response) => {
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
+    let html = new TextDecoder('big5').decode(buffer)
 
     return cheerio.load(html)
   }
 
   if (courseID === undefined) {
     const getData = async () => {
-      const res = await fetch("https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php", {
+      const res = await fetch('https://netinfo.takming.edu.tw/tip/list_fun_stucourse.php', {
         headers: {
           cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-          Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+          Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
         }
       })
       const $ = await generateHtml(res)
-      const rows = $("table tbody tr:not(:first-child)")
+      const rows = $('table tbody tr:not(:first-child)')
 
       for (let i = 0; i < rows.length; i++) {
-        const cells = $(rows[i]).find("td:not(:first-child) font span a")
+        const cells = $(rows[i]).find('td:not(:first-child) font span a')
         for (let j = 0; j < cells.length; j++) {
           const name = $(cells[j]).text().trim()
-          const link = $(cells[j]).attr("href")
-          const id = link?.split("=")[1]
+          const link = $(cells[j]).attr('href')
+          const id = link?.split('=')[1]
           courselist.push({
-            id: id ?? "",
+            id: id ?? '',
             name: name,
-            teacher: await getCourseTeacher(userid, year, sem, id ?? "")
+            teacher: await getCourseTeacher(userid, year, sem, id ?? '')
           })
         }
       }
@@ -54,12 +54,12 @@ const getCourse = async (
       | string
       | null
     if (!cache) {
-      console.log("no cache")
+      console.log('no cache')
       await getData()
       await redis.call(
-        "JSON.SET",
+        'JSON.SET',
         `courselist_${year}_${sem}_${userid}`,
-        "$",
+        '$',
         JSON.stringify(courselist)
       )
       // 假如是 5,6月 或 12,1月 快取時間為 1 小時 否則為 1 天
@@ -68,7 +68,7 @@ const getCourse = async (
         month === 5 || month === 6 || month === 12 || month === 1 ? 60 * 60 : 60 * 60 * 24
       await redis.expire(`courselist_${year}_${sem}_${userid}`, expire)
     } else {
-      console.log("use cache")
+      console.log('use cache')
       courselist.push(...JSON.parse(cache))
     }
 
@@ -79,7 +79,7 @@ const getCourse = async (
       {
         headers: {
           cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-          Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+          Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
         }
       }
     )
@@ -87,7 +87,7 @@ const getCourse = async (
     // const name = $
     //   .querySelector("font[color='#800000']")
     //   ?.textContent?.replace("目前無公告資訊!!", "")
-    const name = $("font[color='#800000']").text().replace("目前無公告資訊!!", "")
+    const name = $("font[color='#800000']").text().replace('目前無公告資訊!!', '')
     return {
       id: courseID,
       name

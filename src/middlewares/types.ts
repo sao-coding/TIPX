@@ -1,4 +1,4 @@
 // middleware/types.ts
 
-import { NextMiddleware } from "next/server"
+import { NextMiddleware } from 'next/server'
 export type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware

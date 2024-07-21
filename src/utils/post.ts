@@ -1,9 +1,9 @@
 // 學校公告
-import * as cheerio from "cheerio"
+import * as cheerio from 'cheerio'
 
-import redis from "@/lib/redis"
-import { Announcement } from "@/types"
-import { Post } from "@/types"
+import redis from '@/lib/redis'
+import { Announcement } from '@/types'
+import { Post } from '@/types'
 
 const getPost = async (
   type: string,
@@ -13,47 +13,47 @@ const getPost = async (
   exclude?: string
 ) => {
   // 獲取公告 全部貼文
-  if (type === "all") {
+  if (type === 'all') {
     let announcement: Announcement = {
-      id: "",
-      title: "",
+      id: '',
+      title: '',
       sticky: false,
-      category: "",
-      unit: "",
-      date: "",
-      deadline: ""
+      category: '',
+      unit: '',
+      date: '',
+      deadline: ''
     }
 
     const announcementListAll: Announcement[] = []
     const announcementList: Announcement[] = []
 
     // 查尋是否有快取
-    const cache = (await redis.call("JSON.GET", "announcement")) as string | null
+    const cache = (await redis.call('JSON.GET', 'announcement')) as string | null
 
     const getData = async () => {
-      console.log("no cache")
-      const res = await fetch("https://netinfo.takming.edu.tw/tip/post/post_index_all.php")
+      console.log('no cache')
+      const res = await fetch('https://netinfo.takming.edu.tw/tip/post/post_index_all.php')
 
       const buffer = await res.arrayBuffer()
-      let html = new TextDecoder("big5").decode(buffer)
+      let html = new TextDecoder('big5').decode(buffer)
 
       const $ = cheerio.load(html)
       $("table[bordercolor='#FFFFFF' ] tr:not(:first-child)").map((_, row) => {
-        const cells = $(row).find("td")
-        const sticky = cells.eq(1).find("img").length ? true : false
+        const cells = $(row).find('td')
+        const sticky = cells.eq(1).find('img').length ? true : false
         announcement.sticky = sticky
-        const link = cells.eq(1).find("a").attr("href")
+        const link = cells.eq(1).find('a').attr('href')
         // post_OneShow.php?SerialItem=103304
         // 取得網址的ID
-        const id = link?.split("=")[1]
-        announcement.id = id ?? ""
+        const id = link?.split('=')[1]
+        announcement.id = id ?? ''
 
-        if (exclude === "outside" && cells.eq(0).text().includes("校外事項")) {
+        if (exclude === 'outside' && cells.eq(0).text().includes('校外事項')) {
           return
         }
 
         cells.each((index, cell) => {
-          const list = $(cell).text().replace(/\n/g, "")
+          const list = $(cell).text().replace(/\n/g, '')
           if (index === 0) {
             announcement.category = list
           } else if (index === 1) {
@@ -69,13 +69,13 @@ const getPost = async (
 
         announcementListAll.push(announcement)
         announcement = {
-          id: "",
-          title: "",
+          id: '',
+          title: '',
           sticky: false,
-          category: "",
-          unit: "",
-          date: "",
-          deadline: ""
+          category: '',
+          unit: '',
+          date: '',
+          deadline: ''
         }
       })
     }
@@ -83,10 +83,10 @@ const getPost = async (
     if (!cache) {
       await getData()
       // 快取公告 設定快取時間為 1 小時
-      await redis.call("JSON.SET", "announcement", "$", JSON.stringify(announcementListAll))
-      await redis.call("EXPIRE", "announcement", 3600)
+      await redis.call('JSON.SET', 'announcement', '$', JSON.stringify(announcementListAll))
+      await redis.call('EXPIRE', 'announcement', 3600)
     } else {
-      console.log("use cache")
+      console.log('use cache')
       announcementListAll.push(...JSON.parse(cache))
     }
 
@@ -95,28 +95,28 @@ const getPost = async (
       const end = start + limit
       announcementList.push(...announcementListAll.slice(start, end))
     } else {
-      console.log("limit and page are not defined")
+      console.log('limit and page are not defined')
       announcementList.push(...announcementListAll)
     }
 
     return announcementList
   }
   // if (req.nextUrl.searchParams.get("type") === "one" && req.nextUrl.searchParams.get("id")) {
-  if (type === "one" && id !== undefined) {
+  if (type === 'one' && id !== undefined) {
     const post: Post = {
       id: id.toString(),
-      title: "",
-      date: "",
-      deadline: "",
-      unit: "",
+      title: '',
+      date: '',
+      deadline: '',
+      unit: '',
       publisher: {
-        name: "",
-        email: ""
+        name: '',
+        email: ''
       },
-      category: "",
-      content: "",
+      category: '',
+      content: '',
       file: [],
-      link: ""
+      link: ''
     }
 
     const postdata: string[] = []
@@ -125,29 +125,29 @@ const getPost = async (
       `https://netinfo.takming.edu.tw/tip/post/post_OneShow.php?SerialItem=${id}`
     )
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
+    let html = new TextDecoder('big5').decode(buffer)
 
     const $ = cheerio.load(html)
-    $(".newstd").map((index, row) => {
+    $('.newstd').map((index, row) => {
       if (index === 3) {
-        postdata.push($(row).text().split("　")[0])
-        const cell = $(row).find("a")
+        postdata.push($(row).text().split('　')[0])
+        const cell = $(row).find('a')
         const name = cell.text()
-        const email = cell.attr("href")?.replace("mailto:", "")
-        post.publisher.name = name ?? ""
-        post.publisher.email = email ?? ""
+        const email = cell.attr('href')?.replace('mailto:', '')
+        post.publisher.name = name ?? ''
+        post.publisher.email = email ?? ''
       } else if (index === 7) {
-        const cells = $(row).find("a")
+        const cells = $(row).find('a')
         cells.each((_, cell) => {
           const title = $(cell).text()
-          const link = $(cell).attr("href")
-          post.file.push({ title: title ?? "", link: link ?? "" })
+          const link = $(cell).attr('href')
+          post.file.push({ title: title ?? '', link: link ?? '' })
         })
       } else if (index === 8) {
-        const cells = $(row).find("a")
+        const cells = $(row).find('a')
         cells.each((_, cell) => {
-          const link = $(cell).attr("href")
-          post.link = link ?? ""
+          const link = $(cell).attr('href')
+          post.link = link ?? ''
         })
       } else {
         postdata.push($(row).text())
@@ -157,7 +157,7 @@ const getPost = async (
     post.title = postdata[0]
     post.date = postdata[1]
     post.deadline = postdata[2]
-    post.unit = postdata[3].replace(/\n/g, "")
+    post.unit = postdata[3].replace(/\n/g, '')
     post.category = postdata[4]
     post.content = postdata[6]
 

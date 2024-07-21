@@ -1,9 +1,9 @@
-import { collection, getDocs, query, setDoc, where } from "firebase/firestore"
+import { collection, getDocs, query, setDoc, where } from 'firebase/firestore'
 
-import { db } from "@/lib/firebase"
+import { db } from '@/lib/firebase'
 
 const updateMessage = async (messageId: string, content?: string, deleted_timestamp?: string) => {
-  const replyRef = query(collection(db, "forum"), where("message_reference.id", "==", messageId))
+  const replyRef = query(collection(db, 'forum'), where('message_reference.id', '==', messageId))
   const replySnap = await getDocs(replyRef)
   replySnap.forEach(async (doc) => {
     // 修改 reply 的 message_reference content
@@ -26,7 +26,7 @@ const updateMessage = async (messageId: string, content?: string, deleted_timest
       })
     }
 
-    console.log(doc.id, " => ", doc.data())
+    console.log(doc.id, ' => ', doc.data())
   })
 }
 

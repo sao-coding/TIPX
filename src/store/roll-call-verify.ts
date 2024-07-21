@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { create } from 'zustand'
 
 // type DeleteMessageStore = {
 //     deleteMessage: {
@@ -24,6 +24,6 @@ type RollCallVerifyStore = {
 }
 
 export const useRollCallVerifyStore = create<RollCallVerifyStore>((set) => ({
-  rollCallPassword: "",
+  rollCallPassword: '',
   setRollCallPassword: (password) => set({ rollCallPassword: password })
 }))

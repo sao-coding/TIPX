@@ -1,20 +1,20 @@
-"use client"
+'use client'
 
-import React from "react"
-import clsx from "clsx"
+import React from 'react'
+import clsx from 'clsx'
 
-import { Announcement as AnnouncementType } from "@/types"
-import { IconCalendarTime, IconCategory, IconLoader2, IconPinFilled } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
+import { Announcement as AnnouncementType } from '@/types'
+import { IconCalendarTime, IconCategory, IconLoader2, IconPinFilled } from '@tabler/icons-react'
+import { useQuery } from '@tanstack/react-query'
 
 const Announcement = () => {
   const { isLoading, isError, data } = useQuery<AnnouncementType[]>({
-    queryKey: ["announcement"],
+    queryKey: ['announcement'],
     queryFn: async () => {
       const res = await fetch(`/api/post?type=all&page=1&limit=20`)
       const json = await res.json()
       // error
-      if (!res.ok) throw new Error("沒有這篇公告")
+      if (!res.ok) throw new Error('沒有這篇公告')
       return json
     }
   })
@@ -33,11 +33,11 @@ const Announcement = () => {
                 <h1 className='mr-8 line-clamp-1'>{item.title}</h1>
                 <div
                   className={clsx(
-                    "absolute right-0 top-0 rounded-full p-2 text-red-500",
-                    item.sticky ? "block" : "hidden"
+                    'absolute right-0 top-0 rounded-full p-2 text-red-500',
+                    item.sticky ? 'block' : 'hidden'
                   )}
                 >
-                  {item.sticky ? <IconPinFilled size={20} /> : ""}
+                  {item.sticky ? <IconPinFilled size={20} /> : ''}
                 </div>
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-1'>

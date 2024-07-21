@@ -1,15 +1,15 @@
-import * as cheerio from "cheerio"
+import * as cheerio from 'cheerio'
 
 const getGender = async (userid: string) => {
-  const res = await fetch("https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php", {
+  const res = await fetch('https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php', {
     headers: {
       cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; `,
-      Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+      Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
     }
   })
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder("big5").decode(buffer)
+  let html = new TextDecoder('big5').decode(buffer)
   const $ = cheerio.load(html)
 
   // return {
@@ -18,7 +18,7 @@ const getGender = async (userid: string) => {
   //       ?.textContent ?? ""
   // }
   return {
-    gender: $("#form1 > table > tbody > tr:nth-child(6) > td:nth-child(2)").text() ?? ""
+    gender: $('#form1 > table > tbody > tr:nth-child(6) > td:nth-child(2)').text() ?? ''
   }
 }
 

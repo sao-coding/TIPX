@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { HwList } from "@/types"
-import formatDatetime from "@/utils/format-datetime"
-import { IconCalendarOff, IconLoader2 } from "@tabler/icons-react"
-import { useQuery } from "@tanstack/react-query"
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { HwList } from '@/types'
+import formatDatetime from '@/utils/format-datetime'
+import { IconCalendarOff, IconLoader2 } from '@tabler/icons-react'
+import { useQuery } from '@tanstack/react-query'
 
 const Hw = () => {
   const {
@@ -12,9 +12,9 @@ const Hw = () => {
     isError,
     data: Hw
   } = useQuery<{ course: string; hw: HwList[] }[]>({
-    queryKey: ["tool-hw"],
+    queryKey: ['tool-hw'],
     queryFn: async () => {
-      const res = await fetch(`/api/hw?year=111&sem=1&userid=D11019139&type=tool`)
+      const res = await fetch(`/api/hw?year=111&sem=1&userid=D11019247&type=tool`)
       const data = await res.json()
 
       // data.data
@@ -26,7 +26,7 @@ const Hw = () => {
       data.data.forEach((item: HwList) => {
         const index = hw.findIndex((x) => x.course === item.course)
         if (index === -1) {
-          hw.push({ course: `${item.course}` ?? "", hw: [item] })
+          hw.push({ course: `${item.course}` ?? '', hw: [item] })
         } else {
           hw[index].hw.push(item)
         }
@@ -47,21 +47,23 @@ const Hw = () => {
         <ScrollArea className='h-full'>
           {Hw?.map((item, index) => (
             <div key={index}>
-              <div className='sticky top-0 bg-background2 px-3 pt-2 text-lg font-bold'>
-                <h1 className='line-clamp-1'>課程: {item.course}</h1>
+              <div className='sticky top-0 bg-background1 px-3 py-2'>
+                <h1 className='line-clamp-1 text-lg font-bold text-orange-500'>
+                  課程: {item.course}
+                </h1>
               </div>
               {item.hw.map((hw, index) => (
-                <div key={index} className='border-t px-3 py-2 dark:border-neutral-500'>
+                <div key={index} className='px-3 py-2'>
                   <h1 className='line-clamp-1'>作業: {hw.title}</h1>
                   <div className='flex items-center space-x-1 text-sm text-neutral-500'>
                     <IconCalendarOff size={20} />
-                    <div>{formatDatetime("hw", hw.end)}</div>
+                    <div>{formatDatetime('hw', hw.end)}</div>
                   </div>
                 </div>
               ))}
             </div>
           ))}
-          <div className='h-8' />
+          <div className='h-[120px]' />
         </ScrollArea>
       )}
     </>

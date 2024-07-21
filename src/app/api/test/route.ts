@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from "next/server"
-import * as cheerio from "cheerio"
+import { NextRequest, NextResponse } from 'next/server'
+import * as cheerio from 'cheerio'
 
-import getLineID from "@/utils/lineid"
+import getLineID from '@/utils/lineid'
 
-export const dynamic = "force-dynamic"
+export const dynamic = 'force-dynamic'
 
 export const GET = async (req: NextRequest) => {
-  let year = req.cookies.get("cookie_year")?.value
-  let sem = req.cookies.get("cookie_sem")?.value
-  let userid = req.cookies.get("cookie_userid")?.value
-  let dept = req.cookies.get("cookie_dept")?.value
-  let es = req.cookies.get("cookie_es")?.value
+  let year = req.cookies.get('cookie_year')?.value
+  let sem = req.cookies.get('cookie_sem')?.value
+  let userid = req.cookies.get('cookie_userid')?.value
+  let dept = req.cookies.get('cookie_dept')?.value
+  let es = req.cookies.get('cookie_es')?.value
   // const authToken = req.headers.get("Authorization")?.startsWith("Bearer ")
 
   // if (
@@ -32,19 +32,19 @@ export const GET = async (req: NextRequest) => {
   // }
 
   const cookie = {
-    cookie_worktype: "1",
-    cookie_sex: "1",
-    cookie_logintimes: "2",
-    cookie_name: "%AAL%B0%B6%A4t",
-    cookie_type: "4",
-    cookie_deptid: "390390",
-    cookie_dept: "%B8%EA%AC%EC%A8t",
-    cookie_account: "wayne",
-    cookie_level: "1",
-    cookie_unitid: "19",
-    cookie_sem: "2",
-    cookie_year: "111",
-    cookie_userid: "0004307" //"0003046",
+    cookie_worktype: '1',
+    cookie_sex: '1',
+    cookie_logintimes: '2',
+    cookie_name: '%AAL%B0%B6%A4t',
+    cookie_type: '4',
+    cookie_deptid: '390390',
+    cookie_dept: '%B8%EA%AC%EC%A8t',
+    cookie_account: 'wayne',
+    cookie_level: '1',
+    cookie_unitid: '19',
+    cookie_sem: '2',
+    cookie_year: '111',
+    cookie_userid: '0004307' //"0003046",
   }
   // userid = "D11214124"
   // cookie_userid=D11214124;cookie_rgno=D11214124;cookie_year=112;year_sem=1;
@@ -72,23 +72,23 @@ export const GET = async (req: NextRequest) => {
   // Mail: only@sao-x.com
   // LineID: fuckjeter
   // https://netinfo.takming.edu.tw/tip/tea_absrec_chk.php
-  const res = await fetch("https://netinfo.takming.edu.tw/tip/guide_semscolist.php", {
-    method: "GET",
+  const res = await fetch('https://netinfo.takming.edu.tw/tip/guide_semscolist.php', {
+    method: 'GET',
     headers: {
       // "Content-Type": "application/x-www-form-urlencoded",
       // cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; cookie_divcode=${dept}; cookie_programname=${es};`,
       cookie: Object.entries(cookie)
         .map((e) => `${e[0]}=${e[1]}`)
-        .join("; "),
-      Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+        .join('; '),
+      Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
     }
     // body: "TClass=D192112&TDate=1120223",
   })
 
   const buffer = await res.arrayBuffer()
-  const html = new TextDecoder("big5").decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
   const $ = cheerio.load(html)
-  const test = await getLineID("D11019139")
+  const test = await getLineID('D11019139')
 
   return NextResponse.json(test)
   // let headersList = {

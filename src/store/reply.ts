@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { create } from 'zustand'
 
 type ReplyMessageStore = {
   replyMessage: {
@@ -33,17 +33,17 @@ type ReplyMessageStore = {
 }
 
 const initialState = {
-  id: "",
+  id: '',
   author: {
-    avatar: "",
-    username: "",
-    email: "",
+    avatar: '',
+    username: '',
+    email: '',
     anonymous: false
   },
-  content: "",
-  timestamp: "",
-  edited_timestamp: "",
-  deleted_timestamp: "",
+  content: '',
+  timestamp: '',
+  edited_timestamp: '',
+  deleted_timestamp: '',
   status: false
 }
 

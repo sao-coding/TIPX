@@ -1,4 +1,4 @@
-import * as cheerio from "cheerio"
+import * as cheerio from 'cheerio'
 
 const getCourseTeacher = async (
   userid: string,
@@ -12,17 +12,17 @@ const getCourseTeacher = async (
     {
       headers: {
         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-        Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+        Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
       }
     }
   )
 
   const buffer = await res.arrayBuffer()
-  const html = new TextDecoder("big5").decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
 
   const $ = cheerio.load(html)
   const teacher = $(
-    "#AutoNumber1 > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)"
+    '#AutoNumber1 > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)'
   ).text()
 
   return teacher

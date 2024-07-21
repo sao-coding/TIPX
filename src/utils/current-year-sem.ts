@@ -1,7 +1,7 @@
 const getCurrentYearSem = () => {
   // 判斷學年度
-  let currentYear = ""
-  let currentSem = ""
+  let currentYear = ''
+  let currentSem = ''
   const year = new Date().getFullYear()
   const month = new Date().getMonth() + 1
   // console.log("year", year)
@@ -18,10 +18,10 @@ const getCurrentYearSem = () => {
   // year 2 ~ 7
   if (month >= 8 || month <= 1) {
     // console.log("cookie_sem", 1)
-    currentSem = "1"
+    currentSem = '1'
   } else {
     // console.log("cookie_sem", 2)
-    currentSem = "2"
+    currentSem = '2'
   }
 
   return {

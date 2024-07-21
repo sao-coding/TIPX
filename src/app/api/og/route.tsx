@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unknown-property */
-import { ImageResponse } from "next/og"
-import { NextResponse } from "next/server"
+import { ImageResponse } from 'next/og'
+import { NextResponse } from 'next/server'
 
-export const runtime = "edge"
+export const runtime = 'edge'
 
 async function fetchFont(text: string, font: string): Promise<ArrayBuffer | null> {
   const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
@@ -11,8 +11,8 @@ async function fetchFont(text: string, font: string): Promise<ArrayBuffer | null
     await fetch(API, {
       headers: {
         // Make sure it returns TTF.
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1"
+        'User-Agent':
+          'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1'
       }
     })
   ).text()
@@ -29,13 +29,13 @@ async function fetchFont(text: string, font: string): Promise<ArrayBuffer | null
 export const GET = async (req: Request) => {
   try {
     const { searchParams } = new URL(req.url)
-    const title = searchParams.get("title")
-    const date = searchParams.get("date")
+    const title = searchParams.get('title')
+    const date = searchParams.get('date')
 
     if (!title) {
       return NextResponse.json(
         {
-          error: "缺少標題"
+          error: '缺少標題'
         },
         {
           status: 400
@@ -44,10 +44,10 @@ export const GET = async (req: Request) => {
     }
 
     const titleFontSize =
-      title.length > 50 ? "text-4xl" : title.length > 40 ? "text-5xl" : "text-7xl"
+      title.length > 50 ? 'text-4xl' : title.length > 40 ? 'text-5xl' : 'text-7xl'
 
     const OGLittleBlod = fetch(
-      new URL("../../../../public/fonts/ShortStack-Regular.ttf", import.meta.url)
+      new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
     ).then((res) => {
       return res.arrayBuffer()
     })
@@ -59,13 +59,13 @@ export const GET = async (req: Request) => {
         <div
           tw='h-full w-full px-14 py-12 text-white flex flex-col justify-between'
           style={{
-            background: "linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)"
+            background: 'linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)'
           }}
         >
-          <div tw='text-5xl font-semibold' style={{ fontFamily: "OG Little" }}>
+          <div tw='text-5xl font-semibold' style={{ fontFamily: 'OG Little' }}>
             {date}
           </div>
-          <div tw={`${titleFontSize} mx-auto`} style={{ fontFamily: "Microsoft JhengHei" }}>
+          <div tw={`${titleFontSize} mx-auto`} style={{ fontFamily: 'Microsoft JhengHei' }}>
             {title}
           </div>
           <div tw='flex items-center justify-between'>
@@ -84,7 +84,7 @@ export const GET = async (req: Request) => {
               <path d='M6.201 18.744a4 4 0 0 1 3.799 -2.744h4a4 4 0 0 1 3.798 2.741'></path>
               <path d='M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z'></path>
             </svg>
-            <div tw='text-5xl' style={{ fontFamily: "OG Little" }}>
+            <div tw='text-5xl' style={{ fontFamily: 'OG Little' }}>
               TIPX
             </div>
           </div>
@@ -95,14 +95,14 @@ export const GET = async (req: Request) => {
         height: 630,
         fonts: [
           {
-            name: "Noto Sans TC",
-            data: (await fetchFont(title, "Noto+Sans+TC")) as ArrayBuffer
+            name: 'Noto Sans TC',
+            data: (await fetchFont(title, 'Noto+Sans+TC')) as ArrayBuffer
           },
           {
-            name: "OG Little",
+            name: 'OG Little',
             data: fontOGLittleBlod,
             weight: 900,
-            style: "normal"
+            style: 'normal'
           }
         ]
       }
@@ -112,7 +112,7 @@ export const GET = async (req: Request) => {
 
     return NextResponse.json(
       {
-        error: "生成圖片失敗"
+        error: '生成圖片失敗'
       },
       {
         status: 500

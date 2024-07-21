@@ -1,10 +1,10 @@
-import * as cheerio from "cheerio"
+import * as cheerio from 'cheerio'
 
 import {
   CourseAttendanceRecord,
   CourseAttendanceRecordCount,
   CourseAttendanceRecordList
-} from "@/types"
+} from '@/types'
 
 const getCourseAttendanceRecord = async (
   userid: string,
@@ -27,12 +27,12 @@ const getCourseAttendanceRecord = async (
       {
         headers: {
           cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-          Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php"
+          Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
         }
       }
     )
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder("big5").decode(buffer)
+    let html = new TextDecoder('big5').decode(buffer)
 
     return cheerio.load(html)
   }
@@ -47,19 +47,19 @@ const getCourseAttendanceRecord = async (
   // ?page_num=8&RgNo=D11019248
   // 取得總頁數
 
-  const pageTotal = $("table:nth-child(3) tr td font a:last-child")
-    .attr("href")
-    ?.split("&")[0]
-    .split("=")[1]
+  const pageTotal = $('table:nth-child(3) tr td font a:last-child')
+    .attr('href')
+    ?.split('&')[0]
+    .split('=')[1]
 
-  console.log("count", pageTotal)
+  console.log('count', pageTotal)
 
-  for (let i = 1; i <= parseInt(pageTotal ?? "1"); i++) {
+  for (let i = 1; i <= parseInt(pageTotal ?? '1'); i++) {
     // document = await resUrl(i)
     $ = await resUrl(i)
 
     const leaveListHTML = $(
-      "body > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr:not(:first-child)"
+      'body > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table:nth-child(2) > tbody > tr > td > table > tbody > tr:not(:first-child)'
     )
 
     console.log(leaveListHTML.length)
@@ -67,12 +67,12 @@ const getCourseAttendanceRecord = async (
     for (let i = 0; i < leaveListHTML.length; i++) {
       const leaveListItemHTML = leaveListHTML[i]
       courseAttendanceRecordList.push({
-        date: $(leaveListItemHTML).find("td:nth-child(1)").text() ?? "",
-        week: $(leaveListItemHTML).find("td:nth-child(2)").text() ?? "",
-        period: $(leaveListItemHTML).find("td:nth-child(3)").text() ?? "",
-        type: $(leaveListItemHTML).find("td:nth-child(4)").text() ?? "",
-        course: $(leaveListItemHTML).find("td:nth-child(6)").text() ?? "",
-        courseID: $(leaveListItemHTML).find("td:nth-child(5)").text() ?? ""
+        date: $(leaveListItemHTML).find('td:nth-child(1)').text() ?? '',
+        week: $(leaveListItemHTML).find('td:nth-child(2)').text() ?? '',
+        period: $(leaveListItemHTML).find('td:nth-child(3)').text() ?? '',
+        type: $(leaveListItemHTML).find('td:nth-child(4)').text() ?? '',
+        course: $(leaveListItemHTML).find('td:nth-child(6)').text() ?? '',
+        courseID: $(leaveListItemHTML).find('td:nth-child(5)').text() ?? ''
       })
     }
 
@@ -80,21 +80,21 @@ const getCourseAttendanceRecord = async (
   }
 
   const leaveNameList = [
-    "曠課",
-    "病假",
-    "事假",
-    "公假",
-    "朝會不到",
-    "朝會遲到",
-    "遲到",
-    "喪假",
-    "婚假",
-    "產假",
-    "育嬰假",
-    "哺育幼兒假",
-    "生理假",
-    "懷孕假",
-    "新生定向"
+    '曠課',
+    '病假',
+    '事假',
+    '公假',
+    '朝會不到',
+    '朝會遲到',
+    '遲到',
+    '喪假',
+    '婚假',
+    '產假',
+    '育嬰假',
+    '哺育幼兒假',
+    '生理假',
+    '懷孕假',
+    '新生定向'
   ]
 
   const getTotal = () => {
@@ -130,7 +130,7 @@ const getCourseAttendanceRecord = async (
     return courseAttendanceRecord
   }
 
-  if (type === "total") {
+  if (type === 'total') {
     //         // 平日
     // // 第一節 08:20~09:10
     // // 第二節 09:20~10:10
@@ -169,7 +169,7 @@ const getCourseAttendanceRecord = async (
     const holidayTime = [45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45]
     // 判斷每堂課是在平日還是假日 並計算總時數
     const weekTotal = courseAttendanceRecord.list
-      .filter((item) => item.week !== "六" && item.week !== "日")
+      .filter((item) => item.week !== '六' && item.week !== '日')
       .map((item) => {
         const period = parseInt(item.period)
         const index = period - 1
@@ -178,7 +178,7 @@ const getCourseAttendanceRecord = async (
       })
       .reduce((a, b) => a + b, 0)
     const holidayTotal = courseAttendanceRecord.list
-      .filter((item) => item.week === "六" || item.week === "日")
+      .filter((item) => item.week === '六' || item.week === '日')
       .map((item) => {
         // console.log("item", item)
         const period = parseInt(item.period)
