@@ -50,7 +50,8 @@ const authOptions: NextAuthOptions = {
 
         return {
           id: '1',
-          email: credentials?.studentID + '@gs.takming.edu.tw'
+          email: credentials?.studentID + '@gs.takming.edu.tw',
+          accessToken: admin.password
         }
       }
     }),
