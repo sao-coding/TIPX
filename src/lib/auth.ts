@@ -72,10 +72,6 @@ const authOptions: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ token, user }) {
-      console.log('jwt', token, user)
-      return { ...token, ...user }
-    },
     async session({ session, token, user }) {
       if (session.user) {
         session.user.accessToken = token.accessToken
@@ -83,6 +79,14 @@ const authOptions: NextAuthOptions = {
         // await setCookies(token.accessToken as string)
       }
       return session
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.accessToken = user.accessToken
+        console.log('jwt', token, user)
+      }
+
+      return { ...token, ...user }
     }
   },
   pages: {

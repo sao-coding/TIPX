@@ -12,6 +12,12 @@ type UserId = string
 // email: string;
 // role: string;
 // createdAt: Date;
+
+declare module 'next-auth' {
+  interface User {
+    accessToken: string
+  }
+}
 declare module 'next-auth/jwt' {
   interface JWT {
     accessToken: string
