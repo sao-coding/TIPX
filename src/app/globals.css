@@ -6,8 +6,9 @@
   :root {
     --background: 43 19% 93%;
     --foreground: 20 14.3% 4.1%;
-    --background-1: 0 0% 100%;
+    --background-1: 0 0% 95%;
     --background-2: 0 0% 98%;
+    --background-3: 0 0% 100%;
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
@@ -36,8 +37,9 @@
   .dark {
     --background: 0 0% 9%;
     --foreground: 60 9.1% 97.8%;
-    --background-1: 0 0% 20%;
+    --background-1: 0 0% 10%;
     --background-2: 0 0% 14.9%;
+    --background-3: 0 0% 20%;
     --card: 20 14.3% 4.1%;
     --card-foreground: 60 9.1% 97.8%;
     --popover: 20 14.3% 4.1%;

@@ -7,15 +7,14 @@ import Cookies from 'js-cookie'
 import toast, { useToasterStore } from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { site } from '@/config/site'
-import getCurrentYearSem from '@/utils/current-year-sem'
 import { IconBrandGoogle, IconLoader2 } from '@tabler/icons-react'
 
 const LoginForm = () => {
-  const [loading, setLoading] = React.useState(false)
   const searchParams = useSearchParams()
+  const [loading, setLoading] = React.useState(false)
   const pathname = searchParams.get('redirect') || '/'
 
   const { toasts } = useToasterStore()
@@ -28,27 +27,18 @@ const LoginForm = () => {
       .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
   }, [toasts])
 
-  // 判斷學年度
-  React.useEffect(() => {
-    Object.keys(Cookies.get()).forEach((cookieName) => {
-      Cookies.remove(cookieName)
-    })
-    const setCurrentYearSem = async () => {
-      const { currentYear, currentSem } = getCurrentYearSem()
-      Cookies.set('cookie_year', currentYear, { expires: site.cookie.expires })
-      Cookies.set('cookie_sem', currentSem, { expires: site.cookie.expires })
-    }
-    setCurrentYearSem()
-  }, [])
-
   const fetchLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if ((document.querySelector('#studentID') as HTMLInputElement)?.value === '') {
+
+    const studentId = (document.querySelector('#student-id') as HTMLInputElement)?.value
+    const authCode = (document.querySelector('#auth-code') as HTMLInputElement)?.value
+
+    if (studentId === '') {
       toast.error('請輸入學號')
       return
     }
 
-    if ((document.getElementById('authcode') as HTMLInputElement)?.value === '') {
+    if (authCode === '') {
       toast.error('請輸入授權碼')
       return
     }
@@ -56,8 +46,8 @@ const LoginForm = () => {
     const toastId = toast.loading('登入中...')
     const status = await signIn('credentials', {
       redirect: false,
-      studentID: (document.getElementById('student-id') as HTMLInputElement)?.value,
-      password: (document.getElementById('auth-code') as HTMLInputElement)?.value
+      studentId,
+      password: authCode
     })
 
     if (status?.error) {
@@ -66,7 +56,7 @@ const LoginForm = () => {
       toast.success('登入成功', { id: toastId })
       // 延遲1秒跳轉
       setTimeout(() => {
-        window.location.href = searchParams.get('redirect') ?? '/user'
+        window.location.href = pathname
       }, 1000)
     }
   }
@@ -74,16 +64,29 @@ const LoginForm = () => {
   return (
     <>
       <div className='grid gap-4'>
-        <form onSubmit={(e) => fetchLogin(e)} className='grid gap-4'>
+        <form onSubmit={fetchLogin} className='grid gap-4'>
           <div className='grid gap-3'>
             <Label htmlFor='student-id'>學號</Label>
             <Input id='student-id' />
           </div>
           <div className='grid gap-3'>
-            <Label htmlFor='auth-code'>
-              授權碼<span className='ml-2 text-xs text-gray-400'>一般人請使用 Google 登入</span>
+            <Label htmlFor='auth-code' className='flex items-center gap-2'>
+              授權碼<span className='text-xs text-gray-400'>一般人請使用 Google 登入</span>
             </Label>
             <Input id='auth-code' />
+          </div>
+          <div className='flex items-center gap-2'>
+            {/* 保持登入 */}
+            <Checkbox
+              id='keep-login'
+              // 勾選就把 cookie_keep_login 設為 true 存到 cookie
+              onCheckedChange={(checked) => {
+                Cookies.set('cookie_keep_login', checked ? 'true' : 'false')
+              }}
+            />
+            <Label htmlFor='keep-login' className='text-xs text-gray-400'>
+              保持登入
+            </Label>
           </div>
           <Button type='submit' className='w-full'>
             登入

@@ -170,7 +170,7 @@ export const GET = async (req: NextRequest) => {
   if (type === 'tool') {
     const courseList = (await getCourse(userid ?? '', year ?? '', sem ?? '')) as Course[]
     for (const course of courseList) {
-      await crawler(course.id, course.name)
+      await crawler(course.id, course.course)
       // 篩選出尚未繳交的作業
       hwlist = hwlist.filter((hw) => {
         if (hw.status === '未繳交') {

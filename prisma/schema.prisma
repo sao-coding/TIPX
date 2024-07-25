@@ -7,6 +7,32 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+    SUPER_ADMIN
+    ADMIN
+    USER
+}
+
+model User {
+    id           String         @id @default(nanoid())
+    studentId    String         @unique
+    name         String
+    givenName    String
+    familyName   String
+    picture      String
+    email        String         @unique
+    role         UserRole       @default(USER)
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    UserSettings UserSettings[]
+}
+
+model UserSettings {
+    id     String @id @default(nanoid())
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id])
+}
+
 model student {
     userid            String @id
     password          String
@@ -31,8 +57,4 @@ model student {
     parentPhone       String
     parentJob         String
     desc              String @db.Text
-}
-
-model user {
-    userid String @id @db.VarChar(9)
 }

@@ -1,17 +1,28 @@
-import { JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 interface SignOption {
   expiresIn: string
 }
 
-const DEFAULT_SIGN_OPTIONS: SignOption = {
-  expiresIn: '1d'
+const DEFAULT_SIGN_OPTION: SignOption = {
+  expiresIn: '40s'
 }
 
-export const sign = (
+export const signJwtAccessToken = (
   payload: JwtPayload,
-  secret: string,
-  options: SignOption = DEFAULT_SIGN_OPTIONS
+  options: SignOption = DEFAULT_SIGN_OPTION
 ) => {
-  return jwt.sign(payload, secret, options)
+  const secretKey = process.env.NEXTAUTH_SECRET as string
+  const token = jwt.sign(payload, secretKey, options)
+  return token
+}
+
+export const verifyJwt = (token: string) => {
+  try {
+    const secretKey = process.env.NEXTAUTH_SECRET as string
+    const payload = jwt.verify(token, secretKey)
+    return payload
+  } catch (error) {
+    console.error(error)
+  }
 }

@@ -10,6 +10,7 @@ const getPost = async (
   id?: number,
   page?: number,
   limit?: number,
+  mode?: string,
   exclude?: string
 ) => {
   // 獲取公告 全部貼文
@@ -24,7 +25,7 @@ const getPost = async (
       deadline: ''
     }
 
-    const announcementListAll: Announcement[] = []
+    let announcementListAll: Announcement[] = []
     const announcementList: Announcement[] = []
 
     // 查尋是否有快取
@@ -47,10 +48,6 @@ const getPost = async (
         // 取得網址的ID
         const id = link?.split('=')[1]
         announcement.id = id ?? ''
-
-        if (exclude === 'outside' && cells.eq(0).text().includes('校外事項')) {
-          return
-        }
 
         cells.each((index, cell) => {
           const list = $(cell).text().replace(/\n/g, '')
@@ -88,6 +85,34 @@ const getPost = async (
     } else {
       console.log('use cache')
       announcementListAll.push(...JSON.parse(cache))
+    }
+
+    switch (mode) {
+      case 'sticky':
+        announcementListAll = announcementListAll.filter((post) => post.sticky)
+        break
+      case 'inside':
+        announcementListAll = announcementListAll.filter((post) => post.category !== '校外事項')
+        break
+      case 'outside':
+        announcementListAll = announcementListAll.filter((post) => post.category === '校外事項')
+        break
+      default:
+        break
+    }
+
+    switch (exclude) {
+      case 'sticky':
+        announcementListAll = announcementListAll.filter((post) => !post.sticky)
+        break
+      case 'inside':
+        announcementListAll = announcementListAll.filter((post) => post.category === '校外事項')
+        break
+      case 'outside':
+        announcementListAll = announcementListAll.filter((post) => post.category !== '校外事項')
+        break
+      default:
+        break
     }
 
     if (page && limit) {

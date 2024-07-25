@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Toaster } from 'react-hot-toast'
 
 import { site } from '@/config/site'
 
@@ -76,6 +77,7 @@ export default function RootLayout({
     <html lang='zh-Hant-TW' suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   )

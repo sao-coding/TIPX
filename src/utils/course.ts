@@ -41,7 +41,7 @@ const getCourse = async (
           const id = link?.split('=')[1]
           courselist.push({
             id: id ?? '',
-            name: name,
+            course: name,
             teacher: await getCourseTeacher(userid, year, sem, id ?? '')
           })
         }
@@ -90,7 +90,7 @@ const getCourse = async (
     const name = $("font[color='#800000']").text().replace('目前無公告資訊!!', '')
     return {
       id: courseID,
-      name
+      course: name
     } as Course
   }
 }

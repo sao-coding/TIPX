@@ -7,14 +7,6 @@ import clsx from 'clsx'
 import { IconLogo } from '@/components/icons/logo'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { USER_LINKS } from '@/config/links'
 import { useMediaQuery } from '@/hooks/use-media-query'
@@ -25,12 +17,12 @@ const LeftSidebar = () => {
 
   return (
     <>
-      <div className='flex h-dvh w-20 flex-col xl:w-[250px]'>
-        <div className='bg-background py-6'>
+      <div className='hidden h-dvh w-20 flex-col md:flex xl:w-[250px]'>
+        <div className='py-6'>
           <IconLogo className='h-12 w-full' />
         </div>
         <ScrollArea>
-          <div className='flex flex-col gap-2 px-2 pb-6'>
+          <div className='flex flex-col gap-2 px-4 pb-6'>
             {USER_LINKS.map((group, index) => (
               // 用group分組 collapsible 顯示
               <React.Fragment key={index}>

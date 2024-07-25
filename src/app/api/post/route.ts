@@ -6,17 +6,19 @@ import getPost from '@/utils/post'
 export const GET = async (req: NextRequest) => {
   // 獲取公告 全部貼文
   // 獲取除了校外公告的全部貼文
-  if (req.nextUrl.searchParams.get('type') === 'all') {
-    const exclude = req.nextUrl.searchParams.get('exclude')
-    const page = Number(req.nextUrl.searchParams.get('page')) || 1
-    const limit = Number(req.nextUrl.searchParams.get('limit')) || undefined
-    const PostListAll = await getPost('all', undefined, page, limit, exclude || '')
+  const searchParams = req.nextUrl.searchParams
+  if (searchParams.get('type') === 'all') {
+    const page = Number(searchParams.get('page')) || 1
+    const limit = Number(searchParams.get('limit')) || undefined
+    const mode = searchParams.get('mode') || 'all'
+    const exclude = searchParams.get('exclude') || ''
+    const PostListAll = await getPost('all', undefined, page, limit, mode, exclude)
 
     return NextResponse.json(PostListAll)
   }
 
-  if (req.nextUrl.searchParams.get('type') === 'one' && req.nextUrl.searchParams.get('id')) {
-    const id = Number(req.nextUrl.searchParams.get('id'))
+  if (searchParams.get('type') === 'one' && searchParams.get('id')) {
+    const id = Number(searchParams.get('id'))
     const Post = await getPost('one', id)
 
     return NextResponse.json(Post)

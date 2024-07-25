@@ -24,7 +24,7 @@ const Hw = () => {
   } = useQuery<{ course: string; hw: HwList[] }[]>({
     queryKey: ['tool-hw'],
     queryFn: async () => {
-      const res = await fetch(`/api/hw?year=110&sem=2&userid=D11019150&type=tool`)
+      const res = await fetch(`/api/hw?year=111&sem=2&userid=D11019247&type=tool`)
       const data = await res.json()
 
       // data.data
@@ -50,7 +50,7 @@ const Hw = () => {
   return (
     <>
       <div className='overflow-hidden rounded-xl'>
-        <header className='flex items-center justify-between bg-background1'>
+        <header className='flex items-center justify-between bg-background2'>
           {/* 顯示總共多少未完成作業 */}
           <div className='flex items-center gap-1.5 px-3 py-2'>
             <IconBookDownload />
@@ -81,7 +81,7 @@ const Hw = () => {
             </AlertDialog>
           </div>
         </header>
-        <div className='h-56 bg-background2'>
+        <div className='h-56 bg-background1'>
           {isLoading ? (
             <div className='flex h-full w-full items-center'>
               <IconLoader2 className='mx-auto h-10 w-10 animate-spin' />
