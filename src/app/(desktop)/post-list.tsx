@@ -58,7 +58,7 @@ const PostList = () => {
 
   // // 滑動切換 3 種分頁 先判斷目前的分頁為何
   const bind = useDrag(({ movement: [x], direction: [dx] }) => {
-    // console.log({ x, dx })
+    console.log({ x, dx })
     // setPosition({ x, dx })；
     if (Math.abs(x) > 10) {
       if (dx > 0) {
@@ -97,7 +97,7 @@ const PostList = () => {
 
   return (
     <>
-      <div className='sticky top-0 z-10 flex items-center gap-2'>
+      <div className='sticky top-0 z-10 hidden items-center gap-2'>
         <span className='bg-background'>X:{position.x}</span>
         <span className='bg-background'>DX:{position.dx}</span>
       </div>
@@ -108,10 +108,10 @@ const PostList = () => {
           setExclude(value === 'inside' ? 'sticky' : value === 'outside' ? 'sticky' : '')
         }}
       >
-        <div className='flex flex-col items-center gap-3 md:flex-row'>
+        <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
           <h1 className='w-full text-center text-2xl font-bold md:text-left'>學校公告</h1>
 
-          <TabsList className='mb-2 grid w-full grid-cols-3'>
+          <TabsList className='grid w-full grid-cols-3'>
             <TabsTrigger value='inside'>校內公告</TabsTrigger>
             <TabsTrigger value='outside'>校外公告</TabsTrigger>
             <TabsTrigger value='sticky'>置頂公告</TabsTrigger>
