@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next'
+import { getServerSession } from 'next-auth'
 import { Toaster } from 'react-hot-toast'
 
 import { site } from '@/config/site'
+import authOptions from '@/lib/auth'
 
 import Providers from './providers'
 
@@ -67,16 +69,17 @@ export const viewport: Viewport = {
   ]
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await getServerSession(authOptions)
   return (
     // ThemeProvider 需使用 suppressHydrationWarning
     <html lang='zh-Hant-TW' suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <Providers session={session}>{children}</Providers>
         <Toaster />
       </body>
     </html>

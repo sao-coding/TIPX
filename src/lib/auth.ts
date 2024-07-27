@@ -207,6 +207,7 @@ const authOptions: NextAuthOptions = {
     signIn: '/login'
   },
   session: {
+    strategy: 'jwt',
     // 到期時間一年
     maxAge: site.cookie.expires * 24 * 60 * 60
   },

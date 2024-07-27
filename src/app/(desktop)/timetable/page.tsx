@@ -1,11 +1,11 @@
 'use client'
 // import { useCallback, useRef } from 'react'
 import Link from 'next/link'
-// import { useToPng } from '@hugocxl/react-to-image'
 import Cookie from 'js-cookie'
 
 // import toast from 'react-hot-toast'
 import { OutTimeTable, TimeTable } from '@/types'
+import { useToPng } from '@hugocxl/react-to-image'
 import { IconShare2 } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
@@ -108,74 +108,85 @@ const TimeTablePage = () => {
   //       })
   //   }, [ref])
 
-  //   const dataUrlToFile = (dataUrl: string, filename: string) => {
-  //     const arr = dataUrl.split(',')
-  //     if (arr) {
-  //       const mime = arr[0].match(/:(.*?);/)![1]
-  //       const bstr = atob(arr[1])
-  //       let n = bstr.length
-  //       const u8arr = new Uint8Array(n)
-  //       while (n--) {
-  //         u8arr[n] = bstr.charCodeAt(n)
-  //       }
-  //       return new File([u8arr], filename, { type: mime })
-  //     }
-  //   }
+  const dataUrlToFile = (dataUrl: string, filename: string) => {
+    const arr = dataUrl.split(',')
+    if (arr) {
+      const mime = arr[0].match(/:(.*?);/)![1]
+      const bstr = atob(arr[1])
+      let n = bstr.length
+      const u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+      return new File([u8arr], filename, { type: mime })
+    }
+  }
 
-  //   const Share = (title: string, text: string, file: File) => {
-  //     if (navigator.share) {
-  //       navigator
-  //         .share({
-  //           title: title,
-  //           text: text,
-  //           files: [file]
-  //         })
-  //         .then(() => {
-  //           console.log('已分享')
-  //         })
-  //         .catch(console.error)
-  //     } else {
-  //       console.log('Web Share API 不支援')
-  //     }
-  //   }
-
+  const Share = (title: string, text: string, file: File) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: title,
+          text: text,
+          files: [file]
+        })
+        .then(() => {
+          console.log('已分享')
+        })
+        .catch(console.error)
+    } else {
+      console.log('Web Share API 不支援')
+    }
+  }
+  const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onSuccess: (data) => {
+      // 下載圖片(data)
+      const file = dataUrlToFile(data, '課表.png')
+      Share('課表', '課表', file as File)
+    }
+  })
   return (
     <>
-      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:bg-background1 md:p-6 md:shadow-md'>
-        <div className='relative my-0.5 py-2 md:mb-2 md:rounded-xl md:border md:py-1 md:shadow-sm'>
-          <div className='text-center text-2xl font-bold'>課表</div>
-          <IconShare2
-            className='absolute right-0 top-2/4 mr-2 -translate-y-2/4'
-            // onClick={() => {
+      <div className='relative mb-3 flex flex-col items-center'>
+        <h1 className='w-full text-center text-2xl font-bold md:text-left'>課表</h1>
+
+        <IconShare2
+          size={30}
+          className='absolute right-0 top-0 cursor-pointer'
+          onClick={() => {
+            convertToPng()
             //   saveImage()
             //   umami.track('課表分享', {
             //     data: trackShareTimeTable()
             //   })
-            // }}
-          />
-        </div>
+          }}
+        />
+      </div>
+
+      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:bg-background1 md:p-6 md:shadow-md'>
         <div className='overflow-x-auto rounded-md md:flex md:items-center md:justify-center'>
-          {isLoading && (
-            <div className='table w-[960px] table-fixed overflow-hidden rounded-md'>
-              <div className='table-header-group'>
-                {Array.from(Array(7).keys()).map((index) => (
-                  <div
-                    className='bg-main-color-2 table-cell whitespace-nowrap p-2 text-center'
-                    key={index}
-                  >
-                    星期{week[index]}
-                  </div>
-                ))}
-              </div>
-              <div className='table-row-group'>
-                {Array.from(Array(14).keys()).map((i) => (
-                  <div className='table-row' key={i}>
-                    {Array.from(Array(7).keys()).map((item, index) => (
+          <div ref={ref} className='table w-[960px] table-fixed overflow-hidden rounded-md'>
+            <div className='table-header-group'>
+              {Array.from(Array(7).keys()).map((index) => (
+                <div
+                  className='table-cell whitespace-nowrap bg-background2 p-2 text-center'
+                  key={index}
+                >
+                  星期{week[index]}
+                </div>
+              ))}
+            </div>
+            <div className='table-row-group'>
+              {Array.from(Array(14).keys()).map((i) => (
+                <div className='table-row' key={i}>
+                  {isLoading &&
+                    Array.from(Array(7).keys()).map((item, index) => (
                       <div
-                        className='border-main-color-3 bg-main-color-1 relative table-cell border-r border-t p-2 pb-6 first:border-l-0 last:border-r-0'
+                        // hsl(0deg 0% 12.55%)
+                        className='relative table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 pb-6 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
                         key={index}
                       >
-                        <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
+                        <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-background3 px-1 text-center'>
                           <div>{i + 1}</div>
                         </div>
 
@@ -184,53 +195,32 @@ const TimeTablePage = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {data && (
-            <div className='table w-[960px] table-fixed overflow-hidden rounded-md'>
-              <div className='table-header-group'>
-                {data.week.length > 0 &&
-                  data.week.map((item, index) => (
-                    <div
-                      className='bg-main-color-2 table-cell whitespace-nowrap p-2 text-center'
-                      key={index}
-                    >
-                      {item}
-                    </div>
-                  ))}
-              </div>
-              <div className='table-row-group'>
-                {Array.from(Array(14).keys()).map((i) => (
-                  <div className='table-row' key={i}>
-                    {data.timetable.length > 0 &&
-                      data.timetable[i].map((item, index) => (
-                        <div
-                          className='border-main-color-3 bg-main-color-1 relative table-cell border-r border-t p-2 pb-6 first:border-l-0 last:border-r-0'
-                          key={index}
-                        >
-                          <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-[#ffffff6c] px-1 text-center'>
-                            <div>{i + 1}</div>
-                          </div>
-                          <div className='hover:bg-main-color-2 rounded-lg text-center'>
-                            <Link
-                              href={`/course/${item.id}?tab=規範`}
-                              className='border-main-color-2 border-b-2 text-blue-500'
-                            >
-                              {item.course}
-                            </Link>
-                          </div>
-                          <div className='text-center'>{item.classroom}</div>
-                          <div className='text-center'>{item.teacher}</div>
+                  {data &&
+                    data.timetable.length > 0 &&
+                    data.timetable[i].map((item, index) => (
+                      <div
+                        className='relative table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 pb-6 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
+                        key={index}
+                      >
+                        <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-background3 px-1 text-center'>
+                          <div>{i + 1}</div>
                         </div>
-                      ))}
-                  </div>
-                ))}
-              </div>
+                        <div className='rounded text-center hover:bg-background3'>
+                          <Link
+                            href={`/course/${item.id}?tab=規範`}
+                            className='border-b-2 border-background3 text-blue-500'
+                          >
+                            {item.course}
+                          </Link>
+                        </div>
+                        <div className='text-center'>{item.classroom}</div>
+                        <div className='text-center'>{item.teacher}</div>
+                      </div>
+                    ))}
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </>

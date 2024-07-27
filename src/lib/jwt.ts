@@ -5,7 +5,7 @@ interface SignOption {
 }
 
 const DEFAULT_SIGN_OPTION: SignOption = {
-  expiresIn: '40s'
+  expiresIn: '40d'
 }
 
 export const signJwtAccessToken = (
@@ -19,6 +19,7 @@ export const signJwtAccessToken = (
 
 export const verifyJwt = (token: string) => {
   try {
+    console.log('token', process.env.NEXTAUTH_SECRET)
     const secretKey = process.env.NEXTAUTH_SECRET as string
     const payload = jwt.verify(token, secretKey)
     return payload

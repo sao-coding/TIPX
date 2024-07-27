@@ -4,8 +4,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { NAV_LINKS } from '@/config/links'
 import { cn } from '@/lib/utils'
+import { IconLayoutGridAdd } from '@tabler/icons-react'
+
+import RightTool from './RightTool'
 
 const Footer = () => {
   // const [prevScrollPos, setPrevScrollPos] = useState(0)
@@ -79,6 +83,21 @@ const Footer = () => {
             />
           </Link>
         ))}
+        <Sheet>
+          <SheetTrigger className='footer relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl'>
+            <IconLayoutGridAdd className='rotate-180' size={26} />
+          </SheetTrigger>
+          <SheetContent className='p-2'>
+            {/* <SheetHeader>
+              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              <SheetDescription>
+                This action cannot be undone. This will permanently delete your account and remove
+                your data from our servers.
+              </SheetDescription>
+            </SheetHeader> */}
+            <RightTool />
+          </SheetContent>
+        </Sheet>
       </div>
     </footer>
   )

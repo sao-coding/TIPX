@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer'
 import LeftSidebar from '@/components/LeftSidebar'
-
-import Hw from './hw'
+import RightTool from '@/components/RightTool'
 
 export default function RootLayout({
   children
@@ -16,7 +15,7 @@ export default function RootLayout({
           <div className='mx-auto max-w-[800px]'>{children}</div>
         </div>
         <div className='hidden h-dvh w-[350px] p-4 lg:block'>
-          <Hw />
+          <RightTool />
         </div>
         <Footer />
       </div>

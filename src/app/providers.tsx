@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import { Session } from 'next-auth'
+import { SessionProvider } from 'next-auth/react'
 // import { usePathname } from "next/navigation"
 import { ThemeProvider } from 'next-themes'
 
@@ -8,11 +10,11 @@ import { ThemeProvider } from 'next-themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const Providers = ({
-  children
-  // session
+  children,
+  session
 }: {
   children: React.ReactNode
-  // session: Session | null
+  session: Session | null
 }) => {
   const [queryClient] = React.useState(() => new QueryClient())
   // const pathname = usePathname()
@@ -39,7 +41,9 @@ const Providers = ({
 
   return (
     <ThemeProvider attribute='class' disableTransitionOnChange>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <SessionProvider session={session}>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      </SessionProvider>
     </ThemeProvider>
   )
 }
