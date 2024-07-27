@@ -2,6 +2,7 @@
 // import { useCallback, useRef } from 'react'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
+import toast from 'react-hot-toast'
 
 // import toast from 'react-hot-toast'
 import { OutTimeTable, TimeTable } from '@/types'
@@ -139,9 +140,15 @@ const TimeTablePage = () => {
     }
   }
   const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onStart: () => {
+      // 跑0.5秒的loading
+      toast.loading('圖片生成中...')
+    },
     onSuccess: (data) => {
       // 下載圖片(data)
       const file = dataUrlToFile(data, '課表.png')
+      toast.remove()
+      toast.success('圖片生成成功')
       Share('課表', '課表', file as File)
     }
   })
