@@ -74,6 +74,15 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
+      },
+      // @media min-device-pixel-ratio
+      // 螢幕放大 大於 125%
+      // 螢幕放大 大於 150%
+      // 螢幕放大 大於 175%
+      screens: {
+        'dpi-125': { raw: 'screen and (min-resolution: 125dpi)' },
+        'dpi-150': { raw: 'screen and (min-resolution: 150dpi)' },
+        'dpi-175': { raw: 'screen and (min-resolution: 175dpi)' }
       }
     }
   },

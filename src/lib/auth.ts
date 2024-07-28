@@ -74,7 +74,7 @@ const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ account, profile }) {
-      console.log('account', account, 'profile', profile)
+      // console.log('account', account, 'profile', profile)
       if (account?.provider === 'google') {
         if (profile?.email?.endsWith('@gs.takming.edu.tw')) {
           await setCookies(profile?.email?.split('@')[0].toUpperCase())
@@ -85,7 +85,7 @@ const authOptions: NextAuthOptions = {
       return true
     },
     async jwt({ token, profile }) {
-      console.log('jwt', { token, profile })
+      // console.log('jwt', { token, profile })
       let userInfo
 
       if (!profile) {

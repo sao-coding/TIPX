@@ -6,21 +6,24 @@ import clsx from 'clsx'
 
 import { IconLogo } from '@/components/icons/logo'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { USER_LINKS } from '@/config/links'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { IconChevronDown, IconHistoryToggle } from '@tabler/icons-react'
 
+import Switch from './switch'
+
 const LeftSidebar = () => {
-  const isDesktop = useMediaQuery('(min-width: 640px)')
+  const isDesktop = useMediaQuery('(min-width: 1280px)')
 
   return (
     <>
@@ -30,62 +33,73 @@ const LeftSidebar = () => {
         </div>
         <ScrollArea>
           <div className='flex flex-col gap-2 px-4 pb-6'>
-            <Select>
-              <SelectTrigger className='mt-2 w-full'>
-                <SelectValue placeholder='Theme' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='light'>Light</SelectItem>
-                <SelectItem value='dark'>Dark</SelectItem>
-                <SelectItem value='system'>System</SelectItem>
-              </SelectContent>
-            </Select>
+            <Switch />
             {USER_LINKS.map((group, index) => (
               // 用group分組 collapsible 顯示
               <React.Fragment key={index}>
                 {group.group !== '一般資訊' ? (
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Collapsible>
-                          <CollapsibleTrigger className='group w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
-                            <div className='flex items-center justify-between'>
-                              <div className='flex items-center gap-2'>
-                                <IconHistoryToggle className='text-primary' />
-                                <span className='block sm:hidden xl:block'>{group.group}</span>
+                  <>
+                    {isDesktop ? <>2</> : <>1</>}
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Collapsible>
+                            <CollapsibleTrigger className='group hidden w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:block'>
+                              <div className='flex items-center justify-between'>
+                                <div className='flex items-center gap-2'>
+                                  <IconHistoryToggle className='text-primary' />
+                                  <span className='block sm:hidden xl:block'>{group.group}</span>
+                                </div>
+                                {/* html 屬性 data-state 若是open則旋轉180度 */}
+                                {/* 過度動畫 */}
+                                <IconChevronDown className='transition-transform group-data-[state=open]:rotate-180' />
                               </div>
-                              {/* html 屬性 data-state 若是open則旋轉180度 */}
-                              {/* 過度動畫 */}
-                              <IconChevronDown className='transition-transform group-data-[state=open]:rotate-180' />
-                            </div>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent>
-                            {group.links.map((link, index) => (
-                              <TooltipProvider key={index} delayDuration={100}>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Link
-                                      href={link.href}
-                                      className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
-                                    >
-                                      <div className='flex items-center gap-2'>
-                                        <link.icon className={clsx(link.color, link.className)} />
-                                        <span className='block sm:hidden xl:block'>
-                                          {link.text}
-                                        </span>
-                                      </div>
-                                    </Link>
-                                  </TooltipTrigger>
-                                  <TooltipContent side='right'>{link.text}</TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            ))}
-                          </CollapsibleContent>
-                        </Collapsible>
-                      </TooltipTrigger>
-                      <TooltipContent side='right'>{group.group}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              {group.links.map((link, index) => (
+                                <TooltipProvider key={index} delayDuration={100}>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Link
+                                        href={link.href}
+                                        className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
+                                      >
+                                        <div className='flex items-center gap-2'>
+                                          <link.icon className={clsx(link.color, link.className)} />
+                                          <span className='block sm:hidden xl:block'>
+                                            {link.text}
+                                          </span>
+                                        </div>
+                                      </Link>
+                                    </TooltipTrigger>
+                                    <TooltipContent side='right'>{link.text}</TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              ))}
+                            </CollapsibleContent>
+                          </Collapsible>
+                        </TooltipTrigger>
+                        <TooltipContent side='right'>{group.group}</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    {/* 筆電版 */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:hidden xl:justify-start'>
+                          <IconHistoryToggle className='text-primary' />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className='w-56' side='right'>
+                        <DropdownMenuLabel>歷年資訊</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {group.links.map((link, index) => (
+                          <DropdownMenuItem key={index}>
+                            <Link href={link.href}>{link.text}</Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </>
                 ) : (
                   <>
                     {group.links.map((link, index) => (
@@ -94,7 +108,7 @@ const LeftSidebar = () => {
                           <TooltipTrigger asChild>
                             <Link
                               href={link.href}
-                              className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
+                              className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:justify-start'
                             >
                               <div className='flex items-center gap-2'>
                                 <link.icon className={clsx(link.color, link.className)} />

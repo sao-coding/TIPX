@@ -8,7 +8,7 @@ import PostList from './post-list'
 const HomePage = async () => {
   // const searchAuth = await getSearchAuth('D11019139')
   const session = await getServerSession(authOptions)
-  console.log({ session })
+  // console.log({ session })
   return (
     <>
       <PostList />

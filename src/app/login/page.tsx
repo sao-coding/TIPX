@@ -53,7 +53,7 @@ const LoginPage = () => {
           </CardHeader>
         </Card>
       </div>
-      <div className='relative bottom-0 right-0 top-0 mx-auto mb-4 w-11/12 sm:w-[400px] lg:fixed lg:right-16 lg:w-[450px] lg:py-36'>
+      <div className='dpi-125:pb-2 relative bottom-0 right-0 top-0 mx-auto mb-4 w-11/12 sm:w-[400px] lg:fixed lg:right-16 lg:w-[450px] lg:py-36'>
         <div className='flex h-96 flex-col rounded-lg bg-card md:h-[50vh] lg:h-full'>
           <div className='border-b p-6 text-2xl font-semibold leading-none tracking-tight'>
             學校公告
