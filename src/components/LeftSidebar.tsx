@@ -39,66 +39,68 @@ const LeftSidebar = () => {
               <React.Fragment key={index}>
                 {group.group !== '一般資訊' ? (
                   <>
-                    {isDesktop ? <>2</> : <>1</>}
-                    <TooltipProvider delayDuration={100}>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Collapsible>
-                            <CollapsibleTrigger className='group hidden w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:block'>
-                              <div className='flex items-center justify-between'>
-                                <div className='flex items-center gap-2'>
-                                  <IconHistoryToggle className='text-primary' />
-                                  <span className='block sm:hidden xl:block'>{group.group}</span>
+                    {isDesktop ? (
+                      <TooltipProvider delayDuration={100}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Collapsible>
+                              <CollapsibleTrigger className='group w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+                                <div className='flex items-center justify-between'>
+                                  <div className='flex items-center gap-2'>
+                                    <IconHistoryToggle className='text-primary' />
+                                    <span>{group.group}</span>
+                                  </div>
+                                  {/* html 屬性 data-state 若是open則旋轉180度 */}
+                                  {/* 過度動畫 */}
+                                  <IconChevronDown className='transition-transform group-data-[state=open]:rotate-180' />
                                 </div>
-                                {/* html 屬性 data-state 若是open則旋轉180度 */}
-                                {/* 過度動畫 */}
-                                <IconChevronDown className='transition-transform group-data-[state=open]:rotate-180' />
-                              </div>
-                            </CollapsibleTrigger>
-                            <CollapsibleContent>
-                              {group.links.map((link, index) => (
-                                <TooltipProvider key={index} delayDuration={100}>
-                                  <Tooltip>
-                                    <TooltipTrigger asChild>
-                                      <Link
-                                        href={link.href}
-                                        className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
-                                      >
-                                        <div className='flex items-center gap-2'>
-                                          <link.icon className={clsx(link.color, link.className)} />
-                                          <span className='block sm:hidden xl:block'>
-                                            {link.text}
-                                          </span>
-                                        </div>
-                                      </Link>
-                                    </TooltipTrigger>
-                                    <TooltipContent side='right'>{link.text}</TooltipContent>
-                                  </Tooltip>
-                                </TooltipProvider>
-                              ))}
-                            </CollapsibleContent>
-                          </Collapsible>
-                        </TooltipTrigger>
-                        <TooltipContent side='right'>{group.group}</TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                    {/* 筆電版 */}
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <button className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:hidden xl:justify-start'>
-                          <IconHistoryToggle className='text-primary' />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className='w-56' side='right'>
-                        <DropdownMenuLabel>歷年資訊</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        {group.links.map((link, index) => (
-                          <DropdownMenuItem key={index}>
-                            <Link href={link.href}>{link.text}</Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                {group.links.map((link, index) => (
+                                  <TooltipProvider key={index} delayDuration={100}>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Link
+                                          href={link.href}
+                                          className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
+                                        >
+                                          <div className='flex items-center gap-2'>
+                                            <link.icon
+                                              className={clsx(link.color, link.className)}
+                                            />
+                                            <span>{link.text}</span>
+                                          </div>
+                                        </Link>
+                                      </TooltipTrigger>
+                                      <TooltipContent side='right'>{link.text}</TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                ))}
+                              </CollapsibleContent>
+                            </Collapsible>
+                          </TooltipTrigger>
+                          <TooltipContent side='right'>{group.group}</TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    ) : (
+                      //  筆電版
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+                            <IconHistoryToggle className='text-primary' />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className='w-56' side='right'>
+                          <DropdownMenuLabel>歷年資訊</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          {group.links.map((link, index) => (
+                            <DropdownMenuItem key={index}>
+                              <Link href={link.href}>{link.text}</Link>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
                   </>
                 ) : (
                   <>

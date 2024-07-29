@@ -206,6 +206,6 @@ export const GET = async (req: NextRequest) => {
     }
     return NextResponse.json(timeTable[day - 1].timetable[nowCourse])
   }
-  console.log(timeTable)
+
   return NextResponse.json(timeTable)
 }

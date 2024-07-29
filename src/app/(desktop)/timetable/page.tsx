@@ -1,113 +1,62 @@
 'use client'
 // import { useCallback, useRef } from 'react'
-import Link from 'next/link'
-import Cookie from 'js-cookie'
+// import Cookie from 'js-cookie'
 import toast from 'react-hot-toast'
 
+import { useMediaQuery } from '@/hooks/use-media-query'
 // import toast from 'react-hot-toast'
-import { OutTimeTable, TimeTable } from '@/types'
+// import { OutTimeTable, TimeTable } from '@/types'
 import { useToPng } from '@hugocxl/react-to-image'
 import { IconShare2 } from '@tabler/icons-react'
-import { useQuery } from '@tanstack/react-query'
 
-// const getData = async () => {
-//     const res = await fetch(`${site.url}/api/timetable`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${Cookie.get("token")}`,
-//         },
-//     })
-
-//     if (!res.ok) {
-//         throw new Error("獲取資料失敗")
-//     }
-
-//     const data = await res.json()
-
-//     let timeTable: OutTimeTable = {
-//         week: [],
-//         timetable: [],
-//     }
-
-//     if (!data.error) {
-//         for (let i = 0; i < 7; i++) {
-//             timeTable.week.push(Object.keys(data)[i])
-//         }
-
-//         for (let i = 0; i < 14; i++) {
-//             timeTable.timetable.push([])
-//             for (let j = 0; j < 7; j++) {
-//                 timeTable.timetable[i].push(data[timeTable.week[j]][i])
-//             }
-//         }
-//     }
-
-//     return timeTable
-// }
+// import { useQuery } from '@tanstack/react-query'
+import DesktopTimeTable from './desktop-timebale'
+import MobileTimeTable from './mobile-timetable'
 
 const TimeTablePage = () => {
-  const week = ['一', '二', '三', '四', '五', '六', '日']
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
-  const trackShareTimeTable = () => {
-    const studentId = Cookie.get('cookie_userid') ?? ''
-    const data = studentId
-    return data
-  }
+  // const week = ['一', '二', '三', '四', '五', '六', '日']
 
-  const { isLoading, data } = useQuery<OutTimeTable>({
-    queryKey: ['timetable'],
-    queryFn: async () => {
-      const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+  // const trackShareTimeTable = () => {
+  //   const studentId = Cookie.get('cookie_userid') ?? ''
+  //   const data = studentId
+  //   return data
+  // }
 
-      const data: TimeTable[] = await res.json()
+  // const { isLoading, data } = useQuery<OutTimeTable>({
+  //   queryKey: ['timetable'],
+  //   queryFn: async () => {
+  //     const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
 
-      let timeTable: OutTimeTable = {
-        week: [],
-        timetable: []
-      }
+  //     const data: TimeTable[] = await res.json()
 
-      for (let i = 0; i < 7; i++) {
-        timeTable.week.push(data[i].week)
-      }
-
-      for (let i = 0; i < 14; i++) {
-        timeTable.timetable.push([])
-        for (let j = 0; j < 7; j++) {
-          timeTable.timetable[i].push(data[j].timetable[i])
-        }
-      }
-
-      console.log('timetable', timeTable)
-
-      return timeTable
-    }
-  })
-
-  //   const ref = useRef<HTMLDivElement>(null)
-
-  //   const saveImage = useCallback(() => {
-  //     toast.loading('圖片生成中...')
-  //     if (ref.current === null) {
-  //       return
+  //     let timeTable: OutTimeTable = {
+  //       week: [],
+  //       timetable: []
   //     }
 
-  //     toPng(ref.current, { cacheBust: true })
-  //       .then((dataUrl) => {
-  //         const file = dataUrlToFile(dataUrl, '課表.png')
-  //         toast.remove()
-  //         toast.success('圖片生成成功')
-  //         Share('課表', '課表', file as File)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err)
-  //       })
-  //   }, [ref])
+  //     for (let i = 0; i < 7; i++) {
+  //       timeTable.week.push(data[i].week)
+  //     }
+
+  //     for (let i = 0; i < 14; i++) {
+  //       timeTable.timetable.push([])
+  //       for (let j = 0; j < 7; j++) {
+  //         timeTable.timetable[i].push(data[j].timetable[i])
+  //       }
+  //     }
+
+  //     console.log('timetable', timeTable)
+
+  //     return timeTable
+  //   }
+  // })
 
   const dataUrlToFile = (dataUrl: string, filename: string) => {
     const arr = dataUrl.split(',')
@@ -152,6 +101,7 @@ const TimeTablePage = () => {
       Share('課表', '課表', file as File)
     }
   })
+
   return (
     <>
       <div className='relative mb-3 flex flex-col items-center'>
@@ -170,66 +120,7 @@ const TimeTablePage = () => {
         />
       </div>
 
-      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:bg-background1 md:p-6 md:shadow-md'>
-        <div className='overflow-x-auto rounded-md md:flex md:items-center md:justify-center'>
-          <div ref={ref} className='table w-[960px] table-fixed overflow-hidden rounded-md'>
-            <div className='table-header-group'>
-              {Array.from(Array(7).keys()).map((index) => (
-                <div
-                  className='table-cell whitespace-nowrap bg-background2 p-2 text-center'
-                  key={index}
-                >
-                  星期{week[index]}
-                </div>
-              ))}
-            </div>
-            <div className='table-row-group'>
-              {Array.from(Array(14).keys()).map((i) => (
-                <div className='table-row' key={i}>
-                  {isLoading &&
-                    Array.from(Array(7).keys()).map((item, index) => (
-                      <div
-                        // hsl(0deg 0% 12.55%)
-                        className='relative table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 pb-6 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
-                        key={index}
-                      >
-                        <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-background3 px-1 text-center'>
-                          <div>{i + 1}</div>
-                        </div>
-
-                        <div className='h-24 text-center' key={index}>
-                          載入中...
-                        </div>
-                      </div>
-                    ))}
-                  {data &&
-                    data.timetable.length > 0 &&
-                    data.timetable[i].map((item, index) => (
-                      <div
-                        className='relative table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 pb-6 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
-                        key={index}
-                      >
-                        <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-background3 px-1 text-center'>
-                          <div>{i + 1}</div>
-                        </div>
-                        <div className='rounded text-center hover:bg-background3'>
-                          <Link
-                            href={`/course/${item.id}?tab=規範`}
-                            className='border-b-2 border-background3 text-blue-500'
-                          >
-                            {item.course}
-                          </Link>
-                        </div>
-                        <div className='text-center'>{item.classroom}</div>
-                        <div className='text-center'>{item.teacher}</div>
-                      </div>
-                    ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      {isDesktop ? <DesktopTimeTable ref={ref} /> : <MobileTimeTable ref={ref} />}
     </>
   )
 }
