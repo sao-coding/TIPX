@@ -120,7 +120,8 @@ const TimeTablePage = () => {
         />
       </div>
 
-      {isDesktop ? <DesktopTimeTable ref={ref} /> : <MobileTimeTable ref={ref} />}
+      {isDesktop && <DesktopTimeTable ref={ref} />}
+      {isDesktop === false && <MobileTimeTable ref={ref} />}
     </>
   )
 }

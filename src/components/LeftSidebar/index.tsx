@@ -20,6 +20,8 @@ import { USER_LINKS } from '@/config/links'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { IconChevronDown, IconHistoryToggle } from '@tabler/icons-react'
 
+import { Skeleton } from '../ui/skeleton'
+
 import Switch from './switch'
 
 const LeftSidebar = () => {
@@ -39,7 +41,12 @@ const LeftSidebar = () => {
               <React.Fragment key={index}>
                 {group.group !== '一般資訊' ? (
                   <>
-                    {isDesktop ? (
+                    {isDesktop === null && (
+                      <div className='flex h-10 items-center p-2'>
+                        <Skeleton className='h-5 w-full' />
+                      </div>
+                    )}
+                    {isDesktop && (
                       <TooltipProvider delayDuration={100}>
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -82,7 +89,8 @@ const LeftSidebar = () => {
                           <TooltipContent side='right'>{group.group}</TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                    ) : (
+                    )}
+                    {isDesktop === false && (
                       //  筆電版
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>

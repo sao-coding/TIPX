@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { NAV_LINKS } from '@/config/links'
 import { cn } from '@/lib/utils'
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden'
 import { IconLayoutGridAdd } from '@tabler/icons-react'
 
 import RightTool from './RightTool'
@@ -87,6 +88,9 @@ const Footer = () => {
           <SheetTrigger className='footer relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl'>
             <IconLayoutGridAdd className='rotate-180' size={26} />
           </SheetTrigger>
+          <VisuallyHidden.Root>
+            <SheetTitle>工具箱</SheetTitle>
+          </VisuallyHidden.Root>
           <SheetContent className='p-2'>
             {/* <SheetHeader>
               <SheetTitle>Are you absolutely sure?</SheetTitle>

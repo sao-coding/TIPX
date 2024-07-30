@@ -26,7 +26,7 @@ import getCurrentYearSem from '@/utils/current-year-sem'
 import { IconLoader2, IconSelector } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-import { Skeleton } from './ui/skeleton'
+import { Skeleton } from '../ui/skeleton'
 
 type Sem = {
   year: string
@@ -76,7 +76,7 @@ const Switch = () => {
   return (
     <>
       {isDesktop === null && (
-        <div className='mt-2 flex h-10 items-center'>
+        <div className='mt-2 flex h-10 items-center p-2'>
           <Skeleton className='h-5 w-full' />
         </div>
       )}

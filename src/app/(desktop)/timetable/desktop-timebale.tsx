@@ -18,7 +18,7 @@ const DesktopTimeTable = React.forwardRef<HTMLDivElement>((_, ref) => {
   }
 
   const { isLoading, data } = useQuery<OutTimeTable>({
-    queryKey: ['timetable'],
+    queryKey: ['desktop-timebale'],
     queryFn: async () => {
       const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
         method: 'GET',
