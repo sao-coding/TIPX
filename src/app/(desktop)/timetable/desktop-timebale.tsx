@@ -3,12 +3,15 @@
 import React from 'react'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
+import toast from 'react-hot-toast'
 
 // import toast from 'react-hot-toast'
 import { OutTimeTable, TimeTable } from '@/types'
+import { useToPng } from '@hugocxl/react-to-image'
+import { IconShare2 } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-const DesktopTimeTable = React.forwardRef<HTMLDivElement>((_, ref) => {
+const DesktopTimeTable = () => {
   const week = ['一', '二', '三', '四', '五', '六', '日']
 
   const trackShareTimeTable = () => {
@@ -51,8 +54,67 @@ const DesktopTimeTable = React.forwardRef<HTMLDivElement>((_, ref) => {
     }
   })
 
+  const dataUrlToFile = (dataUrl: string, filename: string) => {
+    const arr = dataUrl.split(',')
+    if (arr) {
+      const mime = arr[0].match(/:(.*?);/)![1]
+      const bstr = atob(arr[1])
+      let n = bstr.length
+      const u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+      return new File([u8arr], filename, { type: mime })
+    }
+  }
+
+  const Share = (title: string, text: string, file: File) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: title,
+          text: text,
+          files: [file]
+        })
+        .then(() => {
+          console.log('已分享')
+        })
+        .catch(console.error)
+    } else {
+      console.log('Web Share API 不支援')
+    }
+  }
+  const [state, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onStart: () => {
+      // 跑0.5秒的loading
+      toast.loading('圖片生成中...')
+    },
+    onSuccess: (data) => {
+      // 下載圖片(data)
+      const file = dataUrlToFile(data, '課表.png')
+      toast.remove()
+      toast.success('圖片生成成功')
+      Share('課表', '課表', file as File)
+    }
+  })
+
   return (
     <>
+      <div className='relative mb-3 flex flex-col items-center'>
+        <h1 className='w-full text-center text-2xl font-bold md:text-left'>課表</h1>
+
+        <IconShare2
+          size={30}
+          className='absolute right-0 top-0 cursor-pointer'
+          onClick={() => {
+            convertToPng()
+            //   saveImage()
+            //   umami.track('課表分享', {
+            //     data: trackShareTimeTable()
+            //   })
+          }}
+        />
+      </div>
       <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:bg-background1 md:p-6 md:shadow-md'>
         <div className='overflow-x-auto rounded-md md:flex md:items-center md:justify-center'>
           <div ref={ref} className='table w-[960px] table-fixed overflow-hidden rounded-md'>
@@ -115,8 +177,6 @@ const DesktopTimeTable = React.forwardRef<HTMLDivElement>((_, ref) => {
       </div>
     </>
   )
-})
-
-DesktopTimeTable.displayName = 'DesktopTimeTable'
+}
 
 export default DesktopTimeTable

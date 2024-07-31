@@ -3,6 +3,7 @@
 @media screen and (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -34,7 +35,7 @@
 .user-info {
   position: relative;
   perspective: 150rem;
-  width: theme("width.full");
+  width: theme('width.full');
   height: 120px;
 }
 
@@ -108,7 +109,7 @@
   }
 
   .ripple:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
