@@ -100,12 +100,12 @@ const DesktopTimeTable = () => {
 
   return (
     <>
-      <div className='relative mb-3 flex flex-col items-center'>
+      <div className='relative mb-3 flex items-center py-1'>
         <h1 className='w-full text-center text-2xl font-bold md:text-left'>課表</h1>
 
         <IconShare2
           size={30}
-          className='absolute right-0 top-0 cursor-pointer'
+          className='absolute right-0 top-0 cursor-pointer md:static'
           onClick={() => {
             convertToPng()
             //   saveImage()
@@ -115,7 +115,7 @@ const DesktopTimeTable = () => {
           }}
         />
       </div>
-      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:bg-background1 md:p-6 md:shadow-md'>
+      <div className='mb-16 w-full rounded-3xl px-2 pb-2 md:top-[68px] md:mb-0 md:p-0'>
         <div className='overflow-x-auto rounded-md md:flex md:items-center md:justify-center'>
           <div ref={ref} className='table w-[960px] table-fixed overflow-hidden rounded-md'>
             <div className='table-header-group'>

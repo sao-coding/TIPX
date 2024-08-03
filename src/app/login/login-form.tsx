@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { site } from '@/config/site'
+import getCurrentYearSem from '@/utils/current-year-sem'
 import { IconBrandGoogle, IconLoader2 } from '@tabler/icons-react'
 
 const LoginForm = () => {
@@ -27,13 +29,26 @@ const LoginForm = () => {
       .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
   }, [toasts])
 
+  // 判斷學年度
+  React.useEffect(() => {
+    Object.keys(Cookies.get()).forEach((cookieName) => {
+      Cookies.remove(cookieName)
+    })
+    const setCurrentYearSem = async () => {
+      const { currentYear, currentSem } = getCurrentYearSem()
+      Cookies.set('year', currentYear, { expires: site.cookies.expires })
+      Cookies.set('sem', currentSem, { expires: site.cookies.expires })
+    }
+    setCurrentYearSem()
+  }, [])
+
   const fetchLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const studentId = (document.querySelector('#student-id') as HTMLInputElement)?.value
+    const userId = (document.querySelector('#user-id') as HTMLInputElement)?.value
     const authCode = (document.querySelector('#auth-code') as HTMLInputElement)?.value
 
-    if (studentId === '') {
+    if (userId === '') {
       toast.error('請輸入學號')
       return
     }
@@ -46,7 +61,7 @@ const LoginForm = () => {
     const toastId = toast.loading('登入中...')
     const status = await signIn('credentials', {
       redirect: false,
-      studentId,
+      userId,
       password: authCode
     })
 
@@ -66,8 +81,8 @@ const LoginForm = () => {
       <div className='grid gap-4'>
         <form onSubmit={fetchLogin} className='grid gap-4'>
           <div className='grid gap-3'>
-            <Label htmlFor='student-id'>學號</Label>
-            <Input id='student-id' />
+            <Label htmlFor='user-id'>學號</Label>
+            <Input id='user-id' />
           </div>
           <div className='grid gap-3'>
             <Label htmlFor='auth-code' className='flex items-center gap-2'>

@@ -1,17 +1,31 @@
 // 課堂資訊
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 
-import authOptions from '@/lib/auth'
+import getAuth from '@/lib/get-auth'
 import getCourse from '@/utils/course'
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+  console.log('auth', auth)
+
+  // if (!auth) {
+  //   return NextResponse.json(
+  //     {
+  //       error: 'Unauthorized'
+  //     },
+  //     {
+  //       status: 401
+  //     }
+  //   )
+  // }
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const userid = searchParams.get('userid') ?? auth?.userId
 
   if (req.nextUrl.searchParams.has('course') === false) {
     const courselist = await getCourse(userid ?? '', year ?? '', sem ?? '')

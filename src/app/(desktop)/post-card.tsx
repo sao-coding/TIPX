@@ -50,7 +50,7 @@ const PostCard = React.forwardRef<HTMLAnchorElement, { post: Announcement }>(({ 
                 <div className='pl-1'>{post.deadline}</div>
               </div>
             </div>
-            <div className='absolute bottom-0 right-0 rounded-lg px-1'>{post.unit}</div>
+            <div className='absolute bottom-0 right-0 px-1'>{post.unit}</div>
           </div>
         </div>
       </motion.div>

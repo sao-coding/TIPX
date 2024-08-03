@@ -66,8 +66,8 @@ const Switch = () => {
     const sem = value.split('-')[1]
     setYear(year)
     setSem(sem)
-    Cookies.set('cookie_year', year, { expires: site.cookie.expires })
-    Cookies.set('cookie_sem', sem, { expires: site.cookie.expires })
+    Cookies.set('year', year, { expires: site.cookies.expires })
+    Cookies.set('sem', sem, { expires: site.cookies.expires })
 
     // 重新整理()
     router.refresh()
