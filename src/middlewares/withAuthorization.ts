@@ -8,30 +8,21 @@ export const withAuthorization: MiddlewareFactory = (next) => {
   return async (req: NextRequest, _next: NextFetchEvent) => {
     const refreshToken = req.cookies.get('refreshToken')?.value || ''
     const accessToken = req.cookies.get('accessToken')?.value || ''
-    // console.log('middleware: refreshToken', refreshToken)
+    let verify
 
-    // const verify = await verifyJwt(refreshToken, 'refresh')
-    let verify = await verifyJwt(accessToken)
+    verify = await verifyJwt(accessToken)
 
     // 例外位置
     // req.nextUrl.pathname.startsWith("/api/og") ||
     // req.nextUrl.pathname.startsWith("/api/post") ||
     // req.nextUrl.pathname.startsWith('/api/auth') ||
-    //   req.nextUrl.pathname.startsWith('/api/refresh-token')
+    // req.nextUrl.pathname.startsWith('/api/refresh-token')
     // req.nextUrl.pathname.startsWith("/api/git-log")
     // req.nextUrl.pathname.startsWith('/api')
-    const exception = [
-      '/api/og',
-      '/api/post',
-      '/api/auth',
-      '/api/refresh-token',
-      '/api/git-log',
-      '/api/credit',
-      '/api/hw'
-    ]
+    const exception = ['/api/og', '/api/post', '/api/auth', '/api/refresh-token', '/api/git-log']
 
     if (req.nextUrl.pathname.startsWith('/api')) {
-      console.log(`middleware: ${req.nextUrl.pathname}`)
+      console.log(`middleware: ${req.nextUrl.pathname} auth: ${JSON.stringify(verify)}`)
       if (exception.some((path) => req.nextUrl.pathname.startsWith(path))) {
         console.log(`middleware: 跳過 ${req.nextUrl.pathname}`)
       } else if (!verify) {
@@ -47,7 +38,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       }
     }
 
-    verify = await verifyJwt(refreshToken, 'refresh')
+    verify = await verifyJwt(refreshToken)
 
     if (
       req.nextUrl.pathname.startsWith('/timetable') ||

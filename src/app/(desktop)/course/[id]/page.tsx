@@ -1,6 +1,7 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import api from '@/lib/api'
 import { Course } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
@@ -10,16 +11,19 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   const { isLoading, data } = useQuery<Course>({
     queryKey: ['course', params.id],
     queryFn: async () => {
-      const res = await fetch(`/api/course?course=${params.id}&year=111&sem=2&userid=D11019247`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-          //   Authorization: `Bearer ${Cookies.get('token')}`
-        }
-      })
+      // const res = await fetch(`/api/course?course=${params.id}&year=111&sem=2&userid=D11019247`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //     //   Authorization: `Bearer ${Cookies.get('token')}`
+      //   }
+      // })
 
-      const data = await res.json()
+      // const data = await res.json()
 
+      // return data
+
+      const { data } = await api.get(`/course/${params.id}`)
       return data
     }
   })

@@ -1,21 +1,24 @@
 // 課表
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 import { JSDOM } from 'jsdom'
 
-import authOptions from '@/lib/auth'
 import redis from '@/lib/redis'
 import { TimeTable } from '@/types'
+import getAuth from '@/utils/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const userid = searchParams.get('userid') ?? auth?.userId
   const type = searchParams.get('type') ?? 'all'
   const time = searchParams.get('time') ?? ''
+
+  console.log(`year: ${year} sem: ${sem} userid: ${userid} type: ${type} time: ${time}`)
 
   // 平日
   // 第一節 08:20~09:10

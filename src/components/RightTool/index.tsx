@@ -1,6 +1,6 @@
-import Hw from '@/app/(desktop)/hw'
+import { Calendar } from '@/components/ui/calendar'
 
-import { Calendar } from './ui/calendar'
+import Hw from './hw'
 
 const RightTool = () => {
   return (

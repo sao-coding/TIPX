@@ -12,24 +12,9 @@ import { useQuery } from '@tanstack/react-query'
 
 const CourseListPage = () => {
   const { isLoading, data } = useQuery<Course[]>({
-    queryKey: ['course'],
+    queryKey: ['course', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      // const res = await fetch(`/api/course?year=111&sem=2&userid=D11019247`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //     //   Authorization: `Bearer ${Cookies.get('token')}`
-      //   }
-      // })
-
-      // const data = await res.json()
-
-      // return data
-      const { data } = await api.get('/course', {
-        headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
-        }
-      })
+      const { data } = await api.get('/course')
       return data
     }
   })

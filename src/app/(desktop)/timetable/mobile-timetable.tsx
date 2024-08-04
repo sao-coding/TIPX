@@ -2,8 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
+import api from '@/lib/api'
 import { TimeTable } from '@/types'
 import { useToPng } from '@hugocxl/react-to-image'
 import { IconLoader2, IconShare2 } from '@tabler/icons-react'
@@ -11,17 +13,18 @@ import { useQuery } from '@tanstack/react-query'
 
 const MobileTimeTable = () => {
   const { isLoading, data } = useQuery<TimeTable[]>({
-    queryKey: ['mobile-timetable'],
+    queryKey: ['mobile-timetable', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      // const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
 
-      const data = await res.json()
+      // const data = await res.json()
 
+      const { data } = await api.get(`/timetable?type=all`)
       return data
     }
   })

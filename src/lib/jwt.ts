@@ -28,7 +28,7 @@
 //     return null
 //   }
 // }
-import { jwtVerify, SignJWT } from 'jose'
+import { jwtVerify, JWTVerifyOptions, SignJWT } from 'jose'
 
 interface SignOption {
   expiresIn: string
@@ -53,13 +53,14 @@ export const signJwtAccessToken = async (
   return token
 }
 
-export const verifyJwt = async (token: string, type: 'access' | 'refresh' = 'access') => {
+export const verifyJwt = async (token: string, options: JWTVerifyOptions = {}) => {
   try {
     const secretKey = new TextEncoder().encode(process.env.NEXTAUTH_SECRET as string)
-    const { payload } = await jwtVerify(token, secretKey)
+    const { payload } = await jwtVerify(token, secretKey, options)
+
     return payload
   } catch (error) {
-    console.error(`${type} verifyJwt 錯誤: ${error}`)
+    console.error(`verifyJwt 錯誤: ${error}`)
     return null
   }
 }

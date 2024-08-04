@@ -1,8 +1,8 @@
-import { verifyJwt } from './jwt'
+import { verifyJwt } from '@/lib/jwt'
 
 const getAuth = async (accessToken: string) => {
-  console.log('驗證 accessToken', accessToken)
-  const verify = await verifyJwt(accessToken)
+  const verify = await verifyJwt(accessToken, { clockTolerance: 5 })
+  console.log('getAuth()', verify)
 
   type Auth = {
     type: 'refresh' | 'access'

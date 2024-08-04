@@ -1,5 +1,8 @@
 'use client'
 
+import React from 'react'
+import Cookies from 'js-cookie'
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,6 +14,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import api from '@/lib/api'
 import { HwList } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
 import { IconBookDownload, IconCalendarOff, IconInfoCircle, IconLoader2 } from '@tabler/icons-react'
@@ -22,10 +26,11 @@ const Hw = () => {
     isError,
     data: Hw
   } = useQuery<{ course: string; hw: HwList[] }[]>({
-    queryKey: ['tool-hw'],
+    queryKey: ['tool-hw', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const res = await fetch(`/api/hw?year=111&sem=2&userid=D11019247&type=tool`)
-      const data = await res.json()
+      // const res = await fetch(`/api/hw?type=tool`)
+      // const data = await res.json()
+      const { data } = await api.get<{ data: HwList[] }>('/hw?type=tool')
 
       // data.data
       // 用課程分組作業

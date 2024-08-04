@@ -2,24 +2,12 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import getAuth from '@/lib/get-auth'
 import getCourse from '@/utils/course'
+import getAuth from '@/utils/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
   const auth = await getAuth(accessToken)
-  console.log('auth', auth)
-
-  // if (!auth) {
-  //   return NextResponse.json(
-  //     {
-  //       error: 'Unauthorized'
-  //     },
-  //     {
-  //       status: 401
-  //     }
-  //   )
-  // }
 
   const searchParams = req.nextUrl.searchParams
 

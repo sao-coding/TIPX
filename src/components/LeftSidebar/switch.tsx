@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 
@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select'
 import { site } from '@/config/site'
 import { useMediaQuery } from '@/hooks/use-media-query'
+import api from '@/lib/api'
 import getCurrentYearSem from '@/utils/current-year-sem'
 import { IconLoader2, IconSelector } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
@@ -34,8 +35,8 @@ type Sem = {
 }
 
 const Switch = () => {
-  const [year, setYear] = useState(Cookies.get('cookie_year'))
-  const [sem, setSem] = useState(Cookies.get('cookie_sem'))
+  const [year, setYear] = React.useState(Cookies.get('year'))
+  const [sem, setSem] = React.useState(Cookies.get('sem'))
   const router = useRouter()
   const isDesktop = useMediaQuery('(min-width: 1280px)')
 
@@ -47,16 +48,15 @@ const Switch = () => {
     queryKey: ['credit'],
     queryFn: async () => {
       const { currentYear, currentSem } = getCurrentYearSem()
-      const res = await fetch(
-        `/api/credit?year=${currentYear}&sem=${currentSem}&userid=D10919101`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-      const data = await res.json()
+      // const res = await fetch(`/api/credit?year=${currentYear}&sem=${currentSem}`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
+      // const data = await res.json()
+      // return data
+      const { data } = await api.get(`/credit?year=${currentYear}&sem=${currentSem}`)
       return data
     }
   })
@@ -70,6 +70,7 @@ const Switch = () => {
     Cookies.set('sem', sem, { expires: site.cookies.expires })
 
     // 重新整理()
+    console.log('重新整理')
     router.refresh()
   }
 
@@ -111,7 +112,7 @@ const Switch = () => {
       {isDesktop === false && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+            <button className='mt-2 flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
               <IconSelector className='stroke-purple-500' />
             </button>
           </DropdownMenuTrigger>

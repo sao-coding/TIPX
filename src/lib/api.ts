@@ -1,7 +1,16 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const api = axios.create({
   baseURL: '/api'
+})
+
+api.interceptors.request.use((config) => {
+  const accessToken = Cookies.get('accessToken')
+  if (accessToken) {
+    config.headers['Authorization'] = `Bearer ${accessToken}`
+  }
+  return config
 })
 
 api.interceptors.response.use(

@@ -1,19 +1,20 @@
 // 作業清單
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 import * as cheerio from 'cheerio'
 
-import authOptions from '@/lib/auth'
 import { Course, HwList } from '@/types'
 import getCourse from '@/utils/course'
+import getAuth from '@/utils/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const userid = searchParams.get('userid') ?? auth?.userId
   const course = searchParams.get('course') ?? ''
   const type = searchParams.get('type') ?? 'hw'
 

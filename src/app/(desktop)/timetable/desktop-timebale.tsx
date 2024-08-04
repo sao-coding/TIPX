@@ -3,8 +3,10 @@
 import React from 'react'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
+import api from '@/lib/api'
 // import toast from 'react-hot-toast'
 import { OutTimeTable, TimeTable } from '@/types'
 import { useToPng } from '@hugocxl/react-to-image'
@@ -21,16 +23,9 @@ const DesktopTimeTable = () => {
   }
 
   const { isLoading, data } = useQuery<OutTimeTable>({
-    queryKey: ['desktop-timebale'],
+    queryKey: ['desktop-timebale', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-
-      const data: TimeTable[] = await res.json()
+      const { data } = await api.get<TimeTable[]>(`/timetable?type=all`)
 
       let timeTable: OutTimeTable = {
         week: [],
