@@ -11,7 +11,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   const { isLoading, data } = useQuery<Course>({
     queryKey: ['course', params.id],
     queryFn: async () => {
-      // const res = await fetch(`/api/course?course=${params.id}&year=111&sem=2&userid=D11019247`, {
+      // const res = await fetch(`/api/course?course=${params.id}&year=111&sem=2&userid=D11019139`, {
       //   method: 'GET',
       //   headers: {
       //     'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
       // return data
 
-      const { data } = await api.get(`/course/${params.id}`)
+      const { data } = await api.get(`/course?course=${params.id}`)
       return data
     }
   })

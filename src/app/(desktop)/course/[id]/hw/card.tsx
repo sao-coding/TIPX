@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"
-import clsx from "clsx"
-import { motion } from "framer-motion"
-import { FileUploader } from "react-drag-drop-files"
-import toast, { useToasterStore } from "react-hot-toast"
+import React, { useEffect, useState } from 'react'
+import clsx from 'clsx'
+import { motion } from 'framer-motion'
+import { FileUploader } from 'react-drag-drop-files'
+import toast, { useToasterStore } from 'react-hot-toast'
 
-import { HwList } from "@/types"
-import * as Dialog from "@radix-ui/react-dialog"
+import { HwList } from '@/types'
+import * as Dialog from '@radix-ui/react-dialog'
 import {
   IconCalendarOff,
   IconCalendarTime,
@@ -15,9 +15,9 @@ import {
   IconSlash,
   IconUpload,
   IconX
-} from "@tabler/icons-react"
+} from '@tabler/icons-react'
 
-const Card = ({ course, data, studentID }: { course: string; data: HwList; studentID: string }) => {
+const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
   const [file, setFile] = useState<File | null>(null)
   const [onDrop, setOnDrop] = useState(false)
   const { toasts } = useToasterStore()
@@ -31,17 +31,17 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
       .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
   }, [toasts])
 
-  const trackDownloadFile = (course: string, title: string) => {
-    return `${studentID} - ${course} - ${title}`
-  }
+  // const trackDownloadFile = (course: string, title: string) => {
+  //   return `${studentID} - ${course} - ${title}`
+  // }
 
-  const trackDownloadHw = (course: string, title: string) => {
-    return `${studentID} - ${course} - ${title}`
-  }
+  // const trackDownloadHw = (course: string, title: string) => {
+  //   return `${studentID} - ${course} - ${title}`
+  // }
 
-  const trackUploadHw = (course: string, title: string) => {
-    return `${studentID} - ${course} - ${title}`
-  }
+  // const trackUploadHw = (course: string, title: string) => {
+  //   return `${studentID} - ${course} - ${title}`
+  // }
 
   const formatTime = (time: string) => {
     // 202306151300
@@ -60,26 +60,26 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
 
   const upload = async (event: React.FormEvent<HTMLFormElement>, id: string) => {
     event.preventDefault()
-    const toastId = toast.loading("上傳中...")
+    const toastId = toast.loading('上傳中...')
     const bodyContent = new FormData()
-    bodyContent.append("id", id)
-    bodyContent.append("userfile", file as Blob)
+    bodyContent.append('id', id)
+    bodyContent.append('userfile', file as Blob)
 
-    const res = await fetch("/api/hw", {
-      method: "POST",
+    const res = await fetch('/api/hw', {
+      method: 'POST',
       body: bodyContent
     })
 
     const json = await res.json()
-    if (json.status === "success") {
-      toast.success("上傳成功", { id: toastId })
-      umami.track("作業上傳", {
-        data: trackUploadHw(course, data.title)
-      })
-    } else if (json.status === "error") {
+    if (json.status === 'success') {
+      toast.success('上傳成功', { id: toastId })
+      // umami.track('作業上傳', {
+      //   data: trackUploadHw(course, data.title)
+      // })
+    } else if (json.status === 'error') {
       toast.error(json.message, { id: toastId })
     } else {
-      toast.error("上傳失敗", { id: toastId })
+      toast.error('上傳失敗', { id: toastId })
     }
   }
 
@@ -91,8 +91,8 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
     <div className='relative mb-2 w-full border-b'>
       <div
         className={clsx(
-          "absolute right-2 top-2 rounded-md p-1 text-white",
-          data.status === "已繳交" ? "bg-green-600" : "bg-red-600"
+          'absolute right-2 top-2 rounded-md p-1 text-white',
+          data.status === '已繳交' ? 'bg-green-600' : 'bg-red-600'
         )}
       >
         {data.status}
@@ -113,20 +113,20 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
             <div>附件</div>
             <button
               className={clsx(
-                "rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
-                data.file === "" ? "cursor-not-allowed" : ""
+                'bg-main-color-3 hover:text-main-color-3 rounded-md p-1 text-white hover:bg-white',
+                data.file === '' ? 'cursor-not-allowed' : ''
               )}
-              disabled={data.file === ""}
+              disabled={data.file === ''}
               onClick={() => {
-                if (data.file !== "") {
-                  umami.track("附件下載", {
-                    data: trackDownloadFile(course, data.title)
-                  })
+                if (data.file !== '') {
+                  // umami.track('附件下載', {
+                  //   data: trackDownloadFile(course, data.title)
+                  // })
                   download(data.file)
                 }
               }}
             >
-              {data.file === "" ? <IconDownloadOff size={20} /> : <IconDownload size={20} />}
+              {data.file === '' ? <IconDownloadOff size={20} /> : <IconDownload size={20} />}
             </button>
           </div>
         </div>
@@ -134,13 +134,13 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
           <Dialog.Root>
             <Dialog.Trigger
               className={clsx(
-                "relative rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
-                data.upload === "" ? "cursor-not-allowed" : ""
+                'bg-main-color-3 hover:text-main-color-3 relative rounded-md p-1 text-white hover:bg-white',
+                data.upload === '' ? 'cursor-not-allowed' : ''
               )}
-              disabled={data.upload === ""}
+              disabled={data.upload === ''}
             >
               <IconUpload />
-              {data.upload === "" && (
+              {data.upload === '' && (
                 <IconSlash
                   className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
                   size={20}
@@ -148,12 +148,12 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
               )}
             </Dialog.Trigger>
             <Dialog.Portal>
-              <Dialog.Overlay className='fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm data-[state=open]:animate-overlayShow' />
+              <Dialog.Overlay className='data-[state=open]:animate-overlayShow fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm' />
               <Dialog.Content asChild>
                 <motion.div
-                  className='fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card-background p-4 shadow-lg focus:outline-none data-[state=open]:animate-contentShow'
-                  initial={{ opacity: 0, scale: 0.9, y: "-50%", x: "-50%" }}
-                  animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
+                  className='bg-card-background data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg p-4 shadow-lg focus:outline-none'
+                  initial={{ opacity: 0, scale: 0.9, y: '-50%', x: '-50%' }}
+                  animate={{ opacity: 1, scale: 1, y: '-50%', x: '-50%' }}
                 >
                   <Dialog.Close className='absolute right-4 top-4 text-gray-400 hover:text-gray-500'>
                     <IconX />
@@ -169,21 +169,21 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                     <FileUploader
                       handleChange={(file: File) => handleFileChange(file)}
                       onDraggingStateChange={(dragging: boolean) => setOnDrop(dragging)}
-                      onTypeError={() => toast.error("不支援的檔案類型")}
+                      onTypeError={() => toast.error('不支援的檔案類型')}
                       name='userfile'
                       types={[
-                        "doc",
-                        "xls",
-                        "txt",
-                        "ppt",
-                        "docx",
-                        "xlsx",
-                        "pptx",
-                        "accdb",
-                        "pdf",
-                        "xlsm",
-                        "zip",
-                        "rar"
+                        'doc',
+                        'xls',
+                        'txt',
+                        'ppt',
+                        'docx',
+                        'xlsx',
+                        'pptx',
+                        'accdb',
+                        'pdf',
+                        'xlsm',
+                        'zip',
+                        'rar'
                       ]}
                       hoverTitle='拖曳檔案至此'
                       classes='w-full h-full block focus:outline-none focus-within:!outline-none'
@@ -198,9 +198,9 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                                 {/* 檔案名稱 . 前面的部分 不超過 11 個字 */}
                                 {file ? (
                                   <div>
-                                    {file.name.split(".")[0].length > 11
-                                      ? `${file.name.split(".")[0].slice(0, 11)}... .${
-                                          file.name.split(".")[1]
+                                    {file.name.split('.')[0].length > 11
+                                      ? `${file.name.split('.')[0].slice(0, 11)}... .${
+                                          file.name.split('.')[1]
                                         }`
                                       : file.name}
                                   </div>
@@ -216,7 +216,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
                     <input
                       type='submit'
                       value='上傳檔案'
-                      className='w-full rounded-md bg-main-color-3 p-1 text-white hover:bg-main-color-4'
+                      className='bg-main-color-3 hover:bg-main-color-4 w-full rounded-md p-1 text-white'
                     />
                   </form>
                 </motion.div>
@@ -226,20 +226,20 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
           {/* 如果未繳交 cursor-not-allowed */}
           <button
             className={clsx(
-              "rounded-md bg-main-color-3 p-1 text-white hover:bg-white hover:text-main-color-3",
-              data.download === "" ? "cursor-not-allowed" : ""
+              'bg-main-color-3 hover:text-main-color-3 rounded-md p-1 text-white hover:bg-white',
+              data.download === '' ? 'cursor-not-allowed' : ''
             )}
-            disabled={data.download === ""}
+            disabled={data.download === ''}
             onClick={() => {
-              if (data.download !== "") {
-                umami.track("作業下載", {
-                  data: trackDownloadHw(course, data.title)
-                })
+              if (data.download !== '') {
+                // umami.track('作業下載', {
+                //   data: trackDownloadHw(course, data.title)
+                // })
                 download(data.download)
               }
             }}
           >
-            {data.download === "" ? <IconDownloadOff /> : <IconDownload />}
+            {data.download === '' ? <IconDownloadOff /> : <IconDownload />}
           </button>
         </div>
       </div>
