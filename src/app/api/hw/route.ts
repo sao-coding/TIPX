@@ -184,7 +184,11 @@ export const GET = async (req: NextRequest) => {
     await crawler(course)
   }
 
-  return NextResponse.json({ data: hwlist })
+  return NextResponse.json({
+    status: '非段考期間',
+    msg: '獲取成功',
+    data: hwlist
+  })
 }
 
 export const POST = async (req: NextRequest) => {

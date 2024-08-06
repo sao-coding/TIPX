@@ -88,16 +88,16 @@ const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
   }
 
   return (
-    <div className='relative mb-2 w-full border-b'>
+    <div className='relative w-full border-b hover:bg-background2'>
       <div
         className={clsx(
-          'absolute right-2 top-2 rounded-md p-1 text-white',
+          'absolute right-7 top-7 rounded-md p-1 text-white',
           data.status === '已繳交' ? 'bg-green-600' : 'bg-red-600'
         )}
       >
         {data.status}
       </div>
-      <div className='flex justify-between p-2'>
+      <div className='flex justify-between p-7'>
         <div>
           <div className='text-lg font-bold'>{data.title}</div>
           <div className='flex items-center space-x-1 text-sm text-neutral-500'>
@@ -113,7 +113,7 @@ const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
             <div>附件</div>
             <button
               className={clsx(
-                'bg-main-color-3 hover:text-main-color-3 rounded-md p-1 text-white hover:bg-white',
+                'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
                 data.file === '' ? 'cursor-not-allowed' : ''
               )}
               disabled={data.file === ''}
@@ -134,7 +134,7 @@ const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
           <Dialog.Root>
             <Dialog.Trigger
               className={clsx(
-                'bg-main-color-3 hover:text-main-color-3 relative rounded-md p-1 text-white hover:bg-white',
+                'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
                 data.upload === '' ? 'cursor-not-allowed' : ''
               )}
               disabled={data.upload === ''}
@@ -226,7 +226,7 @@ const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
           {/* 如果未繳交 cursor-not-allowed */}
           <button
             className={clsx(
-              'bg-main-color-3 hover:text-main-color-3 rounded-md p-1 text-white hover:bg-white',
+              'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
               data.download === '' ? 'cursor-not-allowed' : ''
             )}
             disabled={data.download === ''}
