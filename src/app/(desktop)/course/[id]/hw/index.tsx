@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie'
 
 import api from '@/lib/api'
-import { HwList } from '@/types'
+import { Hw } from '@/types'
 // import BottomToUpTransitionView from '@/components/transition/BottomToUpTransitionView'
 import { useQuery } from '@tanstack/react-query'
 
@@ -32,17 +32,6 @@ const HwPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      {/* <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'>
-        <div className='flex h-full w-full items-center justify-center'>
-          <div className='cat'>
-            <div className='cat__body'></div>
-            <div className='cat__body'></div>
-            <div className='cat__tail'></div>
-            <div className='cat__head'></div>
-          </div>
-        </div>
-      </div> */}
-
       <div className='overflow-hidden md:rounded-lg md:bg-background1'>
         {/* {data.status && (
           <>
@@ -56,8 +45,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
         )} */}
         {data?.data && data.data.length > 0 && (
           <>
-            {console.log(data.data)}
-            {data.data.map((item: HwList, index: number) => (
+            {data.data.map((item: Hw, index: number) => (
               <Card key={index} data={item} studentID={Cookies.get('cookie_userid') ?? ''} />
             ))}
             <div className='my-4 text-center text-gray-500'>沒有更多公告了</div>

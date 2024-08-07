@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import api from '@/lib/api'
-import { HwList } from '@/types'
+import { Hw } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
 import { IconBookDownload, IconCalendarOff, IconInfoCircle, IconLoader2 } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
@@ -25,20 +25,20 @@ const Hw = () => {
     isLoading,
     isError,
     data: Hw
-  } = useQuery<{ course: string; hw: HwList[] }[]>({
+  } = useQuery<{ course: string; hw: Hw[] }[]>({
     queryKey: ['tool-hw', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       // const res = await fetch(`/api/hw?type=tool`)
       // const data = await res.json()
-      const { data } = await api.get<{ data: HwList[] }>('/hw?type=tool')
+      const { data } = await api.get<{ data: Hw[] }>('/hw?type=tool')
 
       // data.data
       // 用課程分組作業
       // 判斷課程同一個課程的作業放在一起 課程名稱只顯示一次
 
-      const hw: { course: string; hw: HwList[] }[] = []
+      const hw: { course: string; hw: Hw[] }[] = []
 
-      data.data.forEach((item: HwList) => {
+      data.data.forEach((item: Hw) => {
         const index = hw.findIndex((x) => x.course === item.course)
         if (index === -1) {
           hw.push({ course: `${item.course}` ?? '', hw: [item] })

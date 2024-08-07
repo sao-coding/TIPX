@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
 
-import { Course, HwList } from '@/types'
+import { Course, Hw } from '@/types'
 import getCourse from '@/utils/course'
 import getAuth from '@/utils/get-auth'
 
@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest) => {
   const course = searchParams.get('course') ?? ''
   const type = searchParams.get('type') ?? 'hw'
 
-  let hwlist: HwList[] = []
+  let hwlist: Hw[] = []
 
   const fetchURL = async (type: string, course?: string) => {
     const url = `https://netinfo.takming.edu.tw/tip/list_course_${type}.php?opno=${course}`

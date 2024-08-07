@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 import { JSDOM } from 'jsdom'
 
 import authOptions from '@/lib/auth'
-import { HwList } from '@/types'
+import { Hw } from '@/types'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest) => {
   let hwdata1: string[][] = []
   let hwdata2: string[][] = []
 
-  const hwlist: HwList[] = []
+  const hwlist: Hw[] = []
 
   const fetchURL = async (id: string) => {
     const url = `https://netinfo.takming.edu.tw/tip/list_course_${id}.php?opno=${req.nextUrl.searchParams.get(

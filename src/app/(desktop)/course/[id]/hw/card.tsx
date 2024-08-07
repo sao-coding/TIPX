@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { motion } from 'framer-motion'
-import { FileUploader } from 'react-drag-drop-files'
 import toast, { useToasterStore } from 'react-hot-toast'
 
-import { HwList } from '@/types'
-import * as Dialog from '@radix-ui/react-dialog'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from '@/components/ui/drawer'
+import Dropzone from '@/components/ui/dropzone'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { Hw } from '@/types'
 import {
   IconCalendarOff,
   IconCalendarTime,
@@ -13,14 +31,14 @@ import {
   IconDownloadOff,
   IconPaperclip,
   IconSlash,
-  IconUpload,
-  IconX
+  IconUpload
 } from '@tabler/icons-react'
 
-const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
+const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
   const [file, setFile] = useState<File | null>(null)
   const [onDrop, setOnDrop] = useState(false)
   const { toasts } = useToasterStore()
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const TOAST_LIMIT = 2
   // Enforce Limit
@@ -131,98 +149,94 @@ const Card = ({ data, studentID }: { data: HwList; studentID: string }) => {
           </div>
         </div>
         <div className='sm flex items-end space-x-2'>
-          <Dialog.Root>
-            <Dialog.Trigger
-              className={clsx(
-                'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
-                data.upload === '' ? 'cursor-not-allowed' : ''
-              )}
-              disabled={data.upload === ''}
-            >
-              <IconUpload />
-              {data.upload === '' && (
-                <IconSlash
-                  className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
-                  size={20}
+          {isDesktop ? (
+            <Dialog>
+              <DialogTrigger
+                className={clsx(
+                  'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                  data.upload === '' ? 'cursor-not-allowed' : ''
+                )}
+              >
+                <IconUpload />
+                {data.upload === '' && (
+                  <IconSlash
+                    className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
+                    size={20}
+                  />
+                )}
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>作業上傳</DialogTitle>
+                  <DialogDescription>某某課程</DialogDescription>
+                </DialogHeader>
+                {file && (
+                  <div className='flex items-center space-x-2'>
+                    <IconPaperclip />
+                    <div>{file.name}</div>
+                  </div>
+                )}
+                <Dropzone
+                  classNameWrapper='h-40'
+                  className='h-40'
+                  dropMessage='拖曳檔案至此上傳'
+                  handleOnDrop={(files) => {
+                    if (files) {
+                      setFile(files[0])
+                    }
+                  }}
                 />
-              )}
-            </Dialog.Trigger>
-            <Dialog.Portal>
-              <Dialog.Overlay className='data-[state=open]:animate-overlayShow fixed inset-0 z-10 bg-[rgba(0,0,0,.5)] backdrop-blur-sm' />
-              <Dialog.Content asChild>
-                <motion.div
-                  className='bg-card-background data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 z-10 max-h-[85vh] w-[85vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-lg p-4 shadow-lg focus:outline-none'
-                  initial={{ opacity: 0, scale: 0.9, y: '-50%', x: '-50%' }}
-                  animate={{ opacity: 1, scale: 1, y: '-50%', x: '-50%' }}
-                >
-                  <Dialog.Close className='absolute right-4 top-4 text-gray-400 hover:text-gray-500'>
-                    <IconX />
-                  </Dialog.Close>
-                  <form
-                    name='作業上傳'
-                    encType='multipart/form-data'
-                    className='flex h-full flex-col items-center space-y-2 p-4'
-                    onSubmit={(event) => upload(event, data.upload)}
-                  >
-                    <h1 className='self-start text-xl'>作業上傳</h1>
-                    <h2 className='text-lg font-bold'>{data.title}</h2>
-                    <FileUploader
-                      handleChange={(file: File) => handleFileChange(file)}
-                      onDraggingStateChange={(dragging: boolean) => setOnDrop(dragging)}
-                      onTypeError={() => toast.error('不支援的檔案類型')}
-                      name='userfile'
-                      types={[
-                        'doc',
-                        'xls',
-                        'txt',
-                        'ppt',
-                        'docx',
-                        'xlsx',
-                        'pptx',
-                        'accdb',
-                        'pdf',
-                        'xlsm',
-                        'zip',
-                        'rar'
-                      ]}
-                      hoverTitle='拖曳檔案至此'
-                      classes='w-full h-full block focus:outline-none focus-within:!outline-none'
-                    >
-                      <div className='h-20 w-full rounded-lg border-2 border-dashed focus:outline-none'>
-                        <div className='flex h-full w-full flex-col items-center justify-center space-y-1'>
-                          {onDrop ? null : (
-                            <>
-                              <IconUpload size={40} />
-                              <div className='flex items-center'>
-                                <IconPaperclip size={20} />
-                                {/* 檔案名稱 . 前面的部分 不超過 11 個字 */}
-                                {file ? (
-                                  <div>
-                                    {file.name.split('.')[0].length > 11
-                                      ? `${file.name.split('.')[0].slice(0, 11)}... .${
-                                          file.name.split('.')[1]
-                                        }`
-                                      : file.name}
-                                  </div>
-                                ) : (
-                                  <div>上傳 或 拖曳檔案至此</div>
-                                )}
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </FileUploader>
-                    <input
-                      type='submit'
-                      value='上傳檔案'
-                      className='bg-main-color-3 hover:bg-main-color-4 w-full rounded-md p-1 text-white'
-                    />
-                  </form>
-                </motion.div>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
+                <Button>上傳檔案</Button>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Drawer>
+              <DrawerTrigger
+                className={clsx(
+                  'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                  data.upload === '' ? 'cursor-not-allowed' : ''
+                )}
+              >
+                <IconUpload />
+                {data.upload === '' && (
+                  <IconSlash
+                    className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
+                    size={20}
+                  />
+                )}
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>作業上傳</DrawerTitle>
+                  <DrawerDescription>某某課程</DrawerDescription>
+                </DrawerHeader>
+                <div className='space-y-2 px-4'>
+                  {file && (
+                    <div className='flex items-center space-x-2'>
+                      <IconPaperclip />
+                      <div>{file.name}</div>
+                    </div>
+                  )}
+                  <Dropzone
+                    classNameWrapper='h-40'
+                    className='h-40'
+                    dropMessage='拖曳檔案至此上傳'
+                    handleOnDrop={(files) => {
+                      if (files) {
+                        setFile(files[0])
+                      }
+                    }}
+                  />
+                </div>
+                <DrawerFooter>
+                  <Button>上傳檔案</Button>
+                  <DrawerClose asChild>
+                    <Button variant='outline'>取消</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+          )}
           {/* 如果未繳交 cursor-not-allowed */}
           <button
             className={clsx(

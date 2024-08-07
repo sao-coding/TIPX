@@ -1,4 +1,4 @@
-export type HwList = {
+export type Hw = {
   title: string
   file: string
   start: string
