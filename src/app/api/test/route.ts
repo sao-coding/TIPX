@@ -1,15 +1,18 @@
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { verifyJwt } from '@/lib/jwt'
+import { signJwtAccessToken, verifyJwt } from '@/lib/jwt'
 
 export const GET = async (req: NextRequest) => {
-  const accessToken = req.headers.get('authorization')?.split('Bearer ')[1]
+  const refreshToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '1d' })
 
-  if (accessToken && verifyJwt(accessToken)) {
-    return NextResponse.json({ message: '驗證成功' })
-  } else {
-    return NextResponse.json({ message: '驗證失敗' }, { status: 401 })
-  }
+  cookies().set('refreshToken', refreshToken)
+
+  const accessToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '1h' })
+
+  cookies().set('accessToken', accessToken)
+
+  return NextResponse.json({ message: '給予token成功' })
 }
 
 export const POST = async (req: NextRequest) => {
@@ -18,7 +21,7 @@ export const POST = async (req: NextRequest) => {
   // 從 headers 取得 accessToken Bearer
   // const accessToken = headers(req).get('authorization')
 
-  if (accessToken && verifyJwt(accessToken)) {
+  if (accessToken && (await verifyJwt(accessToken))) {
     return NextResponse.json({ message: '驗證成功' })
   }
 

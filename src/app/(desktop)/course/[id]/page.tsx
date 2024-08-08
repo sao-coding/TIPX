@@ -5,6 +5,7 @@ import api from '@/lib/api'
 import { Course } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
+import CourseStuListPage from './course-stu-list'
 import HwPage from './hw'
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
@@ -52,7 +53,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         </div>
         {tabList.map((tab) => (
           <TabsContent key={tab.value} value={tab.value}>
-            <HwPage params={{ id: params.id }} />
+            {/* <HwPage params={{ id: params.id }} /> */}
+            {tab.value === '作業' && <HwPage params={{ id: params.id }} />}
+            {tab.value === '學生' && <CourseStuListPage params={{ id: params.id }} />}
+            {tab.value === '出缺勤' && <div>出缺勤</div>}
           </TabsContent>
         ))}
       </Tabs>

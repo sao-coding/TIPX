@@ -2,18 +2,19 @@
 // TODO: 待優化
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 import { JSDOM } from 'jsdom'
 
-import authOptions from '@/lib/auth'
 import { CourseStuList } from '@/types'
+import getAuth from '@/utils/get-auth'
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const userid = searchParams.get('userid') ?? auth?.userId
 
   const courseStuList: CourseStuList[] = []
   let stuList: string[] = []
@@ -34,7 +35,7 @@ export const GET = async (req: NextRequest) => {
   const html = new TextDecoder('big5').decode(buffer)
   const dom = new JSDOM(html)
   const document = dom.window.document
-
+  console.log(html)
   const stuListTable = Array.from(
     document.querySelectorAll(
       'body > table:nth-child(7) > tbody > tr > td > form > table:nth-child(2) > tbody >tr'

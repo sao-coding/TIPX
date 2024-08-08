@@ -23,6 +23,7 @@ const Loading = () => {
     </div>
   )
 }
+
 // 設定 Tabs 可以透過手勢滑動切換分頁
 const PostList = () => {
   const { ref, inView } = useInView()

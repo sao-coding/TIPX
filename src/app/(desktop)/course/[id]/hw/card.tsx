@@ -106,111 +106,71 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
   }
 
   return (
-    <div className='relative w-full border-b hover:bg-background2'>
-      <div
-        className={clsx(
-          'absolute right-7 top-7 rounded-md p-1 text-white',
-          data.status === '已繳交' ? 'bg-green-600' : 'bg-red-600'
-        )}
-      >
-        {data.status}
-      </div>
-      <div className='flex justify-between p-7'>
-        <div>
-          <div className='text-lg font-bold'>{data.title}</div>
-          <div className='flex items-center space-x-1 text-sm text-neutral-500'>
-            <IconCalendarTime size={20} />
-            <div>{formatTime(data.start)}</div>
-          </div>
-          <div className='flex items-center space-x-1 text-sm text-neutral-500'>
-            <IconCalendarOff size={20} />
-            <div>{formatTime(data.end)}</div>
-          </div>
-          <div className='flex items-center space-x-1 text-neutral-500'>
-            <IconPaperclip size={20} />
-            <div>附件</div>
-            <button
-              className={clsx(
-                'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
-                data.file === '' ? 'cursor-not-allowed' : ''
-              )}
-              disabled={data.file === ''}
-              onClick={() => {
-                if (data.file !== '') {
-                  // umami.track('附件下載', {
-                  //   data: trackDownloadFile(course, data.title)
-                  // })
-                  download(data.file)
-                }
-              }}
-            >
-              {data.file === '' ? <IconDownloadOff size={20} /> : <IconDownload size={20} />}
-            </button>
-          </div>
+    <div className='w-full border-b px-2 py-3 hover:bg-background2 md:p-7'>
+      <div className='relative'>
+        <div
+          className={clsx(
+            'absolute right-0 top-0 rounded-md px-2 py-1 text-sm text-white md:text-base',
+            data.status === '已繳交' ? 'bg-green-600' : 'bg-red-600'
+          )}
+        >
+          {data.status}
         </div>
-        <div className='sm flex items-end space-x-2'>
-          {isDesktop ? (
-            <Dialog>
-              <DialogTrigger
+        <div className='flex justify-between'>
+          <div>
+            <h1 className='line-clamp-1 text-lg font-bold md:text-xl'>{data.title}</h1>
+            <div className='flex items-center space-x-1 text-sm text-neutral-500'>
+              <IconCalendarTime size={20} />
+              <div>{formatTime(data.start)}</div>
+            </div>
+            <div className='flex items-center space-x-1 text-sm text-neutral-500'>
+              <IconCalendarOff size={20} />
+              <div>{formatTime(data.end)}</div>
+            </div>
+            <div className='flex items-center space-x-1 text-neutral-500'>
+              <IconPaperclip size={20} />
+              <div>附件</div>
+              <button
                 className={clsx(
-                  'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
-                  data.upload === '' ? 'cursor-not-allowed' : ''
+                  'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                  data.file === '' ? 'cursor-not-allowed' : ''
                 )}
+                disabled={data.file === ''}
+                onClick={() => {
+                  if (data.file !== '') {
+                    // umami.track('附件下載', {
+                    //   data: trackDownloadFile(course, data.title)
+                    // })
+                    download(data.file)
+                  }
+                }}
               >
-                <IconUpload />
-                {data.upload === '' && (
-                  <IconSlash
-                    className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
-                    size={20}
-                  />
-                )}
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>作業上傳</DialogTitle>
-                  <DialogDescription>某某課程</DialogDescription>
-                </DialogHeader>
-                {file && (
-                  <div className='flex items-center space-x-2'>
-                    <IconPaperclip />
-                    <div>{file.name}</div>
-                  </div>
-                )}
-                <Dropzone
-                  classNameWrapper='h-40'
-                  className='h-40'
-                  dropMessage='拖曳檔案至此上傳'
-                  handleOnDrop={(files) => {
-                    if (files) {
-                      setFile(files[0])
-                    }
-                  }}
-                />
-                <Button>上傳檔案</Button>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <Drawer>
-              <DrawerTrigger
-                className={clsx(
-                  'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
-                  data.upload === '' ? 'cursor-not-allowed' : ''
-                )}
-              >
-                <IconUpload />
-                {data.upload === '' && (
-                  <IconSlash
-                    className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
-                    size={20}
-                  />
-                )}
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>作業上傳</DrawerTitle>
-                  <DrawerDescription>某某課程</DrawerDescription>
-                </DrawerHeader>
-                <div className='space-y-2 px-4'>
+                {data.file === '' ? <IconDownloadOff size={20} /> : <IconDownload size={20} />}
+              </button>
+            </div>
+          </div>
+          <div className='sm flex items-end space-x-2'>
+            {isDesktop ? (
+              <Dialog>
+                <DialogTrigger
+                  className={clsx(
+                    'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                    data.upload === '' ? 'cursor-not-allowed' : ''
+                  )}
+                >
+                  <IconUpload />
+                  {data.upload === '' && (
+                    <IconSlash
+                      className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
+                      size={20}
+                    />
+                  )}
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>作業上傳</DialogTitle>
+                    <DialogDescription>某某課程</DialogDescription>
+                  </DialogHeader>
                   {file && (
                     <div className='flex items-center space-x-2'>
                       <IconPaperclip />
@@ -227,34 +187,76 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                       }
                     }}
                   />
-                </div>
-                <DrawerFooter>
                   <Button>上傳檔案</Button>
-                  <DrawerClose asChild>
-                    <Button variant='outline'>取消</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          )}
-          {/* 如果未繳交 cursor-not-allowed */}
-          <button
-            className={clsx(
-              'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
-              data.download === '' ? 'cursor-not-allowed' : ''
+                </DialogContent>
+              </Dialog>
+            ) : (
+              <Drawer>
+                <DrawerTrigger
+                  className={clsx(
+                    'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                    data.upload === '' ? 'cursor-not-allowed' : ''
+                  )}
+                >
+                  <IconUpload />
+                  {data.upload === '' && (
+                    <IconSlash
+                      className='absolute left-0 top-0 h-full w-full rotate-[100deg] stroke-[1.4]'
+                      size={20}
+                    />
+                  )}
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>作業上傳</DrawerTitle>
+                    <DrawerDescription>某某課程</DrawerDescription>
+                  </DrawerHeader>
+                  <div className='space-y-2 px-4'>
+                    {file && (
+                      <div className='flex items-center space-x-2'>
+                        <IconPaperclip />
+                        <div>{file.name}</div>
+                      </div>
+                    )}
+                    <Dropzone
+                      classNameWrapper='h-40'
+                      className='h-40'
+                      dropMessage='拖曳檔案至此上傳'
+                      handleOnDrop={(files) => {
+                        if (files) {
+                          setFile(files[0])
+                        }
+                      }}
+                    />
+                  </div>
+                  <DrawerFooter>
+                    <Button>上傳檔案</Button>
+                    <DrawerClose asChild>
+                      <Button variant='outline'>取消</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
             )}
-            disabled={data.download === ''}
-            onClick={() => {
-              if (data.download !== '') {
-                // umami.track('作業下載', {
-                //   data: trackDownloadHw(course, data.title)
-                // })
-                download(data.download)
-              }
-            }}
-          >
-            {data.download === '' ? <IconDownloadOff /> : <IconDownload />}
-          </button>
+            {/* 如果未繳交 cursor-not-allowed */}
+            <button
+              className={clsx(
+                'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                data.download === '' ? 'cursor-not-allowed' : ''
+              )}
+              disabled={data.download === ''}
+              onClick={() => {
+                if (data.download !== '') {
+                  // umami.track('作業下載', {
+                  //   data: trackDownloadHw(course, data.title)
+                  // })
+                  download(data.download)
+                }
+              }}
+            >
+              {data.download === '' ? <IconDownloadOff /> : <IconDownload />}
+            </button>
+          </div>
         </div>
       </div>
     </div>
