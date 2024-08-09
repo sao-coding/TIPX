@@ -33,7 +33,12 @@ const getPost = async (
 
     const getData = async () => {
       console.log('no cache')
-      const res = await fetch('https://netinfo.takming.edu.tw/tip/post/post_index_all.php')
+      const res = await fetch('https://netinfo.takming.edu.tw/tip/post/post_index_all.php', {
+        method: 'GET',
+        headers: {
+          Cookie: 'cookie_userid=fuck; cookie_rgno=fuck; cookie_year=110; cookie_sem=1;'
+        }
+      })
 
       const buffer = await res.arrayBuffer()
       let html = new TextDecoder('big5').decode(buffer)
@@ -77,15 +82,15 @@ const getPost = async (
       })
     }
 
-    if (!cache) {
-      await getData()
-      // 快取公告 設定快取時間為 1 小時
-      await redis.call('JSON.SET', 'announcement', '$', JSON.stringify(announcementListAll))
-      await redis.call('EXPIRE', 'announcement', 3600)
-    } else {
-      console.log('use cache')
-      announcementListAll.push(...JSON.parse(cache))
-    }
+    // if (!cache) {
+    await getData()
+    // 快取公告 設定快取時間為 1 小時
+    //   await redis.call('JSON.SET', 'announcement', '$', JSON.stringify(announcementListAll))
+    //   await redis.call('EXPIRE', 'announcement', 3600)
+    // } else {
+    //   console.log('use cache')
+    //   announcementListAll.push(...JSON.parse(cache))
+    // }
 
     switch (mode) {
       case 'sticky':

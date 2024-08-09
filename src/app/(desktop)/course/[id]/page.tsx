@@ -1,5 +1,6 @@
 'use client'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import api from '@/lib/api'
 import { Course } from '@/types'
@@ -41,7 +42,13 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     <>
       <Tabs defaultValue='作業'>
         <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
-          <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
+          {isLoading ? (
+            <div className='w-full'>
+              <Skeleton className='mx-auto my-1 h-6 w-60 md:mx-0' />
+            </div>
+          ) : (
+            <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
+          )}
 
           <TabsList className='grid w-full grid-cols-4'>
             {tabList.map((tab) => (

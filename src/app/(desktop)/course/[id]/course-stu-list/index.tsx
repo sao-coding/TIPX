@@ -1,5 +1,6 @@
 'use client'
 
+import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
 import { CourseStuList } from '@/types'
 import { useQuery } from '@tanstack/react-query'
@@ -26,14 +27,20 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className='w-full'>
-      {data && data.length > 0 ? (
-        <>
-          {data.map((item, index) => (
-            <Card key={item.id} data={item} />
-          ))}
-        </>
+      {isLoading ? (
+        <Loading />
       ) : (
-        <div className='text-center text-2xl'>沒有學生</div>
+        <>
+          {data && data.length > 0 ? (
+            <>
+              {data.map((item, index) => (
+                <Card key={item.id} data={item} />
+              ))}
+            </>
+          ) : (
+            <div className='text-center text-2xl'>沒有學生</div>
+          )}
+        </>
       )}
     </div>
   )
