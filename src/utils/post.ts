@@ -5,6 +5,8 @@ import redis from "@/lib/redis"
 import { Announcement } from "@/types"
 import { Post } from "@/types"
 
+import getCurrentYearSem from "./current-year-sem"
+
 const getPost = async (
   type: string,
   id?: number,
@@ -27,12 +29,19 @@ const getPost = async (
     const announcementListAll: Announcement[] = []
     const announcementList: Announcement[] = []
 
+    const { currentYear, currentSem } = getCurrentYearSem()
+
     // 查尋是否有快取
     const cache = (await redis.call("JSON.GET", "announcement")) as string | null
 
     const getData = async () => {
       console.log("no cache")
-      const res = await fetch("https://netinfo.takming.edu.tw/tip/post/post_index_all.php")
+      const res = await fetch("https://netinfo.takming.edu.tw/tip/post/post_index_all.php", {
+        method: "GET",
+        headers: {
+          Cookie: `cookie_userid=fuck; cookie_rgno=fuck; cookie_year=${currentYear}; cookie_sem=${currentSem};`
+        }
+      })
 
       const buffer = await res.arrayBuffer()
       let html = new TextDecoder("big5").decode(buffer)
