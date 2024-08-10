@@ -130,7 +130,7 @@ const Card = ({ course, data, studentID }: { course: string; data: HwList; stude
             </button>
           </div>
         </div>
-        <div className='sm flex items-end space-x-2'>
+        <div className='flex items-end space-x-2'>
           <Dialog.Root>
             <Dialog.Trigger
               className={clsx(
