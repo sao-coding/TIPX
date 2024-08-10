@@ -132,7 +132,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
               <div>附件</div>
               <button
                 className={clsx(
-                  'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                  'rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                   data.file === '' ? 'cursor-not-allowed' : ''
                 )}
                 disabled={data.file === ''}
@@ -154,7 +154,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
               <Dialog>
                 <DialogTrigger
                   className={clsx(
-                    'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                    'relative rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                     data.upload === '' ? 'cursor-not-allowed' : ''
                   )}
                 >
@@ -194,7 +194,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
               <Drawer>
                 <DrawerTrigger
                   className={clsx(
-                    'relative rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                    'relative rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                     data.upload === '' ? 'cursor-not-allowed' : ''
                   )}
                 >
@@ -241,7 +241,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
             {/* 如果未繳交 cursor-not-allowed */}
             <button
               className={clsx(
-                'rounded-sm bg-background3 p-1 text-white hover:bg-white hover:text-background3',
+                'rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                 data.download === '' ? 'cursor-not-allowed' : ''
               )}
               disabled={data.download === ''}

@@ -50,11 +50,11 @@ const Footer = () => {
   return (
     <footer
       className={clsx(
-        'fixed bottom-3 z-10 flex h-14 w-full items-center justify-center px-4 transition-all duration-300 md:hidden'
+        'fixed bottom-3 left-0 right-0 z-10 flex h-14 w-full items-center justify-center px-4 transition-all duration-300 md:hidden'
         // { hidden: navbarHidden }
       )}
     >
-      <div className='flex h-full w-full items-center justify-around rounded-2xl backdrop-blur-[10px]'>
+      <div className='flex h-full w-full items-center justify-around rounded-2xl bg-[rgb(248,250,252,0.3)] backdrop-blur-[10px] dark:bg-[rgb(4,1,2,0.1)]'>
         {NAV_LINKS.map((link) => (
           <Link
             key={link.href}

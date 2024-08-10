@@ -26,11 +26,11 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
   })
 
   return (
-    <div className='w-full'>
+    <>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <div className='overflow-hidden md:rounded-lg md:bg-background1'>
           {data && data.length > 0 ? (
             <>
               {data.map((item, index) => (
@@ -40,9 +40,9 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
           ) : (
             <div className='text-center text-2xl'>沒有學生</div>
           )}
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

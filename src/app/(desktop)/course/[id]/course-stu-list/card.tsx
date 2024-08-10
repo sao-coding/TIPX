@@ -9,9 +9,9 @@ const Card = ({ data }: { data: CourseStuList }) => {
 
   return (
     <>
-      <div className='mb-2 w-full border-b'>
-        <div className='flex w-full p-2'>
-          <div className='p-2'>
+      <div className='mb-2 w-full border-b px-2 py-3 md:p-7'>
+        <div className='flex w-full gap-2'>
+          <>
             {isImgError ? (
               <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
                 <IconUserCircle size={75} />
@@ -40,8 +40,8 @@ const Card = ({ data }: { data: CourseStuList }) => {
                 </a>
               </Fancybox>
             )}
-          </div>
-          <div className='flex flex-grow items-center p-2 md:flex-grow-0'>
+          </>
+          <div className='flex flex-grow items-center md:flex-grow-0'>
             <div className='w-full'>
               <div className='flex flex-wrap items-center justify-between p-1'>
                 <div className='flex items-center'>

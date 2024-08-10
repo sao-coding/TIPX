@@ -5,6 +5,8 @@ import redis from '@/lib/redis'
 import { Announcement } from '@/types'
 import { Post } from '@/types'
 
+import getCurrentYearSem from './current-year-sem'
+
 const getPost = async (
   type: string,
   id?: number,
@@ -28,6 +30,8 @@ const getPost = async (
     let announcementListAll: Announcement[] = []
     const announcementList: Announcement[] = []
 
+    const { currentYear, currentSem } = getCurrentYearSem()
+
     // 查尋是否有快取
     const cache = (await redis.call('JSON.GET', 'announcement')) as string | null
 
@@ -36,7 +40,7 @@ const getPost = async (
       const res = await fetch('https://netinfo.takming.edu.tw/tip/post/post_index_all.php', {
         method: 'GET',
         headers: {
-          Cookie: 'cookie_userid=fuck; cookie_rgno=fuck; cookie_year=110; cookie_sem=1;'
+          Cookie: `cookie_userid=fuck; cookie_rgno=fuck; cookie_year=${currentYear}; cookie_sem=${currentSem};`
         }
       })
 
@@ -82,15 +86,15 @@ const getPost = async (
       })
     }
 
-    // if (!cache) {
-    await getData()
-    // 快取公告 設定快取時間為 1 小時
-    //   await redis.call('JSON.SET', 'announcement', '$', JSON.stringify(announcementListAll))
-    //   await redis.call('EXPIRE', 'announcement', 3600)
-    // } else {
-    //   console.log('use cache')
-    //   announcementListAll.push(...JSON.parse(cache))
-    // }
+    if (!cache) {
+      await getData()
+      // 快取公告 設定快取時間為 1 小時
+      await redis.call('JSON.SET', 'announcement', '$', JSON.stringify(announcementListAll))
+      await redis.call('EXPIRE', 'announcement', 3600)
+    } else {
+      console.log('use cache')
+      announcementListAll.push(...JSON.parse(cache))
+    }
 
     switch (mode) {
       case 'sticky':

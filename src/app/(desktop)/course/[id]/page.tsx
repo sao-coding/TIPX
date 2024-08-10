@@ -6,6 +6,7 @@ import api from '@/lib/api'
 import { Course } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
+import CourseInfoPage from './course-info'
 import CourseStuListPage from './course-stu-list'
 import HwPage from './hw'
 
@@ -64,6 +65,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
             {tab.value === '作業' && <HwPage params={{ id: params.id }} />}
             {tab.value === '學生' && <CourseStuListPage params={{ id: params.id }} />}
             {tab.value === '出缺勤' && <div>出缺勤</div>}
+            {tab.value === '規範' && <CourseInfoPage params={{ id: params.id }} />}
           </TabsContent>
         ))}
       </Tabs>

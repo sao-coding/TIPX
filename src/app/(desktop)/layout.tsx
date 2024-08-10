@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer'
 import LeftSidebar from '@/components/LeftSidebar'
 import RightTool from '@/components/RightTool'
 
@@ -17,7 +16,6 @@ export default function RootLayout({
         <div className='hidden h-dvh w-[350px] p-4 lg:block'>
           <RightTool />
         </div>
-        <Footer />
       </div>
     </>
   )
