@@ -60,7 +60,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
               <div className='flex flex-wrap items-center justify-between'>
                 <a
                   href={`mailto:${data.email[0]}`}
-                  className='text-main-color-3 hover:bg-main-color-3 flex items-center rounded-md p-1 hover:text-white'
+                  className='flex items-center rounded-md p-1 text-primary/80 hover:bg-primary/80 hover:text-white'
                 >
                   <IconMail />
                   <div className='pl-1'>個人信箱</div>
@@ -68,7 +68,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
 
                 <a
                   href={`mailto:${data.email[1]}`}
-                  className='text-main-color-3 hover:bg-main-color-3 flex items-center rounded-md p-1 hover:text-white'
+                  className='flex items-center rounded-md p-1 text-primary/80 hover:bg-primary/80 hover:text-white'
                 >
                   <IconMail />
                   <div className='pl-1'>學校信箱</div>

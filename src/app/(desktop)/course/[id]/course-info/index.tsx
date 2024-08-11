@@ -71,34 +71,34 @@ const CourseInfoPage = ({ params }: { params: { id: string } }) => {
             <div className='flex flex-col space-y-2'>
               {/* <BottomToUpTransitionView> */}
               <div className='grid grid-cols-2 gap-2'>
-                <div className='flex w-full items-center rounded-lg border p-1'>
-                  <IconUserStar className='mr-1' />
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
+                  <IconUserStar />
                   <div>{data.teacher}</div>
                 </div>
-                <div className='flex w-full items-center rounded-lg border p-1'>
-                  <IconSelect className='mr-1' />
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
+                  <IconSelect />
                   <div className={clsx('rounded-md px-2 text-white', typeColor[data.required])}>
                     {data.required}
                   </div>
                 </div>
-                <div className='flex w-full items-center rounded-lg border p-1'>
-                  <IconChalkboard className='mr-1' />
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
+                  <IconChalkboard />
                   {data.class}
                 </div>
-                <div className='flex w-full items-center rounded-lg border p-1'>
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
                   <div className='flex items-center'>
                     <IconStar className='animate-pulse fill-yellow-500 stroke-yellow-500' />
                     <IconSlash className='-mx-1 rotate-[160deg]' />
-                    <IconClock className='mr-1' />
+                    <IconClock />
                   </div>
                   <div>{data.credit}</div>
                 </div>
-                <div className='flex w-full items-center rounded-lg border p-1'>
-                  <IconLanguageHiragana className='mr-1' />
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
+                  <IconLanguageHiragana />
                   <div>{data.foreign === '是' ? '✅' : '❌'}</div>
                 </div>
-                <div className='flex w-full items-center rounded-lg border p-1'>
-                  <IconArrowAutofitContent className='mr-1' />
+                <div className='flex w-full items-center gap-1 rounded-sm border px-2 py-1'>
+                  <IconArrowAutofitContent />
                   <div>{data.distance === '是' ? '✅' : '❌'}</div>
                 </div>
               </div>

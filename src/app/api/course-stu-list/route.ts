@@ -35,7 +35,7 @@ export const GET = async (req: NextRequest) => {
   const html = new TextDecoder('big5').decode(buffer)
   const dom = new JSDOM(html)
   const document = dom.window.document
-  console.log(html)
+
   const stuListTable = Array.from(
     document.querySelectorAll(
       'body > table:nth-child(7) > tbody > tr > td > form > table:nth-child(2) > tbody >tr'
