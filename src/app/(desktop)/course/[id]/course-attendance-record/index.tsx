@@ -42,10 +42,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                 {data?.total.map((item, index) => {
                   if (leaveType.includes(item.type)) {
                     return (
-                      <div
-                        key={index}
-                        className='md:bg-card-background rounded-xl border bg-background p-2'
-                      >
+                      <div key={index} className='rounded-xl border bg-background1 p-2'>
                         <div>{item.type}</div>
                         <div className='w-full text-right text-lg font-bold'>{item.count}</div>
                       </div>
@@ -53,7 +50,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
                   }
                 })}
               </div>
-              <div className='md:bg-card-background sticky left-0 top-0 mb-2 rounded-xl border bg-background p-2 md:top-[117px]'>
+              <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-background1 p-2'>
                 <div>總計</div>
                 <div className='w-full text-right text-lg font-bold'>
                   {data?.total.reduce((a, b) => a + b.count, 0)}
