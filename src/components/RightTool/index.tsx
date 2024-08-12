@@ -1,11 +1,11 @@
 import { Calendar } from '@/components/ui/calendar'
 
-import Hw from './hw'
+import HwTool from './hw-tool'
 
 const RightTool = () => {
   return (
     <div className='space-y-4'>
-      <Hw />
+      <HwTool />
       <div className='flex w-full justify-center rounded-xl bg-background1'>
         <Calendar
           className='w-full'

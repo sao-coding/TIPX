@@ -8,4 +8,5 @@ export type Hw = {
   size: string
   status: string
   course?: string
+  courseId?: string
 }

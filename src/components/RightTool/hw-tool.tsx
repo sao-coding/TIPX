@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import Cookies from 'js-cookie'
 
 import {
@@ -20,7 +21,7 @@ import formatDatetime from '@/utils/format-datetime'
 import { IconBookDownload, IconCalendarOff, IconInfoCircle, IconLoader2 } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-const Hw = () => {
+const HwTool = () => {
   const {
     isLoading,
     isError,
@@ -36,12 +37,12 @@ const Hw = () => {
       // 用課程分組作業
       // 判斷課程同一個課程的作業放在一起 課程名稱只顯示一次
 
-      const hw: { course: string; hw: Hw[] }[] = []
+      const hw: { course: string; courseId: string; hw: Hw[] }[] = []
 
       data.data.forEach((item: Hw) => {
         const index = hw.findIndex((x) => x.course === item.course)
         if (index === -1) {
-          hw.push({ course: `${item.course}` ?? '', hw: [item] })
+          hw.push({ course: `${item.course}` ?? '', courseId: item.courseId ?? '', hw: [item] })
         } else {
           hw[index].hw.push(item)
         }
@@ -108,13 +109,17 @@ const Hw = () => {
                         </div>
                       </div>
                       {item.hw.map((hw, index) => (
-                        <div key={index} className='px-3 py-2'>
+                        <Link
+                          key={index}
+                          href={`/course/${hw.courseId}`}
+                          className='block px-3 py-2 hover:bg-background2'
+                        >
                           <h1 className='line-clamp-1'>作業: {hw.title}</h1>
                           <div className='flex items-center space-x-1 text-sm text-neutral-500'>
                             <IconCalendarOff size={20} />
                             <div>{formatDatetime('hw', hw.end)}</div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   ))}
@@ -133,4 +138,4 @@ const Hw = () => {
   )
 }
 
-export default Hw
+export default HwTool

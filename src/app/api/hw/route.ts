@@ -163,7 +163,8 @@ export const GET = async (req: NextRequest) => {
         download: hwdata2[i][0],
         size: hwdata2[i][1],
         status: hwdata1[i][5],
-        course: courseName
+        course: courseName,
+        courseId: courseId
       })
     }
   }
