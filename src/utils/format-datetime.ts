@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 const formatDatetime = (type: string, datetime: string | Date) => {
   // 全部 為 台北 時區
   const date = dayjs(datetime).locale('zh-tw')
-
+  console.log('datetime', datetime, 'type', type)
   switch (type) {
     case 'weather':
       return date.format('YYYY-MM-DDT00:00:00')
@@ -21,6 +21,7 @@ const formatDatetime = (type: string, datetime: string | Date) => {
         return 'YYYY-MM-DD'
       }
     case 'leave':
+      console.log('進入leave')
       if (typeof datetime === 'string') {
         let year = datetime.slice(0, 3)
         if (year[0] === '0') {
