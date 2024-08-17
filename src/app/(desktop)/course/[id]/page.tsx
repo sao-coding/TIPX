@@ -32,12 +32,15 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     }
   })
 
-  const tabList = [
-    { value: '作業' },
-    { value: '學生' },
-    { value: '出缺勤' },
-    { value: '規範' }
-    // { value: "評價" },
+  const TabsListData = [
+    { label: '作業', value: '作業', component: <HwPage params={{ id: params.id }} /> },
+    { label: '學生', value: '學生', component: <CourseStuListPage params={{ id: params.id }} /> },
+    {
+      label: '出缺勤',
+      value: '出缺勤',
+      component: <CourseAttendanceRecordPage params={{ id: params.id }} />
+    },
+    { label: '規範', value: '規範', component: <CourseInfoPage params={{ id: params.id }} /> }
   ]
 
   return (
@@ -52,21 +55,17 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
             <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
           )}
 
-          <TabsList className='grid w-full grid-cols-4'>
-            {tabList.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value}>
-                {tab.value}
+          <TabsList className='w-full'>
+            {TabsListData.map((item) => (
+              <TabsTrigger key={item.value} value={item.value} className='w-full'>
+                {item.label}
               </TabsTrigger>
             ))}
           </TabsList>
         </div>
-        {tabList.map((tab) => (
-          <TabsContent key={tab.value} value={tab.value}>
-            {/* <HwPage params={{ id: params.id }} /> */}
-            {tab.value === '作業' && <HwPage params={{ id: params.id }} />}
-            {tab.value === '學生' && <CourseStuListPage params={{ id: params.id }} />}
-            {tab.value === '出缺勤' && <CourseAttendanceRecordPage params={{ id: params.id }} />}
-            {tab.value === '規範' && <CourseInfoPage params={{ id: params.id }} />}
+        {TabsListData.map((item) => (
+          <TabsContent key={item.value} value={item.value}>
+            {item.component}
           </TabsContent>
         ))}
       </Tabs>

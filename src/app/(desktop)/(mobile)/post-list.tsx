@@ -96,6 +96,12 @@ const PostList = () => {
     }
   }, [inView, fetchNextPage, hasNextPage])
 
+  const TabsListData = [
+    { label: '校內公告', value: 'inside' },
+    { label: '校外公告', value: 'outside' },
+    { label: '置頂公告', value: 'sticky' }
+  ]
+
   return (
     <>
       <div className='sticky top-0 z-10 hidden items-center gap-2'>
@@ -111,11 +117,12 @@ const PostList = () => {
       >
         <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
           <h1 className='w-full text-center text-2xl font-bold md:text-left'>學校公告</h1>
-
-          <TabsList className='grid w-full grid-cols-3'>
-            <TabsTrigger value='inside'>校內公告</TabsTrigger>
-            <TabsTrigger value='outside'>校外公告</TabsTrigger>
-            <TabsTrigger value='sticky'>置頂公告</TabsTrigger>
+          <TabsList className='w-full'>
+            {TabsListData.map((item) => (
+              <TabsTrigger key={item.value} value={item.value} className='w-full'>
+                {item.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
         </div>
         <div className='touch-manipulation' {...bind()}>
