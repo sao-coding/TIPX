@@ -52,14 +52,17 @@ const LeaveTabs = () => {
     //   </Tabs.Content>
     // </Tabs.Root>
 
-    <Tabs>
-      <TabsList className='w-full'>
-        {TabsListData.map((item) => (
-          <TabsTrigger key={item.value} value={item.value} className='w-full'>
-            {item.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+    <Tabs onValueChange={handleTabChange} value={activeTab}>
+      <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
+        <h1 className='w-full text-center text-2xl font-bold md:text-left'>線上請假</h1>
+        <TabsList className='w-full'>
+          {TabsListData.map((item) => (
+            <TabsTrigger key={item.value} value={item.value} className='w-full'>
+              {item.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
       {TabsListData.map((item) => (
         <TabsContent key={item.value} value={item.value}>
           {item.component}

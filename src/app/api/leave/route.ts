@@ -1,10 +1,12 @@
 // 請假
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import * as cheerio from 'cheerio'
 import { JSDOM } from 'jsdom'
 
 import { Course, Leave, LeaveItem, LeaveItemCheck } from '@/types'
 import getCourse from '@/utils/course'
+import getCurrentYearSem from '@/utils/current-year-sem'
 import getGender from '@/utils/gender'
 import getAuth from '@/utils/get-auth'
 
@@ -39,18 +41,6 @@ export const GET = async (req: NextRequest) => {
   const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
   const userid = searchParams.get('userid') ?? auth?.userId
 
-  // const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
-  //     headers: {
-  //         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-  //         Referer: "https://netinfo.takming.edu.tw/tip/list_fun.php",
-  //     },
-  // })
-
-  // const buffer = await res.arrayBuffer()
-  // const html = new TextDecoder("big5").decode(buffer)
-  // const dom = new JSDOM(html)
-  // const document = dom.window.document
-
   const leaveDate: Leave = {
     start: '',
     end: '',
@@ -63,43 +53,11 @@ export const GET = async (req: NextRequest) => {
 
   const leaveItemCheck: LeaveItemCheck[] = []
 
-  // leaveDate.start = formatDate(
-  //     "TIPX",
-  //     document.querySelector(
-  //         "#AutoNumber4 > tbody > tr:nth-child(2) > td > div > select > option:nth-child(2)"
-  //     )?.textContent ?? ""
-  // )
-
-  // leaveDate.end = formatDate(
-  //     "TIPX",
-  //     document.querySelector(
-  //         "#AutoNumber4 > tbody > tr:nth-child(2) > td > div > select > option:last-child"
-  //     )?.textContent ?? ""
-  // )
-
-  // leaveDate.leave.date = req.nextUrl.searchParams.get("date") ?? ""
-
   if (req.nextUrl.searchParams.has('date')) {
     // 判斷當前學期
-    let currentYear, currentSem
-    const checkYear = new Date().getFullYear()
-    const checkMonth = new Date().getMonth() + 1
+    const { currentYear, currentSem } = getCurrentYearSem()
 
-    if (checkMonth >= 8) {
-      currentYear = checkYear - 1911
-    } else {
-      currentYear = checkYear - 1912
-    }
-    // 判斷上下學期
-    // year 8 ~ 12 || year+1 1 ~ 2
-    // year 2 ~ 7
-    if (checkMonth >= 8 || checkMonth <= 1) {
-      currentSem = 1
-    } else {
-      currentSem = 2
-    }
-
-    if (currentYear !== Number(year) || currentSem !== Number(sem)) {
+    if (currentYear !== year || currentSem !== sem) {
       // 過往學期無法請假
       return NextResponse.json(
         {
@@ -111,6 +69,7 @@ export const GET = async (req: NextRequest) => {
         }
       )
     }
+
     let bodyContent = `TDate=${formatDate('TIP', req.nextUrl.searchParams.get('date') ?? '')}`
     const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_absrec.php', {
       method: 'POST',
@@ -125,18 +84,19 @@ export const GET = async (req: NextRequest) => {
     const html = new TextDecoder('big5').decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
+    const $ = cheerio.load(html)
+
     leaveDate.start = formatDate(
       'TIPX',
-      document.querySelector(
+      $(
         '#AutoNumber4 > tbody > tr:nth-child(2) > td > div > select > option:nth-child(2)'
-      )?.textContent ?? ''
+      ).text() ?? ''
     )
 
     leaveDate.end = formatDate(
       'TIPX',
-      document.querySelector(
-        '#AutoNumber4 > tbody > tr:nth-child(2) > td > div > select > option:last-child'
-      )?.textContent ?? ''
+      $('#AutoNumber4 > tbody > tr:nth-child(2) > td > div > select > option:last-child').text() ??
+        ''
     )
 
     leaveDate.type =

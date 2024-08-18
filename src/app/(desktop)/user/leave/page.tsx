@@ -10,11 +10,8 @@ const LeavePage = () => {
   }
 
   return (
-    <div className='md:bg-card-background w-full rounded-3xl px-2 md:p-6 md:shadow-md'>
-      {/* <Title title={title} /> */}
-      <div className='px-2'>
-        <LeaveTabs />
-      </div>
+    <div className=''>
+      <LeaveTabs />
     </div>
   )
 }
