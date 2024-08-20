@@ -169,6 +169,7 @@ export const GET = async (req: NextRequest) => {
     }
   }
 
+  // 工具列裡的作業才會顯示課程名稱
   if (type === 'tool') {
     const courseList = (await getCourse(userid ?? '', year ?? '', sem ?? '')) as Course[]
     for (const course of courseList) {

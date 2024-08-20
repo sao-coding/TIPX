@@ -92,7 +92,7 @@ const MobileTimeTable = () => {
 
   return (
     <>
-      <div className='relative mb-3 flex flex-col items-center'>
+      <div className='relative mb-3 flex items-center'>
         <h1 className='w-full text-center text-2xl font-bold md:text-left'>課表</h1>
 
         <IconShare2

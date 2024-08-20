@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import Cookies from 'js-cookie'
 
+import Title from '@/components/Title'
 import { Skeleton } from '@/components/ui/skeleton'
 import api from '@/lib/api'
 import { Course } from '@/types'
@@ -19,9 +20,15 @@ const CourseListPage = () => {
     }
   })
 
+  const titleData = {
+    title: '課程',
+    children: ''
+  }
+
   return (
     <>
-      <h1 className='mb-3 w-full text-center text-2xl font-bold md:py-1 md:text-left'>課程</h1>
+      {/* <h1 className='mb-3 w-full text-center text-2xl font-bold md:py-1 md:text-left'>課程</h1> */}
+      <Title {...titleData} />
       <div className='mb-16 w-full md:p-0'>
         <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
           {isLoading

@@ -158,6 +158,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                     'relative rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                     data.upload === '' ? 'cursor-not-allowed' : ''
                   )}
+                  disabled={data.upload === ''}
                 >
                   <IconUpload />
                   {data.upload === '' && (
@@ -170,7 +171,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>作業上傳</DialogTitle>
-                    <DialogDescription>某某課程</DialogDescription>
+                    <DialogDescription>{data.title}</DialogDescription>
                   </DialogHeader>
                   {file && (
                     <div className='flex items-center space-x-2'>
@@ -198,6 +199,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                     'relative rounded-sm bg-background3 p-1 text-foreground hover:bg-foreground hover:text-background3',
                     data.upload === '' ? 'cursor-not-allowed' : ''
                   )}
+                  disabled={data.upload === ''}
                 >
                   <IconUpload />
                   {data.upload === '' && (
@@ -210,7 +212,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                 <DrawerContent>
                   <DrawerHeader>
                     <DrawerTitle>作業上傳</DrawerTitle>
-                    <DrawerDescription>某某課程</DrawerDescription>
+                    <DrawerDescription>{data.title}</DrawerDescription>
                   </DrawerHeader>
                   <div className='space-y-2 px-4'>
                     {file && (

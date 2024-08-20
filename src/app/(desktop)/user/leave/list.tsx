@@ -2,7 +2,7 @@
 
 import React from 'react'
 import clsx from 'clsx'
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 
 import Loading from '@/components/ui/Loading'
 import {
@@ -24,13 +24,13 @@ const List = () => {
   // const [month, setMonth] = useState(`${new Date().getMonth() + 1}`.padStart(2, '0'))
   const [month, setMonth] = React.useState<string>(`${new Date().getMonth() + 1}`.padStart(2, '0'))
   const { isLoading, isError, data } = useQuery<LeaveItemCheck[]>({
-    queryKey: ['leaveList', month],
+    queryKey: ['leaveList', month, Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       // const res = await fetch(`/api/leave?month=${month}`)
       // const data = await res.json()
       // return data
 
-      const { data } = await api.get(`/leave?month=all`)
+      const { data } = await api.get(`/leave?month=${month}`)
       return data
     }
     // refetchOnWindowFocus: false,
@@ -69,7 +69,7 @@ const List = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value='all'>全部</SelectItem>
-            {Cookie.get('sem') === '1' ? (
+            {Cookies.get('sem') === '1' ? (
               <>
                 <SelectItem value='09'>09 月</SelectItem>
                 <SelectItem value='10'>10 月</SelectItem>
@@ -95,9 +95,9 @@ const List = () => {
         <>
           {data?.length === 0 && <div className='text-center text-2xl'>沒有請假紀錄</div>}
           {data?.map((item, index) => (
-            <div className='relative mb-2 rounded-xl border p-2' key={index}>
+            <div className='relative mb-2 rounded-sm border bg-background1 p-2' key={index}>
               <div className='flex'>
-                <div className={clsx('rounded-lg px-1 text-white', typeColor[item.type])}>
+                <div className={clsx('rounded-sm px-2 text-white', typeColor[item.type])}>
                   {item.type}
                 </div>
               </div>
@@ -106,8 +106,8 @@ const List = () => {
               <div>{item.teacher}</div>
 
               <div className='absolute right-2 top-2 flex flex-col items-end space-y-1'>
-                <div className='bg-main-color-3 rounded-lg px-1 text-white'>{`第${item.section}節`}</div>
-                <div className={clsx('rounded-lg px-1 text-white', statusColor[item.status])}>
+                <div className='rounded-sm bg-primary px-2 text-white'>{`第${item.section}節`}</div>
+                <div className={clsx('rounded-sm px-2 text-white', statusColor[item.status])}>
                   {item.status}
                 </div>
               </div>

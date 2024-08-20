@@ -108,32 +108,21 @@ export const GET = async (req: NextRequest) => {
 
     // 第一節 ~ 第十四節
     for (let i = 1; i <= 14; i++) {
-      const item = document.querySelector(
-        `#AutoNumber4 > tbody > tr:nth-child(3) > td > div > p:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(${
-          i + 2
-        }) > font > input[type=checkbox]`
+      const item = $(
+        `#AutoNumber4 > tbody > tr:nth-child(3) > td > div > p:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(${i + 2}) > font > input[type=checkbox]`
       )
-      // name = input name
-      // value = input value
-      const course = (await getCourse(
-        userid ?? '',
-        year ?? '',
-        sem ?? '',
-        item?.getAttribute('value') ?? ''
-      )) as Course
+
+      const name = item.attr('name') ?? ''
+      const value = item.attr('value') ?? ''
+      const checked = item?.attr('checked') === null ? true : false
+      const course = (await getCourse(userid ?? '', year ?? '', sem ?? '', value)) as Course
 
       leaveDate.leave.list.push({
-        status: item?.getAttribute('checked') === null ? true : false,
+        status: checked,
         id: i,
-        courseID: item?.getAttribute('value') ?? '',
-        // name: (await getCourse(
-        //     userid ?? "",
-        //     year ?? "",
-        //     sem ?? "",
-        //     item?.getAttribute("value") ?? ""
-        // ))?.name as string,
+        courseID: course?.course ?? '',
         name: course?.course ?? '',
-        value: item?.getAttribute('name') ?? ''
+        value: name
       })
     }
 
@@ -174,7 +163,7 @@ export const GET = async (req: NextRequest) => {
         )
 
         const status = ['已核可', '審核中', '請來談', '退件']
-
+        // FIXME: 處理狀態無法正確顯示
         if (item?.querySelector('td:nth-child(2)') !== null) {
           leaveItemCheck.push({
             id: item?.querySelector('a')?.getAttribute('href')?.split('rowid=')[1] ?? '',

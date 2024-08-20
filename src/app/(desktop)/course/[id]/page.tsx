@@ -46,7 +46,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Tabs defaultValue='作業'>
-        <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
+        <div className='mb-3 flex flex-col items-center gap-3 md:flex-row'>
           {isLoading ? (
             <div className='w-full'>
               <Skeleton className='mx-auto my-1 h-6 w-60 md:mx-0' />

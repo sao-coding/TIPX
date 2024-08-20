@@ -3,6 +3,7 @@
 import React from 'react'
 import { useInView } from 'react-intersection-observer'
 
+import Title from '@/components/Title'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Announcement } from '@/types'
@@ -102,6 +103,19 @@ const PostList = () => {
     { label: '置頂公告', value: 'sticky' }
   ]
 
+  const titleData = {
+    title: '學校公告',
+    children: (
+      <TabsList className='w-full'>
+        {TabsListData.map((item) => (
+          <TabsTrigger key={item.value} value={item.value} className='w-full'>
+            {item.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    )
+  }
+
   return (
     <>
       <div className='sticky top-0 z-10 hidden items-center gap-2'>
@@ -115,7 +129,7 @@ const PostList = () => {
           setExclude(value === 'inside' ? 'sticky' : value === 'outside' ? 'sticky' : '')
         }}
       >
-        <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
+        {/* <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
           <h1 className='w-full text-center text-2xl font-bold md:text-left'>學校公告</h1>
           <TabsList className='w-full'>
             {TabsListData.map((item) => (
@@ -124,7 +138,8 @@ const PostList = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-        </div>
+        </div> */}
+        <Title {...titleData} />
         <div className='touch-manipulation' {...bind()}>
           <TabsContent value='inside'>
             <div className='overflow-hidden md:rounded-lg md:bg-background1'>
