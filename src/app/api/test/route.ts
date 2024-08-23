@@ -8,11 +8,11 @@ export const GET = async (req: NextRequest) => {
 
   cookies().set('refreshToken', refreshToken)
 
-  const accessToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '1h' })
+  const accessToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '9999d' })
 
   cookies().set('accessToken', accessToken)
 
-  return NextResponse.json({ message: '給予token成功' })
+  return NextResponse.json({ message: '給予token成功', refreshToken, accessToken })
 }
 
 export const POST = async (req: NextRequest) => {

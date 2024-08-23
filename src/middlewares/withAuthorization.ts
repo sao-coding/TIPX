@@ -7,8 +7,11 @@ import { MiddlewareFactory } from './types'
 export const withAuthorization: MiddlewareFactory = (next) => {
   return async (req: NextRequest, _next: NextFetchEvent) => {
     const refreshToken = req.cookies.get('refreshToken')?.value || ''
-    const accessToken = req.cookies.get('accessToken')?.value || ''
+    const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
     let verify
+    console.log(
+      `middleware: ${req.nextUrl.pathname} refreshToken: ${refreshToken} accessToken: ${accessToken}`
+    )
 
     verify = await verifyJwt(accessToken)
 
@@ -19,7 +22,15 @@ export const withAuthorization: MiddlewareFactory = (next) => {
     // req.nextUrl.pathname.startsWith('/api/refresh-token')
     // req.nextUrl.pathname.startsWith("/api/git-log")
     // req.nextUrl.pathname.startsWith('/api')
-    const exception = ['/api/og', '/api/post', '/api/auth', '/api/refresh-token', '/api/git-log']
+    const exception = [
+      '/api/og',
+      '/api/post',
+      '/api/auth',
+      '/api/refresh-token',
+      '/api/git-log',
+      '/api/log',
+      '/api/test'
+    ]
 
     if (req.nextUrl.pathname.startsWith('/api')) {
       console.log(`middleware: ${req.nextUrl.pathname} auth: ${JSON.stringify(verify)}`)

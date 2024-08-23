@@ -1,12 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import React from 'react'
 import { useSearchParams } from 'next/navigation'
+import { CalendarIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
 import Loading from '@/components/ui/Loading'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import api from '@/lib/api'
+import { cn } from '@/lib/utils'
 import { Leave as LeaveType } from '@/types'
+import formatDatetime from '@/utils/format-datetime'
 import { Listbox } from '@headlessui/react'
 import { IconSelector } from '@tabler/icons-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -17,11 +24,14 @@ const Leave = () => {
   const searchParams = useSearchParams()
   // 目前台灣時間
   const now = new Date()
-  const nowDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now
-    .getDate()
-    .toString()
-    .padStart(2, '0')}`
-  const [date, setDate] = useState(searchParams.get('date') || nowDate)
+  // const nowDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now
+  //   .getDate()
+  //   .toString()
+  //   .padStart(2, '0')}`
+  // const [date, setDate] = useState(searchParams.get('date') || nowDate)
+  const [date, setDate] = React.useState<Date | undefined>(
+    new Date(searchParams.get('date') || now)
+  )
   const [selected, setSelected] = useState('病假')
   const queryClient = useQueryClient()
   const { isLoading, data } = useQuery<LeaveType>({
@@ -122,26 +132,60 @@ const Leave = () => {
   return (
     <form encType='multipart/form-data' onSubmit={(event) => upload(event)}>
       <div className='mb-2 flex items-center space-x-1'>
-        <input
+        {/* <input
           type='date'
           name='date'
           id=''
-          className='bg-card-background h-8 rounded-lg p-1 md:w-1/3 md:border'
+          className='h-8 rounded-lg p-1 md:w-1/3 md:border'
           min={data?.start}
           max={data?.end}
           value={date}
           onChange={(e) => setDate(e.target.value)}
-        />
+        /> */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={'outline'}
+              className={cn(
+                'w-1/3 justify-start text-left font-normal',
+                !date && 'text-muted-foreground'
+              )}
+            >
+              <CalendarIcon className='mr-2 h-4 w-4' />
+              {/* {date ? format(date, 'PPP') : <span>Pick a date</span>} */}
+              {date ? formatDatetime('date', date) : <span>選擇日期</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className='w-auto p-0'>
+            <Calendar
+              mode='single'
+              selected={date}
+              onSelect={setDate}
+              initialFocus
+              classNames={{
+                cell: 'rounded-md h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20'
+              }}
+              // 最小可選日期
+              // 最大可選日期
+              modifiers={{
+                disabled: {
+                  before: new Date(data?.start ?? now),
+                  after: new Date(data?.end ?? now)
+                }
+              }}
+            />
+          </PopoverContent>
+        </Popover>
         {/* 病假
                 事假
                 生理假 */}
         <div className='relative w-28 md:w-1/3'>
           <Listbox value={selected} onChange={(e) => setSelected(e)}>
-            <Listbox.Button className='bg-card-background flex h-8 w-full items-center justify-start rounded-lg p-1 md:border'>
+            <Listbox.Button className='flex h-8 w-full items-center justify-start rounded-lg p-1 md:border'>
               <IconSelector />
               {selected}
             </Listbox.Button>
-            <Listbox.Options className='bg-card-background absolute left-0 top-10 z-10 w-full rounded-lg p-2 shadow-md'>
+            <Listbox.Options className='absolute left-0 top-10 z-10 w-full rounded-lg p-2 shadow-md'>
               {data?.type.map((type, i) => (
                 <Listbox.Option key={i} value={type}>
                   {type}

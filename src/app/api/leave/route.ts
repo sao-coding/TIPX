@@ -57,8 +57,8 @@ export const GET = async (req: NextRequest) => {
     // 判斷當前學期
     const { currentYear, currentSem } = getCurrentYearSem()
 
+    // 過往學期無法請假
     if (currentYear !== year || currentSem !== sem) {
-      // 過往學期無法請假
       return NextResponse.json(
         {
           status: 'error',
@@ -80,6 +80,7 @@ export const GET = async (req: NextRequest) => {
       },
       body: bodyContent
     })
+
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder('big5').decode(buffer)
     const dom = new JSDOM(html)
@@ -99,11 +100,13 @@ export const GET = async (req: NextRequest) => {
         ''
     )
 
+    // 判斷男女假別
     leaveDate.type =
       (await (await getGender(userid ?? '')).gender) === '男'
         ? ['病假', '事假']
         : ['病假', '事假', '生理假']
 
+    // 請假日期
     leaveDate.leave.date = req.nextUrl.searchParams.get('date') ?? ''
 
     // 第一節 ~ 第十四節
@@ -141,47 +144,33 @@ export const GET = async (req: NextRequest) => {
         body: 'StuDate=' + month
         // body: `StuDate=${i.toString().padStart(2, "0")}`,
       })
+
       const buffer = await res.arrayBuffer()
       const html = new TextDecoder('big5').decode(buffer)
       const dom = new JSDOM(html)
       const document = dom.window.document
-      const leaveLength = document.querySelectorAll(
-        '#AutoNumber4 > tbody > tr:nth-child(4) > td > table > tbody tr'
-      ).length
-      // if (leaveLength <= 2) {
-      //     return NextResponse.json([])
-      // }
+      const $ = cheerio.load(html)
+
+      const leaveLength = $('#AutoNumber4 > tbody > tr:nth-child(4) > td > table > tbody tr').length
+
       for (let i = 2; i <= leaveLength; i++) {
-        // console.log(
-        //     i,
-        //     document.querySelector(
-        //         `#AutoNumber4 > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(${i})`
-        //     )?.textContent
-        // )
-        const item = document.querySelector(
+        const item = $(
           `#AutoNumber4 > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(${i})`
         )
 
-        const status = ['已核可', '審核中', '請來談', '退件']
-        // FIXME: 處理狀態無法正確顯示
-        if (item?.querySelector('td:nth-child(2)') !== null) {
+        // const status = ['已核可', '審核中', '請來談', '退件']
+
+        // 處理狀態並推入 leaveItemCheck 陣列
+        if (item.find('td:nth-child(2)').length > 0) {
           leaveItemCheck.push({
-            id: item?.querySelector('a')?.getAttribute('href')?.split('rowid=')[1] ?? '',
-            type: item?.querySelector('td:nth-child(2)')?.textContent ?? '',
-            date: item?.querySelector('td:nth-child(3)')?.textContent ?? '',
-            course: item?.querySelector('td:nth-child(4)')?.textContent ?? '',
-            teacher: item?.querySelector('td:nth-child(5)')?.textContent ?? '',
-            section: item?.querySelector('td:nth-child(6)')?.textContent ?? '',
-            status:
-              item?.querySelector('td:nth-child(7)')?.textContent === '已核可'
-                ? '已核可'
-                : item?.querySelector('td:nth-child(7)')?.textContent === '審核中'
-                  ? '審核中'
-                  : item?.querySelector('td:nth-child(7)')?.textContent === '請來談'
-                    ? '請來談'
-                    : item?.querySelector('td:nth-child(7)')?.textContent === '退件'
-                      ? '退件'
-                      : ''
+            id: item.find('a').attr('href')?.split('rowid=')[1] ?? '',
+            type: item.find('td:nth-child(2)').text().trim() ?? '',
+            date: item.find('td:nth-child(3)').text().trim() ?? '',
+            course: item.find('td:nth-child(4)').text().trim() ?? '',
+            teacher: item.find('td:nth-child(5)').text().trim() ?? '',
+            section: item.find('td:nth-child(6)').text().trim() ?? '',
+            // TODO:請假證明文件 td:nth-child(7)
+            status: item.find('td:nth-child(8)').text().trim() ?? ''
           })
         }
       }
