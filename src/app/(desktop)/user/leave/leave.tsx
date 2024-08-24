@@ -10,12 +10,17 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import Loading from '@/components/ui/Loading'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import api from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { Leave as LeaveType } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
-import { Listbox } from '@headlessui/react'
-import { IconSelector } from '@tabler/icons-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import ConfirmCard from './confirmCard'
@@ -131,7 +136,7 @@ const Leave = () => {
 
   return (
     <form encType='multipart/form-data' onSubmit={(event) => upload(event)}>
-      <div className='mb-2 flex items-center space-x-1'>
+      <div className='mb-2 flex items-center gap-1 md:gap-2'>
         {/* <input
           type='date'
           name='date'
@@ -147,7 +152,7 @@ const Leave = () => {
             <Button
               variant={'outline'}
               className={cn(
-                'w-1/3 justify-start text-left font-normal',
+                'justify-start text-left font-normal md:w-1/3',
                 !date && 'text-muted-foreground'
               )}
             >
@@ -156,7 +161,7 @@ const Leave = () => {
               {date ? formatDatetime('date', date) : <span>選擇日期</span>}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className='w-auto p-0'>
+          <PopoverContent className='w-auto p-0' align='start'>
             <Calendar
               mode='single'
               selected={date}
@@ -177,9 +182,9 @@ const Leave = () => {
           </PopoverContent>
         </Popover>
         {/* 病假
-                事假
-                生理假 */}
-        <div className='relative w-28 md:w-1/3'>
+            事假
+            生理假 */}
+        {/* <div className='relative w-28 md:w-1/3'>
           <Listbox value={selected} onChange={(e) => setSelected(e)}>
             <Listbox.Button className='flex h-8 w-full items-center justify-start rounded-lg p-1 md:border'>
               <IconSelector />
@@ -193,12 +198,27 @@ const Leave = () => {
               ))}
             </Listbox.Options>
           </Listbox>
-        </div>
-        <input
+        </div> */}
+        <Select value={selected} onValueChange={setSelected}>
+          <SelectTrigger className='relative w-28 md:w-1/3'>
+            <SelectValue>{selected}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {data?.type.map((type, i) => (
+              <SelectItem key={i} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {/* <input
           type='submit'
           value='送出'
           className='bg-card-background flex-1 rounded-lg p-1 hover:bg-gray-200 md:w-1/3 md:border'
-        />
+        /> */}
+        <Button type='submit' variant='outline' className='flex-1 md:w-1/3'>
+          送出
+        </Button>
       </div>
       {isLoading ? (
         <Loading />
