@@ -1,37 +1,68 @@
-import { IconCalendar } from '@tabler/icons-react'
+import clsx from 'clsx'
+import { cookies } from 'next/headers'
+import { verifyJwt } from '@/lib/jwt'
 
-const UserPage = () => {
+import { USER_LINKS } from '@/config/links'
+import { IconClock, IconListDetails, IconSchool, IconUserStar } from '@tabler/icons-react'
+import Info from './info'
+import getUser from '@/utils/user'
+import getAuth from '@/lib/get-auth'
+import getImgColor from '@/utils/img-color'
+import getClassName from '@/utils/class-name'
+import api from '@/lib/api'
+import { ClassName } from '@/types'
+
+const getUserData = async () => {
+  const { data: user } = await api.get('/user')
+  console.log('user', user)
+  // const { data: color } = await api.get(`/color-get?url=${user.img}`)
+  // const { data: userClassName } = await api.get<ClassName>('/class-name')
+  return { user }
+}
+
+const UserPage = async () => {
+  // const accessToken = cookies().get('accessToken')?.value || ''
+  // const auth = await getAuth(accessToken)
+  // const user = await getUser(auth?.userId || '')
+  // const color = await getImgColor(user.img)
+  // const userClassName = await (await getClassName(auth?.userId || '')).class
+  const { user } = await getUserData()
+  // cookies().set('userid', 'D11019139')
+  const userid = cookies().get('userid')?.value || ''
+  console.log('##########userid', userid)
+
   return (
-    <div className='relative overflow-hidden rounded-lg bg-background1'>
-      <div className='h-32'>
-        {/* https://cdn.sao-x.com/cover/003.webp */}
-        {/* object-position: 50% 25%; */}
-        <img src='https://i.imgur.com/xSL4INZ.jpeg' className='h-full w-full object-cover' />
-      </div>
-      {/* <IconUser className='absolute left-0 right-0 top-20 mx-auto h-24 w-24 rounded-full bg-secondary p-1' /> */}
-      {/* https://blog.sao-x.com/img/avatar.jpg */}
-      <div className='absolute left-0 right-0 top-20'>
-        <img
-          src='https://blog.sao-x.com/img/avatar.jpg'
-          className='mx-auto h-24 w-24 rounded-full bg-secondary p-1'
-        />
-      </div>
-      <div className='pb-4 pt-16'>
-        <h1 className='text-center text-2xl font-bold'>欒文皓</h1>
-      </div>
-      <div className='flex items-center border-y p-4'>
-        <span className='flex items-center gap-1 font-bold'>
-          <IconCalendar className='h-4 w-4' />
-          註冊時間
-        </span>
-        <span className='ml-auto'>{new Date().toLocaleString()}</span>
-      </div>
-      <div className='p-4'>
-        <ul>
-          <li>職位: 工程師</li>
-          <li>部門: 技術部</li>
-          <li>電話: 0912345678</li>
-          <li>信箱: only@sao-x.com</li>
+    <div className='mb-16'>
+      {/* <Info user={user} color={color} userClassName={userClassName.class} /> */}
+      <div className='mt-2 md:hidden'>
+        {/* 功能清單 */}
+        <ul className='grid grid-cols-2 gap-2'>
+          {/* {userMenu.map((menu, i) => (
+            <li key={i} className='h-10 rounded-sm border bg-background1 p-2'>
+              {menu.title}
+            </li>
+          ))} */}
+          {USER_LINKS.map(
+            (group, index) =>
+              // group.links.map((link, index) => (
+              //   <li key={index} className='h-10 rounded-sm border bg-background1 p-2'>
+              //     <div className='flex items-center gap-2'>
+              //       <link.icon className={clsx(link.color, link.className)} />
+              //       <span>{link.text}</span>
+              //     </div>
+              //   </li>
+              // ))
+              // 跳過 index 0 的一般資訊
+              index > 0 &&
+              group.links.map((link, _) => (
+                <li key={_} className='h-10 rounded-sm border bg-background1 p-2'>
+                  <div className='flex items-center gap-2'>
+                    <link.icon className={clsx(link.color, link.className)} />
+                    <span>{link.text}</span>
+                  </div>
+                </li>
+              ))
+          )}
         </ul>
       </div>
     </div>

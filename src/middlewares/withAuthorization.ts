@@ -29,7 +29,9 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       '/api/refresh-token',
       '/api/git-log',
       '/api/log',
-      '/api/test'
+      '/api/test',
+      '/api/image-proxy',
+      '/api/color-get'
     ]
 
     if (req.nextUrl.pathname.startsWith('/api')) {

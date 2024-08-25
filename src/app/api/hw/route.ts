@@ -5,7 +5,7 @@ import * as cheerio from 'cheerio'
 
 import { Course, Hw } from '@/types'
 import getCourse from '@/utils/course'
-import getAuth from '@/utils/get-auth'
+import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams

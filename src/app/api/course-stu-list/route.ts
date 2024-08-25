@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { JSDOM } from 'jsdom'
 
 import { CourseStuList } from '@/types'
-import getAuth from '@/utils/get-auth'
+import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''

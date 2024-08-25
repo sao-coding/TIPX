@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom'
 
 import redis from '@/lib/redis'
 import { TimeTable } from '@/types'
-import getAuth from '@/utils/get-auth'
+import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams

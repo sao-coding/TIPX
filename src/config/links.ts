@@ -104,7 +104,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
         color: 'stroke-yellow-500',
         href: '/course',
         text: '課程'
-      },
+      }
+    ]
+  },
+  {
+    group: '一般資訊',
+    links: [
       {
         icon: IconBrowser,
         color: 'stroke-red-500',
