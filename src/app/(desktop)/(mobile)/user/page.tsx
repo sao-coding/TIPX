@@ -1,23 +1,16 @@
 import clsx from 'clsx'
-import { cookies } from 'next/headers'
-import { verifyJwt } from '@/lib/jwt'
 
 import { USER_LINKS } from '@/config/links'
-import { IconClock, IconListDetails, IconSchool, IconUserStar } from '@tabler/icons-react'
-import Info from './info'
-import getUser from '@/utils/user'
-import getAuth from '@/lib/get-auth'
-import getImgColor from '@/utils/img-color'
-import getClassName from '@/utils/class-name'
-import api from '@/lib/api'
+import api from '@/lib/server-api'
 import { ClassName } from '@/types'
+
+import Info from './info'
 
 const getUserData = async () => {
   const { data: user } = await api.get('/user')
-  console.log('user', user)
-  // const { data: color } = await api.get(`/color-get?url=${user.img}`)
-  // const { data: userClassName } = await api.get<ClassName>('/class-name')
-  return { user }
+  const { data: color } = await api.get(`/get-img-color?url=${user.img}`)
+  const { data: userClassName } = await api.get<ClassName>('/class-name')
+  return { user, color, userClassName }
 }
 
 const UserPage = async () => {
@@ -26,14 +19,12 @@ const UserPage = async () => {
   // const user = await getUser(auth?.userId || '')
   // const color = await getImgColor(user.img)
   // const userClassName = await (await getClassName(auth?.userId || '')).class
-  const { user } = await getUserData()
-  // cookies().set('userid', 'D11019139')
-  const userid = cookies().get('userid')?.value || ''
-  console.log('##########userid', userid)
+  const { user, color, userClassName } = await getUserData()
+  console.log('user', user)
 
   return (
     <div className='mb-16'>
-      {/* <Info user={user} color={color} userClassName={userClassName.class} /> */}
+      <Info user={user} color={color} userClassName={userClassName.class} />
       <div className='mt-2 md:hidden'>
         {/* 功能清單 */}
         <ul className='grid grid-cols-2 gap-2'>

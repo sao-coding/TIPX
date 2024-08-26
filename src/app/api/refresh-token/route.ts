@@ -13,10 +13,10 @@ export const GET = async (req: NextRequest) => {
   const refreshToken = (await verifyJwt(
     req.cookies.get('refreshToken')?.value || ''
   )) as RefreshToken
-  console.log('refreshToken', refreshToken.userId)
 
   if (refreshToken) {
     // 重新簽
+    console.log('refreshToken', refreshToken.userId)
     const user = await prisma.user.findUnique({
       where: {
         userId: refreshToken.userId || ''
