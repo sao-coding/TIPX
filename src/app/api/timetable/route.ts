@@ -3,9 +3,9 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { JSDOM } from 'jsdom'
 
+import getAuth from '@/lib/get-auth'
 import redis from '@/lib/redis'
 import { TimeTable } from '@/types'
-import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams

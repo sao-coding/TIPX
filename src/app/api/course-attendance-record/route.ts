@@ -2,9 +2,9 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import getAuth from '@/lib/get-auth'
 import { CourseAttendanceRecord, CourseAttendanceRecordTotal } from '@/types'
 import getCourseAttendanceRecord from '@/utils/course-attendance-record'
-import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''

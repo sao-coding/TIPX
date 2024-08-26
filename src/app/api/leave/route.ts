@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
 import { JSDOM } from 'jsdom'
 
+import getAuth from '@/lib/get-auth'
 import { Course, Leave, LeaveItem, LeaveItemCheck } from '@/types'
 import getCourse from '@/utils/course'
 import getCurrentYearSem from '@/utils/current-year-sem'
 import getGender from '@/utils/gender'
-import getAuth from '@/lib/get-auth'
 
 const formatDate = (type: string, date: string) => {
   // 112.09.11(一) to 2023-09-11

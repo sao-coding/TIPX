@@ -7,9 +7,9 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import iconv from 'iconv-lite'
 
+import getAuth from '@/lib/get-auth'
 import { CourseInfo } from '@/types'
 import getCourseTeacher from '@/utils/course-teacher'
-import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''

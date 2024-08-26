@@ -4,8 +4,8 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { JSDOM } from 'jsdom'
 
-import { CourseStuList } from '@/types'
 import getAuth from '@/lib/get-auth'
+import { CourseStuList } from '@/types'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
