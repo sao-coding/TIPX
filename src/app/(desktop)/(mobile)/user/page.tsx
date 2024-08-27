@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import clsx from 'clsx'
 
 import { USER_LINKS } from '@/config/links'
@@ -46,11 +47,16 @@ const UserPage = async () => {
               // 跳過 index 0 的一般資訊
               index > 0 &&
               group.links.map((link, _) => (
-                <li key={_} className='h-10 rounded-sm border bg-background1 p-2'>
-                  <div className='flex items-center gap-2'>
-                    <link.icon className={clsx(link.color, link.className)} />
-                    <span>{link.text}</span>
-                  </div>
+                <li key={_}>
+                  <Link
+                    href={link.href}
+                    className='block h-10 rounded-sm border bg-background1 p-2'
+                  >
+                    <div className='flex items-center gap-2'>
+                      <link.icon className={clsx(link.color, link.className)} />
+                      <span>{link.text}</span>
+                    </div>
+                  </Link>
                 </li>
               ))
           )}
