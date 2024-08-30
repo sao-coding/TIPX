@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { zhTW } from 'date-fns/locale'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { DayPicker } from 'react-day-picker'
 
@@ -51,7 +50,6 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         IconLeft: ({ ...props }) => <ChevronLeft className='h-4 w-4' />,
         IconRight: ({ ...props }) => <ChevronRight className='h-4 w-4' />
       }}
-      locale={zhTW}
       {...props}
     />
   )

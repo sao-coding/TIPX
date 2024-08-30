@@ -30,7 +30,8 @@ const formatDatetime = (type: string, datetime: string | Date) => {
         const month = datetime.slice(3, 5)
         const day = datetime.slice(5, 7)
         const week = datetime.slice(8, 9)
-        return `${year}-${month}-${day} (${week})`
+        // 如果有week就回傳顯示，沒有就不顯示
+        return `${year}-${month}-${day} ${week ? `(${week})` : ''}`
       } else {
         return 'YYYY-MM-DD'
       }

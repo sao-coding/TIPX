@@ -49,7 +49,7 @@ const CourseAttendanceRecordPage = () => {
       <div className='mb-2 w-full'>
         <Title {...titleData} />
 
-        <div className='mb-2 grid grid-cols-2 gap-2'>
+        <div className='mb-2 grid grid-cols-2 gap-2 md:grid-cols-3'>
           {/* {data?.total.map((item, index) => {
             if (leaveType.includes(item.type)) {
               return (
@@ -63,20 +63,22 @@ const CourseAttendanceRecordPage = () => {
           {leaveType.map((type, index) => {
             const item = data?.total.find((item) => item.type === type)
             return (
-              <div key={index} className='rounded-xl border bg-background p-2'>
+              <div key={index} className='rounded-xl border bg-background1 p-2'>
                 <div>{type}</div>
                 <div className='w-full text-right text-lg font-bold'>{item?.count || 0}</div>
               </div>
             )
           })}
         </div>
-        <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-background p-2'>
+        <div className='sticky left-0 top-0 mb-2 rounded-xl border bg-background1 p-2'>
           <div>總計</div>
           <div className='w-full text-right text-lg font-bold'>
             {data?.total.reduce((a, b) => a + b.count, 0)}
           </div>
         </div>
-        {data?.list?.map((item, index) => <Card key={index} data={item} />)}
+        <div className='space-y-2'>
+          {data?.list?.map((item, index) => <Card key={index} data={item} />)}
+        </div>
       </div>
     </>
   )

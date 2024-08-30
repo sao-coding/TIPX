@@ -1,5 +1,8 @@
 'use client'
 
+import React from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import api from '@/lib/api'
@@ -32,6 +35,16 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     }
   })
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const tab = searchParams.get('tab') || '作業'
+  const [activeTab, setActiveTab] = React.useState(tab)
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value)
+    router.replace(`/course/${params.id}?tab=${value}`)
+  }
+
   const TabsListData = [
     { label: '作業', value: '作業', component: <HwPage params={{ id: params.id }} /> },
     { label: '學生', value: '學生', component: <CourseStuListPage params={{ id: params.id }} /> },
@@ -45,7 +58,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <Tabs defaultValue='作業'>
+      <Tabs defaultValue='作業' value={activeTab} onValueChange={handleTabChange}>
         <div className='mb-3 flex flex-col items-center gap-3 md:flex-row'>
           {isLoading ? (
             <div className='w-full'>
