@@ -17,7 +17,7 @@ const ConfirmCard = ({
     <label
       htmlFor={leave.value}
       className={clsx(
-        'relative mb-2 block w-full rounded-xl border p-2',
+        'relative mb-2 block w-full rounded-sm border p-2',
         status && 'bg-main-color-2'
       )}
     >

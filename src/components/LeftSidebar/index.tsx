@@ -51,7 +51,7 @@ const LeftSidebar = () => {
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Collapsible>
-                              <CollapsibleTrigger className='group w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+                              <CollapsibleTrigger className='group w-full rounded-sm p-2 hover:bg-accent hover:text-accent-foreground'>
                                 <div className='flex items-center justify-between'>
                                   <div className='flex items-center gap-2'>
                                     <IconHistoryToggle className='text-primary' />
@@ -69,7 +69,7 @@ const LeftSidebar = () => {
                                       <TooltipTrigger asChild>
                                         <Link
                                           href={link.href}
-                                          className='block w-full rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'
+                                          className='block w-full rounded-sm p-2 hover:bg-accent hover:text-accent-foreground'
                                         >
                                           <div className='flex items-center gap-2'>
                                             <link.icon
@@ -94,7 +94,7 @@ const LeftSidebar = () => {
                       //  筆電版
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <button className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+                          <button className='flex w-full justify-center rounded-sm p-2 hover:bg-accent hover:text-accent-foreground'>
                             <IconHistoryToggle className='text-primary' />
                           </button>
                         </DropdownMenuTrigger>
@@ -118,7 +118,7 @@ const LeftSidebar = () => {
                           <TooltipTrigger asChild>
                             <Link
                               href={link.href}
-                              className='flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground xl:justify-start'
+                              className='flex w-full justify-center rounded-sm p-2 hover:bg-accent hover:text-accent-foreground xl:justify-start'
                             >
                               <div className='flex items-center gap-2'>
                                 <link.icon className={clsx(link.color, link.className)} />

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import clsx from 'clsx'
 import Cookies from 'js-cookie'
 
 import {
@@ -34,7 +35,7 @@ type Sem = {
   sem: string
 }
 
-const Switch = () => {
+const Switch = ({ mobile }: { mobile?: boolean }) => {
   const [year, setYear] = React.useState(Cookies.get('year'))
   const [sem, setSem] = React.useState(Cookies.get('sem'))
   const router = useRouter()
@@ -82,9 +83,15 @@ const Switch = () => {
         </div>
       )}
       {/* 桌機版 */}
-      {isDesktop && (
+      {(isDesktop || mobile) && (
         <Select defaultValue={`${year}-${sem}`} onValueChange={(value) => ChangeYearSem(value)}>
-          <SelectTrigger className='mt-2 w-full'>
+          <SelectTrigger
+            className={clsx(
+              'mt-2 w-full',
+              isLoading && 'cursor-not-allowed',
+              mobile && 'bg-background1'
+            )}
+          >
             <SelectValue>
               {isLoading ? (
                 <IconLoader2 className='mx-1 animate-spin' />
@@ -99,7 +106,7 @@ const Switch = () => {
               )}
             </SelectValue>
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent side={mobile ? 'top' : 'bottom'}>
             {data?.map((item, index) => (
               <SelectItem key={index} value={`${item.year}-${item.sem}`}>
                 {`${item.year}-${item.sem} 學年度`}
@@ -109,10 +116,10 @@ const Switch = () => {
         </Select>
       )}
       {/* 筆電版 */}
-      {isDesktop === false && (
+      {isDesktop === false && !mobile && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className='mt-2 flex w-full justify-center rounded-xl p-2 hover:bg-accent hover:text-accent-foreground'>
+            <button className='mt-2 flex w-full justify-center rounded-sm p-2 hover:bg-accent hover:text-accent-foreground'>
               <IconSelector className='stroke-purple-500' />
             </button>
           </DropdownMenuTrigger>

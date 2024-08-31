@@ -6,7 +6,7 @@ const RightTool = () => {
   return (
     <div className='space-y-4'>
       <HwTool />
-      <div className='flex w-full justify-center rounded-xl bg-background1'>
+      <div className='flex w-full justify-center rounded-sm bg-background1'>
         <Calendar
           className='w-full'
           classNames={{

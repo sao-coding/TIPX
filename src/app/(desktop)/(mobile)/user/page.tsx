@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import clsx from 'clsx'
 
+import Switch from '@/components/LeftSidebar/switch'
 import { USER_LINKS } from '@/config/links'
 import api from '@/lib/server-api'
 import { ClassName } from '@/types'
@@ -26,6 +27,7 @@ const UserPage = async () => {
   return (
     <div className='mb-16'>
       <Info user={user} color={color} userClassName={userClassName.class} />
+      <Switch mobile />
       <div className='mt-2 md:hidden'>
         {/* 功能清單 */}
         <ul className='grid grid-cols-2 gap-2'>

@@ -32,7 +32,7 @@ const Delete = ({ id }: { id: string }) => {
           取消
         </AlertDialog.Trigger>
         <AlertDialog.Overlay className='data-[state=open]:animate-overlayShow fixed inset-0 z-20 bg-[rgba(0,0,0,.5)] backdrop-blur-sm' />
-        <AlertDialog.Content className='bg-card-background data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 z-20 flex max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 flex-col justify-center space-y-2 rounded-xl p-4 shadow-lg focus:outline-none'>
+        <AlertDialog.Content className='bg-card-background data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 z-20 flex max-h-[85vh] w-[85vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 flex-col justify-center space-y-2 rounded-sm p-4 shadow-lg focus:outline-none'>
           <AlertDialog.Title className='flex items-center space-x-2 text-xl font-bold'>
             <div className='relative h-6 w-6'>
               <div className='absolute h-full w-full animate-ping rounded-full bg-red-500'></div>

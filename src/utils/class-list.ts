@@ -54,13 +54,13 @@ const getClassList = async (userid: string) => {
     await Promise.all(
       Array.from(classList).map(async (student) => {
         // const id = student.querySelector("td:nth-child(2)")?.textContent ?? ""
-        const id = $(student).find('td:nth-child(2)').text() ?? ''
-        const { img, gender } = await getUser(id)
+        const userId = $(student).find('td:nth-child(2)').text() ?? ''
+        const { img, gender } = await getUser(userId)
         // const name = student.querySelector("td:nth-child(3)")?.textContent ?? ""
         const name = $(student).find('td:nth-child(3)').text() ?? ''
 
         studentList.push({
-          id,
+          userId,
           img,
           gender,
           name
@@ -68,7 +68,7 @@ const getClassList = async (userid: string) => {
       })
     )
 
-    studentList.sort((a, b) => a.id.localeCompare(b.id))
+    studentList.sort((a, b) => a.userId.localeCompare(b.userId))
 
     console.timeEnd('fetching-student-list')
   }

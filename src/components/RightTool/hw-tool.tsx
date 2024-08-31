@@ -55,7 +55,7 @@ const HwTool = () => {
 
   return (
     <>
-      <div className='overflow-hidden rounded-xl'>
+      <div className='overflow-hidden rounded-sm'>
         <header className='flex items-center justify-between bg-background2'>
           {/* 顯示總共多少未完成作業 */}
           <div className='flex items-center gap-1.5 px-3 py-2'>

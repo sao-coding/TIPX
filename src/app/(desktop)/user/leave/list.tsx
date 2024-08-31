@@ -96,17 +96,22 @@ const List = () => {
           {data?.length === 0 && <div className='text-center text-2xl'>沒有請假紀錄</div>}
           {data?.map((item, index) => (
             <div className='relative mb-2 rounded-sm border bg-background1 p-2' key={index}>
-              <div className='flex'>
-                <div className={clsx('rounded-sm px-2 text-white', typeColor[item.type])}>
-                  {item.type}
+              <div className='flex flex-col gap-2'>
+                <div className='flex'>
+                  <div className={clsx('rounded-sm px-2 text-white', typeColor[item.type])}>
+                    {item.type}
+                  </div>
+                </div>
+                <div className='flex gap-2'>
+                  <div className='rounded-sm bg-primary px-2 text-white'>{`第${item.section}節`}</div>
+                  {formatDatetime('leave', item.date)}
+                </div>
+                <div className='flex gap-2'>
+                  <div className='border-b border-primary'>{item.course}</div>
+                  {item.teacher}
                 </div>
               </div>
-              <div>{formatDatetime('leave', item.date)}</div>
-              <div>{item.course}</div>
-              <div>{item.teacher}</div>
-
               <div className='absolute right-2 top-2 flex flex-col items-end space-y-1'>
-                <div className='rounded-sm bg-primary px-2 text-white'>{`第${item.section}節`}</div>
                 <div className={clsx('rounded-sm px-2 text-white', statusColor[item.status])}>
                   {item.status}
                 </div>

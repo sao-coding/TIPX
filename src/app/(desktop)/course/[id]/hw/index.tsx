@@ -35,7 +35,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
     <>
       {/* {data.status && (
           <>
-            <div className='border-main-color-2 whitespace-pre-line rounded-xl border-2 border-dashed p-2 text-center text-2xl'>
+            <div className='border-main-color-2 whitespace-pre-line rounded-sm border-2 border-dashed p-2 text-center text-2xl'>
               {data.message}
             </div>
             <div className='flex w-full justify-center border-b'>
