@@ -19,7 +19,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
     病假: 'bg-blue-500',
     事假: 'bg-orange-500',
     生理假: 'bg-purple-500',
-    公假: 'bg-gary-500',
+    公假: 'bg-slate-500',
     喪假: 'bg-black-500'
   }
 
@@ -28,7 +28,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
       <div className='relative h-20 rounded-xl border bg-background1 p-2'>
         <div className='flex gap-2'>
           <div>{formatDatetime('leave', data.date)}</div>
-          <div className='bg-main-color-2 rounded-md px-1'>{data.week}</div>
+          <div className='bg-main-color-2 rounded-md px-1'>星期{data.week}</div>
         </div>
         <div className='absolute bottom-0 left-0 m-2 flex gap-2'>
           <div>第{data.period}節</div>
@@ -42,6 +42,16 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
         >
           {data.type}
         </div>
+        {/* 只有曠課才顯示去請假 */}
+        {/* href={`/user/leave?date=${formatDate(data.date)}`} */}
+        {data.type === '曠課' && (
+          <Link
+            href={`/user/leave?date=${formatDatetime('date', data.date)}`}
+            className='absolute bottom-0 right-0 m-2 text-blue-500 hover:border-b hover:border-blue-500'
+          >
+            去請假
+          </Link>
+        )}
       </div>
     </>
   )

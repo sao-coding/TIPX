@@ -123,7 +123,7 @@ const getSemGrade = async (userid: string, year: string, sem: string) => {
         case 6:
           // 如果Number(list) 是 NaN 去尋找 historySemGrade 的成績 如果沒有就給 0
           semScore.finalGrade = Number.isNaN(Number(list))
-            ? historySemGrade.find((e) => e.id === semScore.id)?.finalGrade ?? 0
+            ? (historySemGrade.find((e) => e.id === semScore.id)?.finalGrade ?? 0)
             : Number(list)
           break
         case 7:
