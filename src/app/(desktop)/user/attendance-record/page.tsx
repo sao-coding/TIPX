@@ -45,23 +45,23 @@ const CourseAttendanceRecordPage = () => {
 
   const leaveTypeColor: { [key: string]: { bg: string; border: string } } = {
     曠課: {
-      bg: 'bg-red-400',
+      bg: 'bg-red-500',
       border: 'border-red-500'
     },
     病假: {
-      bg: 'bg-blue-400',
+      bg: 'bg-blue-500',
       border: 'border-blue-500'
     },
     事假: {
-      bg: 'bg-orange-400',
+      bg: 'bg-orange-500',
       border: 'border-orange-500'
     },
     生理假: {
-      bg: 'bg-purple-400',
-      border: 'border-purple-500'
+      bg: 'bg-rose-400',
+      border: 'border-rose-500'
     },
     公假: {
-      bg: 'bg-slate-400',
+      bg: 'bg-slate-500',
       border: 'border-slate-500'
     },
     喪假: {

@@ -12,9 +12,9 @@ export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
   const auth = await getAuth(accessToken)
 
+  const userid = searchParams.get('userid') ?? auth?.userId
   const year = searchParams.get('year') ?? cookies().get('year')?.value
   const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
-  const userid = searchParams.get('userid') ?? auth?.userId
   const type = searchParams.get('type') ?? 'all'
   const time = searchParams.get('time') ?? ''
 

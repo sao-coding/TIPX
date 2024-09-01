@@ -18,7 +18,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
     曠課: 'bg-red-500',
     病假: 'bg-blue-500',
     事假: 'bg-orange-500',
-    生理假: 'bg-purple-500',
+    生理假: 'bg-rose-500',
     公假: 'bg-slate-500',
     喪假: 'bg-stone-500'
   }

@@ -12,9 +12,9 @@ export const GET = async (req: NextRequest) => {
   const auth = await getAuth(accessToken)
 
   const searchParams = req.nextUrl.searchParams
+  const userid = searchParams.get('userid') ?? auth?.userId
   const year = searchParams.get('year') ?? cookies().get('year')?.value
   const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
-  const userid = searchParams.get('userid') ?? auth?.userId
 
   const courseStuList: CourseStuList[] = []
   let stuList: string[] = []

@@ -39,7 +39,7 @@ const List = () => {
   const typeColor: { [key: string]: string } = {
     病假: 'bg-blue-500',
     事假: 'bg-orange-500',
-    生理假: 'bg-purple-500'
+    生理假: 'bg-rose-500'
   }
 
   const statusColor: { [key: string]: string } = {

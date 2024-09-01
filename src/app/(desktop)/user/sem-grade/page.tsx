@@ -41,7 +41,7 @@ const FinalGradePage = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className='grid w-full grid-cols-2 gap-2'>
+        <div className='grid w-full grid-cols-2 gap-2 md:grid-cols-3'>
           {data?.map((item, index) => (
             // <ScaleTransitionView key={index} custom={index}>
             <div className='relative rounded-xl border bg-background1 p-2' key={index}>
