@@ -36,7 +36,7 @@ export const GET = async (req: NextRequest) => {
   const location = req.nextUrl.searchParams.get('location') || '內湖區'
   const today =
     req.nextUrl.searchParams.get('date') ??
-    formatDatetime(new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }), 'weather')
+    formatDatetime('weather', new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }))
   const tomorrow = formatDatetime(
     'weather',
     new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000)
