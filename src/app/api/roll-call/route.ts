@@ -1,10 +1,9 @@
 // 點名
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 import { JSDOM } from 'jsdom'
 
-import authOptions from '@/lib/auth'
+import getAuth from '@/lib/get-auth'
 import { PostRollCall, RollCall } from '@/types'
 import getTeacher from '@/utils/teacher'
 
@@ -31,13 +30,17 @@ const formatDate = (type: string, date: string) => {
 }
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+
   const userid = (
     await getTeacher(
-      session?.user.studentID ?? '',
+      auth?.userId ?? '',
       year ?? '',
       sem ?? '',
       'course',
@@ -150,14 +153,17 @@ export const GET = async (req: NextRequest) => {
 }
 
 export const POST = async (req: NextRequest) => {
-  const { course, date, count, list } = (await req.json()) as PostRollCall
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = (
-    await getTeacher(session?.user.studentID ?? '', year ?? '', sem ?? '', 'course', course)
-  ).id
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+
+  const { course, date, count, list } = (await req.json()) as PostRollCall
+
+  const userid = (await getTeacher(auth?.userId ?? '', year ?? '', sem ?? '', 'course', course)).id
 
   const bodyContent = new URLSearchParams({
     TClass: course,

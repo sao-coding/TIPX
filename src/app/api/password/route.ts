@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 
-import authOptions from '@/lib/auth'
+import getAuth from '@/lib/get-auth'
 import getPasseord from '@/utils/password'
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+
+  const userid = searchParams.get('userid') ?? auth?.userId
   const password = await getPasseord(userid ?? '')
 
   return NextResponse.json({ password })

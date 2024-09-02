@@ -1,25 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 
-import authOptions from '@/lib/auth'
+import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
 import getSearchAuth from '@/utils/search-auth'
 import { student } from '@prisma/client'
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
+
   let search = (searchParams.get('search') ?? '').toUpperCase()
   const id = searchParams.get('id') ?? '0'
   const limit = searchParams.get('limit') ?? '10'
-  const session = await getServerSession(authOptions)
+
   // prisma 尋找 user 資料表裡的 userid 若等於 session 裡的 user.studentID 則回傳 user 資料表裡的 id 若沒有則回傳 沒有權限
   // console.log(session?.user.studentID)
-  const auth = await getSearchAuth(session?.user.studentID ?? '')
+  const searchAuth = await getSearchAuth(auth?.userId ?? '')
   let type = 'simple'
   // console.log(auth)
   // 判斷是否找到
 
-  if (!auth) {
+  if (!searchAuth) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

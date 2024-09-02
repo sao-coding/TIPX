@@ -45,3 +45,4 @@ next-env.d.ts
 /public/workbox-*.js.map
 /src/app/test/*
 /src/app/api/test/*
+.not_yet

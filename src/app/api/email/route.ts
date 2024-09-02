@@ -1,16 +1,18 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
 import { JSDOM } from 'jsdom'
 
-import authOptions from '@/lib/auth'
+import getAuth from '@/lib/get-auth'
 
 export const GET = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
   const searchParams = req.nextUrl.searchParams
-  const session = await getServerSession(authOptions)
-  const year = searchParams.get('year') ?? cookies().get('cookie_year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('cookie_sem')?.value
-  const userid = searchParams.get('userid') ?? session?.user.studentID
+
+  const year = searchParams.get('year') ?? cookies().get('year')?.value
+  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const userid = searchParams.get('userid') ?? auth?.userId
 
   const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_setmail.php', {
     headers: {
@@ -88,9 +90,4 @@ export const POST = async (req: NextRequest) => {
   const data = await res.text()
   console.log(data)
   return NextResponse.json(data)
-  if (data.includes('File Upload Successful')) {
-    return NextResponse.json({ status: 'success' })
-  } else {
-    return NextResponse.json({ status: 'fail' })
-  }
 }

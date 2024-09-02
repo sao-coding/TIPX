@@ -34,7 +34,7 @@ const ClassListPage = () => {
             data.map((item) => (
               <div
                 key={item.userId}
-                className='flex w-full gap-2 rounded-xl border p-2 md:justify-between'
+                className='flex w-full gap-2 rounded-xl border bg-background1 p-2 md:justify-between'
               >
                 <div className='flex items-center'>
                   <Fancybox

@@ -30,12 +30,11 @@ api.interceptors.response.use(
 
         return api(originalRequest)
       } catch (refreshError) {
-        // /login?redirect=
-        // 重新導向到登入頁面或處理登出邏輯
-        // window.location.href = '/login?redirect=' + window.location.pathname
+        console.log('refreshError', refreshError)
+        return Promise.reject(refreshError)
       }
     }
-
+    console.log('error.response.status', error.response.status)
     return Promise.reject(error)
   }
 )
