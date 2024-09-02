@@ -38,8 +38,8 @@ export const GET = async (req: NextRequest) => {
     req.nextUrl.searchParams.get('date') ??
     formatDatetime(new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }), 'weather')
   const tomorrow = formatDatetime(
-    new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000),
-    'weather'
+    'weather',
+    new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000)
   ).replace('00:00:00', '00:00:01')
   const url = new URL('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093')
   const params = new URLSearchParams({
