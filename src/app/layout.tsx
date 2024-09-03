@@ -70,16 +70,21 @@ export const viewport: Viewport = {
 }
 
 export default async function RootLayout({
-  children
+  children,
+  modal
 }: Readonly<{
   children: React.ReactNode
+  modal: React.ReactNode
 }>) {
   const session = await getServerSession(authOptions)
   return (
     // ThemeProvider 需使用 suppressHydrationWarning
     <html lang='zh-Hant-TW' suppressHydrationWarning>
       <body>
-        <Providers session={session}>{children}</Providers>
+        <Providers session={session}>
+          {children}
+          {modal}
+        </Providers>
         <Toaster />
       </body>
     </html>
