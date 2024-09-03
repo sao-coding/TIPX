@@ -6,7 +6,10 @@ type Site = {
 }
 
 export const site: Site = {
-  url: process.env.NODE_ENV === 'production' ? 'https://tipx.sao-x.com' : 'http://localhost:3000',
+  url:
+    process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_SITE_URL!
+      : 'http://localhost:3000',
   cookies: {
     expires: 365
   }

@@ -1,8 +1,10 @@
 import { cookies } from 'next/headers'
 import axios from 'axios'
 
+import { site } from '@/config/site'
+
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api'
+  baseURL: `${site.url}/api`
 })
 
 api.interceptors.response.use(
@@ -16,7 +18,7 @@ api.interceptors.response.use(
 
       try {
         // 附帶 cookie
-        const { data } = await axios.get('http://localhost:3000/api/refresh-token', {
+        const { data } = await axios.get(`${site.url}/api/refresh-token`, {
           headers: {
             // 'Content-Type': 'application/json',
             // 'Cookie': 'refreshToken=' + document.cookie
