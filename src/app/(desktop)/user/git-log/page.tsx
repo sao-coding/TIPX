@@ -24,7 +24,7 @@ const GitLogPage = async () => {
     <>
       <Title {...titleData} />
       {/* 提交總次數: {data.length} */}
-      <div className='sticky left-0 top-0 z-10 px-2 pb-2 md:p-0'>
+      <div className='sticky left-0 top-0 z-10 pb-2 md:p-0'>
         <div className='mb-2 w-full rounded-xl border bg-background p-2 text-center'>
           <div className='flex items-center justify-center space-x-16'>
             <div>提交總次數: {data.length}</div>
@@ -50,8 +50,8 @@ const GitLogPage = async () => {
         </div>
       </div>
       {data && (
-        <div className='pl-4'>
-          <ul className='border-main-color-2 flex flex-col space-y-2 border-l-4 p-2 md:pr-0'>
+        <div className='pl-2'>
+          <ul className='flex flex-col space-y-2 border-l-4 border-secondary p-2 md:pr-0'>
             {data.map((item, index) => (
               // 依照年分月份分類
               <>

@@ -15,12 +15,12 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
   // }
 
   const leaveTypeColor: { [key: string]: string } = {
-    曠課: 'bg-red-500',
-    病假: 'bg-blue-500',
-    事假: 'bg-orange-500',
-    生理假: 'bg-rose-500',
-    公假: 'bg-slate-500',
-    喪假: 'bg-stone-500'
+    曠課: 'bg-red-500/50 bg-red-500/80',
+    病假: 'dark:bg-blue-500/50 bg-blue-500/80',
+    事假: 'bg-orange-500/50 bg-orange-500/80',
+    生理假: 'bg-rose-500/50 bg-rose-500/80',
+    公假: 'bg-slate-500/50 bg-slate-500/80',
+    喪假: 'bg-stone-500/50 bg-stone-500/80'
   }
 
   return (
@@ -28,10 +28,10 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
       <div className='relative h-20 rounded-sm border bg-background1 p-2'>
         <div className='flex gap-1'>
           <div>{formatDatetime('leave', data.date)}</div>
-          <div className='bg-main-color-2 rounded-md px-1'>星期{data.week}</div>
+          <div className='rounded-md px-1'>星期{data.week}</div>
         </div>
         <div className='absolute bottom-0 left-0 m-2 flex gap-2'>
-          <div className='rounded-sm bg-primary px-2'>第{data.period}節</div>
+          <div className='rounded-sm bg-primary/80 px-2 text-white'>第{data.period}節</div>
           <Link href={`/course/${data.courseID}?tab=規範`} className='border-b border-primary'>
             {data.course}
           </Link>

@@ -58,7 +58,7 @@ const CourseAttendanceRecordPage = () => {
     },
     生理假: {
       bg: 'bg-rose-400',
-      border: 'border-rose-500'
+      border: 'border-rose-400'
     },
     公假: {
       bg: 'bg-slate-500',

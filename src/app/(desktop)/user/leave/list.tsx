@@ -65,7 +65,7 @@ const List = () => {
       <div className='relative mb-2'>
         <Select value={month} onValueChange={setMonth}>
           <SelectTrigger>
-            <SelectValue>{month !== 'all' ? `${month} 月` : '全部'}</SelectValue>
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value='all'>全部</SelectItem>

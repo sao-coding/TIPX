@@ -52,12 +52,21 @@ const Leave = () => {
       // console.log({ data })
       // return data
 
-      const res = await api.get(`/leave?date=${date}`)
-      console.log({ res })
-      if (res.status === 200) {
-        return res.data
-      } else {
-        toast.error(res.data.message)
+      // const res = await api.get(`/leave?date=${formatDatetime('date', date as Date)}`)
+      // console.log({ res })
+      // if (res.status === 200) {
+      //   return res.data
+      // } else {
+      //   toast.error(res.data.message)
+      //   return
+      // }
+
+      try {
+        const { data } = await api.get(`/leave?date=${formatDatetime('date', date as Date)}`)
+        return data
+      } catch (error) {
+        console.error(error)
+        toast.error(error.response.data.message)
         return
       }
     }
@@ -201,7 +210,7 @@ const Leave = () => {
         </div> */}
         <Select value={selected} onValueChange={setSelected}>
           <SelectTrigger className='relative w-28 md:w-1/3'>
-            <SelectValue>{selected}</SelectValue>
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {data?.type.map((type, i) => (
