@@ -1,21 +1,21 @@
-"use client"
+'use client'
 
-import React from "react"
-import clsx from "clsx"
-import toast from "react-hot-toast"
+import React from 'react'
+import clsx from 'clsx'
+import toast from 'react-hot-toast'
 
-import { init } from "@/lib/firebase"
-import * as Switch from "@radix-ui/react-switch"
-import { IconBell } from "@tabler/icons-react"
+import { init } from '@/lib/firebase'
+import * as Switch from '@radix-ui/react-switch'
+import { IconBell } from '@tabler/icons-react'
 
 const Notify = () => {
   const [notification, setNotification] = React.useState(false)
 
   React.useEffect(() => {
-    if (localStorage.getItem("notification") === "true") {
+    if (localStorage.getItem('notification') === 'true') {
       setNotification(true)
     }
-    if (localStorage.getItem("notification") === "false") {
+    if (localStorage.getItem('notification') === 'false') {
       setNotification(false)
     }
   }, [])
@@ -28,18 +28,18 @@ const Notify = () => {
   const handleNotification = async () => {
     // 開關通知
     if (notification) {
-      localStorage.setItem("notification", "false")
+      localStorage.setItem('notification', 'false')
       setNotification(false)
     }
     if (!notification) {
-      localStorage.setItem("notification", "true")
+      localStorage.setItem('notification', 'true')
       setNotification(true)
       navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification("通知訊息", {
-          body: "您已開啟通知",
-          icon: "/pwa/android-launchericon-192-192.png",
+        registration.showNotification('通知訊息', {
+          body: '您已開啟通知',
+          icon: '/pwa/android-launchericon-192-192.png',
           vibrate: [200, 100, 200, 100, 200, 100, 200],
-          tag: "notification",
+          tag: 'notification',
           renotify: true
         } as NotificationOptions) // Add 'as NotificationOptions' to specify the type
       })
@@ -47,14 +47,14 @@ const Notify = () => {
       // 註冊通知
       // 是否允許瀏覽器通知
       await Notification.requestPermission()
-      if (Notification.permission === "granted") {
+      if (Notification.permission === 'granted') {
         setNotification(true)
         init()
       }
-      if (Notification.permission === "denied") {
+      if (Notification.permission === 'denied') {
         setNotification(false)
         if (isIOS()) {
-          toast.error("Apple 裝置請加入主畫面使用")
+          toast.error('Apple 裝置請加入主畫面使用')
         }
       }
     }
@@ -67,8 +67,8 @@ const Notify = () => {
         <div>通知訊息</div>
       </div>
       <div className='flex items-center space-x-2'>
-        <div className={clsx("text-xs", notification ? "text-green-500" : "text-red-500")}>
-          {notification ? "已開啟" : "已關閉"}
+        <div className={clsx('text-xs', notification ? 'text-green-500' : 'text-red-500')}>
+          {notification ? '已開啟' : '已關閉'}
         </div>
         <Switch.Root
           className='h-6 w-11 rounded-full bg-black outline-none data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300'

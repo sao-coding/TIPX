@@ -28,9 +28,11 @@ model User {
 }
 
 model UserSettings {
-    id     String @id @default(nanoid())
-    userId String @unique
-    user   User   @relation(fields: [userId], references: [id])
+    id       String  @id @default(nanoid())
+    theme    String
+    location Boolean
+    userId   String  @unique
+    user     User    @relation(fields: [userId], references: [id])
 }
 
 model student {

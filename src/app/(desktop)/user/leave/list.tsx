@@ -14,26 +14,28 @@ import {
 } from '@/components/ui/select'
 import api from '@/lib/api'
 import { LeaveItemCheck } from '@/types'
+import getCurrentYearSem from '@/utils/current-year-sem'
 import formatDatetime from '@/utils/format-datetime'
 import { useQuery } from '@tanstack/react-query'
 
 import Delete from './delete'
 
 const List = () => {
-  // 目前台灣月份 new Date().getMonth() + 1補0
-  // const [month, setMonth] = useState(`${new Date().getMonth() + 1}`.padStart(2, '0'))
-  const [month, setMonth] = React.useState<string>(`${new Date().getMonth() + 1}`.padStart(2, '0'))
+  const { currentYear, currentSem } = getCurrentYearSem()
+  // 如果目前年分與學期是當前學年度的話，就顯示當前月份，否則顯示全部
+  const [month, setMonth] = React.useState<string>(
+    Cookies.get('year') === currentYear && Cookies.get('sem') === currentSem
+      ? `${new Date().getMonth() + 1}`.padStart(2, '0')
+      : 'all'
+  )
+
   const { isLoading, isError, data } = useQuery<LeaveItemCheck[]>({
     queryKey: ['leaveList', month, Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      // const res = await fetch(`/api/leave?month=${month}`)
-      // const data = await res.json()
-      // return data
-
       const { data } = await api.get(`/leave?month=${month}`)
       return data
     }
-    // refetchOnWindowFocus: false,
+    // refetchOnWindowFocus: false
   })
 
   const typeColor: { [key: string]: string } = {
@@ -48,17 +50,6 @@ const List = () => {
     請來談: 'bg-yellow-500',
     退件: 'bg-red-500'
   }
-
-  // const formatDate = (date: string) => {
-  //     // 1120915(五) -> 2023/09/15(五)
-
-  //     const year = date.slice(0, 3)
-  //     const month = date.slice(3, 5)
-  //     const day = date.slice(5, 7)
-  //     const week = date.slice(8, 9)
-
-  //     return `${year}/${month}/${day} (${week})`
-  // }
 
   return (
     <>

@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import clsx from 'clsx'
 
 import { Announcement as AnnouncementType } from '@/types'
@@ -26,10 +27,10 @@ const Announcement = () => {
           <IconLoader2 className='mx-auto h-10 w-10 animate-spin' />
         </div>
       ) : (
-        <div className='space-y-2 overflow-auto px-6 py-2'>
+        <ul className='space-y-2 overflow-auto px-6 py-2'>
           {data?.map((item, i) => (
-            <React.Fragment key={item.id}>
-              <div className='relative p-2'>
+            <li key={item.id}>
+              <Link href={`/post/${item.id}`} className='relative block p-2'>
                 <h1 className='mr-8 line-clamp-1'>{item.title}</h1>
                 <div
                   className={clsx(
@@ -49,11 +50,11 @@ const Announcement = () => {
                     {item.date}
                   </div>
                 </div>
-              </div>
+              </Link>
               {i !== data.length - 1 && <hr />}
-            </React.Fragment>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </>
   )

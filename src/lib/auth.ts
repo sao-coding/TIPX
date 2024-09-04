@@ -115,6 +115,8 @@ const authOptions: NextAuthOptions = {
             // 新增使用者設定
             await prisma.userSettings.create({
               data: {
+                theme: 'system',
+                location: false,
                 user: {
                   connect: {
                     id: newUser.id
@@ -122,6 +124,7 @@ const authOptions: NextAuthOptions = {
                 }
               }
             })
+            console.log('使用者設定新增成功')
           } else {
             console.log('使用者已存在', existUser)
             // 更新使用者登入時間

@@ -5,22 +5,14 @@ import { CourseAttendanceRecordList } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
 
 const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
-  // const formatDate = (date: string) => {
-  //   // 1120912 -> 2021-09-12
-  //   const year = date.slice(0, 3)
-  //   const month = date.slice(3, 5)
-  //   const day = date.slice(5, 7)
-  //   // year = parseInt(year) + 1911 + ""
-  //   return `${parseInt(year) + 1911}-${month}-${day}`
-  // }
-
+  // bg-red-500/50 bg-red-500/80
   const leaveTypeColor: { [key: string]: string } = {
-    曠課: 'bg-red-500/50 bg-red-500/80',
-    病假: 'dark:bg-blue-500/50 bg-blue-500/80',
-    事假: 'bg-orange-500/50 bg-orange-500/80',
-    生理假: 'bg-rose-500/50 bg-rose-500/80',
-    公假: 'bg-slate-500/50 bg-slate-500/80',
-    喪假: 'bg-stone-500/50 bg-stone-500/80'
+    曠課: 'bg-red-500',
+    病假: 'bg-blue-500',
+    事假: 'bg-orange-500',
+    生理假: 'bg-rose-400',
+    公假: 'bg-slate-500',
+    喪假: 'bg-stone-500'
   }
 
   return (
@@ -31,7 +23,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
           <div className='rounded-md px-1'>星期{data.week}</div>
         </div>
         <div className='absolute bottom-0 left-0 m-2 flex gap-2'>
-          <div className='rounded-sm bg-primary/80 px-2 text-white'>第{data.period}節</div>
+          <div className='rounded-sm bg-primary px-2 text-white'>第{data.period}節</div>
           <Link href={`/course/${data.courseID}?tab=規範`} className='border-b border-primary'>
             {data.course}
           </Link>

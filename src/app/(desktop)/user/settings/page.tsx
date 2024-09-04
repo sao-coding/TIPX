@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React from 'react'
 import Cookie from 'js-cookie'
 import toast from 'react-hot-toast'
 
 import Title from '@/components/Title'
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -12,13 +13,22 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Icon, IconDeviceDesktop, IconMoon, IconPaint, IconSun } from '@tabler/icons-react'
+import { Switch } from '@/components/ui/switch'
+import {
+  Icon,
+  IconDeviceDesktop,
+  IconMapPin,
+  IconMoon,
+  IconPaint,
+  IconSun,
+  IconTrash
+} from '@tabler/icons-react'
 
 const SettingsPage = () => {
-  const [theme, setTheme] = useState('system')
-  const [location, setLocation] = useState(false)
+  const [theme, setTheme] = React.useState('system')
+  const [location, setLocation] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (localStorage.getItem('location') === 'true') {
       setLocation(true)
     }
@@ -27,7 +37,7 @@ const SettingsPage = () => {
     }
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (localStorage.theme === 'dark') {
       setTheme('dark')
     } else if (localStorage.theme === 'light') {
@@ -38,28 +48,35 @@ const SettingsPage = () => {
   }, [])
 
   const handleTheme = (theme: string) => {
+    // color-scheme: dark;
     switch (theme) {
       case 'system':
         localStorage.removeItem('theme')
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          setTheme('dark')
           document.documentElement.classList.remove('light')
           document.documentElement.classList.add('dark')
+          // style color-scheme
+          document.documentElement.style.setProperty('color-scheme', 'dark')
         } else {
-          setTheme('light')
           document.documentElement.classList.remove('dark')
           document.documentElement.classList.add('light')
+          document.documentElement.style.setProperty('color-scheme', 'light')
         }
+        setTheme('system')
         break
       case 'dark':
         localStorage.setItem('theme', 'dark')
         document.documentElement.classList.remove('light')
         document.documentElement.classList.add('dark')
+        document.documentElement.style.setProperty('color-scheme', 'dark')
+        setTheme('dark')
         break
       case 'light':
         localStorage.setItem('theme', 'light')
         document.documentElement.classList.remove('dark')
         document.documentElement.classList.add('light')
+        document.documentElement.style.setProperty('color-scheme', 'light')
+        setTheme('light')
         break
       default:
         break
@@ -143,26 +160,45 @@ const SettingsPage = () => {
       {/* 跟隨系統 明亮模式 暗黑模式 */}
       {/* 主題 */}
       <Title {...titleData} />
-      <div className='flex items-center justify-between'>
-        <div className='flex gap-2'>
-          <IconPaint className='stroke-pink-500' />
-          主題
+      <div className='grid grid-rows-3'>
+        <div className='flex items-center justify-between'>
+          <div className='flex gap-2'>
+            <IconPaint className='stroke-pink-500' />
+            主題
+          </div>
+          <Select value={theme} onValueChange={(value) => handleTheme(value)}>
+            <SelectTrigger className='w-40'>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {themeConfig.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <div className='flex items-center gap-2'>
+                    <item.icon className={item.color} />
+                    {item.label}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-        <Select value={theme} onValueChange={(value) => handleTheme(value)}>
-          <SelectTrigger className='w-40'>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {themeConfig.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <div className='flex items-center gap-2'>
-                  <item.icon className={item.color} />
-                  {item.label}
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className='flex items-center justify-between'>
+          <div className='flex gap-2'>
+            <IconMapPin className='stroke-red-500' />
+            定位
+          </div>
+          <Switch checked={location} onCheckedChange={handleLocation} />
+        </div>
+        <div className='flex items-center justify-between'>
+          <div className='flex gap-2'>
+            <IconTrash className='stroke-gray-500' />
+            清除快取
+          </div>
+          <Button onClick={clearCache} variant='destructive' className='gap-1'>
+            <IconTrash />
+            清除
+          </Button>
+        </div>
       </div>
     </>
   )

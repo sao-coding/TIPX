@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
+import { type AxiosError } from 'axios'
 import { CalendarIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -39,7 +40,7 @@ const Leave = () => {
   )
   const [selected, setSelected] = useState('病假')
   const queryClient = useQueryClient()
-  const { isLoading, data } = useQuery<LeaveType>({
+  const { isLoading, data, isError } = useQuery<LeaveType>({
     queryKey: ['leave', date],
     queryFn: async () => {
       // const res = await fetch(`/api/leave?date=${date}`)
@@ -65,8 +66,12 @@ const Leave = () => {
         const { data } = await api.get(`/leave?date=${formatDatetime('date', date as Date)}`)
         return data
       } catch (error) {
+        const err = error as AxiosError
         console.error(error)
-        toast.error(error.response.data.message)
+        type Error = {
+          message: string
+        }
+        toast.error((err.response?.data as Error).message)
         return
       }
     }
@@ -209,7 +214,7 @@ const Leave = () => {
           </Listbox>
         </div> */}
         <Select value={selected} onValueChange={setSelected}>
-          <SelectTrigger className='relative w-28 md:w-1/3'>
+          <SelectTrigger className='relative w-28 md:w-1/3' disabled={isError}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
