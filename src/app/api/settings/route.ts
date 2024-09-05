@@ -30,3 +30,27 @@ export const GET = async (req: NextRequest) => {
 
   return NextResponse.json(settings)
 }
+
+export const PATCH = async (req: NextRequest) => {
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
+
+  const searchParams = req.nextUrl.searchParams
+
+  const userid = searchParams.get('userid') ?? auth?.userId
+
+  const data = await req.json()
+
+  const settings = await prisma.userSettings.upsert({
+    where: {
+      userId: userid
+    },
+    update: data,
+    create: {
+      ...data,
+      userId: userid
+    }
+  })
+
+  return NextResponse.json(settings)
+}
