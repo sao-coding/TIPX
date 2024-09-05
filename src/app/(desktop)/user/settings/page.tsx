@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import Cookie from 'js-cookie'
 import toast from 'react-hot-toast'
 
 import Title from '@/components/Title'
@@ -14,6 +13,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
+import api from '@/lib/api'
 import {
   Icon,
   IconDeviceDesktop,
@@ -47,74 +47,83 @@ const SettingsPage = () => {
     }
   }, [])
 
+  // theme
+  // location
+  const updateSettings = async (theme: string, location: boolean) => {
+    const { data } = await api.patch('/settings', {
+      theme,
+      location
+    })
+    console.log('data', data)
+  }
+
   const handleTheme = (theme: string) => {
     // color-scheme: dark;
     switch (theme) {
       case 'system':
         localStorage.removeItem('theme')
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.classList.remove('light')
           document.documentElement.classList.add('dark')
-          // style color-scheme
           document.documentElement.style.setProperty('color-scheme', 'dark')
         } else {
-          document.documentElement.classList.remove('dark')
           document.documentElement.classList.add('light')
           document.documentElement.style.setProperty('color-scheme', 'light')
         }
-        setTheme('system')
         break
       case 'dark':
         localStorage.setItem('theme', 'dark')
         document.documentElement.classList.remove('light')
         document.documentElement.classList.add('dark')
         document.documentElement.style.setProperty('color-scheme', 'dark')
-        setTheme('dark')
         break
       case 'light':
         localStorage.setItem('theme', 'light')
         document.documentElement.classList.remove('dark')
         document.documentElement.classList.add('light')
         document.documentElement.style.setProperty('color-scheme', 'light')
-        setTheme('light')
         break
       default:
         break
     }
+    setTheme(theme)
+    updateSettings(theme, location)
   }
 
   const handleLocation = async () => {
-    // 是否允許瀏覽器定位
-    if (location) {
-      localStorage.setItem('location', 'false')
-      setLocation(false)
-    }
-    if (!location) {
-      localStorage.setItem('location', 'true')
-      setLocation(true)
+    const newLocation = !location
+    localStorage.setItem('location', String(newLocation))
+    setLocation(newLocation)
+
+    if (newLocation) {
+      await navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('position', position)
+        },
+        (error) => {
+          console.log('error', error)
+        }
+      )
     }
 
-    // 註冊定位
-    await navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log('position', position)
-      },
-      (error) => {
-        console.log('error', error)
-      }
-    )
+    updateSettings(theme, newLocation)
   }
 
   // 清除快取
   const clearCache = async () => {
-    const res = await fetch('/api/clear', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ userid: Cookie.get('cookie_userid') })
-    })
-    const data = await res.json()
+    // const res = await fetch('/api/clear', {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ userid: Cookie.get('cookie_userid') })
+    // })
+    // const data = await res.json()
+    // if (data.message === 'success') {
+    //   toast.success('清除成功')
+    // } else {
+    //   toast.error('清除失敗')
+    // }
+    const { data } = await api.delete('/clear')
     if (data.message === 'success') {
       toast.success('清除成功')
     } else {

@@ -52,5 +52,9 @@ export const PATCH = async (req: NextRequest) => {
     }
   })
 
-  return NextResponse.json(settings)
+  if (settings) {
+    return NextResponse.json({ message: '更新成功' })
+  } else {
+    return NextResponse.json({ message: '更新失敗' }, { status: 400 })
+  }
 }

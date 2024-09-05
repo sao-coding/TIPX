@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest) => {
     console.log('refreshToken', refreshToken.userId)
     const user = await prisma.user.findUnique({
       where: {
-        userId: refreshToken.userId || ''
+        id: refreshToken.userId || ''
       }
     })
 

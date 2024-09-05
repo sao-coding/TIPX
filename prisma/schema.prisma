@@ -14,8 +14,7 @@ enum UserRole {
 }
 
 model User {
-    id           String         @id @default(nanoid())
-    userId       String         @unique
+    id           String         @id
     name         String
     givenName    String
     familyName   String

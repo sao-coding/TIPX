@@ -35,7 +35,7 @@ const authOptions: NextAuthOptions = {
         // 查詢使用者是否存在
         const existUser = await prisma.user.findUnique({
           where: {
-            userId: credentials.userId
+            id: credentials.userId
           }
         })
 
@@ -102,7 +102,7 @@ const authOptions: NextAuthOptions = {
           if (!existUser) {
             const newUser = await prisma.user.create({
               data: {
-                userId: profile.email?.split('@')[0].toUpperCase() as string,
+                id: profile.email?.split('@')[0].toUpperCase() as string,
                 name: profile.name as string,
                 givenName: profile.given_name as string,
                 familyName: profile.family_name as string,
@@ -144,7 +144,7 @@ const authOptions: NextAuthOptions = {
           const refreshToken = await signJwtAccessToken(
             {
               type: 'refresh',
-              userId: userInfo.userId
+              userId: userInfo.id
             },
             {
               // 設定到期時間 半年
@@ -162,7 +162,7 @@ const authOptions: NextAuthOptions = {
 
           const accessToken = await signJwtAccessToken({
             type: 'access',
-            userId: userInfo.userId,
+            userId: userInfo.id,
             role: userInfo.role
           })
 
