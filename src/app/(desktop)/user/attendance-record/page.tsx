@@ -40,7 +40,6 @@ const CourseAttendanceRecordPage = () => {
 
   const titleData = {
     title: '請假缺曠記錄',
-    close: true,
     children: ''
   }
 

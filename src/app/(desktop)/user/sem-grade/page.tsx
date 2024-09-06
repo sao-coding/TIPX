@@ -33,7 +33,6 @@ const FinalGradePage = () => {
 
   const titleData = {
     title: '科目成績',
-    close: true,
     children: ''
   }
 

@@ -24,7 +24,7 @@ model User {
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
     UserSettings UserSettings[]
-    Log Log[]
+    Log          Log[]
 }
 
 model UserSettings {
@@ -66,12 +66,18 @@ model student {
 }
 
 model Log {
-    id        String   @id @default(nanoid())
-    ip        String
-    userAgent String
-    referer   String
-    path      String
-    userId    String
-    user      User     @relation(fields: [userId], references: [id])
-    createdAt DateTime @default(now())
+    id             String   @id @default(nanoid())
+    ip             String
+    deviceType     String
+    deviceVendor   String
+    deviceModel    String
+    browserName    String
+    browserVersion String
+    osName         String
+    osVersion      String
+    referer        String
+    path           String
+    userId         String
+    user           User     @relation(fields: [userId], references: [id])
+    createdAt      DateTime @default(now())
 }
