@@ -77,7 +77,7 @@ const Switch = ({ mobile }: { mobile?: boolean }) => {
 
   return (
     <>
-      {isDesktop === null && (
+      {isDesktop === null && !mobile && (
         <div className='mt-2 flex h-10 items-center p-2'>
           <Skeleton className='h-5 w-full' />
         </div>

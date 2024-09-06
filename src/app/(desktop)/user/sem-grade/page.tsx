@@ -3,6 +3,7 @@
 // import { cookies } from 'next/headers'
 import Link from 'next/link'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 
 import Title from '@/components/Title'
 import Loading from '@/components/ui/Loading'
@@ -15,7 +16,7 @@ import { useQuery } from '@tanstack/react-query'
 const FinalGradePage = () => {
   // const data: SemGrade[] = await getData()
   const { isLoading, data } = useQuery<SemGrade[]>({
-    queryKey: ['sem-grade'],
+    queryKey: ['sem-grade', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       const { data } = await api.get('/sem-grade')
       return data
@@ -32,6 +33,7 @@ const FinalGradePage = () => {
 
   const titleData = {
     title: '科目成績',
+    close: true,
     children: ''
   }
 

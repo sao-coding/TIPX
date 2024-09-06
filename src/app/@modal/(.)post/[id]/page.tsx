@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
 import { Post } from '@/types'
 import { useQuery } from '@tanstack/react-query'
@@ -14,7 +15,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
   const router = useRouter()
   const path = usePathname()
 
-  const { isLoading, isError, data } = useQuery<Post>({
+  const { isLoading, data } = useQuery<Post>({
     queryKey: ['post', id],
     queryFn: async () => {
       //   const res = await fetch(`/api/post?type=one&id=${id}`)
@@ -53,8 +54,34 @@ const PostModal = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Dialog defaultOpen onOpenChange={(open) => !open && dismiss()}>
-        {/* <DialogTrigger>Open</DialogTrigger> */}
-        <DialogContent closeButton={false}>{data?.title}</DialogContent>
+        <DialogContent
+          // closeButton={false}
+          className='flex h-full w-full flex-col p-3 md:max-w-5xl md:p-6'
+        >
+          {isLoading ? (
+            <div className='relative'>
+              <Loading />
+            </div>
+          ) : (
+            <div>
+              {/* <DialogClose asChild>
+                  <Close className='static' />
+                </DialogClose> */}
+              <h1 className='mr-6 text-xl font-bold md:text-2xl'>{data?.title}</h1>
+
+              <div className='whitespace-pre-line break-words md:p-1'>{data?.content}</div>
+              <div className='flex w-full justify-end'>
+                <a
+                  href={`https://netinfo.takming.edu.tw/tip/post/post_OneShow.php?SerialItem=${data?.id}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  來源: <span className='text-blue-500'>德明 TIP</span>
+                </a>
+              </div>
+            </div>
+          )}
+        </DialogContent>
       </Dialog>
     </>
   )

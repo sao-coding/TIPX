@@ -73,7 +73,7 @@ const CourseAttendanceRecordPage = () => {
   const handleLeaveType = (type: string) => {
     console.log('type', type)
     setSelectedLeaveType((prevType) => (prevType === type ? '全部' : type))
-    router.push(`?type=${type}`)
+    router.replace(`?type=${type}`)
   }
 
   return (

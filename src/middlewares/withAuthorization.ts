@@ -31,7 +31,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       '/api/log',
       '/api/test',
       '/api/image-proxy',
-      '/api/color-get'
+      '/api/get-img-color'
     ]
 
     if (req.nextUrl.pathname.startsWith('/api')) {

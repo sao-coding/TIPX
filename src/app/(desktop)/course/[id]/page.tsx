@@ -3,6 +3,7 @@
 import React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
+import Close from '@/components/Close'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import api from '@/lib/api'
@@ -56,6 +57,8 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     { label: '規範', value: '規範', component: <CourseInfoPage params={{ id: params.id }} /> }
   ]
 
+  // TODO: 標題重構
+
   return (
     <>
       <Tabs defaultValue='作業' value={activeTab} onValueChange={handleTabChange}>
@@ -65,7 +68,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               <Skeleton className='mx-auto my-1 h-6 w-60 md:mx-0' />
             </div>
           ) : (
-            <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
+            <div className='relative w-full'>
+              <Close />
+              <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
+            </div>
           )}
 
           <TabsList className='w-full'>
@@ -82,25 +88,6 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           </TabsContent>
         ))}
       </Tabs>
-      {/* <h1 className='mb-3 w-full text-center text-2xl font-bold md:py-1 md:text-left'>
-        {data?.course}
-      </h1>
-      <div>
-        <Tabs defaultValue='作業'>
-          <TabsList className='grid w-full grid-cols-4'>
-            {tabList.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value}>
-                {tab.value}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {tabList.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              {tab.value}
-            </TabsContent>
-          ))}
-        </Tabs>
-      </div> */}
     </>
   )
 }

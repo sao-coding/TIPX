@@ -117,6 +117,8 @@ const authOptions: NextAuthOptions = {
               data: {
                 theme: 'system',
                 location: false,
+                avatar: '',
+                banner: '',
                 user: {
                   connect: {
                     id: newUser.id

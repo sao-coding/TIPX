@@ -40,7 +40,7 @@ const LoginPage = () => {
           </Card>
           <Card className='w-1/2'>
             <CardHeader>
-              <CardDescription>今日登入</CardDescription>
+              <CardDescription>今日活躍</CardDescription>
               <CardTitle>
                 <TodayCount />
               </CardTitle>

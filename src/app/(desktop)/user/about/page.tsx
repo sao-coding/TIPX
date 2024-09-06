@@ -1,5 +1,6 @@
 import Copy from '@/components/ui/copy'
 import UserBanner from '@/components/UserBanner'
+import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
 import { ClassName } from '@/types'
 import { User } from '@/types'
@@ -22,14 +23,34 @@ const getUserData = async () => {
   const { data: userClassName } = await api.get<ClassName>('/class-name')
   const { data: lineId } = await api.get<{ lineId: string }>('/lineid')
   console.log('lineId', lineId)
-  return { user, color, userClassName, lineId }
+  const settings = await prisma.userSettings.findFirst({
+    where: {
+      userId: user.userid
+    }
+  })
+
+  return { user, color, userClassName, settings, lineId }
 }
 
 const UserAboutPage = async () => {
-  const { user, color, userClassName, lineId } = await getUserData()
+  const { user, color, userClassName, settings, lineId } = await getUserData()
+
   return (
     <div className='space-y-2'>
-      <UserBanner user={user} color={color}>
+      <UserBanner
+        user={user}
+        color={color.color}
+        settings={
+          settings ?? {
+            id: '',
+            theme: 'system',
+            location: false,
+            avatar: '',
+            banner: '',
+            userId: ''
+          }
+        }
+      >
         <div className='flex items-center justify-center gap-2 border-y p-4 md:mt-14 md:justify-start'>
           <span className='flex items-center gap-1 font-bold'>
             <IconSchool />

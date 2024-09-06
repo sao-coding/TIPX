@@ -1,7 +1,7 @@
 'use client'
 
 import { type AxiosError } from 'axios'
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
 import Title from '@/components/Title'
@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const ClassRankPage = () => {
   const { data, isLoading, isError } = useQuery<FinalGradeRankClass[]>({
-    queryKey: ['class-rank', Cookie.get('year'), Cookie.get('sem')],
+    queryKey: ['class-rank', , Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       toast.dismiss()
       const toastId = toast.loading('資料量大，請稍等')

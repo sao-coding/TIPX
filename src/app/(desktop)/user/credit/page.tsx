@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import Cookie from 'js-cookie'
 
 import Title from '@/components/Title'
 import Loading from '@/components/ui/Loading'
@@ -11,30 +10,9 @@ import { Credit } from '@/types'
 import { IconStar } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-// const getData = async () => {
-//   const { currentYear, currentSem } = getCurrentYearSem()
-//   let cookie = cookies().toString()
-//   // 替換 cookie_year 和 cookie_sem
-//   cookie = cookie.replace(/cookie_year=\d{3}/, `cookie_year=${currentYear}`)
-//   cookie = cookie.replace(/cookie_sem=\d/, `cookie_sem=${currentSem}`)
-//   const res = await fetch(`${site.url}/api/credit`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Cookie: cookie
-//     }
-//   })
-
-//   if (!res.ok) {
-//     throw new Error('獲取資料失敗')
-//   }
-
-//   return res.json()
-// }
-
 const CreditPage = () => {
   const { data, isLoading } = useQuery<Credit[]>({
-    queryKey: ['credit', Cookie.get('year'), Cookie.get('sem')],
+    queryKey: ['credit'],
     queryFn: async () => {
       const { data } = await api.get('/credit')
       return data

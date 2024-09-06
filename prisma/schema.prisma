@@ -24,12 +24,17 @@ model User {
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
     UserSettings UserSettings[]
+    Log Log[]
 }
 
 model UserSettings {
     id       String  @id @default(nanoid())
     theme    String
     location Boolean
+    // 大頭貼設定
+    avatar   String
+    // 橫幅設定
+    banner   String
     userId   String  @unique
     user     User    @relation(fields: [userId], references: [id])
 }
@@ -58,4 +63,15 @@ model student {
     parentPhone       String
     parentJob         String
     desc              String @db.Text
+}
+
+model Log {
+    id        String   @id @default(nanoid())
+    ip        String
+    userAgent String
+    referer   String
+    path      String
+    userId    String
+    user      User     @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
 }

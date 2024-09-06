@@ -6,7 +6,7 @@ type Site = {
 }
 
 export const site: Site = {
-  url: process.env.NODE_ENV === 'production' ? process.env.SITE_URL! : 'http://localhost:3000',
+  url: process.env.SITE_URL!,
   cookies: {
     expires: 365
   }

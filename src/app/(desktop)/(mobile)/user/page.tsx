@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 import Switch from '@/components/LeftSidebar/switch'
 import { USER_LINKS } from '@/config/links'
+import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
 import { ClassName } from '@/types'
 
@@ -12,7 +13,12 @@ const getUserData = async () => {
   const { data: user } = await api.get('/user')
   const { data: color } = await api.get(`/get-img-color?url=${user.img}`)
   const { data: userClassName } = await api.get<ClassName>('/class-name')
-  return { user, color, userClassName }
+  const settings = await prisma.userSettings.findFirst({
+    where: {
+      userId: user.id
+    }
+  })
+  return { user, color, userClassName, settings }
 }
 
 const UserPage = async () => {
@@ -21,12 +27,26 @@ const UserPage = async () => {
   // const user = await getUser(auth?.userId || '')
   // const color = await getImgColor(user.img)
   // const userClassName = await (await getClassName(auth?.userId || '')).class
-  const { user, color, userClassName } = await getUserData()
+  const { user, color, userClassName, settings } = await getUserData()
   console.log('user', user)
 
   return (
     <div className='mb-16'>
-      <Info user={user} color={color} userClassName={userClassName.class} />
+      <Info
+        user={user}
+        color={color.color}
+        userClassName={userClassName.class}
+        settings={
+          settings ?? {
+            id: '',
+            theme: 'system',
+            location: false,
+            avatar: '',
+            banner: '',
+            userId: ''
+          }
+        }
+      />
       <Switch mobile />
       <div className='mt-2 md:hidden'>
         {/* 功能清單 */}

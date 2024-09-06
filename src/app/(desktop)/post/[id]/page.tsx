@@ -1,3 +1,4 @@
+import Close from '@/components/Close'
 import { Post } from '@/types'
 import getPost from '@/utils/post'
 import { IconCalendarOff, IconCalendarTime } from '@tabler/icons-react'
@@ -10,7 +11,12 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
       <div className=''>
         {post && (
           <div className=''>
-            <h1 className='mb-2 line-clamp-2 h-16 text-2xl font-bold'>{post.title}</h1>
+            <div className='relative'>
+              <Close />
+              <h1 className='mb-2 ml-10 line-clamp-2 h-16 text-xl font-bold md:text-2xl'>
+                {post.title}
+              </h1>
+            </div>
             <div className='flex justify-between'>
               <div className=''>
                 <div className='flex items-center gap-2'>
