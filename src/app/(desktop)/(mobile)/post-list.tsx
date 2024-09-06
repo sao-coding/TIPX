@@ -105,6 +105,7 @@ const PostList = () => {
 
   const titleData = {
     title: '學校公告',
+    close: false,
     children: (
       <TabsList className='w-full'>
         {TabsListData.map((item) => (
