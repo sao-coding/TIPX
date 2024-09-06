@@ -4,7 +4,7 @@ import Close from './Close'
 
 const Title = ({
   title,
-  close,
+  close = true,
   children
 }: {
   title: string

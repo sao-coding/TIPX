@@ -68,9 +68,11 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               <Skeleton className='mx-auto my-1 h-6 w-60 md:mx-0' />
             </div>
           ) : (
-            <div className='relative w-full'>
+            <div className='relative flex w-full justify-center md:justify-start'>
               <Close />
-              <h1 className='w-full text-center text-2xl font-bold md:text-left'>{data?.course}</h1>
+              <h1 className='line-clamp-1 w-60 text-center text-2xl font-bold md:w-80 md:text-left'>
+                {data?.course}
+              </h1>
             </div>
           )}
 

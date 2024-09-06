@@ -5,17 +5,18 @@ import Switch from '@/components/LeftSidebar/switch'
 import { USER_LINKS } from '@/config/links'
 import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
-import { ClassName } from '@/types'
+import { ClassName, User } from '@/types'
 
 import Info from './info'
+import Logout from './logout'
 
 const getUserData = async () => {
-  const { data: user } = await api.get('/user')
+  const { data: user } = await api.get<User>('/user')
   const { data: color } = await api.get(`/get-img-color?url=${user.img}`)
   const { data: userClassName } = await api.get<ClassName>('/class-name')
   const settings = await prisma.userSettings.findFirst({
     where: {
-      userId: user.id
+      userId: user.userid
     }
   })
   return { user, color, userClassName, settings }
@@ -28,7 +29,6 @@ const UserPage = async () => {
   // const color = await getImgColor(user.img)
   // const userClassName = await (await getClassName(auth?.userId || '')).class
   const { user, color, userClassName, settings } = await getUserData()
-  console.log('user', user)
 
   return (
     <div className='mb-16'>
@@ -82,6 +82,9 @@ const UserPage = async () => {
                 </li>
               ))
           )}
+          <li>
+            <Logout />
+          </li>
         </ul>
       </div>
     </div>

@@ -15,7 +15,7 @@ const LoginDialog = () => {
       <DialogTrigger asChild>
         <button className='w-full rounded-full bg-primary px-2 py-1'>登入</button>
       </DialogTrigger>
-      <DialogContent className='w-4/5 max-w-[425px] rounded-lg'>
+      <DialogContent className='w-11/12 max-w-[425px] rounded-lg md:w-full'>
         <DialogHeader>
           <DialogTitle>TIPX</DialogTitle>
           <DialogDescription>登入以繼續使用TIPX</DialogDescription>

@@ -10,9 +10,9 @@ const LeavePage = () => {
   }
 
   return (
-    <div className=''>
+    <>
       <LeaveTabs />
-    </div>
+    </>
   )
 }
 

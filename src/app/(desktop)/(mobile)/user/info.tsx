@@ -46,6 +46,7 @@ const Info = ({
       return data
     }
   })
+  console.log('settings', settings)
 
   return (
     <UserBanner user={user} color={color} settings={settings}>

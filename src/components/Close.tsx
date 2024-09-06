@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { IconArrowLeft } from '@tabler/icons-react'
 
-const Close = ({ className }: { className?: string }) => {
+const Close = ({ className, children }: { className?: string; children?: React.ReactNode }) => {
   const router = useRouter()
   const handleBack = () => {
     if (window.history.length < 2) {
@@ -21,7 +21,7 @@ const Close = ({ className }: { className?: string }) => {
       className={cn('absolute left-0 top-0 flex h-full items-center pl-2 md:hidden', className)}
       onClick={handleBack}
     >
-      <IconArrowLeft size={26} />
+      {children ? children : <IconArrowLeft size={26} />}
     </button>
   )
 }
