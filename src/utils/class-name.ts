@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio'
 const getClassName = async (userid: string) => {
   const res = await fetch('https://netinfo.takming.edu.tw/tip/newstu_sys/stu_main.php', {
     headers: {
-      cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; `,
+      cookie: `cookie_userid=${userid}; cookie_rgno=${userid};`,
       Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
     }
   })
