@@ -22,6 +22,7 @@ const CourseListPage = () => {
 
   const titleData = {
     title: '課程',
+    close: false,
     children: ''
   }
 
