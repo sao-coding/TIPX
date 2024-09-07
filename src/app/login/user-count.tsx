@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import { collection, getDocs, query } from 'firebase/firestore'
 
+// import { collection, getDocs, query } from 'firebase/firestore'
 // import Counter from "@/components/transition/Counter"
 // import { db } from '@/lib/firebase'
 import { IconLoader2 } from '@tabler/icons-react'

@@ -7,10 +7,6 @@ export const GET = async (req: NextRequest) => {
   const type = searchParams.get('type')
   switch (type) {
     case 'chart':
-      // 全部用 sql 處理
-      //   await prisma.$queryRaw
-
-      // const chart = await prisma.$queryRaw`${sql}`
       const chart = (await prisma.$queryRaw`
         -- 生成過去7天的日期範圍
         WITH DateRange AS (
@@ -55,6 +51,40 @@ export const GET = async (req: NextRequest) => {
         item.user_active = Number(item.user_active)
       })
 
+      // 獲取最近五天的所有資料 createdAt輸出格式為 x/x
+      // const data = await prisma.log.groupBy({
+      //   by: ['createdAt'],
+      //   _count: {
+      //     userId: true
+      //   },
+      //   where: {
+      //     createdAt: {
+      //       gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 4)
+      //     }
+      //   }
+      // })
+
+      // // 目前日期 - 5天 創建陣列{ day: string; user_active: number }[] 預設user_active為0
+      // const chart = Array.from({ length: 5 }, (_, i) => {
+      //   const date = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i)
+      //   return {
+      //     day: `${date.getMonth() + 1}/${date.getDate()}`,
+      //     user_active: 0
+      //   }
+      // })
+
+      // // 迴圈處理資料
+      // data.forEach((item) => {
+      //   const date = new Date(item.createdAt)
+      //   const index = chart.findIndex((chartItem) => {
+      //     return chartItem.day === `${date.getMonth() + 1}/${date.getDate()}`
+      //   })
+
+      //   if (index !== -1) {
+      //     chart[index].user_active = item._count.userId
+      //   }
+      // })
+
       return NextResponse.json(chart)
     case 'today':
       // 今日人數
@@ -96,8 +126,6 @@ export const GET = async (req: NextRequest) => {
       })
 
     default:
-      return {
-        error: 'Invalid type'
-      }
+      return NextResponse.json({ message: '錯誤的查詢類型' }, { status: 400 })
   }
 }
