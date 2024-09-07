@@ -20,16 +20,7 @@ const Providers = ({
   session: Session | null
 }) => {
   const [queryClient] = React.useState(() => new QueryClient())
-  //   model Log {
-  //     id        String   @id @default(nanoid())
-  //     ip        String
-  //     userAgent String
-  //     referer   String
-  //     path      String
-  //     userId    String
-  //     user      User     @relation(fields: [userId], references: [id])
-  //     createdAt DateTime @default(now())
-  // }
+
   const pathname = usePathname()
 
   React.useEffect(() => {
@@ -52,7 +43,7 @@ const Providers = ({
       })
     }
     if (Cookies.get('accessToken')) {
-      // writeLog()
+      writeLog()
     }
   }, [pathname])
 

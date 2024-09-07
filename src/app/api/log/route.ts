@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/firebase-admin'
 import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
+import redis from '@/lib/redis'
 import getClassName from '@/utils/class-name'
 import { Log } from '@prisma/client'
 
@@ -135,12 +136,12 @@ export const POST = async (req: NextRequest) => {
   const res: Log = await req.json()
 
   if (
-    // process.env.NODE_ENV === 'production' &&
-    auth?.userId // &&
-    // auth?.userId !== process.env.ADMINSTUDENTID
+    process.env.NODE_ENV === 'production' &&
+    auth?.userId &&
+    auth?.userId !== process.env.ADMINSTUDENTID
   ) {
     try {
-      const log = await prisma.log.create({
+      await prisma.log.create({
         data: {
           ip: res.ip,
           deviceType: res.deviceType,
@@ -159,7 +160,18 @@ export const POST = async (req: NextRequest) => {
           }
         }
       })
-      return NextResponse.json({ status: 'success', message: 'Log created', data: log })
+      const allLog = await prisma.log.findMany({
+        orderBy: {
+          createdAt: 'desc'
+        },
+        include: {
+          user: true
+        }
+      })
+      // 刪除原本的快取重新寫入
+      await redis.del('log')
+      await redis.call('JSON.SET', 'log', '$', JSON.stringify(allLog))
+      return NextResponse.json({ status: 'success', message: 'Log created' })
     } catch (error) {
       console.log('error', error)
     }

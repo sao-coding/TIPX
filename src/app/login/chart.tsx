@@ -24,7 +24,7 @@ const Chart = () => {
   } = useQuery<ChartData[]>({
     queryKey: ['login-chart'],
     queryFn: async () => {
-      const res = await fetch(`/api/log?type=chart`)
+      const res = await fetch(`/api/analytics?type=chart`)
       const data = await res.json()
       // error
       if (!res.ok) throw new Error('沒有這篇公告')

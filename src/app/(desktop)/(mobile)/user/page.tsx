@@ -11,9 +11,9 @@ import Info from './info'
 import Logout from './logout'
 
 const getUserData = async () => {
-  const { data: user } = await api.get<User>('/user')
+  const { data: user } = await api.get<User>('user')
   const { data: color } = await api.get(`get-img-color?url=${user.img}`)
-  const { data: userClassName } = await api.get<ClassName>('/class-name')
+  const { data: userClassName } = await api.get<ClassName>('class-name')
   const settings = await prisma.userSettings.findFirst({
     where: {
       userId: user.userid

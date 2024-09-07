@@ -13,7 +13,7 @@ const TodayCount = () => {
   } = useQuery<number>({
     queryKey: ['login-today-count'],
     queryFn: async () => {
-      const res = await fetch(`/api/log?type=today`)
+      const res = await fetch(`/api/analytics?type=today`)
       const data = await res.json()
       // error
       if (!res.ok) throw new Error('沒有這篇公告')

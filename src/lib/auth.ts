@@ -1,13 +1,13 @@
 import { cookies } from 'next/headers'
 import { NextAuthOptions } from 'next-auth'
-import type { Adapter } from 'next-auth/adapters'
+// import type { Adapter } from 'next-auth/adapters'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-import { db } from '@/lib/firebase-admin'
+// import { db } from '@/lib/firebase-admin'
 import { prisma } from '@/lib/prisma'
-import { FirestoreAdapter } from '@auth/firebase-adapter'
 
+// import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { signJwtAccessToken } from './jwt'
 
 const authOptions: NextAuthOptions = {
@@ -185,8 +185,8 @@ const authOptions: NextAuthOptions = {
     strategy: 'jwt'
     // 到期時間一年
     // maxAge: site.cookie.expires * 24 * 60 * 60
-  },
-  adapter: FirestoreAdapter(db) as Adapter
+  }
+  // adapter: FirestoreAdapter(db) as Adapter
 }
 
 export default authOptions

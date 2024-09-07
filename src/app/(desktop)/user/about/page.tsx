@@ -18,10 +18,10 @@ import {
 } from '@tabler/icons-react'
 
 const getUserData = async () => {
-  const { data: user } = await api.get<User>('/user?type=about')
+  const { data: user } = await api.get<User>('user?type=about')
   const { data: color } = await api.get(`get-img-color?url=${user.img}`)
-  const { data: userClassName } = await api.get<ClassName>('/class-name')
-  const { data: lineId } = await api.get<{ lineId: string }>('/lineid')
+  const { data: userClassName } = await api.get<ClassName>('class-name')
+  const { data: lineId } = await api.get<{ lineId: string }>('lineid')
   console.log('lineId', lineId)
   const settings = await prisma.userSettings.findFirst({
     where: {
