@@ -21,7 +21,7 @@ const CourseAttendanceRecordPage = ({ params }: { params: { id: string } }) => {
       // const data = await res.json()
       // return data
 
-      const { data } = await api.get(`/course-attendance-record?course=${params.id}`)
+      const { data } = await api.get(`course-attendance-record?course=${params.id}`)
 
       return data
     }

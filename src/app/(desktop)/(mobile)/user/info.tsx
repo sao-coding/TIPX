@@ -32,7 +32,7 @@ const Info = ({
     useQuery<CourseAttendanceRecordTotal>({
       queryKey: ['course-attendance-record-total', Cookies.get('year'), Cookies.get('sem')],
       queryFn: async () => {
-        const { data } = await api.get('/course-attendance-record?type=total')
+        const { data } = await api.get('course-attendance-record?type=total')
         return data
       }
     })
@@ -41,7 +41,7 @@ const Info = ({
     queryKey: ['conduct-total', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       const { data } = await api.get(
-        `/conduct?year=${Cookies.get('year')}&sem=${Cookies.get('sem')}`
+        `conduct?year=${Cookies.get('year')}&sem=${Cookies.get('sem')}`
       )
       return data
     }

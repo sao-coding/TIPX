@@ -53,7 +53,7 @@ const Leave = () => {
       // console.log({ data })
       // return data
 
-      // const res = await api.get(`/leave?date=${formatDatetime('date', date as Date)}`)
+      // const res = await api.get(`leave?date=${formatDatetime('date', date as Date)}`)
       // console.log({ res })
       // if (res.status === 200) {
       //   return res.data
@@ -63,7 +63,7 @@ const Leave = () => {
       // }
 
       try {
-        const { data } = await api.get(`/leave?date=${formatDatetime('date', date as Date)}`)
+        const { data } = await api.get(`leave?date=${formatDatetime('date', date as Date)}`)
         return data
       } catch (error) {
         const err = error as AxiosError
@@ -124,7 +124,7 @@ const Leave = () => {
     //   return
     // }
 
-    const res = await api.post('/leave', {
+    const res = await api.post('leave', {
       type: 'leave',
       date,
       leaveType: selected,

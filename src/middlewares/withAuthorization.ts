@@ -7,21 +7,17 @@ import { MiddlewareFactory } from './types'
 export const withAuthorization: MiddlewareFactory = (next) => {
   return async (req: NextRequest, _next: NextFetchEvent) => {
     const refreshToken = req.cookies.get('refreshToken')?.value || ''
+    // const refreshToken = cookies().get('refreshToken')?.value || ''
     const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
-    let verify
+    let verifyAccessToken
+    let verifyRefreshToken
     console.log(
       `middleware: ${req.nextUrl.pathname} refreshToken: ${refreshToken} accessToken: ${accessToken}`
     )
 
-    verify = await verifyJwt(accessToken)
+    verifyAccessToken = await verifyJwt(accessToken)
 
     // 例外位置
-    // req.nextUrl.pathname.startsWith("/api/og") ||
-    // req.nextUrl.pathname.startsWith("/api/post") ||
-    // req.nextUrl.pathname.startsWith('/api/auth') ||
-    // req.nextUrl.pathname.startsWith('/api/refresh-token')
-    // req.nextUrl.pathname.startsWith("/api/git-log")
-    // req.nextUrl.pathname.startsWith('/api')
     const exception = [
       '/api/og',
       '/api/post',
@@ -34,10 +30,10 @@ export const withAuthorization: MiddlewareFactory = (next) => {
     ]
 
     if (req.nextUrl.pathname.startsWith('/api')) {
-      console.log(`middleware: ${req.nextUrl.pathname} auth: ${JSON.stringify(verify)}`)
+      console.log(`middleware: ${req.nextUrl.pathname} auth: ${JSON.stringify(verifyAccessToken)}`)
       if (exception.some((path) => req.nextUrl.pathname.startsWith(path))) {
         console.log(`middleware: 跳過 ${req.nextUrl.pathname}`)
-      } else if (!verify) {
+      } else if (!verifyAccessToken) {
         console.log('middleware: no token')
         return NextResponse.json(
           {
@@ -50,7 +46,8 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       }
     }
 
-    verify = await verifyJwt(refreshToken)
+    verifyRefreshToken = await verifyJwt(refreshToken)
+    verifyAccessToken = await verifyJwt(req.cookies.get('accessToken')?.value || '')
 
     if (
       req.nextUrl.pathname.startsWith('/timetable') ||
@@ -59,7 +56,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       req.nextUrl.pathname.startsWith('/user') ||
       req.nextUrl.pathname === '/'
     ) {
-      if (!verify) {
+      if (!verifyRefreshToken && !verifyAccessToken) {
         console.log('middleware: no token')
         return NextResponse.redirect(
           new URL(`/login?redirect=${req.nextUrl.pathname}`, req.nextUrl)

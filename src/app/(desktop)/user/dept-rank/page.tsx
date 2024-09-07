@@ -22,7 +22,7 @@ const DeptRankPage = () => {
       try {
         const datas = []
         for (let i = 1; i <= 3; i++) {
-          const { data } = await api.get(`/dept-rank?classid=${i}`)
+          const { data } = await api.get(`dept-rank?classid=${i}`)
           datas.push(data)
         }
         toast.success('資料載入成功', { id: toastId })

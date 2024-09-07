@@ -30,7 +30,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
       //   const json = await res.json()
       //   if (!res.ok) throw new Error('沒有這篇公告')
       //   return json
-      const { data } = await api.get(`/post?type=one&id=${id}`)
+      const { data } = await api.get(`post?type=one&id=${id}`)
       return data
     }
   })

@@ -49,15 +49,8 @@ const Switch = ({ mobile }: { mobile?: boolean }) => {
     queryKey: ['credit'],
     queryFn: async () => {
       const { currentYear, currentSem } = getCurrentYearSem()
-      // const res = await fetch(`/api/credit?year=${currentYear}&sem=${currentSem}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // const data = await res.json()
-      // return data
-      const { data } = await api.get(`/credit?year=${currentYear}&sem=${currentSem}`)
+
+      const { data } = await api.get(`credit?year=${currentYear}&sem=${currentSem}`)
       return data
     }
   })

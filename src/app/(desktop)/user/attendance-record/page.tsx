@@ -19,7 +19,7 @@ const CourseAttendanceRecordPage = () => {
   const { isLoading, data } = useQuery<CourseAttendanceRecord>({
     queryKey: ['course-attendance-record', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const { data } = await api.get('/course-attendance-record')
+      const { data } = await api.get('course-attendance-record')
       return data
     }
   })

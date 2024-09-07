@@ -16,7 +16,7 @@ const FinalGradePage = () => {
     queryKey: ['final-grade'],
     queryFn: async () => {
       const { currentYear, currentSem } = getCurrentYearSem()
-      const { data } = await api.get(`/final-grade?year=${currentYear}&sem=${currentSem}`)
+      const { data } = await api.get(`final-grade?year=${currentYear}&sem=${currentSem}`)
       return data
     },
     refetchOnWindowFocus: false

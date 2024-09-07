@@ -20,7 +20,7 @@ const ClassRankPage = () => {
       const toastId = toast.loading('資料量大，請稍等')
 
       try {
-        const { data } = await api.get('/class-rank')
+        const { data } = await api.get('class-rank')
         toast.success('資料載入成功', { id: toastId })
         return data
       } catch (error) {

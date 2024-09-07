@@ -14,7 +14,9 @@ const RightTool = () => {
             month: 'space-y-4 w-full flex flex-col',
             table: 'w-full h-full border-collapse space-y-1',
             head_row: '',
-            row: 'w-full mt-2'
+            row: 'w-full mt-2',
+            day_today:
+              'bg-primary/80 text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground'
           }}
         />
       </div>

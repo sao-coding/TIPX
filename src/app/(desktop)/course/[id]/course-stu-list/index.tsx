@@ -11,16 +11,7 @@ const CourseStuListPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useQuery<CourseStuList[]>({
     queryKey: ['course-stu-list', params.id],
     queryFn: async () => {
-      // const res = await fetch(`/api/course-stu-list?course=${params.id}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // const data = await res.json()
-      // return data
-
-      const { data } = await api.get(`/course-stu-list?course=${params.id}`)
+      const { data } = await api.get(`course-stu-list?course=${params.id}`)
       return data
     }
   })

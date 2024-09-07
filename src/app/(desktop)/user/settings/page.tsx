@@ -62,7 +62,7 @@ const SettingsPage = () => {
   const { data, isLoading } = useQuery<UserSettings>({
     queryKey: ['settings'],
     queryFn: async () => {
-      const { data } = await api.get('/settings')
+      const { data } = await api.get('settings')
       return data
     }
   })
@@ -84,7 +84,7 @@ const SettingsPage = () => {
     avatar: string,
     banner: string
   ) => {
-    const { data } = await api.patch('/settings', {
+    const { data } = await api.patch('settings', {
       theme,
       location,
       avatar,
@@ -154,7 +154,7 @@ const SettingsPage = () => {
 
   // 清除快取
   const clearCache = async () => {
-    const { data } = await api.delete('/clear')
+    const { data } = await api.delete('clear')
     if (data.message === 'success') {
       toast.success('清除成功')
     } else {

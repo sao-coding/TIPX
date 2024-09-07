@@ -12,7 +12,7 @@ const ClassListPage = () => {
   const { isLoading, data } = useQuery<Student[]>({
     queryKey: ['class-list'],
     queryFn: async () => {
-      const { data } = await api.get('/class-list')
+      const { data } = await api.get('class-list')
       return data
     }
   })

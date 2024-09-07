@@ -32,7 +32,7 @@ const List = () => {
   const { isLoading, isError, data } = useQuery<LeaveItemCheck[]>({
     queryKey: ['leaveList', month, Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const { data } = await api.get(`/leave?month=${month}`)
+      const { data } = await api.get(`leave?month=${month}`)
       return data
     }
     // refetchOnWindowFocus: false

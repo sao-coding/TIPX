@@ -18,7 +18,7 @@ const FinalGradePage = () => {
   const { isLoading, data } = useQuery<SemGrade[]>({
     queryKey: ['sem-grade', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const { data } = await api.get('/sem-grade')
+      const { data } = await api.get('sem-grade')
       return data
     }
   })

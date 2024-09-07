@@ -29,8 +29,6 @@ const HwTool = () => {
   } = useQuery<{ course: string; hw: Hw[] }[]>({
     queryKey: ['tool-hw', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      // const res = await fetch(`/api/hw?type=tool`)
-      // const data = await res.json()
       const { data } = await api.get<{ data: Hw[] }>('/hw?type=tool')
 
       // data.data

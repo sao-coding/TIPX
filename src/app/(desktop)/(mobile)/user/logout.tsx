@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
-import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
+import { logout } from '@/app/actions'
 import { IconLogout } from '@tabler/icons-react'
 
 const Logout = () => {
@@ -15,11 +15,7 @@ const Logout = () => {
       className='flex w-full rounded-sm border bg-background1 p-2 hover:bg-accent hover:text-accent-foreground md:justify-center md:border-none md:bg-transparent xl:justify-start'
       onClick={async () => {
         console.log('logout')
-        // 刪除所有Cookie
-        Object.keys(Cookies.get()).forEach((cookieName) => {
-          console.log(cookieName)
-          Cookies.remove(cookieName)
-        })
+        logout()
         const status = await signOut({
           redirect: false
         })

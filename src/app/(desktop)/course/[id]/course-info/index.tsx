@@ -27,16 +27,7 @@ const CourseInfoPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useQuery<CourseInfo>({
     queryKey: ['course-info', params.id],
     queryFn: async () => {
-      // const res = await fetch(`/api/course-info?course=${params.id}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // const data = await res.json()
-      // return data
-
-      const { data } = await api.get(`/course-info?course=${params.id}`)
+      const { data } = await api.get(`course-info?course=${params.id}`)
       return data
     }
   })

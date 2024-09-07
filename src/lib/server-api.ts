@@ -7,6 +7,14 @@ const api = axios.create({
   baseURL: `${site.url}/api`
 })
 
+api.interceptors.request.use((config) => {
+  const accessToken = cookies().get('accessToken')?.value
+  if (accessToken) {
+    config.headers['Authorization'] = `Bearer ${accessToken}`
+  }
+  return config
+})
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -14,7 +22,7 @@ api.interceptors.response.use(
     const originalRequest = error.config
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-      // console.log('cookie', cookies().getAll())
+      console.log('cookie', cookies().getAll())
       try {
         // 附帶 cookie
         const { data } = await axios.get(`${site.url}/api/refresh-token`, {

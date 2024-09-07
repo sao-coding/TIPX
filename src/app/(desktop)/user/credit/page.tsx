@@ -14,7 +14,7 @@ const CreditPage = () => {
   const { data, isLoading } = useQuery<Credit[]>({
     queryKey: ['credit'],
     queryFn: async () => {
-      const { data } = await api.get('/credit')
+      const { data } = await api.get('credit')
       return data
     },
     refetchOnWindowFocus: false

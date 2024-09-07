@@ -16,16 +16,7 @@ const HwPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useQuery({
     queryKey: ['hw', params.id],
     queryFn: async () => {
-      // const res = await fetch(`/api/hw?course=${params.id}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      // const data = await res.json()
-      // return data
-
-      const { data } = await api.get(`/hw?course=${params.id}`)
+      const { data } = await api.get(`hw?course=${params.id}`)
       return data
     },
     refetchOnWindowFocus: false

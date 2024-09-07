@@ -3,18 +3,30 @@
 import React from 'react'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
-import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
-import api from '@/lib/api'
 // import toast from 'react-hot-toast'
 import { OutTimeTable, TimeTable } from '@/types'
 import { useToPng } from '@hugocxl/react-to-image'
 import { IconShare2 } from '@tabler/icons-react'
-import { useQuery } from '@tanstack/react-query'
 
-const DesktopTimeTable = () => {
+const DesktopTimeTable = ({ timetable }: { timetable: TimeTable[] }) => {
   const week = ['一', '二', '三', '四', '五', '六', '日']
+  let timeTable: OutTimeTable = {
+    week: [],
+    timetable: []
+  }
+
+  for (let i = 0; i < 7; i++) {
+    timeTable.week.push(timetable[i].week)
+  }
+
+  for (let i = 0; i < 14; i++) {
+    timeTable.timetable.push([])
+    for (let j = 0; j < 7; j++) {
+      timeTable.timetable[i].push(timetable[j].timetable[i])
+    }
+  }
 
   const trackShareTimeTable = () => {
     const studentId = Cookie.get('cookie_userid') ?? ''
@@ -22,32 +34,32 @@ const DesktopTimeTable = () => {
     return data
   }
 
-  const { isLoading, data } = useQuery<OutTimeTable>({
-    queryKey: ['desktop-timebale', Cookies.get('year'), Cookies.get('sem')],
-    queryFn: async () => {
-      const { data } = await api.get<TimeTable[]>(`/timetable?type=all`)
+  // const { isLoading, data } = useQuery<OutTimeTable>({
+  //   queryKey: ['desktop-timebale', Cookies.get('year'), Cookies.get('sem')],
+  //   queryFn: async () => {
+  //     const { data } = await api.get<TimeTable[]>(`timetable?type=all`)
 
-      let timeTable: OutTimeTable = {
-        week: [],
-        timetable: []
-      }
+  //     let timeTable: OutTimeTable = {
+  //       week: [],
+  //       timetable: []
+  //     }
 
-      for (let i = 0; i < 7; i++) {
-        timeTable.week.push(data[i].week)
-      }
+  //     for (let i = 0; i < 7; i++) {
+  //       timeTable.week.push(data[i].week)
+  //     }
 
-      for (let i = 0; i < 14; i++) {
-        timeTable.timetable.push([])
-        for (let j = 0; j < 7; j++) {
-          timeTable.timetable[i].push(data[j].timetable[i])
-        }
-      }
+  //     for (let i = 0; i < 14; i++) {
+  //       timeTable.timetable.push([])
+  //       for (let j = 0; j < 7; j++) {
+  //         timeTable.timetable[i].push(data[j].timetable[i])
+  //       }
+  //     }
 
-      console.log('timetable', timeTable)
+  //     console.log('timetable', timeTable)
 
-      return timeTable
-    }
-  })
+  //     return timeTable
+  //   }
+  // })
 
   const dataUrlToFile = (dataUrl: string, filename: string) => {
     const arr = dataUrl.split(',')
@@ -59,6 +71,8 @@ const DesktopTimeTable = () => {
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n)
       }
+      // 開啟新視窗下載
+      // window.open(URL.createObjectURL(new File([u8arr], filename, { type: mime })))
       return new File([u8arr], filename, { type: mime })
     }
   }
@@ -126,7 +140,7 @@ const DesktopTimeTable = () => {
             <div className='table-row-group'>
               {Array.from(Array(14).keys()).map((i) => (
                 <div className='table-row' key={i}>
-                  {isLoading &&
+                  {/* {isLoading &&
                     Array.from(Array(7).keys()).map((item, index) => (
                       <div
                         // hsl(0deg 0% 12.55%)
@@ -141,10 +155,10 @@ const DesktopTimeTable = () => {
                           載入中...
                         </div>
                       </div>
-                    ))}
-                  {data &&
-                    data.timetable.length > 0 &&
-                    data.timetable[i].map((item, index) => (
+                    ))} */}
+                  {timeTable &&
+                    timeTable.timetable.length > 0 &&
+                    timeTable.timetable[i].map((item, index) => (
                       <div
                         className='relative table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 pb-6 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
                         key={index}

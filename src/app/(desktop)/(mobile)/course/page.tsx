@@ -15,7 +15,7 @@ const CourseListPage = () => {
   const { isLoading, data } = useQuery<Course[]>({
     queryKey: ['course', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      const { data } = await api.get('/course')
+      const { data } = await api.get('course')
       return data
     }
   })

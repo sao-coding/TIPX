@@ -154,7 +154,6 @@ const authOptions: NextAuthOptions = {
             }
           )
 
-          // set-cookie: refreshToken
           const cookie = cookies().set('refreshToken', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -168,7 +167,11 @@ const authOptions: NextAuthOptions = {
             role: userInfo.role
           })
 
-          cookies().set('accessToken', accessToken)
+          cookies().set('accessToken', accessToken, {
+            maxAge: 7 * 24 * 60 * 60
+          })
+
+          // header set-cookie: refreshToken
         }
       }
 
@@ -180,8 +183,8 @@ const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt'
-    //   //   // 到期時間一年
-    //   //   maxAge: site.cookie.expires * 24 * 60 * 60
+    // 到期時間一年
+    // maxAge: site.cookie.expires * 24 * 60 * 60
   },
   adapter: FirestoreAdapter(db) as Adapter
 }
