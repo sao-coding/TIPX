@@ -30,7 +30,6 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       '/api/git-log',
       '/api/log',
       '/api/test',
-      '/api/image-proxy',
       '/api/get-img-color'
     ]
 
@@ -57,7 +56,8 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       req.nextUrl.pathname.startsWith('/timetable') ||
       req.nextUrl.pathname.startsWith('/forum') ||
       req.nextUrl.pathname.startsWith('/course') ||
-      req.nextUrl.pathname.startsWith('/user')
+      req.nextUrl.pathname.startsWith('/user') ||
+      req.nextUrl.pathname === '/'
     ) {
       if (!verify) {
         console.log('middleware: no token')

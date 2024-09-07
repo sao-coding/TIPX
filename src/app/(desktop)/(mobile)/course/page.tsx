@@ -42,9 +42,9 @@ const CourseListPage = () => {
                       <Skeleton className='w-1/4' />
                     </div>
                   </div>
-                  <div className='ripple mt-1 flex h-7 w-full items-center justify-center rounded-lg border'>
+                  {/* <div className='ripple mt-1 flex h-7 w-full items-center justify-center rounded-lg border'>
                     <Skeleton className='h-3 w-10' />
-                  </div>
+                  </div> */}
                 </div>
               ))
             : data?.map((course, index) => (

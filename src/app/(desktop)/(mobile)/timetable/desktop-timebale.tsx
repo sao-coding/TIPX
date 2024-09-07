@@ -152,10 +152,10 @@ const DesktopTimeTable = () => {
                         <div className='absolute bottom-1 right-1 table-cell whitespace-nowrap rounded-md bg-background3 px-1 text-center'>
                           <div>{i + 1}</div>
                         </div>
-                        <div className='rounded text-center hover:bg-background3'>
+                        <div className='group rounded text-center hover:bg-primary/50'>
                           <Link
                             href={`/course/${item.id}?tab=規範`}
-                            className='border-b-2 border-background3 text-blue-500'
+                            className='border-b-2 border-primary/50 text-blue-500 group-hover:border-none group-hover:text-white'
                           >
                             {item.course}
                           </Link>

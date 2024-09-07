@@ -23,11 +23,6 @@ const getUserData = async () => {
 }
 
 const UserPage = async () => {
-  // const accessToken = cookies().get('accessToken')?.value || ''
-  // const auth = await getAuth(accessToken)
-  // const user = await getUser(auth?.userId || '')
-  // const color = await getImgColor(user.img)
-  // const userClassName = await (await getClassName(auth?.userId || '')).class
   const { user, color, userClassName, settings } = await getUserData()
 
   return (

@@ -17,7 +17,7 @@ const PostCard = React.forwardRef<HTMLAnchorElement, { post: Announcement }>(({ 
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className='h-36 border-b border-background2 p-2 md:p-7'>
+          <div className='h-36 border-b border-background3 p-2 md:p-7'>
             <div className='relative flex h-full flex-col gap-1 md:justify-between'>
               <div
                 className={clsx(

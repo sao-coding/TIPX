@@ -52,7 +52,7 @@ const Providers = ({
       })
     }
     if (Cookies.get('accessToken')) {
-      writeLog()
+      // writeLog()
     }
   }, [pathname])
 

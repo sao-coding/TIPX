@@ -14,8 +14,7 @@ api.interceptors.response.use(
     const originalRequest = error.config
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-      console.log('cookie', cookies().getAll())
-
+      // console.log('cookie', cookies().getAll())
       try {
         // 附帶 cookie
         const { data } = await axios.get(`${site.url}/api/refresh-token`, {

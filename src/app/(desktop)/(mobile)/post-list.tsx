@@ -14,7 +14,7 @@ import PostCard from './post-card'
 
 const Loading = () => {
   return (
-    <div className='flex h-36 flex-col gap-1 border-b border-background1 p-2 md:justify-between md:p-7'>
+    <div className='flex h-36 flex-col gap-1 border-b border-background3 p-2 md:justify-between md:p-7'>
       <Skeleton className='my-1 h-4 w-20 bg-background2' />
       <div className='flex h-12 flex-col justify-around md:h-auto'>
         <Skeleton className='h-4 w-full bg-background2' />

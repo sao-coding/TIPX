@@ -15,15 +15,6 @@ const MobileTimeTable = () => {
   const { isLoading, data } = useQuery<TimeTable[]>({
     queryKey: ['mobile-timetable', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
-      // const res = await fetch(`/api/timetable?type=all&year=111&sem=2&userid=D11019247`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-
-      // const data = await res.json()
-
       const { data } = await api.get(`/timetable?type=all`)
       return data
     }
@@ -140,10 +131,10 @@ const MobileTimeTable = () => {
                       key={index}
                       className='table-cell border-r border-t bg-[hsl(0deg,_0%,_96.47%)] p-2 first:border-l-0 last:border-r-0 dark:bg-[hsl(0deg,_0%,_12.55%)]'
                     >
-                      <div className='rounded text-center hover:bg-background3'>
+                      <div className='group rounded text-center hover:bg-primary/50'>
                         <Link
                           href={`/course/${course.id}?tab=規範`}
-                          className='border-b-2 border-background3 text-blue-500'
+                          className='border-b-2 border-primary/50 text-blue-500 group-hover:border-none group-hover:text-white'
                         >
                           {course.course}
                         </Link>

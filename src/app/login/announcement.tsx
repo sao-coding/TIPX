@@ -12,7 +12,7 @@ const Announcement = () => {
   const { isLoading, isError, data } = useQuery<AnnouncementType[]>({
     queryKey: ['announcement'],
     queryFn: async () => {
-      const res = await fetch(`/api/post?type=all&page=1&limit=20`)
+      const res = await fetch(`/api/post?type=all&page=1&limit=20&exclude=outside`)
       const json = await res.json()
       // error
       if (!res.ok) throw new Error('沒有這篇公告')
