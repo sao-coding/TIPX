@@ -36,7 +36,8 @@ const Avatar = (props: AvatarProps) => {
       {error ? (
         fallback
       ) : (
-        <div className={cn('', loading && 'animate-pulse')}>
+        <div className={cn(loading && 'animate-pulse')}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imageRef}
             src={src}
@@ -44,7 +45,7 @@ const Avatar = (props: AvatarProps) => {
             height={height}
             sizes='fill'
             className={cn(
-              'h-[100px] w-[75px] rounded-md object-cover shadow-md transition-[scale,filter] duration-700',
+              'h-[100px] w-[75px] rounded-md object-cover transition-[scale,filter] duration-700',
               loading && 'scale-[1.02] blur-xl grayscale',
               className
             )}

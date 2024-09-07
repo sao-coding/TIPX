@@ -36,10 +36,10 @@ const CourseListPage = () => {
             ? Array.from(Array(12).keys()).map((index) => (
                 <div key={index}>
                   <div className='flex h-20 w-full flex-col justify-between space-y-2 rounded-lg border bg-background1 p-2'>
-                    <Skeleton className='h-5 w-1/2' />
+                    <Skeleton className='h-5 w-1/2 bg-background2' />
                     <div className='flex h-4 justify-between'>
-                      <Skeleton className='w-1/2' />
-                      <Skeleton className='w-1/4' />
+                      <Skeleton className='w-1/2 bg-background2' />
+                      <Skeleton className='w-1/4 bg-background2' />
                     </div>
                   </div>
                   {/* <div className='ripple mt-1 flex h-7 w-full items-center justify-center rounded-lg border'>

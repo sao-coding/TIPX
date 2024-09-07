@@ -12,7 +12,7 @@ const Logout = () => {
 
   return (
     <div
-      className='h-10 rounded-sm border bg-background1 p-2'
+      className='flex w-full rounded-sm border bg-background1 p-2 hover:bg-accent hover:text-accent-foreground md:justify-center md:border-none md:bg-transparent xl:justify-start'
       onClick={async () => {
         console.log('logout')
         // 刪除所有Cookie
@@ -29,9 +29,9 @@ const Logout = () => {
         }
       }}
     >
-      <div className='flex items-center'>
+      <div className='flex items-center gap-2'>
         <IconLogout className='stroke-red-500' />
-        <div className='ml-2'>登出</div>
+        <span className='block md:hidden xl:block'>登出</span>
       </div>
     </div>
   )

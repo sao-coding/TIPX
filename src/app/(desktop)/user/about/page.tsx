@@ -64,9 +64,7 @@ const UserAboutPage = async () => {
             <IconBrandLine />
             {lineId.lineId ? (
               <>
-                <div className='bg-main-color-3 rounded-md px-1 text-neutral-200'>
-                  {lineId.lineId}
-                </div>
+                <div className='rounded-md bg-primary px-2 text-neutral-200'>{lineId.lineId}</div>
                 <Copy />
               </>
             ) : (

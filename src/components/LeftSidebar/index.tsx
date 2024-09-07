@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 
+import Logout from '@/app/(desktop)/(mobile)/user/logout'
 import { IconLogo } from '@/components/icons/logo'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
@@ -122,7 +123,7 @@ const LeftSidebar = () => {
                             >
                               <div className='flex items-center gap-2'>
                                 <link.icon className={clsx(link.color, link.className)} />
-                                <span className='block sm:hidden xl:block'>{link.text}</span>
+                                <span className='block md:hidden xl:block'>{link.text}</span>
                               </div>
                             </Link>
                           </TooltipTrigger>
@@ -134,6 +135,7 @@ const LeftSidebar = () => {
                 )}
               </React.Fragment>
             ))}
+            <Logout />
           </div>
         </ScrollArea>
       </div>
