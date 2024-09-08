@@ -1,83 +1,83 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-}
-
-enum UserRole {
-    SUPER_ADMIN
-    ADMIN
-    USER
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id           String         @id
-    name         String
-    givenName    String
-    familyName   String
-    picture      String
-    email        String         @unique
-    role         UserRole       @default(USER)
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    UserSettings UserSettings[]
-    Log          Log[]
+  id           String        @id
+  name         String
+  givenName    String
+  familyName   String
+  picture      String
+  email        String        @unique
+  role         UserRole      @default(USER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Log          Log[]
+  UserSettings UserSettings?
 }
 
 model UserSettings {
-    id       String  @id @default(nanoid())
-    theme    String
-    location Boolean
-    // 大頭貼設定
-    avatar   String
-    // 橫幅設定
-    banner   String
-    userId   String  @unique
-    user     User    @relation(fields: [userId], references: [id])
+  id       String  @id @default(nanoid())
+  theme    String
+  location Boolean
+  avatar   String
+  banner   String
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id])
 }
 
-model student {
-    userid            String @id
-    password          String
-    lineid            String
-    email             String
-    img               String
-    name              String
-    enName            String
-    IDNumber          String
-    status            String
-    major             String
-    gender            String
-    birthday          String
-    birthplace        String
-    address           String
-    phone             String
-    homePhone         String
-    date              String
-    previousEducation String
-    parentName        String
-    parentAddress     String
-    parentPhone       String
-    parentJob         String
-    desc              String @db.Text
+model Student {
+  userId            String @id
+  password          String
+  lineId            String
+  email             String
+  img               String
+  name              String
+  enName            String
+  IDNumber          String
+  status            String
+  major             String
+  gender            String
+  birthday          String
+  birthplace        String
+  address           String
+  phone             String
+  homePhone         String
+  date              String
+  previousEducation String
+  parentName        String
+  parentAddress     String
+  parentPhone       String
+  parentJob         String
+  desc              String @db.Text
 }
 
 model Log {
-    id             String   @id @default(nanoid())
-    ip             String
-    deviceType     String
-    deviceVendor   String
-    deviceModel    String
-    browserName    String
-    browserVersion String
-    osName         String
-    osVersion      String
-    referer        String
-    path           String
-    userId         String
-    user           User     @relation(fields: [userId], references: [id])
-    createdAt      DateTime @default(now())
+  id             String   @id @default(nanoid())
+  ip             String
+  userId         String
+  browserName    String
+  browserVersion String
+  deviceModel    String
+  deviceType     String
+  deviceVendor   String
+  osName         String
+  osVersion      String
+  referer        String
+  path           String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Log_userId_fkey")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
 }
