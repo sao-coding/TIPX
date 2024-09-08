@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
 import getSearchAuth from '@/utils/search-auth'
-import { student } from '@prisma/client'
+import { Student } from '@prisma/client'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
@@ -38,7 +38,7 @@ export const GET = async (req: NextRequest) => {
     }
   }
 
-  let student: student[] = []
+  let student: Student[] = []
 
   if (search.length > 0) {
     if (type === 'simple') {
