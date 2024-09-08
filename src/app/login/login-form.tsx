@@ -113,9 +113,7 @@ const LoginForm = () => {
           onClick={async () => {
             setLoading(true)
             const userSettings = await login(Cookies.get('accessToken') || '')
-            userSettings?.theme === 'dark'
-              ? localStorage.setItem('theme', 'dark')
-              : localStorage.setItem('theme', 'light')
+            localStorage.setItem('theme', userSettings?.theme || 'system')
             signIn('google', {
               redirect: false,
               callbackUrl: pathname
