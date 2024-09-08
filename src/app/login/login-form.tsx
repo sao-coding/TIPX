@@ -14,6 +14,8 @@ import { site } from '@/config/site'
 import getCurrentYearSem from '@/utils/current-year-sem'
 import { IconBrandGoogle, IconLoader2 } from '@tabler/icons-react'
 
+import { login } from '../actions'
+
 const LoginForm = () => {
   const searchParams = useSearchParams()
   const [loading, setLoading] = React.useState(false)
@@ -108,8 +110,12 @@ const LoginForm = () => {
           </Button>
         </form>
         <Button
-          onClick={() => {
+          onClick={async () => {
             setLoading(true)
+            const userSettings = await login(Cookies.get('accessToken') || '')
+            userSettings?.theme === 'dark'
+              ? localStorage.setItem('theme', 'dark')
+              : localStorage.setItem('theme', 'light')
             signIn('google', {
               redirect: false,
               callbackUrl: pathname

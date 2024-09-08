@@ -1,28 +1,14 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-
 import { IconLogo } from '@/components/icons/logo'
 import IconLogoText from '@/components/icons/logo-text'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import getAuth from '@/lib/get-auth'
 
 import Announcement from './announcement'
 import Chart from './chart'
 import LoginDialog from './login-dialog'
 import TodayCount from './today-count'
 import UserCount from './user-count'
-// import { useQuery } from "@tanstack/react-query"
 
-const LoginPage = async ({ searchParams }: { searchParams: { redirect?: string } }) => {
-  if (cookies().has('accessToken')) {
-    const auth = await getAuth(cookies().get('accessToken')?.value ?? '')
-    console.log('login auth', auth)
-    if (auth?.type === 'access') {
-      console.log('redirect', searchParams.redirect)
-      redirect(searchParams.redirect ?? '/')
-    }
-  }
-
+const LoginPage = () => {
   return (
     <div className='min-h-screen'>
       <div className='fixed left-0 top-0 h-screen w-screen bg-slate-900'></div>
