@@ -16,7 +16,7 @@ const ArtalkComment = () => {
       el: container.current!,
       pageKey: pathname,
       pageTitle: '留言板',
-      server: 'http://artalk.sao-x.com',
+      server: 'https://artalk.sao-x.com',
       site: 'TIPX'
       // ...
     })
