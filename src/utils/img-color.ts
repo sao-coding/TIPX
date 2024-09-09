@@ -27,6 +27,7 @@ const getImgColor = async (url: string) => {
   } catch (error) {
     console.error('Error processing image:', error)
     // return NextResponse.json({ error: 'Failed to process image' }, { status: 500 })
+    // 因為沒有照片回傳預設值
     return 'Failed to process image'
   }
 }

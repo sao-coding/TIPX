@@ -43,8 +43,8 @@ const UserBanner = ({
               width={96}
               height={96}
               fallback={
-                <div className='flex h-24 w-24 items-center justify-center rounded-full'>
-                  <IconUserCircle size={75} />
+                <div className='relative mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-white md:ml-4'>
+                  <IconUserCircle className='absolute h-20 w-20' />
                 </div>
               }
             />
