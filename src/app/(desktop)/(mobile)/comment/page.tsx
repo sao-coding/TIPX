@@ -2,8 +2,9 @@
 
 import React from 'react'
 import { usePathname } from 'next/navigation'
-import 'artalk/dist/Artalk.css'
 import Artalk from 'artalk'
+
+import 'artalk/dist/Artalk.css'
 
 const ArtalkComment = () => {
   const container = React.useRef<HTMLDivElement>(null)
@@ -16,7 +17,7 @@ const ArtalkComment = () => {
       pageKey: pathname,
       pageTitle: '留言板',
       server: 'http://artalk.sao-x.com',
-      site: 'TIPX',
+      site: 'TIPX'
       // ...
     })
 
