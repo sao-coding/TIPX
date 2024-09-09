@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/lib/prisma'
-import { console } from 'inspector'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
@@ -51,7 +50,7 @@ export const GET = async (req: NextRequest) => {
       chart.forEach((item) => {
         item.user_active = Number(item.user_active)
       })
-      
+
       return NextResponse.json(chart)
     case 'today':
       // 今日人數
@@ -87,7 +86,7 @@ export const GET = async (req: NextRequest) => {
       today.forEach((item) => {
         item.count = Number(item.count)
       })
-    
+
       return NextResponse.json(today[0])
     case 'user':
       const user = await prisma.user.count()
