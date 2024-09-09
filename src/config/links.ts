@@ -17,6 +17,7 @@ import {
   IconInfoCircle,
   IconLayoutDashboard,
   IconList,
+  IconMessage,
   IconMessageCircle,
   IconNotes,
   IconSettings,
@@ -169,6 +170,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
   {
     group: '一般資訊',
     links: [
+      {
+        icon: IconMessage,
+        color: 'stroke-yellow-500',
+        href: '/comment',
+        text: '留言板'
+      },
       {
         icon: IconMessageCircle,
         color: 'stroke-blue-500',

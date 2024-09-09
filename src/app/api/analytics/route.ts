@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/lib/prisma'
+import { console } from 'inspector'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
@@ -50,41 +51,7 @@ export const GET = async (req: NextRequest) => {
       chart.forEach((item) => {
         item.user_active = Number(item.user_active)
       })
-
-      // 獲取最近五天的所有資料 createdAt輸出格式為 x/x
-      // const data = await prisma.log.groupBy({
-      //   by: ['createdAt'],
-      //   _count: {
-      //     userId: true
-      //   },
-      //   where: {
-      //     createdAt: {
-      //       gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 4)
-      //     }
-      //   }
-      // })
-
-      // // 目前日期 - 5天 創建陣列{ day: string; user_active: number }[] 預設user_active為0
-      // const chart = Array.from({ length: 5 }, (_, i) => {
-      //   const date = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i)
-      //   return {
-      //     day: `${date.getMonth() + 1}/${date.getDate()}`,
-      //     user_active: 0
-      //   }
-      // })
-
-      // // 迴圈處理資料
-      // data.forEach((item) => {
-      //   const date = new Date(item.createdAt)
-      //   const index = chart.findIndex((chartItem) => {
-      //     return chartItem.day === `${date.getMonth() + 1}/${date.getDate()}`
-      //   })
-
-      //   if (index !== -1) {
-      //     chart[index].user_active = item._count.userId
-      //   }
-      // })
-
+      
       return NextResponse.json(chart)
     case 'today':
       // 今日人數
@@ -108,17 +75,20 @@ export const GET = async (req: NextRequest) => {
       //   count: today[0].count
       // })
 
-      const today = await prisma.log.count({
-        where: {
-          createdAt: {
-            gte: new Date(new Date().toDateString())
-          }
-        }
-      })
+      // 台北今天日期
+      const today = (await prisma.$queryRaw`
+        SELECT COUNT(*) AS count
+        FROM Log
+        WHERE createdAt >= CONVERT_TZ(CURDATE(), '+08:00', '+00:00')
+          AND createdAt < CONVERT_TZ(CURDATE() + INTERVAL 1 DAY, '+08:00', '+00:00');
+      `) as { count: number }[]
 
-      return NextResponse.json({
-        count: today
+      // 處理 BigInt
+      today.forEach((item) => {
+        item.count = Number(item.count)
       })
+    
+      return NextResponse.json(today[0])
     case 'user':
       const user = await prisma.user.count()
       return NextResponse.json({
