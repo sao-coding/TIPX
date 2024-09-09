@@ -1,7 +1,8 @@
 'use client'
-// import Image, { ImageProps } from "next/image"
-import { useEffect, useRef, useState } from 'react'
 
+import React from 'react'
+
+// import Image, { ImageProps } from "next/image"
 import { cn } from '@/lib/utils'
 
 type AvatarProps = {
@@ -16,19 +17,19 @@ type AvatarProps = {
 
 const Avatar = (props: AvatarProps) => {
   const { src, width, height, alt, fallback, className, ...rest } = props
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const imageRef = useRef<HTMLImageElement>(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
+  const imageRef = React.useRef<HTMLImageElement>(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (imageRef.current?.complete) {
       setLoading(false)
     }
   }, [])
 
-  // useEffect(() => {
-  //   console.log("Loading:", loading)
-  //   console.log("Error:", error)
+  // React.useEffect(() => {
+  //   console.log('Loading:', loading)
+  //   console.log('Error:', error)
   // }, [loading, error])
 
   return (
