@@ -12,6 +12,7 @@ export type LeaveItem = {
   status: boolean
   id: number
   courseID: string
+  teacher: string
   name: string
   value: string
 }

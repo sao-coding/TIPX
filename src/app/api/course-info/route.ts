@@ -41,11 +41,6 @@ export const GET = async (req: NextRequest) => {
 
   const html = data
 
-  // const buffer = await res.arrayBuffer()
-  // const html = new TextDecoder("big5").decode(buffer)
-  // const dom = new JSDOM(html)
-  // const document = dom.window.document
-
   const $ = cheerio.load(html)
 
   // 授課教師

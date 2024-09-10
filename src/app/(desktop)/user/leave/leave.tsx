@@ -124,49 +124,61 @@ const Leave = () => {
     //   return
     // }
 
-    const res = await api.post('leave', {
-      type: 'leave',
-      date,
-      leaveType: selected,
-      list: Array.from(e.currentTarget.querySelectorAll('input[type=checkbox]'))
-        .map((input) => ({
-          id: input.id,
-          value: (input as HTMLInputElement).checked ? (input as HTMLInputElement).value : ''
-        }))
-        .filter((item) => item.value !== '')
-    })
+    // {
+    //   "type": "leave",
+    //   "date": "2024-09-11",
+    //   "leaveType": "病假",
+    //   "list": [
+    //     {
+    //       "id": "T11",
+    //       "value": "D503110"
+    //     },
+    //     {
+    //       "id": "T12",
+    //       "value": "D503110"
+    //     },
+    //     {
+    //       "id": "T13",
+    //       "value": "D363104"
+    //     },
+    //     {
+    //       "id": "T14",
+    //       "value": "D363104"
+    //     }
+    //   ]
+    // }
 
-    console.log({ res })
-
-    if (res.status === 200) {
-      toast.success('請假成功')
+    const toastId = toast.loading('請假中...')
+    try {
+      const { data } = await api.post('leave', {
+        type: 'leave',
+        date: formatDatetime('date', date),
+        leaveType: selected,
+        list: Array.from(e.currentTarget.querySelectorAll('input[type=checkbox]'))
+          .map((input) => ({
+            // id: input.id,
+            // 我想抓取元素的 name
+            id: (input as HTMLInputElement).name,
+            value: (input as HTMLInputElement).checked ? (input as HTMLInputElement).value : ''
+          }))
+          .filter((item) => item.value !== '')
+      })
+      toast.success('請假成功', { id: toastId })
       queryClient.invalidateQueries({ queryKey: ['leave', date] })
-      return
-    } else {
-      toast.error('請假失敗')
-      return
+    } catch (error) {
+      toast.error('請假失敗', { id: toastId })
     }
   }
 
   return (
     <form encType='multipart/form-data' onSubmit={(event) => upload(event)}>
       <div className='mb-2 flex items-center gap-1 md:gap-2'>
-        {/* <input
-          type='date'
-          name='date'
-          id=''
-          className='h-8 rounded-lg p-1 md:w-1/3 md:border'
-          min={data?.start}
-          max={data?.end}
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        /> */}
         <Popover>
           <PopoverTrigger asChild>
             <Button
               variant={'outline'}
               className={cn(
-                'justify-start text-left font-normal md:w-1/3',
+                'w-1/3 min-w-[135px] justify-start text-left font-normal',
                 !date && 'text-muted-foreground'
               )}
             >
@@ -195,26 +207,8 @@ const Leave = () => {
             />
           </PopoverContent>
         </Popover>
-        {/* 病假
-            事假
-            生理假 */}
-        {/* <div className='relative w-28 md:w-1/3'>
-          <Listbox value={selected} onChange={(e) => setSelected(e)}>
-            <Listbox.Button className='flex h-8 w-full items-center justify-start rounded-lg p-1 md:border'>
-              <IconSelector />
-              {selected}
-            </Listbox.Button>
-            <Listbox.Options className='absolute left-0 top-10 z-10 w-full rounded-lg p-2 shadow-md'>
-              {data?.type.map((type, i) => (
-                <Listbox.Option key={i} value={type}>
-                  {type}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Listbox>
-        </div> */}
         <Select value={selected} onValueChange={setSelected}>
-          <SelectTrigger className='relative w-28 md:w-1/3' disabled={isError}>
+          <SelectTrigger className='relative w-1/3 min-w-20' disabled={isError}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -230,9 +224,10 @@ const Leave = () => {
           value='送出'
           className='bg-card-background flex-1 rounded-lg p-1 hover:bg-gray-200 md:w-1/3 md:border'
         /> */}
-        <Button type='submit' variant='outline' className='flex-1 md:w-1/3'>
+        <Button type='submit' variant='outline' className='w-1/3 min-w-20 flex-1'>
           送出
         </Button>
+        {/* <Input type='submit' className='flex-1 md:w-1/3' value='送出' /> */}
       </div>
       {isLoading ? (
         <Loading />

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 
+import { Checkbox } from '@/components/ui/checkbox'
 import { LeaveItem } from '@/types'
 
 const ConfirmCard = ({
@@ -11,29 +12,27 @@ const ConfirmCard = ({
   leave: LeaveItem
   // setLeave: React.Dispatch<React.SetStateAction<LeaveItem[]>>
 }) => {
-  const [status, setStatus] = useState(false)
+  const [status, setStatus] = useState<boolean | 'indeterminate'>(false)
 
   return (
     <label
       htmlFor={leave.value}
       className={clsx(
-        'relative mb-2 block w-full rounded-sm border p-2',
-        status && 'bg-main-color-2'
+        'relative mb-2 block w-full space-y-2 rounded-sm border bg-background1 p-2',
+        status === true && 'border-primary/80 bg-background2'
       )}
     >
-      <input
-        type='checkbox'
+      <Checkbox
         name={leave.value}
         id={leave.value}
         className='absolute bottom-2 right-2'
         value={leave.courseID}
-        onChange={(e) => {
-          setStatus(e.target.checked)
-        }}
+        checked={status}
+        onCheckedChange={setStatus}
       />
-      <div className='bg-main-color-3 absolute right-2 top-2 rounded-lg px-1 text-white'>{`第${leave.id}節`}</div>
-      <div>{leave.name}</div>
-      <div>{leave.courseID}</div>
+      <div className='absolute right-0 top-0 mr-2 rounded-lg bg-primary px-2 text-white'>{`第${leave.id}節`}</div>
+      <div className='inline border-b border-primary'>{leave.name}</div>
+      <div>{leave.teacher}</div>
     </label>
   )
 }

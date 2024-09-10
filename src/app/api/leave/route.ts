@@ -2,11 +2,11 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
-import { JSDOM } from 'jsdom'
 
 import getAuth from '@/lib/get-auth'
 import { Course, Leave, LeaveItem, LeaveItemCheck } from '@/types'
 import getCourse from '@/utils/course'
+import getCourseTeacher from '@/utils/course-teacher'
 import getCurrentYearSem from '@/utils/current-year-sem'
 import getGender from '@/utils/gender'
 
@@ -83,8 +83,6 @@ export const GET = async (req: NextRequest) => {
 
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder('big5').decode(buffer)
-    const dom = new JSDOM(html)
-    const document = dom.window.document
     const $ = cheerio.load(html)
 
     leaveDate.start = formatDate(
@@ -109,25 +107,68 @@ export const GET = async (req: NextRequest) => {
     // 請假日期
     leaveDate.leave.date = req.nextUrl.searchParams.get('date') ?? ''
 
+    // 快取 課堂資訊和老師名稱 減少請求次數
+    let cacheCourseTeacher = {
+      courseId: '',
+      courseName: '',
+      teacher: ''
+    }
+
     // 第一節 ~ 第十四節
     for (let i = 1; i <= 14; i++) {
       const item = $(
-        `#AutoNumber4 > tbody > tr:nth-child(3) > td > div > p:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(${i + 2}) > font > input[type=checkbox]`
+        `#AutoNumber4 > tbody > tr:nth-child(3) > td > div > p:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(${i + 2}) > font`
       )
 
-      const name = item.attr('name') ?? ''
-      const value = item.attr('value') ?? ''
-      const checked = item?.attr('checked') === null ? true : false
-      const course = (await getCourse(userid ?? '', year ?? '', sem ?? '', value)) as Course
+      const name = item.find('input').attr('name') ?? ''
+      const value = item.find('input').attr('value') ?? ''
+      // 有 input 然後沒有 checked 屬性 等於 true
+      // 沒有 input 等於 false
+      const checked =
+        item.find('input').length > 0 && item.find('input').attr('checked') === undefined
+          ? true
+          : false
+
+      // ======================== 實作快取 ========================
+      // console.log(
+      //   'leave 目前的老師',
+      //   cacheTeacher.courseId,
+      //   cacheTeacher.courseName,
+      //   cacheTeacher.teacher
+      // )
+      // 如果 cacheTeacher.course 與 course.id 不同，則重新取得課程及老師
+      if (cacheCourseTeacher.courseId !== value && value !== '') {
+        // console.log('leave 重新取得課程及老師')
+        cacheCourseTeacher.courseId = value
+        cacheCourseTeacher.courseName = (
+          (await getCourse(userid ?? '', year ?? '', sem ?? '', value)) as Course
+        ).course
+        cacheCourseTeacher.teacher = await getCourseTeacher(
+          userid ?? '',
+          year ?? '',
+          sem ?? '',
+          value
+        )
+      }
+      // ======================== 實作快取 ========================
 
       leaveDate.leave.list.push({
         status: checked,
         id: i,
-        courseID: course?.course ?? '',
-        name: course?.course ?? '',
+        courseID: value,
+        teacher: cacheCourseTeacher.teacher ?? '',
+        name: cacheCourseTeacher.courseName ?? '',
         value: name
       })
     }
+
+    // courseId 是空字串的 teacher 欄位清空
+    leaveDate.leave.list.forEach((item) => {
+      if (item.courseID === '') {
+        item.teacher = ''
+        item.name = ''
+      }
+    })
 
     // return NextResponse.json(html)
   }
@@ -147,8 +188,6 @@ export const GET = async (req: NextRequest) => {
 
       const buffer = await res.arrayBuffer()
       const html = new TextDecoder('big5').decode(buffer)
-      const dom = new JSDOM(html)
-      const document = dom.window.document
       const $ = cheerio.load(html)
 
       const leaveLength = $('#AutoNumber4 > tbody > tr:nth-child(4) > td > table > tbody tr').length
@@ -226,14 +265,6 @@ export const POST = async (req: NextRequest) => {
     }
     return NextResponse.json({ status: 'success' })
   }
-  // if (type === "del") {
-  //     const res = await fetch("https://netinfo.takming.edu.tw/tip/stu_absrec.php", {
-  //         headers: {
-  //             cookie: `cookie_userid=${userid}; cookie_rgno=${userid};cookie_account=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
-  //             Referer: "https://netinfo.takming.edu.tw/tip/stu_absrec.php",
-  //         },
-  //     })
-  // }
 }
 
 export const DELETE = async (req: NextRequest) => {
@@ -259,5 +290,5 @@ export const DELETE = async (req: NextRequest) => {
   if (!res.ok) {
     return NextResponse.error()
   }
-  return NextResponse.json({ status: 'success', message: '刪除成功' })
+  return NextResponse.json({ status: 'success' })
 }
