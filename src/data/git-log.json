@@ -1,5 +1,83 @@
 [
   {
+    "subject": "🐛 修復 同時查看用戶能看到對方資訊 & 修改圖片獲取主色架構",
+    "date": "2024-09-10T03:35:59.000Z",
+    "hash": "61eb50de7b8e708a59a4649ec92e0efc0e6d03ee",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 同時查看用戶能看到對方資訊 & 修改圖片獲取主色架構",
+    "date": "2024-09-10T03:02:19.000Z",
+    "hash": "e9d6a497814807b5f5885bc2cf9d5c3c145ab77b",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 修改 獲取圖片主色架構",
+    "date": "2024-09-10T03:00:49.000Z",
+    "hash": "1d87f5ea5b5e0d82f658fad6b0dff9709bd0b1ef",
+    "body": ""
+  },
+  {
+    "subject": "♻️ search 頁面開發中...",
+    "date": "2024-09-09T17:58:00.000Z",
+    "hash": "db007bc45bf6ba7d29685d7f97e699f1ff8b3de4",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復留言區黑暗模式載入失敗",
+    "date": "2024-09-09T17:57:06.000Z",
+    "hash": "7721dfe7659c7813b0b4f0e5de5a6246f00a7e29",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 user,about 載入效果",
+    "date": "2024-09-09T17:28:01.000Z",
+    "hash": "9eedd1c332025587ddf592b56fe4d9ec0d2f50e2",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 artalk",
+    "date": "2024-09-09T17:19:58.000Z",
+    "hash": "756b4f0a1dad525ac50c68308131cec4692d2ed3",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 沒有照片登入失敗",
+    "date": "2024-09-09T17:00:49.000Z",
+    "hash": "0e87d4c0d3cb11575341ba329afc9c704c7e8869",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 artalk",
+    "date": "2024-09-09T17:00:00.000Z",
+    "hash": "7584e4fcc8439b12f242e825aa9fdb62e1be12e7",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 artalk",
+    "date": "2024-09-09T10:33:08.000Z",
+    "hash": "a78933aa1d6a946dddb5ee5ec512cd57f77478b2",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 artalk",
+    "date": "2024-09-09T09:19:38.000Z",
+    "hash": "0d0202e10b4d1a095d8b7698c3ac0350d20822c6",
+    "body": ""
+  },
+  {
+    "subject": "✨新增 artalk",
+    "date": "2024-09-09T06:10:36.000Z",
+    "hash": "71f9d53c9931e55b7b23327917b8abe8414b232f",
+    "body": ""
+  },
+  {
+    "subject": "✨ TIPX 5.0",
+    "date": "2024-09-08T17:06:49.000Z",
+    "hash": "7e42aafb43671949ca661dc31c263ca5f0290b32",
+    "body": ""
+  },
+  {
     "subject": "✨ TIPX 5.0",
     "date": "2024-09-08T17:03:13.000Z",
     "hash": "73c1b174be53a201d51b6cdff2d424cfdf477e97",
