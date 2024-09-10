@@ -2,8 +2,7 @@ import sharp from 'sharp'
 
 const getImgColor = async (url: string) => {
   if (!url) {
-    // return NextResponse.json({ error: 'URL parameter is required' }, { status: 400 })
-    return 'URL parameter is required'
+    return '#f97316'
   }
 
   try {
@@ -28,7 +27,7 @@ const getImgColor = async (url: string) => {
     console.error('Error processing image:', error)
     // return NextResponse.json({ error: 'Failed to process image' }, { status: 500 })
     // 因為沒有照片回傳預設值
-    return 'Failed to process image'
+    return '#f97316'
   }
 }
 
