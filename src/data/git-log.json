@@ -1,5 +1,29 @@
 [
   {
+    "subject": "✅ 更新 vscode 配置檔",
+    "date": "2024-09-10T08:42:10.000Z",
+    "hash": "ae55fd7d3db5cece10f1dc223fce8fd1aa0095ec",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 loglib 分析工具",
+    "date": "2024-09-10T08:40:50.000Z",
+    "hash": "6ebb721fe973db4c921fd1a7b6112ad24b9da2c1",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復部署錯誤",
+    "date": "2024-09-10T05:18:31.000Z",
+    "hash": "604ebbaa425cb9e910c49e97514751ca0d9d6bb2",
+    "body": ""
+  },
+  {
+    "subject": "✅更新日誌",
+    "date": "2024-09-10T04:14:34.000Z",
+    "hash": "9bb7061b1d5b9875e312fd9f674f271fde96f1e2",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 同時查看用戶能看到對方資訊 & 修改圖片獲取主色架構",
     "date": "2024-09-10T03:35:59.000Z",
     "hash": "61eb50de7b8e708a59a4649ec92e0efc0e6d03ee",
