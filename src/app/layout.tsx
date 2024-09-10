@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import { site } from '@/config/site'
 import authOptions from '@/lib/auth'
 
+import LogLib from './loglib'
 import Providers from './providers'
 
 import './custom.css'
@@ -80,6 +81,9 @@ export default async function RootLayout({
   return (
     // ThemeProvider 需使用 suppressHydrationWarning
     <html lang='zh-Hant-TW' suppressHydrationWarning>
+      <head>
+        <LogLib />
+      </head>
       <body>
         <Providers session={session}>
           {children}
