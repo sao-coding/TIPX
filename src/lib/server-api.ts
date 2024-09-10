@@ -3,8 +3,6 @@ import axios from 'axios'
 
 import { site } from '@/config/site'
 
-import getAuth from './get-auth'
-
 const api = axios.create({
   baseURL: `${site.url}/api`
 })
