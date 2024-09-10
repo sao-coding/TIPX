@@ -1,10 +1,14 @@
+import { cookies } from 'next/headers'
+
 import Copy from '@/components/ui/copy'
 import UserBanner from '@/components/UserBanner'
 import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
-import { ClassName } from '@/types'
 import { User } from '@/types'
+import getClassName from '@/utils/class-name'
 import formatDatetime from '@/utils/format-datetime'
+import getImgColor from '@/utils/img-color'
+import getLineID from '@/utils/lineid'
 import {
   IconBrandLine,
   IconBuildingSkyscraper,
@@ -18,11 +22,14 @@ import {
 } from '@tabler/icons-react'
 
 const getUserData = async () => {
-  const { data: user } = await api.get<User>('user?type=about')
-  const { data: color } = await api.get(`get-img-color?url=${user.img}`)
-  const { data: userClassName } = await api.get<ClassName>('class-name')
-  const { data: lineId } = await api.get<{ lineId: string }>('lineid')
-  console.log('lineId', lineId)
+  const { data: user } = await api.get<User>('user?type=about', {
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value || ''}`
+    }
+  })
+  const color = await getImgColor(user.img)
+  const userClassName = await getClassName(user.userid)
+  const lineId = await getLineID(user.userid)
   const settings = await prisma.userSettings.findFirst({
     where: {
       userId: user.userid
@@ -39,7 +46,7 @@ const UserAboutPage = async () => {
     <div className='space-y-2'>
       <UserBanner
         user={user}
-        color={color.color}
+        color={color}
         settings={
           settings ?? {
             id: '',

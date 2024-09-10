@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 import clsx from 'clsx'
 
@@ -5,15 +6,21 @@ import Switch from '@/components/LeftSidebar/switch'
 import { USER_LINKS } from '@/config/links'
 import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
-import { ClassName, User } from '@/types'
+import { User } from '@/types'
+import getClassName from '@/utils/class-name'
+import getImgColor from '@/utils/img-color'
 
 import Info from './info'
 import Logout from './logout'
 
 const getUserData = async () => {
-  const { data: user } = await api.get<User>('user')
-  const { data: color } = await api.get(`get-img-color?url=${user.img}`)
-  const { data: userClassName } = await api.get<ClassName>('class-name')
+  const { data: user } = await api.get<User>('user', {
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value || ''}`
+    }
+  })
+  const color = await getImgColor(user.img)
+  const userClassName = await getClassName(user.userid)
   const settings = await prisma.userSettings.findFirst({
     where: {
       userId: user.userid
@@ -29,7 +36,7 @@ const UserPage = async () => {
     <div className='mb-16'>
       <Info
         user={user}
-        color={color.color}
+        color={color}
         userClassName={userClassName.class}
         settings={
           settings ?? {
