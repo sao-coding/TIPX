@@ -13,7 +13,7 @@ export default function RootLayout({
         <div className='relative h-dvh flex-1 overflow-auto border-x p-3 md:p-6'>
           <div className='mx-auto min-h-full max-w-[800px]'>{children}</div>
         </div>
-        <div className='hidden h-dvh w-[350px] p-4 lg:block'>
+        <div className='hidden h-dvh w-[350px] overflow-y-auto p-4 lg:block'>
           <RightTool />
         </div>
       </div>
