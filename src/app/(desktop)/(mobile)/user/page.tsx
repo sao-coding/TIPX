@@ -29,8 +29,22 @@ const getUserData = async () => {
   return { user, color, userClassName, settings }
 }
 
+const getUserRole = async (userId: string) => {
+  const role = await prisma.user.findUnique({
+    where: {
+      id: userId
+    },
+    select: {
+      role: true
+    }
+  })
+
+  return role?.role ?? 'USER'
+}
+
 const UserPage = async () => {
   const { user, color, userClassName, settings } = await getUserData()
+  const role = await getUserRole(user.userid)
 
   return (
     <div className='mb-16'>
@@ -53,36 +67,25 @@ const UserPage = async () => {
       <div className='mt-2 md:hidden'>
         {/* 功能清單 */}
         <ul className='grid grid-cols-2 gap-2'>
-          {/* {userMenu.map((menu, i) => (
-            <li key={i} className='h-10 rounded-sm border bg-background1 p-2'>
-              {menu.title}
-            </li>
-          ))} */}
           {USER_LINKS.map(
             (group, index) =>
-              // group.links.map((link, index) => (
-              //   <li key={index} className='h-10 rounded-sm border bg-background1 p-2'>
-              //     <div className='flex items-center gap-2'>
-              //       <link.icon className={clsx(link.color, link.className)} />
-              //       <span>{link.text}</span>
-              //     </div>
-              //   </li>
-              // ))
               // 跳過 index 0 的一般資訊
               index > 0 &&
-              group.links.map((link, _) => (
-                <li key={_}>
-                  <Link
-                    href={link.href}
-                    className='block h-10 rounded-sm border bg-background1 p-2'
-                  >
-                    <div className='flex items-center gap-2'>
-                      <link.icon className={clsx(link.color, link.className)} />
-                      <span>{link.text}</span>
-                    </div>
-                  </Link>
-                </li>
-              ))
+              group.links.map((link, _) =>
+                link.text === '查詢用戶' && role === 'USER' ? null : (
+                  <li key={_}>
+                    <Link
+                      href={link.href}
+                      className='block h-10 rounded-sm border bg-background1 p-2'
+                    >
+                      <div className='flex items-center gap-2'>
+                        <link.icon className={clsx(link.color, link.className)} />
+                        <span>{link.text}</span>
+                      </div>
+                    </Link>
+                  </li>
+                )
+              )
           )}
           <li>
             <Logout />
