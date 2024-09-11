@@ -82,7 +82,8 @@ export default async function RootLayout({
     // ThemeProvider 需使用 suppressHydrationWarning
     <html lang='zh-Hant-TW' suppressHydrationWarning>
       <head>
-        <LogLib />
+        {/* 正式環境 才用 */}
+        {process.env.NODE_ENV === 'production' && <LogLib />}
       </head>
       <body>
         <Providers session={session}>
