@@ -70,6 +70,9 @@ const LoginForm = () => {
     if (status?.error) {
       toast.error('授權碼錯誤', { id: toastId })
     } else {
+      const userSettings = await login(Cookies.get('accessToken') || '')
+      console.log('userSettings', userSettings)
+      localStorage.setItem('theme', userSettings?.theme || 'system')
       toast.success('登入成功', { id: toastId })
       // 延遲1秒跳轉
       setTimeout(() => {
@@ -113,6 +116,7 @@ const LoginForm = () => {
           onClick={async () => {
             setLoading(true)
             const userSettings = await login(Cookies.get('accessToken') || '')
+            console.log('userSettings', userSettings)
             localStorage.setItem('theme', userSettings?.theme || 'system')
             signIn('google', {
               redirect: false,

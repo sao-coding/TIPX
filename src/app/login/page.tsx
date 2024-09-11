@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation'
+
+import { loginWithRedirect } from '@/app/actions'
 import { IconLogo } from '@/components/icons/logo'
 import IconLogoText from '@/components/icons/logo-text'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,7 +11,10 @@ import LoginDialog from './login-dialog'
 import TodayCount from './today-count'
 import UserCount from './user-count'
 
-const LoginPage = () => {
+const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } }) => {
+  const auth = await loginWithRedirect()
+  if (auth) redirect(searchParams.redirect || '/')
+
   return (
     <div className='min-h-screen'>
       <div className='fixed left-0 top-0 h-screen w-screen bg-slate-900'></div>
