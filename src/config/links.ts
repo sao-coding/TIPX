@@ -118,6 +118,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
         text: '德明課程評價'
       },
       {
+        icon: IconUserSearch,
+        color: 'stroke-red-500',
+        href: '/search',
+        text: '查詢用戶'
+      },
+      {
         icon: IconUser,
         color: 'stroke-orange-500',
         href: '/user/about',
