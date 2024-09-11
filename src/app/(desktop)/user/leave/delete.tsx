@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import {
@@ -29,7 +28,6 @@ import { IconAlertTriangleFilled } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 
 const Delete = ({ id }: { id: string }) => {
-  const [open, setOpen] = useState(false)
   const queryClient = useQueryClient()
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
@@ -37,7 +35,7 @@ const Delete = ({ id }: { id: string }) => {
     const toastId = toast.loading('刪除中...')
 
     try {
-      const { data } = await api.delete('leave', {
+      await api.delete('leave', {
         data: { id }
       })
 
