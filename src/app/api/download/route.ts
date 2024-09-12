@@ -23,5 +23,12 @@ export const POST = async (req: NextRequest) => {
       }
     })
     return NextResponse.json({ success: true })
+  } else {
+    await prisma.download.create({
+      data: {
+        userId: 'D11019139'
+      }
+    })
+    return NextResponse.json({ success: true })
   }
 }
