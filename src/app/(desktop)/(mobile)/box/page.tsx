@@ -13,7 +13,7 @@ const BoxPage = () => {
 
   const downloadBuildingTOEICSkillsPPT = async () => {
     await api.post('/download')
-    window.open('https://sao-x.com/file/Building TOEIC Skills_PPT.zip')
+    window.open('https://sao-x.com/files/Building TOEIC Skills_PPT.zip')
   }
 
   return (
