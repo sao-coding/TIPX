@@ -115,7 +115,7 @@ export const USER_LINKS: GroupedUserLinks[] = [
       {
         icon: IconBox,
         color: 'stroke-green-500',
-        href: '/user/box',
+        href: '/box',
         text: '資源'
       },
       {
