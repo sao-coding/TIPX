@@ -1,16 +1,16 @@
 import { verifyJwt } from '@/lib/jwt'
 
 const getAuth = async (accessToken: string) => {
-  const verify = await verifyJwt(accessToken, { clockTolerance: 5 })
-  console.log('getAuth()', verify)
-
   type Auth = {
     type: 'refresh' | 'access'
     userId: string
     role: 'SUPER_ADMIN' | 'ADMIN' | 'USER'
   }
 
-  return verify as Auth | null
+  const verify = (await verifyJwt(accessToken, { clockTolerance: 5 })) as Auth
+  // console.log('getAuth()', verify)
+
+  return verify && verify.type === 'access' ? verify : null
 }
 
 export default getAuth

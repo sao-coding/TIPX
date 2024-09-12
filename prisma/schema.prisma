@@ -19,6 +19,7 @@ model User {
   updatedAt    DateTime      @updatedAt
   Log          Log[]
   UserSettings UserSettings?
+  Download     Download[]
 }
 
 model UserSettings {
@@ -74,6 +75,15 @@ model Log {
   user           User     @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "Log_userId_fkey")
+}
+
+model Download {
+  id        String   @id @default(nanoid())
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Download_userId_fkey")
 }
 
 enum UserRole {
