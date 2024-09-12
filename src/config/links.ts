@@ -5,6 +5,7 @@ import {
   IconArrowBadgeDown,
   IconBadges,
   IconBook2,
+  IconBox,
   IconBrandGoogleAnalytics,
   IconBrowser,
   IconCalendarEvent,
@@ -111,6 +112,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
   {
     group: '一般資訊',
     links: [
+      {
+        icon: IconBox,
+        color: 'stroke-green-500',
+        href: '/user/box',
+        text: '資源'
+      },
       {
         icon: IconBrowser,
         color: 'stroke-red-500',
