@@ -27,10 +27,10 @@ const Announcement = () => {
           <IconLoader2 className='mx-auto h-10 w-10 animate-spin' />
         </div>
       ) : (
-        <ul className='space-y-2 overflow-auto px-6 py-2'>
+        <ul className='overflow-auto px-6 py-2'>
           {data?.map((item, i) => (
             <li key={item.id}>
-              <Link href={`/post/${item.id}`} className='relative block p-2'>
+              <Link href={`/post/${item.id}`} className='relative block space-y-1 p-2'>
                 <h1 className='mr-8 line-clamp-1'>{item.title}</h1>
                 <div
                   className={clsx(
