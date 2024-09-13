@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
-import getSearchAuth from '@/utils/search-auth'
 import { Student } from '@prisma/client'
 
 export const GET = async (req: NextRequest) => {
@@ -17,12 +16,11 @@ export const GET = async (req: NextRequest) => {
 
   // prisma 尋找 user 資料表裡的 userid 若等於 session 裡的 user.studentID 則回傳 user 資料表裡的 id 若沒有則回傳 沒有權限
   // console.log(session?.user.studentID)
-  const searchAuth = await getSearchAuth(auth?.userId ?? '')
   let type = 'simple'
   // console.log(auth)
   // 判斷是否找到
 
-  if (!searchAuth) {
+  if (auth?.role === 'USER') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -44,7 +42,7 @@ export const GET = async (req: NextRequest) => {
     if (type === 'simple') {
       search = `%${search}%`
       student =
-        await prisma.$queryRaw`SELECT * FROM student WHERE userid LIKE ${search} OR name LIKE ${search} ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
+        await prisma.$queryRaw`SELECT * FROM Student WHERE userid LIKE ${search} OR name LIKE ${search} ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
     } else if (type === 'complex') {
       // 若有 undefined 則不加入搜尋條件
       console.log(studentList)
@@ -57,7 +55,7 @@ export const GET = async (req: NextRequest) => {
       }
       console.log(studentList)
       student =
-        await prisma.$queryRaw`SELECT * FROM student WHERE (userid LIKE ${studentList[0]} AND gender LIKE ${studentList[1]} AND name LIKE ${studentList[2]}) ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
+        await prisma.$queryRaw`SELECT * FROM Student WHERE (userid LIKE ${studentList[0]} AND gender LIKE ${studentList[1]} AND name LIKE ${studentList[2]}) ORDER BY FIELD(SUBSTRING(userid, 1,1), 'D', 'C', 'M', 'N','K'), userid ASC LIMIT ${id}, ${limit}`
     }
   }
 
