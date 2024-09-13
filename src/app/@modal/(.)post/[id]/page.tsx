@@ -64,7 +64,7 @@ const PostModal = ({ params }: { params: { id: string } }) => {
       <Dialog defaultOpen onOpenChange={(open) => !open && dismiss()}>
         <DialogContent
           // closeButton={false}
-          className='flex h-full w-full flex-col p-0 md:max-w-5xl'
+          className='flex h-full w-full flex-col p-0 md:max-w-3xl'
         >
           {isLoading ? (
             <div className='relative'>

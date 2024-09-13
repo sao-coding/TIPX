@@ -1,5 +1,4 @@
 'use client'
-// import { cookies } from 'next/headers'
 
 import React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -9,7 +8,6 @@ import Cookies from 'js-cookie'
 import Title from '@/components/Title'
 import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
-// import { site } from '@/config/site'
 import { CourseAttendanceRecord } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
@@ -37,11 +35,6 @@ const CourseAttendanceRecordPage = () => {
 
   // 只顯示曠課，事假，病假，生理假，公假，喪假
   const leaveType = ['曠課', '事假', '病假', '生理假', '公假', '喪假']
-
-  const titleData = {
-    title: '請假缺曠記錄',
-    children: ''
-  }
 
   const leaveTypeColor: { [key: string]: { bg: string; border: string } } = {
     曠課: {
@@ -74,6 +67,11 @@ const CourseAttendanceRecordPage = () => {
     console.log('type', type)
     setSelectedLeaveType((prevType) => (prevType === type ? '全部' : type))
     router.replace(`?type=${type}`)
+  }
+
+  const titleData = {
+    title: '請假缺曠記錄',
+    children: ''
   }
 
   return (

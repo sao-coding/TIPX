@@ -40,7 +40,7 @@ const Card = ({ data }: { data: CourseAttendanceRecordList }) => {
         {/* href={`/user/leave?date=${formatDate(data.date)}`} */}
         {data.type === '曠課' && (
           <Link
-            href={`/user/leave?date=${formatDatetime('date', data.date)}`}
+            href={`/user/leave?date=${formatDatetime('leave', data.date)}`}
             className='absolute bottom-0 right-0 m-2 text-blue-500 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-blue-500 after:transition-all after:duration-300 after:ease-in-out after:content-[""] hover:after:w-full'
           >
             去請假
