@@ -67,7 +67,7 @@ const Info = ({ student }: { student: Student }) => {
               <IconCake />
               {student.birthday ? (
                 <>
-                  <div>{formatDatetime(student.birthday, 'birthday')}</div>
+                  <div>{formatDatetime('birthday', student.birthday)}</div>
                   <Copy />
                 </>
               ) : (
