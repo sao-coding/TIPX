@@ -15,7 +15,7 @@ import Card from './card'
 const SearchPage = () => {
   const [search, setSearch] = React.useState('')
   const { ref, inView } = useInView()
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading, isError } =
+  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isError } =
     useInfiniteQuery<Student[]>({
       queryKey: ['search', search],
       queryFn: async ({ pageParam = 0 }) => {
@@ -58,7 +58,7 @@ const SearchPage = () => {
   return (
     <>
       <Title {...titleData} />
-      {!isError && !isLoading && (
+      {!isError && (
         <Input
           type='search'
           name=''
