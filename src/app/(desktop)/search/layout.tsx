@@ -8,6 +8,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   // 解析 JWT
   const accessToken = cookies().get('accessToken')?.value.split('.')[1] || ''
   const jwtData = JSON.parse(atob(accessToken))
+  console.log('#user', jwtData)
   // 取得用戶資料
   const user = await prisma.user.findUnique({
     where: {
@@ -18,9 +19,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     }
   })
 
-  const role = user?.role || 'user'
+  console.log('#user', user)
 
-  if (role === 'user') {
+  const role = user?.role || 'USER'
+
+  if (role === 'USER') {
     redirect('/user')
   }
 
