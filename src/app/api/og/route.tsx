@@ -46,10 +46,8 @@ export const GET = async (req: Request) => {
     const titleFontSize =
       title.length > 50 ? 'text-4xl' : title.length > 40 ? 'text-5xl' : 'text-7xl'
 
-    // const OGLittleBlod = fetch(
-    //   new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
     const OGLittleBlod = fetch(
-      new URL(import.meta.resolve('../../../../public/fonts/OG-Little-Bold.ttf'))
+      new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
     ).then((res) => {
       return res.arrayBuffer()
     })

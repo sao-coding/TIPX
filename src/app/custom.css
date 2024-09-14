@@ -141,3 +141,11 @@
     }
   }
 }
+
+/* 匯入字體 */
+/* public\fonts\ShortStack-Regular.ttf */
+
+@font-face {
+  font-family: 'ShortStack';
+  src: url('/fonts/ShortStack-Regular.ttf') format('truetype');
+}
