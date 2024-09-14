@@ -47,7 +47,7 @@ const CourseListPage = () => {
                   </div> */}
                 </div>
               ))
-            : data?.map((course, index) => (
+            : data?.map((course) => (
                 <Link
                   key={course.id}
                   className='flex h-20 flex-col justify-center space-y-2 rounded-lg border bg-background1 p-2'
@@ -56,9 +56,7 @@ const CourseListPage = () => {
                   <div className='line-clamp-1 text-ellipsis'>{course.course}</div>
                   <div className='flex items-center justify-between'>
                     <div>{course.id}</div>
-                    <div className='bg-main-color-1 dark:bg-main-color-2 rounded-lg px-1'>
-                      {course.teacher}
-                    </div>
+                    <div>{course.teacher}</div>
                   </div>
                 </Link>
 
