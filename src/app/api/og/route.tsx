@@ -46,8 +46,10 @@ export const GET = async (req: Request) => {
     const titleFontSize =
       title.length > 50 ? 'text-4xl' : title.length > 40 ? 'text-5xl' : 'text-7xl'
 
+    // const OGLittleBlod = fetch(
+    //   new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
     const OGLittleBlod = fetch(
-      new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
+      new URL(import.meta.resolve('../../../../public/fonts/OG-Little-Bold.ttf'))
     ).then((res) => {
       return res.arrayBuffer()
     })
@@ -59,7 +61,7 @@ export const GET = async (req: Request) => {
         <div
           tw='h-full w-full px-14 py-12 text-white flex flex-col justify-between'
           style={{
-            background: 'linear-gradient(to top left, #EECDA3, #daa3f7, #fdb99b)'
+            background: 'linear-gradient(to top left, #1a2a6c, #b21f1f, #fdbb2d)'
           }}
         >
           <div tw='text-5xl font-semibold' style={{ fontFamily: 'OG Little' }}>

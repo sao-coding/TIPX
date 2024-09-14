@@ -228,7 +228,7 @@ const SettingsPage = () => {
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
               <IconMapPin className='stroke-red-500' />
-              定位
+              天氣定位(尚未支援 因為我有點累了)
             </div>
             <Switch checked={location} onCheckedChange={handleLocation} />
           </div>
