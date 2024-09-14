@@ -76,9 +76,9 @@ const Footer = () => {
               className={cn(
                 'stroke-black/80 dark:stroke-white/80',
                 pathname.startsWith(link.href) && link.href !== '/'
-                  ? 'fill-main-color-3 stroke-2'
+                  ? 'stroke-2'
                   : link.href === '/' && pathname === '/'
-                    ? 'fill-main-color-3 stroke-2'
+                    ? 'stroke-2'
                     : ''
               )}
             />
