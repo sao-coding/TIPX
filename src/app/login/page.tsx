@@ -11,6 +11,44 @@ import LoginDialog from './login-dialog'
 import TodayCount from './today-count'
 import UserCount from './user-count'
 
+export async function generateMetadata({ searchParams }: { searchParams: { redirect: string } }) {
+  let data = {
+    title: '登入',
+    images: [
+      {
+        url: '/img/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'TIPX'
+      }
+    ]
+  }
+
+  switch (searchParams.redirect) {
+    case '/':
+      data.title = '首頁'
+      break
+    case '/timetable':
+      data.title = '課表'
+      data.images[0].url = '/img/timetable-og.png'
+      data.images[0].alt = '課表'
+      break
+    case '/course':
+      data.title = '課程'
+      data.images[0].url = '/img/course-og.png'
+      data.images[0].alt = '課程'
+      break
+    case '/user':
+      data.title = '個人'
+      data.images[0].url = '/img/user-og.png'
+      data.images[0].alt = '個人'
+      break
+  }
+  return {
+    title: `TIPX | ${data.title}`
+  }
+}
+
 const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } }) => {
   const auth = await loginWithRedirect()
   if (auth) redirect(searchParams.redirect || '/')

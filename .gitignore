@@ -47,3 +47,4 @@ next-env.d.ts
 /src/app/test/*
 /src/app/api/test/*
 .not_yet
+public/fonts/筑紫A丸by 宁静之雨.ttf
