@@ -1,9 +1,11 @@
+import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 import { loginWithRedirect } from '@/app/actions'
 import { IconLogo } from '@/components/icons/logo'
 import IconLogoText from '@/components/icons/logo-text'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { site } from '@/config/site'
 
 import Announcement from './announcement'
 import Chart from './chart'
@@ -11,41 +13,63 @@ import LoginDialog from './login-dialog'
 import TodayCount from './today-count'
 import UserCount from './user-count'
 
-export async function generateMetadata({ searchParams }: { searchParams: { redirect: string } }) {
+export async function generateMetadata({
+  searchParams
+}: {
+  searchParams: { redirect: string }
+}): Promise<Metadata> {
   let data = {
     title: '登入',
-    images: [
-      {
-        url: '/img/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'TIPX'
-      }
-    ]
+    openGraph: {
+      images: [
+        {
+          url: 'og.png',
+          width: 1200,
+          height: 630,
+          alt: 'TIPX'
+        }
+      ]
+    }
   }
 
   switch (searchParams.redirect) {
     case '/':
       data.title = '首頁'
+      data.openGraph.images[0].url = 'og.png'
+      data.openGraph.images[0].alt = '首頁'
       break
     case '/timetable':
       data.title = '課表'
-      data.images[0].url = '/img/timetable-og.png'
-      data.images[0].alt = '課表'
+      data.openGraph.images[0].url = 'timetable-og.png'
+      data.openGraph.images[0].alt = '課表'
       break
     case '/course':
       data.title = '課程'
-      data.images[0].url = '/img/course-og.png'
-      data.images[0].alt = '課程'
+      data.openGraph.images[0].url = 'course-og.png'
+      data.openGraph.images[0].alt = '課程'
       break
     case '/user':
       data.title = '個人'
-      data.images[0].url = '/img/user-og.png'
-      data.images[0].alt = '個人'
+      data.openGraph.images[0].url = 'user-og.png'
+      data.openGraph.images[0].alt = '個人'
       break
   }
+
   return {
-    title: `TIPX | ${data.title}`
+    title: `TIPX | ${data.title}`,
+    openGraph: {
+      title: data.title,
+      description: '學生資訊系統',
+      url: `${site.url}/login?redirect=${searchParams.redirect}`,
+      images: [
+        {
+          url: `${site.url}/img/${data.openGraph.images[0].url}`,
+          width: data.openGraph.images[0].width,
+          height: data.openGraph.images[0].height,
+          alt: data.openGraph.images[0].alt
+        }
+      ]
+    }
   }
 }
 
