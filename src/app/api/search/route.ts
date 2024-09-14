@@ -29,10 +29,10 @@ export const GET = async (req: NextRequest) => {
   // studentList 預設 三個空字串
   let studentList: string[] = ['', '', '']
   console.log(search)
-  if (search.includes(' ')) {
+  if (search.includes('+')) {
     type = 'complex'
     for (let i = 0; i < studentList.length; i++) {
-      studentList[i] = search.split(' ')[i]
+      studentList[i] = search.split('+')[i]
     }
   }
 
