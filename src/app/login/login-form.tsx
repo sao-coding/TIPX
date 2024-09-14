@@ -119,8 +119,7 @@ const LoginForm = () => {
             console.log('userSettings', userSettings)
             localStorage.setItem('theme', userSettings?.theme || 'system')
             signIn('google', {
-              redirect: false,
-              callbackUrl: pathname
+              redirect: false
             })
           }}
         >

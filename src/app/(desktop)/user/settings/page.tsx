@@ -99,6 +99,7 @@ const SettingsPage = () => {
       case 'system':
         localStorage.removeItem('theme')
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.remove('light')
           document.documentElement.classList.add('dark')
           document.documentElement.style.setProperty('color-scheme', 'dark')
         } else {
