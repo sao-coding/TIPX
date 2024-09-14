@@ -35,7 +35,11 @@ const UserBanner = ({
             }
           }}
         >
-          <a href={user.img} data-fancybox data-caption={user.name}>
+          <a
+            href={settings.avatar !== '' ? settings.avatar : user.img}
+            data-fancybox
+            data-caption={user.name}
+          >
             <Avatar
               src={settings.avatar !== '' ? settings.avatar : user.img}
               alt={user.name}
