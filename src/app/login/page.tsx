@@ -57,6 +57,13 @@ export async function generateMetadata({
 
   return {
     title: `TIPX | ${data.title}`,
+    twitter: {
+      title: data.title,
+      description: '學生資訊系統',
+      card: 'summary_large_image',
+      site: '@tipx',
+      images: `${site.url}/img/${data.openGraph.images[0].url}`
+    },
     openGraph: {
       title: data.title,
       description: '學生資訊系統',

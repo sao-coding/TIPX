@@ -12,6 +12,13 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     title: post.title,
     description: post.content.slice(0, 100) + '...',
     keywords: post.title,
+    twitter: {
+      title: post.title,
+      description: post.content,
+      card: 'summary_large_image',
+      site: '@tipx',
+      images: `${site.url}/api/og/?title=${post.title}&date=${post.date}`
+    },
     openGraph: {
       title: post.title,
       description: post.content,
