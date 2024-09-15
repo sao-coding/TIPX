@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Fontmin from 'fontmin'
+import path from 'path'
 
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
@@ -7,7 +8,9 @@ export const GET = async (req: NextRequest) => {
   // public\fonts\筑紫A丸by_宁静之雨.ttf
   // console.log(fs.readdirSync(path.resolve('./public/fonts')))
   const fontmin = new Fontmin()
-    .src('public/fonts/筑紫A丸by_宁静之雨.ttf')
+    // .src('public/fonts/筑紫A丸by_宁静之雨.ttf')
+    // 使用絕對路徑
+    .src(path.resolve('./public/fonts/筑紫A丸by_宁静之雨.ttf'))
     .use(Fontmin.glyph({ text }))
   const font = await fontmin.runAsync()
   //   console.log('font', font)
