@@ -48,7 +48,7 @@ const MobileTimeTable = ({ timetable }: { timetable: TimeTable[] }) => {
         u8arr[n] = bstr.charCodeAt(n)
       }
       // 開啟新視窗下載
-      window.open(URL.createObjectURL(new File([u8arr], filename, { type: mime })))
+      // window.open(URL.createObjectURL(new File([u8arr], filename, { type: mime })))
       return new File([u8arr], filename, { type: mime })
     }
   }
