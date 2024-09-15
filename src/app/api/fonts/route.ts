@@ -4,14 +4,14 @@ import Fontmin from 'fontmin'
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
   const text = searchParams.get('text') || ''
-  // public\fonts\筑紫A丸by 宁静之雨.ttf
+  // public\fonts\筑紫A丸by_宁静之雨.ttf
   const fontmin = new Fontmin()
-    .src('public/fonts/筑紫A丸by 宁静之雨.ttf')
+    .src('public/fonts/筑紫A丸by_宁静之雨.ttf')
     .use(Fontmin.glyph({ text }))
   const font = await fontmin.runAsync()
   //   console.log('font', font)
   //   font [
-  //     <File "筑紫A丸by 宁静之雨.ttf" <Buffer 00 01 00 00 00 0b 00 80 00 03 00 30 47 50 4f 53 a6 23 7a 43 00 00 00 bc 00 00 00 ea 4f 53 2f 32 60 4e 34 f7 00 00 01 a8 00 00 00 60 63 6d 61 70 1b 4f ... 4082 more bytes>>
+  //     <File "筑紫A丸by_宁静之雨.ttf" <Buffer 00 01 00 00 00 0b 00 80 00 03 00 30 47 50 4f 53 a6 23 7a 43 00 00 00 bc 00 00 00 ea 4f 53 2f 32 60 4e 34 f7 00 00 01 a8 00 00 00 60 63 6d 61 70 1b 4f ... 4082 more bytes>>
   //   ]。
   //   font
   // 输出 font 对象以检查其结构
