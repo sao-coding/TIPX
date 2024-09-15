@@ -27,7 +27,8 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       '/api/analytics',
       '/api/test',
       '/api/get-img-color',
-      '/api/download'
+      '/api/download',
+      '/api/fonts'
     ]
 
     if (req.nextUrl.pathname.startsWith('/api')) {

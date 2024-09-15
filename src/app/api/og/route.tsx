@@ -2,28 +2,15 @@
 import { ImageResponse } from 'next/og'
 import { NextResponse } from 'next/server'
 
+import { site } from '@/config/site'
+
 export const runtime = 'edge'
 
-async function fetchFont(text: string, font: string): Promise<ArrayBuffer | null> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
+async function fetchFont(text: string): Promise<ArrayBuffer | null> {
+  const res = await fetch(`${site.url}/api/fonts?text=${encodeURIComponent(text)}`)
+  const buffer = await res.arrayBuffer()
 
-  const css = await (
-    await fetch(API, {
-      headers: {
-        // Make sure it returns TTF.
-        'User-Agent':
-          'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1'
-      }
-    })
-  ).text()
-
-  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
-
-  if (!resource) return null
-
-  const res = await fetch(resource[1])
-
-  return res.arrayBuffer()
+  return buffer
 }
 
 export const GET = async (req: Request) => {
@@ -96,7 +83,7 @@ export const GET = async (req: Request) => {
         fonts: [
           {
             name: 'Noto Sans TC',
-            data: (await fetchFont(title, 'Noto+Sans+TC')) as ArrayBuffer
+            data: (await fetchFont(title)) as ArrayBuffer
           },
           {
             name: 'OG Little',
