@@ -3,7 +3,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-// import isUaWebView from 'is-ua-webview'
+import isUaWebView from 'is-ua-webview'
 import Cookies from 'js-cookie'
 import toast, { useToasterStore } from 'react-hot-toast'
 
@@ -34,8 +34,7 @@ const LoginForm = () => {
   }, [toasts])
 
   React.useEffect(() => {
-    // setIsWebView(isUaWebView(window.navigator.userAgent))
-    setIsWebView(true)
+    setIsWebView(isUaWebView(window.navigator.userAgent))
   }, [])
 
   // 判斷學年度
