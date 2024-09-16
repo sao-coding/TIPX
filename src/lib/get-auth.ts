@@ -3,6 +3,7 @@ import { verifyJwt } from '@/lib/jwt'
 const getAuth = async (accessToken: string) => {
   type Auth = {
     type: 'refresh' | 'access'
+    provider: 'credentials' | 'google'
     userId: string
     role: 'SUPER_ADMIN' | 'ADMIN' | 'USER'
   }

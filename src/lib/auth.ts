@@ -88,6 +88,7 @@ const authOptions: NextAuthOptions = {
 
         const accessToken = await signJwtAccessToken({
           type: 'access',
+          provider: 'credentials',
           userId,
           role: existUser?.role || 'USER'
         })
@@ -163,6 +164,7 @@ const authOptions: NextAuthOptions = {
 
           const accessToken = await signJwtAccessToken({
             type: 'access',
+            provider: 'google',
             userId: userInfo.id,
             role: userInfo.role
           })
