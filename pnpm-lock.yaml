@@ -131,6 +131,9 @@ importers:
       ioredis:
         specifier: ^5.4.1
         version: 5.4.1
+      is-ua-webview:
+        specifier: ^1.1.2
+        version: 1.1.2
       jose:
         specifier: ^5.8.0
         version: 5.8.0
@@ -3721,6 +3724,9 @@ packages:
   is-typed-array@1.1.13:
     resolution: {integrity: sha512-uZ25/bUAlUY5fR4OKT4rZQEBrzQWYV9ZJYGGsUmEJ6thodVJ1HX64ePQ6Z0qPWP+m+Uq6e9UugrE38jeYsDSMw==}
     engines: {node: '>= 0.4'}
+
+  is-ua-webview@1.1.2:
+    resolution: {integrity: sha512-xX3WpvJGmT0EjmGRQxs4AgaBd4EWNr4lWCWGOgd40by6DWOQZN9RIOCsEaVp41crZqzWr8AsM+2x8UC2ZAuLPA==}
 
   is-unc-path@1.0.0:
     resolution: {integrity: sha512-mrGpVd0fs7WWLfVsStvgF6iEJnbjDFZh9/emhRDcGWTduTfNHd9CHeUwH3gYIjdbwo4On6hunkztwOaAw0yllQ==}
@@ -9870,6 +9876,8 @@ snapshots:
   is-typed-array@1.1.13:
     dependencies:
       which-typed-array: 1.1.15
+
+  is-ua-webview@1.1.2: {}
 
   is-unc-path@1.0.0:
     dependencies:

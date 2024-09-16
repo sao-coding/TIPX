@@ -3,6 +3,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+// import isUaWebView from 'is-ua-webview'
 import Cookies from 'js-cookie'
 import toast, { useToasterStore } from 'react-hot-toast'
 
@@ -19,6 +20,7 @@ import { login } from '../actions'
 const LoginForm = () => {
   const searchParams = useSearchParams()
   const [loading, setLoading] = React.useState(false)
+  const [isWebView, setIsWebView] = React.useState<boolean | null>(null)
   const pathname = searchParams.get('redirect') || '/'
 
   const { toasts } = useToasterStore()
@@ -30,6 +32,11 @@ const LoginForm = () => {
       .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit
       .forEach((t) => toast.dismiss(t.id)) // Dismiss – Use toast.remove(t.id) removal without animation
   }, [toasts])
+
+  React.useEffect(() => {
+    // setIsWebView(isUaWebView(window.navigator.userAgent))
+    setIsWebView(true)
+  }, [])
 
   // 判斷學年度
   React.useEffect(() => {
@@ -112,25 +119,41 @@ const LoginForm = () => {
             登入
           </Button>
         </form>
-        <Button
-          onClick={async () => {
-            setLoading(true)
-            const userSettings = await login(Cookies.get('accessToken') || '')
-            console.log('userSettings', userSettings)
-            localStorage.setItem('theme', userSettings?.theme || 'system')
-            signIn('google', {
-              redirect: false
-            })
-          }}
-        >
-          {/* <IconBrandGoogle size={20} className='mx-1' /> */}
-          {loading ? (
-            <IconLoader2 size={20} className='mx-1 animate-spin' />
-          ) : (
-            <IconBrandGoogle size={20} className='mx-1' />
-          )}
-          使用 Google 登入
-        </Button>
+        {isWebView === null ? (
+          <div className='mx-auto flex h-10 items-center'>
+            <IconLoader2 className='animate-spin' />
+          </div>
+        ) : (
+          <>
+            {isWebView ? (
+              <p className='text-center text-gray-500'>
+                Google 登入無法在 WebView 中使用
+                <br />
+                <span className='text-red-500'>請開啟 Chrome 或 Safari 進行登入</span>
+              </p>
+            ) : (
+              <Button
+                onClick={async () => {
+                  setLoading(true)
+                  const userSettings = await login(Cookies.get('accessToken') || '')
+                  console.log('userSettings', userSettings)
+                  localStorage.setItem('theme', userSettings?.theme || 'system')
+                  signIn('google', {
+                    redirect: false
+                  })
+                }}
+              >
+                {/* <IconBrandGoogle size={20} className='mx-1' /> */}
+                {loading ? (
+                  <IconLoader2 size={20} className='mx-1 animate-spin' />
+                ) : (
+                  <IconBrandGoogle size={20} className='mx-1' />
+                )}
+                使用 Google 登入
+              </Button>
+            )}
+          </>
+        )}
       </div>
     </>
   )

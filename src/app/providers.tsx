@@ -24,7 +24,6 @@ const Providers = ({
   const pathname = usePathname()
 
   React.useEffect(() => {
-    console.log('referer', document.referrer)
     const writeLog = async () => {
       const userAgent = navigator.userAgent
       const parser = new UAParser(userAgent)
