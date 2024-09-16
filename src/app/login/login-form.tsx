@@ -97,7 +97,10 @@ const LoginForm = () => {
           </div>
           <div className='grid gap-3'>
             <Label htmlFor='auth-code' className='flex items-center gap-2'>
-              授權碼<span className='text-xs text-gray-400'>一般人請使用 Google 登入</span>
+              授權碼
+              <span className='line-clamp-1 flex-1 text-xs text-muted-foreground'>
+                一般人 請使用學校提供的 Google 帳號登入
+              </span>
             </Label>
             <Input id='auth-code' />
           </div>
