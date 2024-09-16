@@ -22,13 +22,8 @@ export const POST = async (req: NextRequest) => {
         userId: auth.userId
       }
     })
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ status: 'success' })
   } else {
-    await prisma.download.create({
-      data: {
-        userId: 'D11019139'
-      }
-    })
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ status: 'fail' }, { status: 401 })
   }
 }

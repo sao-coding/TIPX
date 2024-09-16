@@ -27,7 +27,6 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       '/api/analytics',
       '/api/test',
       '/api/get-img-color',
-      '/api/download',
       '/api/fonts'
     ]
 
