@@ -21,30 +21,27 @@ const getUserData = async () => {
   })
   const color = await getImgColor(user.img)
   const userClassName = await getClassName(user.userid)
+  console.log(user)
   const settings = await prisma.userSettings.findFirst({
     where: {
       userId: user.userid
     }
   })
-  return { user, color, userClassName, settings }
-}
 
-const getUserRole = async (userId: string) => {
   const role = await prisma.user.findUnique({
     where: {
-      id: userId
+      id: user.userid
     },
     select: {
       role: true
     }
   })
 
-  return role?.role ?? 'USER'
+  return { user, color, userClassName, role: role?.role || 'USER', settings }
 }
 
 const UserPage = async () => {
-  const { user, color, userClassName, settings } = await getUserData()
-  const role = await getUserRole(user.userid)
+  const { user, color, userClassName, role, settings } = await getUserData()
 
   return (
     <div className='mb-16'>
