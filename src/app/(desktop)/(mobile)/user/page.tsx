@@ -21,6 +21,7 @@ const getUserData = async () => {
   })
   const color = await getImgColor(user.img)
   const userClassName = await getClassName(user.userid)
+  console.log(user)
   const settings = await prisma.userSettings.findFirst({
     where: {
       userId: user.userid
