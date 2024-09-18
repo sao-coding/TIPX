@@ -20,7 +20,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
       return '請重新登入'
     } else if (message.includes('Failed to fetch')) {
       return '網路連線異常，請檢查網路連線'
-    } else if (message.includes("Can't reach database server at")) {
+    } else if (message.includes('2160756782')) {
       return '資料庫伺服器異常，請稍後再試'
     } else {
       return message
@@ -32,7 +32,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
       <div className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-background'>
         <div className='flex h-full w-full flex-col items-center justify-center space-y-2'>
           <div className='text-2xl font-bold'>發生錯誤</div>
-          <div className='text-xl font-bold'>{errorMessages(error.message)}</div>
+          <div className='text-xl font-bold'>{errorMessages(error.digest ?? '')}</div>
           <a
             href='https://tk-tipx.github.io/upptime/'
             className='border-b border-blue-500 text-blue-500'

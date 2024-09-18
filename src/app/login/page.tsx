@@ -85,7 +85,12 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
   if (auth) redirect(searchParams.redirect || '/')
 
   return (
-    <div className='min-h-screen'>
+    <div className='relative min-h-screen'>
+      <div className='fixed top-0 z-10 mx-auto w-full'>
+        <div className='mx-auto bg-red-500 p-2'>
+          最新消息：資料庫伺服器異常，若有任何問題請聯絡開發者，因為網路不穩定
+        </div>
+      </div>
       <div className='fixed left-0 top-0 h-screen w-screen bg-slate-900'></div>
       <div className='shape1 fixed left-0 top-0 h-screen w-screen bg-gradient-to-br from-primary to-amber-500'></div>
       <div className='shape2 fixed right-0 top-0 h-screen w-screen bg-gradient-to-br from-primary to-amber-500 opacity-50'></div>
