@@ -2,7 +2,6 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { signJwtAccessToken, verifyJwt } from '@/lib/jwt'
-import { prisma } from '@/lib/prisma'
 
 export const GET = async (req: NextRequest) => {
   type RefreshToken = {
@@ -17,17 +16,22 @@ export const GET = async (req: NextRequest) => {
   if (refreshToken) {
     // 重新簽
     console.log('refreshToken', refreshToken.userId)
-    const user = await prisma.user.findUnique({
-      where: {
-        id: refreshToken.userId || ''
-      }
-    })
+    const accessTokenCookie = cookies().get('accessToken')?.value || ''
+    // 解析 accessToken
+    type AccessTokenPayload = {
+      type: 'access'
+      provider: 'credentials' | 'google'
+      userId: string
+      role: string
+    }
+    const accessTokenPayload: AccessTokenPayload = JSON.parse(atob(accessTokenCookie.split('.')[1]))
 
     const accessToken = await signJwtAccessToken(
       {
         type: 'access',
+        provider: accessTokenPayload.provider,
         userId: refreshToken.userId,
-        role: user?.role || 'USER'
+        role: accessTokenPayload.role || 'USER'
       },
       {
         expiresIn: '10s'
