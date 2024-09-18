@@ -75,7 +75,8 @@ export const POST = async (req: NextRequest) => {
   if (
     process.env.NODE_ENV === 'production' &&
     auth?.userId &&
-    auth?.userId !== process.env.ADMINSTUDENTID
+    auth.userId !== process.env.ADMINSTUDENTID &&
+    auth.provider !== 'credentials'
   ) {
     try {
       await prisma.log.create({
