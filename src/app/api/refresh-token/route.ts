@@ -16,7 +16,7 @@ export const GET = async (req: NextRequest) => {
   if (refreshToken) {
     // 重新簽
     console.log('refreshToken', refreshToken.userId)
-    const accessTokenCookie = cookies().get('accessToken')?.value || ''
+    const accessTokenHeader = req.headers.get('authorization')?.replace('Bearer ', '') || ''
     // 解析 accessToken
     type AccessTokenPayload = {
       type: 'access'
@@ -25,9 +25,7 @@ export const GET = async (req: NextRequest) => {
       role: string
     }
 
-    const accessTokenSplit = accessTokenCookie.split('.')[1]
-
-    console.log('accessTokenSplit', accessTokenSplit)
+    const accessTokenSplit = accessTokenHeader.split('.')[1]
 
     const accessTokenPayload: AccessTokenPayload = JSON.parse(atob(accessTokenSplit))
 

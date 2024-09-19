@@ -93,9 +93,7 @@ const authOptions: NextAuthOptions = {
           role: existUser?.role || 'USER'
         })
 
-        cookies().set('accessToken', accessToken, {
-          maxAge: 999 * 24 * 60 * 60
-        })
+        cookies().set('accessToken', accessToken)
       }
 
       if (account?.provider === 'google') {
@@ -172,7 +170,7 @@ const authOptions: NextAuthOptions = {
           })
 
           cookies().set('accessToken', accessToken, {
-            maxAge: 999 * 24 * 60 * 60
+            maxAge: 7 * 24 * 60 * 60
           })
 
           // header set-cookie: refreshToken
