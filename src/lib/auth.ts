@@ -8,7 +8,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '@/lib/prisma'
 
 // import { FirestoreAdapter } from '@auth/firebase-adapter'
-import { signJwtAccessToken } from './jwt'
+import { signJwtToken } from './jwt'
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -67,7 +67,7 @@ const authOptions: NextAuthOptions = {
       console.log('使用者是否存在', existUser?.name)
 
       if (account?.provider === 'credentials') {
-        const refreshToken = await signJwtAccessToken(
+        const refreshToken = await signJwtToken(
           {
             type: 'refresh',
             userId
@@ -86,14 +86,16 @@ const authOptions: NextAuthOptions = {
           maxAge: 7 * 24 * 60 * 60
         })
 
-        const accessToken = await signJwtAccessToken({
+        const accessToken = await signJwtToken({
           type: 'access',
           provider: 'credentials',
           userId,
           role: existUser?.role || 'USER'
         })
 
-        cookies().set('accessToken', accessToken)
+        cookies().set('accessToken', accessToken, {
+          maxAge: 999 * 24 * 60 * 60
+        })
       }
 
       if (account?.provider === 'google') {
@@ -144,7 +146,7 @@ const authOptions: NextAuthOptions = {
           // 從 cookies 取得 no_logout true
           const keepLogin = cookies().get('cookie_keep_login')?.value === 'true'
 
-          const refreshToken = await signJwtAccessToken(
+          const refreshToken = await signJwtToken(
             {
               type: 'refresh',
               userId: userInfo.id
@@ -162,7 +164,7 @@ const authOptions: NextAuthOptions = {
             maxAge: keepLogin ? 180 * 24 * 60 * 60 : 7 * 24 * 60 * 60
           })
 
-          const accessToken = await signJwtAccessToken({
+          const accessToken = await signJwtToken({
             type: 'access',
             provider: 'google',
             userId: userInfo.id,
@@ -170,7 +172,7 @@ const authOptions: NextAuthOptions = {
           })
 
           cookies().set('accessToken', accessToken, {
-            maxAge: 7 * 24 * 60 * 60
+            maxAge: 999 * 24 * 60 * 60
           })
 
           // header set-cookie: refreshToken

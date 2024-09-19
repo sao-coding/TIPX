@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { signJwtAccessToken, verifyJwt } from '@/lib/jwt'
+import { signJwtToken, verifyJwt } from '@/lib/jwt'
 
 export const GET = async (req: NextRequest) => {
   type RefreshToken = {
@@ -24,9 +24,14 @@ export const GET = async (req: NextRequest) => {
       userId: string
       role: string
     }
-    const accessTokenPayload: AccessTokenPayload = JSON.parse(atob(accessTokenCookie.split('.')[1]))
 
-    const accessToken = await signJwtAccessToken(
+    const accessTokenSplit = accessTokenCookie.split('.')[1]
+
+    console.log('accessTokenSplit', accessTokenSplit)
+
+    const accessTokenPayload: AccessTokenPayload = JSON.parse(atob(accessTokenSplit))
+
+    const accessToken = await signJwtToken(
       {
         type: 'access',
         provider: accessTokenPayload.provider,

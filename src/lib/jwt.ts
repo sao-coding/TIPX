@@ -38,7 +38,7 @@ const DEFAULT_SIGN_OPTION: SignOption = {
   expiresIn: '2h'
 }
 
-export const signJwtAccessToken = async (
+export const signJwtToken = async (
   payload: Record<string, any>,
   options: SignOption = DEFAULT_SIGN_OPTION
 ): Promise<string> => {
