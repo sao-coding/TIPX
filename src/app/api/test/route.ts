@@ -1,14 +1,14 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { signJwtAccessToken, verifyJwt } from '@/lib/jwt'
+import { signJwtToken, verifyJwt } from '@/lib/jwt'
 
 export const GET = async (req: NextRequest) => {
-  const refreshToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '1d' })
+  const refreshToken = await signJwtToken({ userId: 'D11019139' }, { expiresIn: '1d' })
 
   cookies().set('refreshToken', refreshToken)
 
-  const accessToken = await signJwtAccessToken({ userId: 'D11019139' }, { expiresIn: '9999d' })
+  const accessToken = await signJwtToken({ userId: 'D11019139' }, { expiresIn: '9999d' })
 
   cookies().set('accessToken', accessToken)
 
