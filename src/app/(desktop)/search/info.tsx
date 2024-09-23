@@ -110,7 +110,7 @@ const Info = ({ userId }: { userId: string }) => {
     <>
       {isDesktop ? (
         <Dialog>
-          <DialogTrigger className='rounded-sm bg-blue-500 px-2'>查詢</DialogTrigger>
+          <DialogTrigger className='rounded-sm bg-blue-500 px-2 text-white'>查詢</DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>正在開發中...</DialogTitle>
@@ -120,7 +120,7 @@ const Info = ({ userId }: { userId: string }) => {
         </Dialog>
       ) : (
         <Drawer>
-          <DrawerTrigger className='rounded-sm bg-blue-500 px-2'>查詢</DrawerTrigger>
+          <DrawerTrigger className='rounded-sm bg-blue-500 px-2 text-white'>查詢</DrawerTrigger>
           <DrawerContent className='h-screen px-3'>
             <MobileInfo userId={userId} />
           </DrawerContent>
