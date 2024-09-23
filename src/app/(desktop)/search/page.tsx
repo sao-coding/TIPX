@@ -28,6 +28,7 @@ const SearchPage = () => {
         try {
           const { data } = await api.get('/search', {
             params: {
+              type: 'search',
               search,
               id: pageParam,
               limit: 10

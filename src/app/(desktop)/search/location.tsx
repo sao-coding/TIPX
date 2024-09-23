@@ -9,14 +9,14 @@ import formatDatetime from '@/utils/format-datetime'
 import { IconBook2, IconMapPin, IconUserStar } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-const Location = ({ userid }: { userid: string }) => {
+const Location = ({ userId }: { userId: string }) => {
   const { isLoading, data } = useQuery<Course>({
-    queryKey: ['nowLocation', userid],
+    queryKey: ['nowLocation', userId],
     queryFn: async () => {
       const { data } = await api.get('/timetable', {
         params: {
           type: 'now',
-          userid,
+          userid: userId,
           time: formatDatetime('datetime', new Date())
         }
       })
@@ -26,7 +26,7 @@ const Location = ({ userid }: { userid: string }) => {
   })
 
   return (
-    <div className='flex flex-col space-y-2 rounded-xl border p-2'>
+    <div className='flex flex-col space-y-2'>
       <div className='flex items-center space-x-1'>
         <IconMapPin />
         {/* <span>目前位置</span> */}

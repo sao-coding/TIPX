@@ -20,7 +20,10 @@ const Card = React.forwardRef<HTMLDivElement, { student: Student }>(({ student }
   }
 
   return (
-    <div ref={ref} className='relative flex items-center rounded-sm border bg-background1 p-2'>
+    <div
+      ref={ref}
+      className='relative flex items-center gap-2 rounded-sm border bg-background1 p-2'
+    >
       <div
         className={clsx(
           'absolute right-0 top-0 m-2 rounded-sm px-2 font-bold text-neutral-200',
@@ -50,7 +53,7 @@ const Card = React.forwardRef<HTMLDivElement, { student: Student }>(({ student }
           />
         </a>
       </Fancybox>
-      <div className='flex-grow px-2'>
+      <div className='flex-grow'>
         <div className='flex items-center space-x-1'>
           <div>{student.userId}</div>
           <Copy />
@@ -76,7 +79,7 @@ const Card = React.forwardRef<HTMLDivElement, { student: Student }>(({ student }
               <div className='text-gray-400'>未知</div>
             )}
           </div>
-          <Info student={student} />
+          <Info userId={student.userId} />
           {/* <button className='bg-blue-500 text-white px-2 rounded-md -mr-2'>查詢</button> */}
         </div>
         <ClassName userid={student.userId} />
