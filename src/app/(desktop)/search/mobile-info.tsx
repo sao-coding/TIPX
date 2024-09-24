@@ -1,3 +1,4 @@
+import AttendanceRecordPage from '@/components/attendance-record'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Copy from '@/components/ui/copy'
 import { DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
@@ -99,7 +100,13 @@ const MobileInfo = ({ userId }: { userId: string }) => {
             </Card>
           </div>
         </TabsContent>
-        <TabsContent value='statistics'>正在開發中...</TabsContent>
+        <TabsContent value='statistics'>
+          <Card>
+            <CardContent className='pt-6'>
+              <AttendanceRecordPage userId={userId} />
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
 
       {/* {JSON.stringify(student)} */}
