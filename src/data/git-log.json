@@ -1,5 +1,113 @@
 [
   {
+    "subject": "🔥 移除 異常公告",
+    "date": "2024-09-26T17:09:02.000Z",
+    "hash": "e8780cde840df8f9bfefeaea8a9008ebcb68d73b",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 查詢用戶頁面",
+    "date": "2024-09-24T16:19:55.000Z",
+    "hash": "4aa02f566a8c19489dd7aa21d691b4e733cb6971",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 查詢用戶頁面",
+    "date": "2024-09-23T16:58:55.000Z",
+    "hash": "bbf57bd8dacbe28e7559a7e62de92e3b2090cf5a",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 查詢用戶頁面",
+    "date": "2024-09-23T16:52:38.000Z",
+    "hash": "b668e59ee200df1542c4eb1ee2012442aba470fd",
+    "body": ""
+  },
+  {
+    "subject": "📝 更新 README",
+    "date": "2024-09-23T16:51:32.000Z",
+    "hash": "c05664a30f92c90614829c72d791ecea86881bcc",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 refreshToken 刷新邏輯錯誤",
+    "date": "2024-09-21T04:25:30.000Z",
+    "hash": "74498bc350fc84b8251e9422c89d3ce594305c78",
+    "body": ""
+  },
+  {
+    "subject": "🙈 更新 .gitignore",
+    "date": "2024-09-20T16:32:59.000Z",
+    "hash": "10a94b965221aeb3ff9832c79f6cb5cff872dfc4",
+    "body": ""
+  },
+  {
+    "subject": "🙈 更新 .gitignore",
+    "date": "2024-09-19T17:20:28.000Z",
+    "hash": "6752f56ab11fdc7d5324e7c4ec76b9130f860f71",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 refreshToken 刷新邏輯錯誤",
+    "date": "2024-09-19T15:47:55.000Z",
+    "hash": "907c3490930797d1a32508cb5de934bd521b580f",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 refreshToken 刷新邏輯錯誤",
+    "date": "2024-09-19T14:03:01.000Z",
+    "hash": "8042439063c0f5085b2951ae1f1923d987222869",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 異常公告",
+    "date": "2024-09-18T16:40:18.000Z",
+    "hash": "2d3c6d79059d165ff3599cd25db114c9f96b5232",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 refreshToken 不需要連線資料庫 增加效能",
+    "date": "2024-09-18T14:49:54.000Z",
+    "hash": "68bd09842a847b6b1f457d2a741ab84ca42fcce4",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 聯絡開發者 & 清除快取",
+    "date": "2024-09-18T14:48:20.000Z",
+    "hash": "1f0d9d413eba4a7cf613b642e22a0c878f0ec6cb",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 授權登入會記錄 log",
+    "date": "2024-09-18T14:47:25.000Z",
+    "hash": "8b4577a236758a6b02b9996f3803a5985f9851b3",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 資料庫讀取不穩定",
+    "date": "2024-09-18T05:56:33.000Z",
+    "hash": "060e6a30c1dcea3d64abab61a856c92e65c661c3",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 授權登入會記錄 log",
+    "date": "2024-09-16T17:14:04.000Z",
+    "hash": "01bf9a826f192c2840bbae8ba45fd93c577b8158",
+    "body": ""
+  },
+  {
+    "subject": "📝 更新 README",
+    "date": "2024-09-16T14:11:54.000Z",
+    "hash": "f703007da9bb484e8a7c786945c28df76e1ce0a3",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-09-16T12:07:16.000Z",
+    "hash": "33f226348161db7f0d7bd86045c11e9d8157d13e",
+    "body": ""
+  },
+  {
     "subject": "✅ 修改 登入提示字",
     "date": "2024-09-16T12:07:02.000Z",
     "hash": "00202a34598a738f21d830a79e9feb12a9ca005c",
