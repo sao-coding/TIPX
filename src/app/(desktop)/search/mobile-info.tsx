@@ -1,11 +1,19 @@
-import AttendanceRecordPage from '@/components/attendance-record'
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from '@/components/ui/chart'
 import Copy from '@/components/ui/copy'
 import { DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
 import Loading from '@/components/ui/Loading'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import api from '@/lib/api'
+import { CourseAttendanceRecord } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
 import { Student } from '@prisma/client'
 import { IconCake, IconDeviceMobile, IconId, IconSchool } from '@tabler/icons-react'
@@ -28,10 +36,27 @@ const MobileInfo = ({ userId }: { userId: string }) => {
     }
   })
 
+  const { data: userAttendanceRecord, isLoading: isLoadingAttendanceRecord } =
+    useQuery<CourseAttendanceRecord>({
+      queryKey: ['course-attendance-record', userId],
+      queryFn: async () => {
+        const { data } = await api.get(`course-attendance-record?${userId && `userid=${userId}`}`)
+        return data
+      }
+    })
+
+  const userAttendanceRecordChartConfig = {
+    count: {
+      label: '請假次數',
+      color: 'hsl(var(--chart-1))'
+    }
+  } satisfies ChartConfig
+
   const TabsListData = [
     { label: '一般', value: 'normal' },
     { label: '統計', value: 'statistics' }
   ]
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -103,7 +128,25 @@ const MobileInfo = ({ userId }: { userId: string }) => {
         <TabsContent value='statistics'>
           <Card>
             <CardContent className='pt-6'>
-              <AttendanceRecordPage userId={userId} />
+              <ChartContainer
+                config={userAttendanceRecordChartConfig}
+                className='min-h-[200px] w-full'
+              >
+                {/* 只顯示曠課，事假，病假，生理假，公假，喪假 然後 count 改成請假次數 */}
+                <BarChart
+                  accessibilityLayer
+                  data={userAttendanceRecord?.total.filter((item) =>
+                    ['曠課', '事假', '病假', '生理假', '公假', '喪假'].includes(item.type)
+                  )}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis dataKey='type' tickLine={false} tickMargin={10} axisLine={false} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  {/* <Bar dataKey='請假次數' fill='var(--color-曠課)' /> */}
+                  {/* 曠課 事假 病假 生理假 公假 喪假 */}
+                  <Bar dataKey='count' fill='var(--color-count)' />
+                </BarChart>
+              </ChartContainer>
             </CardContent>
           </Card>
         </TabsContent>

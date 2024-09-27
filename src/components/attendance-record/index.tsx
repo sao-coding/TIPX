@@ -12,13 +12,11 @@ import { useQuery } from '@tanstack/react-query'
 
 import Card from './card'
 // 參數 params: { id: string } 可以不用有 沒有就是全部
-const AttendanceRecordPage = ({ id, userId }: { id?: string; userId?: string }) => {
+const AttendanceRecordPage = ({ id }: { id?: string }) => {
   const { isLoading, data } = useQuery<CourseAttendanceRecord>({
     queryKey: ['course-attendance-record', Cookies.get('year'), Cookies.get('sem'), id],
     queryFn: async () => {
-      const { data } = await api.get(
-        `course-attendance-record?${id ? `course=${id}` : ''}${userId ? `&userid=${userId}` : ''}`
-      )
+      const { data } = await api.get(`course-attendance-record?${id ? `course=${id}` : ''}`)
       return data
     }
   })
@@ -43,7 +41,7 @@ const AttendanceRecordPage = ({ id, userId }: { id?: string; userId?: string }) 
     // } else {
     //   router.replace(`?type=${selectedLeaveType}`)
     // }
-    if (userId) return
+
     console.log('searchParams', searchParams.has('tab'))
     const hasTab = searchParams.has('tab')
     if (hasTab) {
@@ -127,15 +125,11 @@ const AttendanceRecordPage = ({ id, userId }: { id?: string; userId?: string }) 
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          {!userId && (
-            <div className='space-y-2'>
-              {data?.list
-                .filter((item) => selectedLeaveType === '全部' || item.type === selectedLeaveType)
-                .map((item, index) => <Card key={index} data={item} />)}
-            </div>
-          )}
-        </>
+        <div className='space-y-2'>
+          {data?.list
+            .filter((item) => selectedLeaveType === '全部' || item.type === selectedLeaveType)
+            .map((item, index) => <Card key={index} data={item} />)}
+        </div>
       )}
     </>
   )
