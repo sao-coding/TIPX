@@ -5,12 +5,12 @@ import { useInView } from 'react-intersection-observer'
 
 import Title from '@/components/Title'
 import { Input } from '@/components/ui/input'
-import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
 import { Student } from '@prisma/client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 import Card from './card'
+import Loading from './loading'
 
 const SearchPage = () => {
   const [search, setSearch] = React.useState('')
