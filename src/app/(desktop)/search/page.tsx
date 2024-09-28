@@ -15,36 +15,32 @@ import Loading from './loading'
 const SearchPage = () => {
   const [search, setSearch] = React.useState('')
   const { ref, inView } = useInView()
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage, isError } =
-    useInfiniteQuery<Student[]>({
-      queryKey: ['search', search],
-      queryFn: async ({ pageParam = 0 }) => {
-        // const res = await fetch(`/api/search?search=${search}&id=${pageParam}&limit=10`)
-        // const data = await res.json()
-        // if (data.error) {
-        //   throw new Error(data.error)
-        // }
-        // return data
-        try {
-          const { data } = await api.get('/search', {
-            params: {
-              type: 'search',
-              search,
-              id: pageParam,
-              limit: 10
-            }
-          })
+  const { status, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
+    Student[]
+  >({
+    queryKey: ['search', search],
+    queryFn: async ({ pageParam = 0 }) => {
+      try {
+        const { data } = await api.get('/search', {
+          params: {
+            type: 'search',
+            search,
+            id: pageParam,
+            limit: 10
+          }
+        })
 
-          return data
-        } catch (error) {
-          throw new Error()
-        }
-      },
-      initialPageParam: 0,
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length === 10 ? allPages.length * 10 : undefined
+        return data
+      } catch (error) {
+        console.error('search error', error)
+        throw new Error()
       }
-    })
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length === 10 ? allPages.length * 10 : undefined
+    }
+  })
 
   React.useEffect(() => {
     if (inView && hasNextPage) {
@@ -52,10 +48,16 @@ const SearchPage = () => {
     }
   }, [inView, fetchNextPage, hasNextPage])
 
+  const isSuccess = status === 'success'
+  const isLoading = status === 'pending' || isFetchingNextPage
+  const isError = status === 'error'
+  const noMore = !hasNextPage && !isError
+
   const titleData = {
     title: '查詢用戶',
     children: ''
   }
+
   return (
     <>
       <Title {...titleData} />
@@ -71,21 +73,19 @@ const SearchPage = () => {
         />
       )}
       <div className='flex flex-col gap-2'>
-        {isSuccess &&
-          !isError &&
-          data.pages.map((page: Student[]) =>
-            page.map((item, i) => {
-              if (page.length === i + 1) {
-                return <Card key={item.userId} ref={ref} student={item} />
-              }
-              return <Card key={item.userId} student={item} />
-            })
-          )}
-        {(isFetchingNextPage || !data) && !isError ? (
-          Array.from(Array(10).keys()).map((index) => <Loading key={index} />)
-        ) : !hasNextPage && !isError ? (
-          <div className='text-center text-gray-500'>沒有更多用戶了</div>
-        ) : (
+        {isSuccess
+          ? data.pages.map((page: Student[]) =>
+              page.map((item, i) => {
+                if (page.length === i + 1) {
+                  return <Card key={item.userId} ref={ref} student={item} />
+                }
+                return <Card key={item.userId} student={item} />
+              })
+            )
+          : null}
+        {isLoading ? Array.from(Array(10).keys()).map((index) => <Loading key={index} />) : null}
+        {noMore ? <div className='text-center text-gray-500'>沒有更多用戶了</div> : null}
+        {isError && (
           <div className='text-center text-red-500'>無此權限或發生錯誤，請聯絡管理員</div>
         )}
       </div>
