@@ -7,10 +7,27 @@ import Title from '@/components/Title'
 import { Input } from '@/components/ui/input'
 import api from '@/lib/api'
 import { Student } from '@prisma/client'
+import { IconUserCircle } from '@tabler/icons-react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 import Card from './card'
-import Loading from './loading'
+
+const Loading = () => {
+  return (
+    <div className='relative flex h-[118px] items-center rounded-sm border bg-background1 p-2'>
+      <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md border'>
+        <IconUserCircle size={75} />
+      </div>
+      <div className='space-y-3 px-2'>
+        <div className='h-3 w-20 rounded-full bg-neutral-500'></div>
+        <div className='h-3 w-20 rounded-full bg-neutral-500'></div>
+        <div className='h-3 w-28 rounded-full bg-neutral-500'></div>
+        <div className='h-3 w-44 rounded-full bg-neutral-500'></div>
+      </div>
+      {/* <div className='absolute top-2 right-2 px-1 bg-neutral-500 rounded-lg font-mono w-20 h-6'></div> */}
+    </div>
+  )
+}
 
 const SearchPage = () => {
   const [search, setSearch] = React.useState('')
@@ -85,9 +102,9 @@ const SearchPage = () => {
           : null}
         {isLoading ? Array.from(Array(10).keys()).map((index) => <Loading key={index} />) : null}
         {noMore ? <div className='text-center text-gray-500'>沒有更多用戶了</div> : null}
-        {isError && (
+        {isError ? (
           <div className='text-center text-red-500'>無此權限或發生錯誤，請聯絡管理員</div>
-        )}
+        ) : null}
       </div>
     </>
   )
