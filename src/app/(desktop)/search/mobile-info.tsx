@@ -144,7 +144,7 @@ const MobileInfo = ({ userId }: { userId: string }) => {
                   <ChartTooltip content={<ChartTooltipContent />} />
                   {/* <Bar dataKey='請假次數' fill='var(--color-曠課)' /> */}
                   {/* 曠課 事假 病假 生理假 公假 喪假 */}
-                  <Bar dataKey='count' fill='var(--color-count)' />
+                  <Bar dataKey='count' fill='var(--color-count)' radius={4} />
                 </BarChart>
               </ChartContainer>
             </CardContent>
