@@ -16,7 +16,7 @@ import api from '@/lib/api'
 import { CourseAttendanceRecord } from '@/types'
 import formatDatetime from '@/utils/format-datetime'
 import { Student } from '@prisma/client'
-import { IconCake, IconDeviceMobile, IconId, IconSchool } from '@tabler/icons-react'
+import { IconCake, IconDeviceMobile, IconId, IconLock, IconSchool } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
 import Location from './location'
@@ -77,6 +77,7 @@ const MobileInfo = ({ userId }: { userId: string }) => {
         </TabsList>
         {/* <TabsContent value='account'>Make changes to your account here.</TabsContent>
           <TabsContent value='password'>Change your password here.</TabsContent> */}
+
         <TabsContent value='normal'>
           <div className='flex flex-col gap-1'>
             <Card>
@@ -86,6 +87,11 @@ const MobileInfo = ({ userId }: { userId: string }) => {
             </Card>
             <Card>
               <CardContent className='pt-6'>
+                <div className='flex items-center space-x-1'>
+                  <IconLock />
+                  <div>{student?.password}</div>
+                  <Copy />
+                </div>
                 <div className='flex items-center space-x-1'>
                   <IconId />
                   <div>{student?.IDNumber}</div>
@@ -118,7 +124,7 @@ const MobileInfo = ({ userId }: { userId: string }) => {
                 <CardTitle>自傳</CardTitle>
               </CardHeader>
               <CardContent>
-                <ScrollArea className='-mx-2 h-72 whitespace-pre-line px-2'>
+                <ScrollArea className='-mx-2 h-[35vh] whitespace-pre-line px-2'>
                   {student?.desc}
                 </ScrollArea>
               </CardContent>
@@ -151,14 +157,6 @@ const MobileInfo = ({ userId }: { userId: string }) => {
           </Card>
         </TabsContent>
       </Tabs>
-
-      {/* {JSON.stringify(student)} */}
-      {/* <DrawerFooter>
-        <Button>Submit</Button>
-        <DrawerClose>
-          <Button variant='outline'>Cancel</Button>
-        </DrawerClose>
-      </DrawerFooter> */}
     </>
   )
 }
