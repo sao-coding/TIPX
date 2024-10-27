@@ -94,8 +94,7 @@ export const GET = async (req: NextRequest) => {
     { week: '星期三', timetable: [] },
     { week: '星期四', timetable: [] },
     { week: '星期五', timetable: [] },
-    { week: '星期六', timetable: [] },
-
+    { week: '星期六', timetable: [] }
   ]
 
   const getData = async () => {
