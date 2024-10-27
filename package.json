@@ -10,7 +10,6 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@auth/firebase-adapter": "^2.7.2",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@fancyapps/ui": "^5.0.36",
     "@hugocxl/react-to-image": "^0.0.9",
@@ -69,7 +68,10 @@
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^1.0.39",
     "vaul": "^0.9.9",
-    "zustand": "^4.5.5"
+    "zustand": "^4.5.5",
+    "firebase": "^10.13.1",
+    "firebase-admin": "^12.4.0",
+    "@auth/firebase-adapter": "^2.4.2"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7",
