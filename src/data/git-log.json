@@ -1,5 +1,59 @@
 [
   {
+    "subject": "⬆️ 更新依賴",
+    "date": "2024-10-27T10:21:11.000Z",
+    "hash": "ba3690a9414883ba15986a30625d111ffe232b77",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 timetable api",
+    "date": "2024-10-27T10:20:52.000Z",
+    "hash": "e211d514f07bda05ccce2477e67e407a6f71d027",
+    "body": ""
+  },
+  {
+    "subject": "💄 修改 搜尋頁面",
+    "date": "2024-10-01T15:00:50.000Z",
+    "hash": "bb087d0bd03ab76ff3098c5ad5ba906e5c57b5de",
+    "body": ""
+  },
+  {
+    "subject": "💄 修改 搜尋頁面圖表",
+    "date": "2024-09-30T15:56:40.000Z",
+    "hash": "2048fc288c6f0d534f9c232a2aab346fa7ab4329",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 搜尋頁面",
+    "date": "2024-09-29T08:08:07.000Z",
+    "hash": "b84187e32be30090d6af6d21237c2ea40c8b7c39",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 搜尋頁面",
+    "date": "2024-09-28T18:46:17.000Z",
+    "hash": "d78f3451f98a0be59786927931908c91ca1a77d7",
+    "body": ""
+  },
+  {
+    "subject": "💄 修改 搜尋頁面的loading",
+    "date": "2024-09-28T16:55:58.000Z",
+    "hash": "9eb4aa9f90933f46e4af86684c11eacf8111e6c4",
+    "body": ""
+  },
+  {
+    "subject": "💄 重構 搜尋頁面缺曠記錄",
+    "date": "2024-09-27T18:46:53.000Z",
+    "hash": "ba655dd8af51daf00399e72f4a43ea13dc746267",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-09-26T17:09:39.000Z",
+    "hash": "5112c9e7a7dc980a5a9bdb6dd6840f80bae8beb6",
+    "body": ""
+  },
+  {
     "subject": "🔥 移除 異常公告",
     "date": "2024-09-26T17:09:02.000Z",
     "hash": "e8780cde840df8f9bfefeaea8a9008ebcb68d73b",
