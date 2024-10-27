@@ -88,13 +88,13 @@ export const GET = async (req: NextRequest) => {
   ]
 
   let timeTable: TimeTable[] = [
-    { week: '星期日', timetable: [] },
     { week: '星期一', timetable: [] },
     { week: '星期二', timetable: [] },
     { week: '星期三', timetable: [] },
     { week: '星期四', timetable: [] },
     { week: '星期五', timetable: [] },
-    { week: '星期六', timetable: [] }
+    { week: '星期六', timetable: [] },
+    { week: '星期日', timetable: [] }
   ]
 
   const getData = async () => {
@@ -199,7 +199,9 @@ export const GET = async (req: NextRequest) => {
       })
     }
 
-    if (timeTable[day].timetable[nowCourse].classroom === '') {
+    // if (timeTable[day - 1].timetable[nowCourse].classroom === '') {
+    // 0 是禮拜日, 但他排在最後 index 6
+    if (timeTable[day === 0 ? 6 : day - 1].timetable[nowCourse].classroom === '') {
       return NextResponse.json({
         id: '',
         course: '沒有課程',
