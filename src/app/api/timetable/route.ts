@@ -88,13 +88,14 @@ export const GET = async (req: NextRequest) => {
   ]
 
   let timeTable: TimeTable[] = [
+    { week: '星期日', timetable: [] },
     { week: '星期一', timetable: [] },
     { week: '星期二', timetable: [] },
     { week: '星期三', timetable: [] },
     { week: '星期四', timetable: [] },
     { week: '星期五', timetable: [] },
     { week: '星期六', timetable: [] },
-    { week: '星期日', timetable: [] }
+
   ]
 
   const getData = async () => {
@@ -199,7 +200,7 @@ export const GET = async (req: NextRequest) => {
       })
     }
 
-    if (timeTable[day - 1].timetable[nowCourse].classroom === '') {
+    if (timeTable[day].timetable[nowCourse].classroom === '') {
       return NextResponse.json({
         id: '',
         course: '沒有課程',
