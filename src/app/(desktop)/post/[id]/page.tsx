@@ -15,7 +15,7 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
           <Close className='absolute left-auto right-4 top-4 block h-auto rounded-sm p-0 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground'>
             <X className='h-4 w-4' />
           </Close>
-          <h1 className='mb-4 mr-6 line-clamp-2 h-14 border-b text-xl font-bold md:mr-0 md:text-2xl'>
+          <h1 className='mb-4 mr-6 line-clamp-2 border-b text-xl font-bold md:mr-0 md:text-2xl'>
             {post.title}
           </h1>
           <div className='flex justify-between'>
