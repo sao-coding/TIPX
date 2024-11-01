@@ -45,7 +45,7 @@ export const GET = async (req: NextRequest) => {
       if (searchType === 'simple') {
         search = `%${search}%`
         student = await prisma.$queryRaw`
-        SELECT userId, name, lineId, img, status
+        SELECT userId, name, lineId, img, gender, status
         FROM Student 
         WHERE userId LIKE ${search} OR name LIKE ${search} 
         ORDER BY FIELD(SUBSTRING(userId, 1, 1), 'D', 'C', 'M', 'N', 'K'), userId ASC 
@@ -64,7 +64,7 @@ export const GET = async (req: NextRequest) => {
         }
         console.log(studentList)
         student = await prisma.$queryRaw`
-        SELECT userId, name, lineId, img, status 
+        SELECT userId, name, lineId, img, gender, status
         FROM Student 
         WHERE (userId LIKE ${studentList[0]} AND gender LIKE ${studentList[1]} AND name LIKE ${studentList[2]}) 
         ORDER BY FIELD(SUBSTRING(userId, 1, 1), 'D', 'C', 'M', 'N', 'K'), userId ASC 
