@@ -131,6 +131,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
         text: '查詢用戶'
       },
       {
+        icon: IconNotes,
+        color: 'stroke-yellow-500',
+        href: '/log',
+        text: '日誌中心'
+      },
+      {
         icon: IconUser,
         color: 'stroke-orange-500',
         href: '/user/about',
