@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 import Avatar from '@/components/ui/avatar'
 import Fancybox from '@/components/ui/fancybox'
@@ -110,9 +111,12 @@ const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, re
           {/* <div className=''>{new Date(student.createdAt).toLocaleDateString()}</div>
         <div className=''>{new Date(student.createdAt).toLocaleTimeString()}</div> */}
         </div>
-        <div className='absolute right-0 top-0 m-2 rounded-sm bg-primary px-2 font-bold'>
+        <Link
+          href={student.path}
+          className='absolute right-0 top-0 m-2 rounded-sm bg-primary px-2 font-bold'
+        >
           {student.path}
-        </div>
+        </Link>
         <div className='absolute bottom-0 right-0 m-2 rounded-sm px-2 font-bold text-neutral-200'>
           {new Date(student.createdAt).toLocaleString()}
         </div>
