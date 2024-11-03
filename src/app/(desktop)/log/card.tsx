@@ -106,11 +106,15 @@ const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, re
             {osIcon(student.osName)}
             {student.osName} {student.osVersion}
           </div>
-          <div className='absolute bottom-0 right-0 m-2 rounded-sm px-2 font-bold text-neutral-200'>
-            {new Date(student.createdAt).toLocaleString()}
-          </div>
+
           {/* <div className=''>{new Date(student.createdAt).toLocaleDateString()}</div>
         <div className=''>{new Date(student.createdAt).toLocaleTimeString()}</div> */}
+        </div>
+        <div className='absolute right-0 top-0 m-2 rounded-sm bg-primary px-2 font-bold'>
+          {student.path}
+        </div>
+        <div className='absolute bottom-0 right-0 m-2 rounded-sm px-2 font-bold text-neutral-200'>
+          {new Date(student.createdAt).toLocaleString()}
         </div>
       </div>
     </div>
