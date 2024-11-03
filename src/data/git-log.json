@@ -1,5 +1,53 @@
 [
   {
+    "subject": "✨ 新增 網站紀錄頁面",
+    "date": "2024-11-03T13:29:42.000Z",
+    "hash": "46271994992242c4d9a2814192658d533eea1098",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 搜尋 API",
+    "date": "2024-11-01T15:50:18.000Z",
+    "hash": "888d5fc9adc8f3357a003ddd056b16254703ae25",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 文章標題",
+    "date": "2024-10-29T13:56:00.000Z",
+    "hash": "dabaa02924c478073b69bdde2a188d999131a3a2",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 課表禮拜日在第一個",
+    "date": "2024-10-27T13:56:26.000Z",
+    "hash": "3fcc813d6416a0e77b4e1ab9256b80adf5207db4",
+    "body": ""
+  },
+  {
+    "subject": "🐛  復原 firebase",
+    "date": "2024-10-27T10:39:03.000Z",
+    "hash": "d7b2abce8621487578c707a7eb412fd94a68c82f",
+    "body": ""
+  },
+  {
+    "subject": "🗑️ 廢棄 firebase",
+    "date": "2024-10-27T10:34:04.000Z",
+    "hash": "3de2f99374a5ec22f6c6b0bab52a7f78a95d8204",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 代碼格式化錯誤",
+    "date": "2024-10-27T10:29:30.000Z",
+    "hash": "7761a3db9f21e5e69f89ee93f53051d4b8357eb4",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-10-27T10:22:11.000Z",
+    "hash": "9daa3502d8cbe3d1c2d3fb1ef039b1f2ea7ddaf6",
+    "body": ""
+  },
+  {
     "subject": "⬆️ 更新依賴",
     "date": "2024-10-27T10:21:11.000Z",
     "hash": "ba3690a9414883ba15986a30625d111ffe232b77",
