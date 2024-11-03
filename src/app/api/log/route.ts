@@ -1,69 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { db } from '@/lib/firebase-admin'
 import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
 import redis from '@/lib/redis'
-import getClassName from '@/utils/class-name'
+import getUser from '@/utils/user'
+// import getClassName from '@/utils/class-name'
 import { Log } from '@prisma/client'
 
 export const GET = async (req: NextRequest) => {
-  if (req.nextUrl.searchParams.has('id') && req.nextUrl.searchParams.has('limit')) {
-    const id = req.nextUrl.searchParams.get('id')
-    const limits = req.nextUrl.searchParams.get('limit') ?? '10'
+  const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+  const auth = await getAuth(accessToken)
 
-    // const log =
-    //     await prisma.$queryRaw`SELECT * FROM log ORDER BY time DESC LIMIT ${id}, ${limit}`
+  const searchParams = req.nextUrl.searchParams
 
-    // return NextResponse.json(log)
+  const page = searchParams.get('page') || '1'
+  const limit = searchParams.get('limit') || '10'
 
-    if (id === '0') {
-      const log = await db.collection('log').orderBy('time', 'desc').limit(parseInt(limits)).get()
+  // 權限要是 SUPER_ADMIN
 
-      // return NextResponse.json(
-      //     log.docs.map((doc) => {
-      //         return { id: doc.id, ...doc.data() }
-      //     })
-      // )
+  if (auth?.role === 'SUPER_ADMIN') {
+    const allLog = await prisma.log.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      },
+      include: {
+        user: true
+      },
+      skip: (parseInt(page) - 1) * parseInt(limit),
+      take: parseInt(limit)
+    })
 
-      const logData = []
-
-      for (const doc of log.docs) {
-        const data = doc.data()
-        data.class = await (await getClassName(data.stuID)).class
-        data.id = doc.id
-        logData.push(data)
-      }
-
-      return NextResponse.json(logData)
-    } else {
-      const log = await db
-        .collection('log')
-        .orderBy('time', 'desc')
-        .startAfter(id)
-        .limit(parseInt(limits))
-        .get()
-
-      // log.docs.map((doc) => {
-      //     console.log(doc.id, doc.data())
-      // })
-
-      // return NextResponse.json(
-      //     log.docs.map(async (doc) => {
-      //         return { id: doc.id, class: await getClassName(doc.data().stuID), ...doc.data() }
-      //     })
-      // )
-      const logData = []
-      for (const doc of log.docs) {
-        const data = doc.data()
-        data.class = await (await getClassName(data.stuID)).class
-        data.id = doc.id
-        logData.push(data)
-      }
-
-      return NextResponse.json(logData)
-    }
+    return NextResponse.json(allLog)
   }
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 }
 
 export const POST = async (req: NextRequest) => {
@@ -79,9 +48,11 @@ export const POST = async (req: NextRequest) => {
     auth.provider !== 'credentials'
   ) {
     try {
+      const { img } = await getUser(auth.userId)
       await prisma.log.create({
         data: {
           ip: res.ip,
+          avatar: img.replace('https://tipfile.takming.edu.tw/stuphoto/', ''),
           deviceType: res.deviceType,
           deviceVendor: res.deviceVendor,
           deviceModel: res.deviceModel,

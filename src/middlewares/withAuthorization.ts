@@ -56,6 +56,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       req.nextUrl.pathname.startsWith('/course') ||
       req.nextUrl.pathname.startsWith('/user') ||
       req.nextUrl.pathname.startsWith('/search') ||
+      req.nextUrl.pathname === '/log' ||
       req.nextUrl.pathname === '/'
     ) {
       if (!verifyRefreshToken && !verifyAccessToken) {
