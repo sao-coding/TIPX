@@ -65,7 +65,7 @@ const LogPage = () => {
   const noMore = !hasNextPage && !isError
 
   const titleData = {
-    title: '網站紀錄',
+    title: '日誌中心',
     children: ''
   }
 

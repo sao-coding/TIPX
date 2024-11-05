@@ -250,7 +250,7 @@ export const ADMIN_LINKS: UserLinks[] = [
   {
     icon: IconNotes,
     color: 'stroke-orange-500',
-    href: '/user/log',
+    href: '/log',
     text: '日誌中心'
   },
   {
