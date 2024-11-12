@@ -94,12 +94,12 @@ const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, re
         </a>
       </Fancybox>
       <div className='flex flex-1 justify-between'>
-        <div className=''>
+        <div className='flex h-12 flex-col justify-between'>
           <div className=''>{student.userId}</div>
           <div className=''>{student.user.name}</div>
         </div>
-        <div className=''>
-          <div className='flex w-full items-center gap-1'>
+        <div className='flex h-12 flex-col justify-between'>
+          <div className='flex w-full items-center gap-1 text-sm'>
             {browserIcon(student.browserName)}
             {student.browserName} {student.browserVersion}
           </div>
