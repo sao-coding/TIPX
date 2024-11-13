@@ -97,9 +97,25 @@ const getTeacher = async (
     }) > td:nth-child(2)`
   ).text()
 
-  // 通識教育中心 => 通識中心
+  // 轉換系所名稱
+  const deptMap: { [key: string]: string } = {
+    財稅系: '財政稅務系',
+    國貿系: '國際貿易系',
+    企管系: '企業管理系',
+    資管系: '資訊管理系',
+    財金系: '財務金融系',
+    應外系: '應用外語系',
+    資科系: '資訊科技系',
+    會資系: '會計資訊系',
+    媒計系: '多媒體設計系',
+    行銷系: '行銷管理系',
+    流通系: '流通管理系',
+    風富系: '風險管理與財富規劃系',
+    通識中心: '通識教育中心',
+    體育室: '體育室'
+  }
 
-  teacherDept === '通識教育中心' && (teacherDept = '通識中心')
+  teacherDept = deptMap[teacherDept] ?? teacherDept
 
   document = await resUrl('https://netinfo.takming.edu.tw/tip/comm_teach2.php', 'GET')
 
