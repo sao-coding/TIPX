@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 
 import Logout from '@/app/(desktop)/(mobile)/user/logout'
 import { IconLogo } from '@/components/icons/logo'
@@ -26,7 +27,18 @@ import { Skeleton } from '../ui/skeleton'
 import Switch from './switch'
 
 const LeftSidebar = () => {
+  const [role, setRole] = React.useState('USER')
   const isDesktop = useMediaQuery('(min-width: 1280px)')
+
+  React.useEffect(() => {
+    const accessToken = Cookies.get('accessToken')
+    if (!accessToken) return
+    const payload = accessToken.split('.')[1]
+    const decodedPayload = atob(payload)
+    const { role } = JSON.parse(decodedPayload)
+    console.log('role', role)
+    setRole(role)
+  }, [])
 
   return (
     <>
@@ -113,24 +125,27 @@ const LeftSidebar = () => {
                   </>
                 ) : (
                   <>
-                    {group.links.map((link, index) => (
-                      <TooltipProvider key={index} delayDuration={100}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Link
-                              href={link.href}
-                              className='flex w-full justify-center rounded-sm p-2 hover:bg-accent hover:text-accent-foreground xl:justify-start'
-                            >
-                              <div className='flex items-center gap-2'>
-                                <link.icon className={clsx(link.color, link.className)} />
-                                <span className='block md:hidden xl:block'>{link.text}</span>
-                              </div>
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent side='right'>{link.text}</TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    ))}
+                    {group.links.map((link, index) =>
+                      (link.text === '查詢用戶' && role === 'USER') ||
+                      (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
+                        <TooltipProvider key={index} delayDuration={100}>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Link
+                                href={link.href}
+                                className='flex w-full justify-center rounded-sm p-2 hover:bg-accent hover:text-accent-foreground xl:justify-start'
+                              >
+                                <div className='flex items-center gap-2'>
+                                  <link.icon className={clsx(link.color, link.className)} />
+                                  <span className='block md:hidden xl:block'>{link.text}</span>
+                                </div>
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent side='right'>{link.text}</TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      )
+                    )}
                   </>
                 )}
               </React.Fragment>
