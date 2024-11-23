@@ -11,6 +11,7 @@ import { CourseAttendanceRecord } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
 import Card from './card'
+
 // 參數 params: { id: string } 可以不用有 沒有就是全部
 const AttendanceRecordPage = ({ id }: { id?: string }) => {
   const { isLoading, data } = useQuery<CourseAttendanceRecord>({
@@ -87,7 +88,7 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
   }
 
   return (
-    <>
+    <div className='flex min-h-[calc(100vh-120px)] flex-col'>
       <div className='mb-2 grid grid-cols-2 gap-2 md:grid-cols-3'>
         {leaveType.map((type, index) => {
           const item = data?.total.find((item) => item.type === type)
@@ -123,7 +124,9 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
         </div>
       </div>
       {isLoading ? (
-        <Loading />
+        <div className='relative flex-1'>
+          <Loading className='h-full' />
+        </div>
       ) : (
         <div className='space-y-2'>
           {data?.list
@@ -131,7 +134,7 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
             .map((item, index) => <Card key={index} data={item} />)}
         </div>
       )}
-    </>
+    </div>
   )
 }
 
