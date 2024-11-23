@@ -4,7 +4,6 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
-import { ThemeProvider } from 'next-themes'
 import Cookies from 'js-cookie'
 import { UAParser } from 'ua-parser-js'
 
@@ -47,11 +46,9 @@ const Providers = ({
   }, [pathname])
 
   return (
-    <ThemeProvider attribute='class' disableTransitionOnChange>
-      <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </SessionProvider>
-    </ThemeProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </SessionProvider>
   )
 }
 

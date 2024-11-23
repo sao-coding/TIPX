@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { getServerSession } from 'next-auth'
+import { ThemeProvider } from 'next-themes'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from 'react-hot-toast'
 
 import { site } from '@/config/site'
@@ -86,10 +88,14 @@ export default async function RootLayout({
         {process.env.NODE_ENV === 'production' && <LogLib />}
       </head>
       <body>
-        <Providers session={session}>
-          {children}
-          {modal}
-        </Providers>
+        <ThemeProvider attribute='class' disableTransitionOnChange>
+          <NuqsAdapter>
+            <Providers session={session}>
+              {children}
+              {modal}
+            </Providers>
+          </NuqsAdapter>
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>

@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { parseAsString, useQueryState } from 'nuqs'
 
 import Close from '@/components/Close'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -10,14 +9,10 @@ import Leave from './leave'
 import List from './list'
 
 const LeavePage = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const tab = searchParams.get('tab') || '請假'
-  const [activeTab, setActiveTab] = useState(tab)
+  const [activeTab, setActiveTab] = useQueryState('tab', parseAsString.withDefault('請假'))
 
   const handleTabChange = (value: string) => {
     setActiveTab(value)
-    router.replace(`/user/leave?tab=${value}`)
   }
 
   const TabsListData = [

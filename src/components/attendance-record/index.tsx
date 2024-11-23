@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
+import { parseAsString, useQueryState } from 'nuqs'
 
 import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
@@ -22,35 +22,10 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
     }
   })
 
-  const [selectedLeaveType, setSelectedLeaveType] = React.useState<string>('全部')
-  const searchParams = useSearchParams()
-  const router = useRouter()
-
-  React.useEffect(() => {
-    const type = searchParams.get('type')
-    if (type) {
-      setSelectedLeaveType(type)
-    }
-  }, [searchParams])
-
-  React.useEffect(() => {
-    // 搜尋參數假設前面已經有?tab=xxx，所以這邊直接加上&type=${selectedLeaveType}
-    // 沒有其他參數就直接加上 ?type=${selectedLeaveType}
-    // const hasTab = searchParams.has('tab')
-    // if (hasTab) {
-    //   router.replace(`?${searchParams.toString()}&type=${selectedLeaveType}`)
-    // } else {
-    //   router.replace(`?type=${selectedLeaveType}`)
-    // }
-
-    console.log('searchParams', searchParams.has('tab'))
-    const hasTab = searchParams.has('tab')
-    if (hasTab) {
-      router.replace(`?tab=出缺勤&type=${selectedLeaveType}`)
-    } else {
-      router.replace(`?type=${selectedLeaveType}`)
-    }
-  }, [selectedLeaveType])
+  const [selectedLeaveType, setSelectedLeaveType] = useQueryState(
+    'type',
+    parseAsString.withDefault('全部')
+  )
 
   // 只顯示曠課，事假，病假，生理假，公假，喪假
   const leaveType = ['曠課', '事假', '病假', '生理假', '公假', '喪假']
@@ -83,7 +58,6 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
   }
 
   const handleLeaveType = (type: string) => {
-    console.log('type', type)
     setSelectedLeaveType((prevType) => (prevType === type ? '全部' : type))
   }
 

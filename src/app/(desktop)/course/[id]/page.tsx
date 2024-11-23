@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { parseAsString, useQueryState } from 'nuqs'
 
 import Close from '@/components/Close'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -24,14 +24,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     }
   })
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const tab = searchParams.get('tab') || '作業'
-  const [activeTab, setActiveTab] = React.useState(tab)
+  const [activeTab, setActiveTab] = useQueryState('tab', parseAsString.withDefault('作業'))
 
   const handleTabChange = (value: string) => {
     setActiveTab(value)
-    router.replace(`/course/${params.id}?tab=${value}`)
   }
 
   const TabsListData = [
@@ -49,7 +45,12 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <Tabs defaultValue='作業' value={activeTab} onValueChange={handleTabChange}>
+      <Tabs
+        defaultValue='作業'
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className='min-h-full'
+      >
         <div className='mb-3 flex flex-col items-center gap-3 md:flex-row'>
           {isLoading ? (
             <div className='w-full'>
