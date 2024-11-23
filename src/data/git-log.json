@@ -1,5 +1,29 @@
 [
   {
+    "subject": "♻️ 使用 nuqs 重構 SearchParams",
+    "date": "2024-11-23T18:34:04.000Z",
+    "hash": "1e3d97d513de25d5d04151f5bce5d8f6164c1089",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 出缺勤 loading 位置錯誤",
+    "date": "2024-11-23T18:33:01.000Z",
+    "hash": "de85073ed66e841f004442b0e32aaf08d8b190f6",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 電腦版權限錯誤問題",
+    "date": "2024-11-14T20:06:25.000Z",
+    "hash": "988f61e060edaaf589c34db70932422858e47d6b",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-11-13T14:28:22.000Z",
+    "hash": "a4966864f4344f2d7d0f4b5f3ac6eac3b90d96fe",
+    "body": ""
+  },
+  {
     "subject": "🐛 修復 班排&系排名",
     "date": "2024-11-13T14:28:02.000Z",
     "hash": "29f73e12b99f4958ad6e5f27cf969225becadd86",
