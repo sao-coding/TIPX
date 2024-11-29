@@ -13,7 +13,7 @@ const LoginDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='w-full rounded-full bg-primary px-2 py-1'>登入</button>
+        <button className='w-full rounded-full bg-primary px-2 py-1 text-white'>登入</button>
       </DialogTrigger>
       <DialogContent className='w-11/12 max-w-[425px] rounded-lg md:w-full'>
         <DialogHeader>
