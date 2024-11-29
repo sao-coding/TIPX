@@ -117,7 +117,7 @@ const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, re
         >
           {student.path}
         </Link>
-        <div className='absolute bottom-0 right-0 m-2 rounded-sm px-2 font-bold text-neutral-200'>
+        <div className='absolute bottom-0 right-0 m-2 rounded-sm px-2 font-bold'>
           {new Date(student.createdAt).toLocaleString()}
         </div>
       </div>
