@@ -1,5 +1,17 @@
 [
   {
+    "subject": "🐛 修復課程學生列表卡片，data-fancybox 屬性導致圖片點選閃退",
+    "date": "2024-11-30T16:07:21.000Z",
+    "hash": "88cc4a593a3cebd7f34179f3040e01031941699d",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-11-30T15:59:18.000Z",
+    "hash": "5d312a578e2a8b8a011750a49eb063960d7610b8",
+    "body": ""
+  },
+  {
     "subject": "♻️ 更新圖片配置，將 domains 改為 remotePatterns",
     "date": "2024-11-30T15:58:42.000Z",
     "hash": "c08a54225989ec3c4269f1fce524c9e5e989349e",
