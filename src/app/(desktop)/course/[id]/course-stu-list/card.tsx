@@ -48,7 +48,7 @@ const Card = ({ data }: { data: CourseStuList }) => {
               }
             }}
           >
-            <a href={data.img} data-fancybox='images' data-caption={data.name}>
+            <a href={data.img} data-fancybox data-caption={data.name}>
               <Avatar
                 src={data.img}
                 width={75}
