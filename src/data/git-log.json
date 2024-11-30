@@ -1,5 +1,35 @@
 [
   {
+    "subject": "♻️ 更新圖片配置，將 domains 改為 remotePatterns",
+    "date": "2024-11-30T15:58:42.000Z",
+    "hash": "c08a54225989ec3c4269f1fce524c9e5e989349e",
+    "body": ""
+  },
+  {
+    "subject": "💄 課程學生頁面 因 vercel og 上限 導致照片無法顯示 改用一般 img",
+    "date": "2024-11-30T15:57:53.000Z",
+    "hash": "0a1ad5f79b828b8ee5dc220af2c68fb865491925",
+    "body": ""
+  },
+  {
+    "subject": "💄 修復 登入UI",
+    "date": "2024-11-29T15:26:37.000Z",
+    "hash": "3cf2e286e32d58d6d1a1bab8d9c00ac1386141de",
+    "body": ""
+  },
+  {
+    "subject": "💄 修復 log 記錄 UI",
+    "date": "2024-11-29T15:26:24.000Z",
+    "hash": "d06e136eaa40bf100d6a03b887452cc81eba789e",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2024-11-23T18:35:22.000Z",
+    "hash": "c7f6ed37b223c9ced07445060e7484cd18080c97",
+    "body": ""
+  },
+  {
     "subject": "♻️ 使用 nuqs 重構 SearchParams",
     "date": "2024-11-23T18:34:04.000Z",
     "hash": "1e3d97d513de25d5d04151f5bce5d8f6164c1089",
