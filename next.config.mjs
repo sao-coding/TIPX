@@ -8,7 +8,11 @@ const withPWA = withPWAInit({
 
 const nextConfig = {
   images: {
-    domains: ['tipfile.takming.edu.tw']
+    remotePatterns: [
+      {
+        hostname: 'tipfile.takming.edu.tw'
+      }
+    ]
   },
   experimental: {
     serverComponentsExternalPackages: ['fontmin']
