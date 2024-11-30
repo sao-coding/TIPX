@@ -1,17 +1,17 @@
 import React from 'react'
-import Image from 'next/image'
 
+import Avatar from '@/components/ui/avatar'
 import Fancybox from '@/components/ui/fancybox'
 import { CourseStuList } from '@/types'
 import { IconGenderBigender, IconMail, IconStar, IconUserCircle } from '@tabler/icons-react'
 const Card = ({ data }: { data: CourseStuList }) => {
-  const [isImgError, setIsImgError] = React.useState(false)
+  // const [isImgError, setIsImgError] = React.useState(false)
 
   return (
     <>
       <div className='mb-2 w-full border-b px-2 py-3 md:p-7'>
         <div className='flex w-full gap-2'>
-          <>
+          {/* <>
             {isImgError ? (
               <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
                 <IconUserCircle size={75} />
@@ -40,7 +40,28 @@ const Card = ({ data }: { data: CourseStuList }) => {
                 </a>
               </Fancybox>
             )}
-          </>
+          </> */}
+          <Fancybox
+            options={{
+              Carousel: {
+                infinite: false
+              }
+            }}
+          >
+            <a href={data.img} data-fancybox='images' data-caption={data.name}>
+              <Avatar
+                src={data.img}
+                width={75}
+                height={100}
+                alt='大頭貼'
+                fallback={
+                  <div className='flex h-[100px] w-[75px] items-center justify-center rounded-md shadow-md'>
+                    <IconUserCircle size={75} />
+                  </div>
+                }
+              />
+            </a>
+          </Fancybox>
           <div className='flex flex-grow items-center md:flex-grow-0'>
             <div className='w-full'>
               <div className='flex flex-wrap items-center justify-between p-1'>
