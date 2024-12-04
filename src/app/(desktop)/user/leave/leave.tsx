@@ -163,10 +163,11 @@ const Leave = () => {
           }))
           .filter((item) => item.value !== '')
       })
-      toast.success('請假成功', { id: toastId })
+      toast.success(data.message, { id: toastId })
       queryClient.invalidateQueries({ queryKey: ['leave', date] })
     } catch (error) {
-      toast.error('請假失敗', { id: toastId })
+      const err = error as AxiosError
+      toast.error((err.response?.data as Error).message, { id: toastId })
     }
   }
 

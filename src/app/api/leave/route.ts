@@ -261,9 +261,35 @@ export const POST = async (req: NextRequest) => {
       body: bodyContent
     })
     if (!res.ok) {
-      return NextResponse.error()
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: '請假失敗'
+        },
+        {
+          status: 400
+        }
+      )
     }
-    return NextResponse.json({ status: 'success' })
+
+    const buffer = await res.arrayBuffer()
+    const html = new TextDecoder('big5').decode(buffer)
+    const $ = cheerio.load(html)
+
+    // html 裡面若含有 請假日期有誤,請依正常程序請假!! 則回傳錯誤
+    if (html.includes('請假日期有誤,請依正常程序請假!!')) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: '超過可請假日期範圍'
+        },
+        {
+          status: 400
+        }
+      )
+    }
+
+    return NextResponse.json({ status: 'success', message: '請假成功' })
   }
 }
 
