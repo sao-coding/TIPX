@@ -40,7 +40,7 @@ const HwTool = () => {
       data.data.forEach((item: Hw) => {
         const index = hw.findIndex((x) => x.course === item.course)
         if (index === -1) {
-          hw.push({ course: `${item.course}` ?? '', courseId: item.courseId ?? '', hw: [item] })
+          hw.push({ course: `${item.course}`, courseId: item.courseId ?? '', hw: [item] })
         } else {
           hw[index].hw.push(item)
         }
