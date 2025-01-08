@@ -49,6 +49,7 @@ export const GET = async (req: NextRequest) => {
       const hw: string[] = []
       cells.each((i, cell) => {
         let text = $(cell).text().trim()
+        console.log(i + ' ' + text)
         switch (i) {
           case 0:
             const file =
@@ -90,6 +91,7 @@ export const GET = async (req: NextRequest) => {
 
     $ = await fetchURL('downhw', courseId)
     // 剔除前兩行 跟 最後一行
+    console.log('hwdata1', hwdata1)
     const rows2 = $('body > form > table > tbody > tr > td > table > tbody > tr').slice(2, -1)
     if (rows2.length === 0) {
       // 於期中考/期末考期間不提供下載功能
@@ -98,19 +100,23 @@ export const GET = async (req: NextRequest) => {
           hwlist.push({
             title: hwdata1[i][0],
             file: hwdata1[i][1],
-            start: hwdata1[i][3],
-            end: hwdata1[i][4],
-            upload: hwdata1[i][2],
+            start: hwdata1[i][2],
+            end: hwdata1[i][3],
+            upload: hwdata1[i][4],
             download: '考試期間不開放本功能',
             size: '考試期間不開放本功能',
-            status: hwdata1[i][5]
+            status: hwdata1[i][5],
+            course: courseName,
+            courseId: courseId
           })
         }
-        return NextResponse.json({
-          status: '段考期間',
-          msg: '於期中考/期末考期間\n不提供下載功能',
-          data: hwlist
-        })
+        console.log('於期中考/期末考期間不提供下載功能')
+        // return NextResponse.json({
+        //   status: '段考期間',
+        //   msg: '於期中考/期末考期間\n不提供下載功能',
+        //   data: hwlist
+        // })
+        return 'exam'
       }
     }
 
@@ -167,6 +173,8 @@ export const GET = async (req: NextRequest) => {
         courseId: courseId
       })
     }
+
+    return 'default'
   }
 
   // 工具列裡的作業才會顯示課程名稱
@@ -183,7 +191,15 @@ export const GET = async (req: NextRequest) => {
       })
     }
   } else {
-    await crawler(course)
+    // await crawler(course)
+    const status = await crawler(course)
+    if (status === 'exam') {
+      return NextResponse.json({
+        status: '段考期間',
+        msg: '於期中考/期末考期間\n不提供下載功能',
+        data: hwlist
+      })
+    }
   }
 
   return NextResponse.json({
