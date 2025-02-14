@@ -13,6 +13,7 @@ import LoginDialog from './login-dialog'
 import TodayCount from './today-count'
 import UserCount from './user-count'
 
+// layout.tsx 沒辦法接收到 searchParams，所以要在這裡接收
 export async function generateMetadata({
   searchParams
 }: {
