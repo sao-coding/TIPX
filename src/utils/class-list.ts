@@ -11,7 +11,7 @@ const getClassList = async (userid: string) => {
   const { currentYear, currentSem } = getCurrentYearSem()
   const teacherid = (await getTeacher(userid ?? '', currentYear ?? '', currentSem ?? '')).id
 
-  const studentList: Student[] = []
+  const classList: Student[] = []
 
   const getData = async () => {
     const resUrl = async (url: string, body?: { [key: string]: string }) => {
@@ -59,7 +59,7 @@ const getClassList = async (userid: string) => {
         // const name = student.querySelector("td:nth-child(3)")?.textContent ?? ""
         const name = $(student).find('td:nth-child(3)').text() ?? ''
 
-        studentList.push({
+        classList.push({
           userId,
           img,
           gender,
@@ -68,7 +68,7 @@ const getClassList = async (userid: string) => {
       })
     )
 
-    studentList.sort((a, b) => a.userId.localeCompare(b.userId))
+    classList.sort((a, b) => a.userId.localeCompare(b.userId))
 
     console.timeEnd('fetching-student-list')
   }
@@ -87,7 +87,7 @@ const getClassList = async (userid: string) => {
       'JSON.SET',
       `classlist_${currentYear}_${currentSem}_${userid}`,
       '$',
-      JSON.stringify(studentList)
+      JSON.stringify(classList)
     )
     // 假如是 5,6月 或 12,1月 快取時間為 1 小時 否則為 4 個月
     const month = new Date().getMonth() + 1
@@ -96,10 +96,10 @@ const getClassList = async (userid: string) => {
     await redis.expire(`classlist_${currentYear}_${currentSem}_${userid}`, expire)
   } else {
     console.log('use cache')
-    studentList.push(...JSON.parse(cache))
+    classList.push(...JSON.parse(cache))
   }
 
-  return studentList
+  return classList
 }
 
 export default getClassList
