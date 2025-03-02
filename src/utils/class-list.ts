@@ -43,16 +43,16 @@ const getClassList = async (userid: string) => {
       Class: classID ?? ''
     })
 
-    let classList = Array.from(
+    let classListRows = Array.from(
       $(
         'body > form > table > tbody > tr:nth-child(1) > td > font > table > tbody > tr:not(:first-child)'
       )
     )
 
-    console.log('此班有', classList.length - 1, '名學生')
+    console.log('此班有', classListRows.length - 1, '名學生')
 
     await Promise.all(
-      Array.from(classList).map(async (student) => {
+      Array.from(classListRows).map(async (student) => {
         // const id = student.querySelector("td:nth-child(2)")?.textContent ?? ""
         const userId = $(student).find('td:nth-child(2)').text() ?? ''
         const { img, gender } = await getUser(userId)
