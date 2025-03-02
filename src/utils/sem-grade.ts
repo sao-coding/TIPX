@@ -135,4 +135,5 @@ const getSemGrade = async (userid: string, year: string, sem: string) => {
   })
   return semScoreList
 }
+
 export default getSemGrade
