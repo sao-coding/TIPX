@@ -20,6 +20,7 @@ import {
   IconList,
   IconMessage,
   IconNotes,
+  IconSchool,
   IconSettings,
   IconUser,
   IconUserSearch,
@@ -158,6 +159,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
         color: 'stroke-rose-500',
         href: '/user/sem-grade',
         text: '科目成績'
+      },
+      {
+        icon: IconSchool,
+        color: '',
+        href: '/user/graduation-standard',
+        text: '畢業標準'
       },
       {
         icon: IconList,
