@@ -62,9 +62,7 @@ const getCredit = async (userid: string, year: string, sem: string) => {
     await redis.call('EXPIRE', `credit_${userid}_${year}_${sem}`, 2592000)
   } else {
     console.log('use cache')
-    // 清除快取
-    await redis.call('DEL', `credit_${userid}_${year}_${sem}`)
-    return JSON.parse(cache)
+    credit.push(...JSON.parse(cache))
   }
 
   return credit
