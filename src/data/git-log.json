@@ -1,5 +1,65 @@
 [
   {
+    "subject": "✨ 新增畢業標準API及類型定義和互動頁面",
+    "date": "2025-03-02T16:56:54.000Z",
+    "hash": "3e49880b162614f3688cc548f4087af45acbe1ca",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增Badge、Progress和Table元件以擴充UI組件庫",
+    "date": "2025-03-02T16:55:21.000Z",
+    "hash": "4efe279956b5e6cd4fc78c739fb31ba16e9f6484",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正sem-grade API回應格式，新增狀態和訊息以改善用戶體驗",
+    "date": "2025-03-02T16:53:51.000Z",
+    "hash": "88e5ec27791a32d60709866c7cf9ca82bb95e924",
+    "body": ""
+  },
+  {
+    "subject": "🐛 在sem-grade.ts中新增空行以提高代碼可讀性",
+    "date": "2025-03-02T16:53:25.000Z",
+    "hash": "9cfeadc395ed3a299bd11744443f2888b2ca428e",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正getCredit函數以優化快取處理，移除不必要的快取清除步驟",
+    "date": "2025-03-02T16:53:16.000Z",
+    "hash": "db9d9f84ef8556b54ef915c7ec40dc87739e0015",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正course.ts中的cookie格式，移除多餘的空格以提高一致性",
+    "date": "2025-03-02T16:53:05.000Z",
+    "hash": "0529b5dbd0b7114847a2c50a51eba56e4ec9a06d",
+    "body": ""
+  },
+  {
+    "subject": "🐛 格式化tailwind.config.ts中的動畫和媒體查詢設置，以提高可讀性",
+    "date": "2025-03-02T14:35:52.000Z",
+    "hash": "137bc31784e7663b992c1ce7503ef5b23be2f34c",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正getClassList函數中的變數名稱，將studentList更改為classList以提高可讀性",
+    "date": "2025-03-01T14:03:53.000Z",
+    "hash": "7e8fbb53ca7641b86782bcef7ef84971f4c5f2ed",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-02-14T16:42:37.000Z",
+    "hash": "fd59d1092d1b560898dafb68691af1e03731ee39",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-01-23T02:03:51.000Z",
+    "hash": "3519222d1c568d84946c0ebbda35460f025a5d5a",
+    "body": ""
+  },
+  {
     "subject": "🐛 修正HwTool組件中課程名稱的推入邏輯，移除不必要的空值檢查",
     "date": "2025-01-08T15:29:59.000Z",
     "hash": "dc1c1a50da44b6ab38e9c60b429c633e96592c99",
