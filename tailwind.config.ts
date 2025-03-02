@@ -63,12 +63,20 @@ const config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' }
+          from: {
+            height: '0'
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)'
+          }
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' }
+          from: {
+            height: 'var(--radix-accordion-content-height)'
+          },
+          to: {
+            height: '0'
+          }
         },
         'border-beam': {
           '100%': {
@@ -76,8 +84,13 @@ const config = {
           }
         },
         meteor: {
-          '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
-          '70%': { opacity: '1' },
+          '0%': {
+            transform: 'rotate(215deg) translateX(0)',
+            opacity: '1'
+          },
+          '70%': {
+            opacity: '1'
+          },
           '100%': {
             transform: 'rotate(215deg) translateX(-500px)',
             opacity: '0'
@@ -90,14 +103,16 @@ const config = {
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
         meteor: 'meteor 5s linear infinite'
       },
-      // @media min-device-pixel-ratio
-      // 螢幕放大 大於 125%
-      // 螢幕放大 大於 150%
-      // 螢幕放大 大於 175%
       screens: {
-        'dpi-125': { raw: 'screen and (min-resolution: 125dpi)' },
-        'dpi-150': { raw: 'screen and (min-resolution: 150dpi)' },
-        'dpi-175': { raw: 'screen and (min-resolution: 175dpi)' }
+        'dpi-125': {
+          raw: 'screen and (min-resolution: 125dpi)'
+        },
+        'dpi-150': {
+          raw: 'screen and (min-resolution: 150dpi)'
+        },
+        'dpi-175': {
+          raw: 'screen and (min-resolution: 175dpi)'
+        }
       }
     }
   },
