@@ -1,5 +1,29 @@
 [
   {
+    "subject": "✨ 新增畢業標準連結至使用者介面",
+    "date": "2025-03-02T17:15:29.000Z",
+    "hash": "4fcfeaab0d59fc2b78098e9cc348bb1e533eafed",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正變數名稱錯誤，更新classList為classListRows",
+    "date": "2025-03-02T17:08:37.000Z",
+    "hash": "276338f923c88bdcf8d989a3108654b54c68ba6f",
+    "body": ""
+  },
+  {
+    "subject": "🐛 移除不必要的@radix-ui元件及其依賴，精簡pnpm-lock.yaml",
+    "date": "2025-03-02T16:59:56.000Z",
+    "hash": "b46ceceb5a2d02ea60bdbd584e8683629441d9a6",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-03-02T16:57:21.000Z",
+    "hash": "3f8ff7b7b9c540b8e03088ed2ef950bd2418a378",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增畢業標準API及類型定義和互動頁面",
     "date": "2025-03-02T16:56:54.000Z",
     "hash": "3e49880b162614f3688cc548f4087af45acbe1ca",
