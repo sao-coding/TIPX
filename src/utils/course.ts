@@ -78,7 +78,7 @@ const getCourse = async (
       `https://netinfo.takming.edu.tw/tip/list_course_new.php?opno=${courseID}`,
       {
         headers: {
-          cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
+          cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
           Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
         }
       }
