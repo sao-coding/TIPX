@@ -17,5 +17,9 @@ export const GET = async (req: NextRequest) => {
   const semGrade = await getSemGrade(userid ?? '', year ?? '', sem ?? '')
   // console.log({ semScore })
 
-  return NextResponse.json(semGrade)
+  return NextResponse.json({
+    status: 'success',
+    message: '科目成績獲取成功',
+    data: semGrade
+  })
 }
