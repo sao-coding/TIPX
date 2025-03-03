@@ -117,33 +117,6 @@ const getGraduationStandard = async (userid: string) => {
 
     // 統計畢業應修了多少學分
     // 統計畢業應修了多少學分，只計算期末成績等於或大於60分的課程
-<<<<<<< HEAD
-    let totalCredits = 0;
-    let totalRequiredCredits = 0;
-    let totalElectiveCredits = 0;
-    let totalGeneralCredits = 0;
-    
-    for (const semGrade of semGradeList) {
-      for (const grade of semGrade.grades) {
-      // 確保成績大於等於60分才計算學分
-      if (grade.finalGrade >= 60) {
-        switch (grade.type) {
-        case '必修':
-          totalRequiredCredits += grade.credit;
-          totalCredits += grade.credit;
-          break;
-        case '選修':
-          totalElectiveCredits += grade.credit;
-          totalCredits += grade.credit;
-          break;
-        case '通識':
-          totalGeneralCredits += grade.credit;
-          totalCredits += grade.credit;
-          break;
-        }
-      }
-      }
-=======
     let totalCredits = 0
     let totalRequiredCredits = 0
     let totalElectiveCredits = 0
@@ -169,7 +142,6 @@ const getGraduationStandard = async (userid: string) => {
           }
         }
       }
->>>>>>> 13a2a22 (🐛 更新畢業標準計算邏輯，僅計算成績大於等於60分的課程學分)
     }
 
     console.log('Total Credits:', totalCredits)
