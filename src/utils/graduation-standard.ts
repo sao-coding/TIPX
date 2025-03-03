@@ -7,27 +7,6 @@ import getCurrentYearSem from '@/utils/current-year-sem'
 import getCredit from './credit'
 import getSemGrade from './sem-grade'
 
-// {
-//     "minimum_required_credits": 135.0,
-//     "minimum_elective_credits": 45.0,
-//     "minimum_general_education_credits": 8,
-//     "courses": [
-//       {
-//         "course_id": "C001",
-//         "course_name": "中文悅讀與舒寫",
-//         "exemptible_in_semester_id": "S1132",
-//         "exemptible_in_semester": "1132",
-//         "grade": 1,
-//         "category": "共同科目",
-//         "type": "必修",
-//         "first_semester_credits": 2.0,
-//         "first_semester_hours": 2.0,
-//         "second_semester_credits": 2.0,
-//         "second_semester_hours": 2.0
-//       },
-//     ]
-//   }
-
 const getGraduationStandard = async (userid: string) => {
   const { currentYear, currentSem } = getCurrentYearSem()
 
@@ -137,10 +116,33 @@ const getGraduationStandard = async (userid: string) => {
     console.log('Semester Credits Statistics:', semesterStats)
 
     // 統計畢業應修了多少學分
-    const totalCredits = semesterStats.reduce((acc, cur) => acc + cur.totalCredits, 0)
-    const totalRequiredCredits = semesterStats.reduce((acc, cur) => acc + cur.requiredCredits, 0)
-    const totalElectiveCredits = semesterStats.reduce((acc, cur) => acc + cur.electiveCredits, 0)
-    const totalGeneralCredits = semesterStats.reduce((acc, cur) => acc + cur.generalCredits, 0)
+    // 統計畢業應修了多少學分，只計算期末成績等於或大於60分的課程
+    let totalCredits = 0;
+    let totalRequiredCredits = 0;
+    let totalElectiveCredits = 0;
+    let totalGeneralCredits = 0;
+    
+    for (const semGrade of semGradeList) {
+      for (const grade of semGrade.grades) {
+      // 確保成績大於等於60分才計算學分
+      if (grade.finalGrade >= 60) {
+        switch (grade.type) {
+        case '必修':
+          totalRequiredCredits += grade.credit;
+          totalCredits += grade.credit;
+          break;
+        case '選修':
+          totalElectiveCredits += grade.credit;
+          totalCredits += grade.credit;
+          break;
+        case '通識':
+          totalGeneralCredits += grade.credit;
+          totalCredits += grade.credit;
+          break;
+        }
+      }
+      }
+    }
 
     console.log('Total Credits:', totalCredits)
     console.log('Total Required Credits:', totalRequiredCredits)
