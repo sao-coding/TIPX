@@ -1,11 +1,22 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDownIcon, ArrowUpIcon, Calendar, Filter, Layers, Search, Tag, X } from 'lucide-react'
+import {
+  AlertCircle,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  Calendar,
+  Filter,
+  Layers,
+  Search,
+  Tag,
+  X
+} from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import {
@@ -32,6 +43,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
   const [selectedType, setSelectedType] = useState('all')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [showFailingOnly, setShowFailingOnly] = useState(false)
   const [activeFilters, setActiveFilters] = useState(0)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [viewMode, setViewMode] = useState('table')
@@ -65,8 +77,9 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
     if (selectedType !== 'all') count++
     if (selectedCategory !== 'all') count++
     if (searchTerm) count++
+    if (showFailingOnly) count++
     setActiveFilters(count)
-  }, [selectedSemester, selectedType, selectedCategory, searchTerm])
+  }, [selectedSemester, selectedType, selectedCategory, searchTerm, showFailingOnly])
 
   // Reset all filters
   const resetFilters = () => {
@@ -74,6 +87,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
     setSelectedType('all')
     setSelectedCategory('all')
     setSearchTerm('')
+    setShowFailingOnly(false)
   }
 
   // Sort function for courses
@@ -101,8 +115,10 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
             course.category.toLowerCase().includes(searchTerm.toLowerCase())
           const matchesType = selectedType === 'all' || course.type === selectedType
           const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory
+          const matchesFailing =
+            !showFailingOnly || (course.finalGrade > 0 && course.finalGrade < 60)
 
-          return matchesSearch && matchesType && matchesCategory
+          return matchesSearch && matchesType && matchesCategory && matchesFailing
         })
         .map((course) => ({
           ...course,
@@ -139,7 +155,15 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
     }
 
     return result
-  }, [courses, selectedSemester, selectedType, selectedCategory, searchTerm, sortConfig])
+  }, [
+    courses,
+    selectedSemester,
+    selectedType,
+    selectedCategory,
+    searchTerm,
+    showFailingOnly,
+    sortConfig
+  ])
 
   // Function to get badge color based on course type
   const getTypeColor = (type: string) => {
@@ -219,13 +243,16 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
                 <Filter className='h-4 w-4' />
                 篩選
                 {activeFilters > 0 && (
-                  <Badge variant='secondary' className='ml-1 h-5 w-5 rounded-full p-0 text-xs'>
+                  <Badge
+                    variant='secondary'
+                    className='ml-1 h-5 w-5 justify-center rounded-full p-0 text-xs'
+                  >
                     {activeFilters}
                   </Badge>
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className='w-80'>
+            <PopoverContent className='w-80' align='end' sideOffset={8}>
               <div className='space-y-4'>
                 <div className='flex items-center justify-between'>
                   <h4 className='font-medium'>篩選條件</h4>
@@ -298,6 +325,26 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
                     </SelectContent>
                   </Select>
                 </div>
+
+                <div className='space-y-2'>
+                  <div className='flex items-center gap-2'>
+                    <AlertCircle className='h-4 w-4 text-muted-foreground' />
+                    <div className='text-sm font-medium'>成績</div>
+                  </div>
+                  <div className='flex items-center space-x-2'>
+                    <Checkbox
+                      id='failing-only'
+                      checked={showFailingOnly}
+                      onCheckedChange={(checked) => setShowFailingOnly(checked === true)}
+                    />
+                    <label
+                      htmlFor='failing-only'
+                      className='text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                    >
+                      {'僅顯示不及格課程 (期末成績 < 60)'}
+                    </label>
+                  </div>
+                </div>
               </div>
             </PopoverContent>
           </Popover>
@@ -306,7 +353,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
         {activeFilters > 0 && (
           <div className='mt-2 flex flex-wrap gap-2'>
             {selectedSemester !== 'all' && (
-              <Badge variant='secondary' className='flex items-center gap-1'>
+              <Badge variant='secondary' className='flex items-center gap-1 pr-1'>
                 學期: {selectedSemester}
                 <Button
                   variant='ghost'
@@ -320,7 +367,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
               </Badge>
             )}
             {selectedType !== 'all' && (
-              <Badge variant='secondary' className='flex items-center gap-1'>
+              <Badge variant='secondary' className='flex items-center gap-1 pr-1'>
                 類型: {selectedType}
                 <Button
                   variant='ghost'
@@ -334,7 +381,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
               </Badge>
             )}
             {selectedCategory !== 'all' && (
-              <Badge variant='secondary' className='flex items-center gap-1'>
+              <Badge variant='secondary' className='flex items-center gap-1 pr-1'>
                 類別: {selectedCategory}
                 <Button
                   variant='ghost'
@@ -344,6 +391,20 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
                 >
                   <X className='h-3 w-3' />
                   <span className='sr-only'>移除類別篩選</span>
+                </Button>
+              </Badge>
+            )}
+            {showFailingOnly && (
+              <Badge variant='secondary' className='flex items-center gap-1 pr-1'>
+                僅顯示不及格課程
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='h-5 w-5 p-0'
+                  onClick={() => setShowFailingOnly(false)}
+                >
+                  <X className='h-3 w-3' />
+                  <span className='sr-only'>移除不及格篩選</span>
                 </Button>
               </Badge>
             )}
