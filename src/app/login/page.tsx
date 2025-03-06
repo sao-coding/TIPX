@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
 
 import { loginWithRedirect } from '@/app/actions'
 import { IconLogo } from '@/components/icons/logo'
@@ -85,6 +86,8 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
   const auth = await loginWithRedirect()
   if (auth) redirect(searchParams.redirect || '/')
 
+  const t = await getTranslations('LoginPage')
+
   return (
     <div className='relative min-h-screen'>
       {/* <div className='fixed top-0 z-10 mx-auto w-full'>
@@ -102,7 +105,7 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
             <CardTitle className='mb-6 mt-10'>
               <IconLogoText className='h-10 w-full' />
             </CardTitle>
-            <CardDescription>學生資訊系統</CardDescription>
+            <CardDescription>{t('description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <LoginDialog />

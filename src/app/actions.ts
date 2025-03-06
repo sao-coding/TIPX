@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+import { defaultLocale } from '@/i18n/config'
 import getAuth from '@/lib/get-auth'
 import { prisma } from '@/lib/prisma'
 
@@ -30,4 +31,9 @@ export const logout = async () => {
     cookies().delete(cookie.name)
   }
   redirect('/login')
+}
+
+// export async function getUserLocale() {
+export const getUserLocale = async () => {
+  return (await cookies()).get('language')?.value || defaultLocale
 }

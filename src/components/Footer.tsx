@@ -59,7 +59,7 @@ const Footer = () => {
           <Link
             key={link.href}
             href={link.href}
-            title={link.text}
+            title={link.key}
             className='footer relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl'
             onClick={(e) => click(e)}
           >

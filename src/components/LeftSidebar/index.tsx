@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 
@@ -29,6 +30,7 @@ import Switch from './switch'
 const LeftSidebar = () => {
   const [role, setRole] = React.useState('USER')
   const isDesktop = useMediaQuery('(min-width: 1280px)')
+  const t = useTranslations('Menu')
 
   React.useEffect(() => {
     const accessToken = Cookies.get('accessToken')
@@ -52,7 +54,7 @@ const LeftSidebar = () => {
             {USER_LINKS.map((group, index) => (
               // 用group分組 collapsible 顯示
               <React.Fragment key={index}>
-                {group.group !== '一般資訊' ? (
+                {group.group !== 'normal-info' ? (
                   <>
                     {isDesktop === null && (
                       <div className='flex h-10 items-center p-2'>
@@ -67,8 +69,8 @@ const LeftSidebar = () => {
                               <CollapsibleTrigger className='group w-full rounded-sm p-2 hover:bg-accent hover:text-accent-foreground'>
                                 <div className='flex items-center justify-between'>
                                   <div className='flex items-center gap-2'>
-                                    <IconHistoryToggle className='text-primary' />
-                                    <span>{group.group}</span>
+                                    {group.icon && <group.icon className='text-primary' />}
+                                    <span>{t(group.group)}</span>
                                   </div>
                                   {/* html 屬性 data-state 若是open則旋轉180度 */}
                                   {/* 過度動畫 */}
@@ -88,18 +90,18 @@ const LeftSidebar = () => {
                                             <link.icon
                                               className={clsx(link.color, link.className)}
                                             />
-                                            <span>{link.text}</span>
+                                            <span>{t(link.key)}</span>
                                           </div>
                                         </Link>
                                       </TooltipTrigger>
-                                      <TooltipContent side='right'>{link.text}</TooltipContent>
+                                      <TooltipContent side='right'>{t(link.key)}</TooltipContent>
                                     </Tooltip>
                                   </TooltipProvider>
                                 ))}
                               </CollapsibleContent>
                             </Collapsible>
                           </TooltipTrigger>
-                          <TooltipContent side='right'>{group.group}</TooltipContent>
+                          <TooltipContent side='right'>{t(group.group)}</TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
                     )}
@@ -112,11 +114,11 @@ const LeftSidebar = () => {
                           </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className='w-56' side='right'>
-                          <DropdownMenuLabel>歷年資訊</DropdownMenuLabel>
+                          <DropdownMenuLabel>{t('history-info')}</DropdownMenuLabel>
                           <DropdownMenuSeparator />
                           {group.links.map((link, index) => (
                             <DropdownMenuItem key={index}>
-                              <Link href={link.href}>{link.text}</Link>
+                              <Link href={link.href}>{t(link.key)}</Link>
                             </DropdownMenuItem>
                           ))}
                         </DropdownMenuContent>
@@ -126,8 +128,8 @@ const LeftSidebar = () => {
                 ) : (
                   <>
                     {group.links.map((link, index) =>
-                      (link.text === '查詢用戶' && role === 'USER') ||
-                      (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
+                      (link.key === 'search' && role === 'USER') ||
+                      (link.key === 'log' && role !== 'SUPER_ADMIN') ? null : (
                         <TooltipProvider key={index} delayDuration={100}>
                           <Tooltip>
                             <TooltipTrigger asChild>
@@ -137,11 +139,11 @@ const LeftSidebar = () => {
                               >
                                 <div className='flex items-center gap-2'>
                                   <link.icon className={clsx(link.color, link.className)} />
-                                  <span className='block md:hidden xl:block'>{link.text}</span>
+                                  <span className='block md:hidden xl:block'>{t(link.key)}</span>
                                 </div>
                               </Link>
                             </TooltipTrigger>
-                            <TooltipContent side='right'>{link.text}</TooltipContent>
+                            <TooltipContent side='right'>{t(link.key)}</TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                       )

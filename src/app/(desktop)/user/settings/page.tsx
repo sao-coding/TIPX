@@ -40,6 +40,7 @@ import { UserSettings } from '@prisma/client'
 import {
   Icon,
   IconDeviceDesktop,
+  IconLanguage,
   IconMapPin,
   IconMoon,
   IconPaint,
@@ -196,6 +197,31 @@ const SettingsPage = () => {
     }
   ]
 
+  type LanguageConfig = {
+    value: string
+    label: string
+  }
+
+  const languageConfig: LanguageConfig[] = [
+    {
+      value: 'zh-TW',
+      label: '繁體中文'
+    },
+    {
+      value: 'en',
+      label: 'English'
+    },
+    {
+      value: 'ja',
+      label: '日本語'
+    }
+  ]
+  const [language, setLanguage] = React.useState('zh-TW')
+
+  const handleLanguage = (language: string) => {
+    setLanguage(language)
+  }
+
   return (
     <>
       {/* 跟隨系統 明亮模式 暗黑模式 */}
@@ -221,6 +247,24 @@ const SettingsPage = () => {
                       <item.icon className={item.color} />
                       {item.label}
                     </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <IconLanguage className='stroke-green-500' />
+              語言
+            </div>
+            <Select value={language} onValueChange={(value) => handleLanguage(value)}>
+              <SelectTrigger className='w-40'>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {languageConfig.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    {item.label}
                   </SelectItem>
                 ))}
               </SelectContent>

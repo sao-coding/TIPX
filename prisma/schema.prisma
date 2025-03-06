@@ -24,10 +24,11 @@ model User {
 
 model UserSettings {
   id       String  @id @default(nanoid())
-  theme    String
-  location Boolean
-  avatar   String
-  banner   String
+  theme    Theme   @default(system)
+  location Boolean @default(false)
+  language String  @default("zh-TW") @db.VarChar(5)
+  avatar   String  @default("")
+  banner   String  @default("")
   userId   String  @unique
   user     User    @relation(fields: [userId], references: [id])
 }
@@ -91,4 +92,10 @@ enum UserRole {
   SUPER_ADMIN
   ADMIN
   USER
+}
+
+enum Theme {
+  system
+  light
+  dark
 }

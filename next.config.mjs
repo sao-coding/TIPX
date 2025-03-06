@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 import withPWAInit from '@ducanh2912/next-pwa'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const withPWA = withPWAInit({
   dest: 'public'
@@ -20,4 +21,5 @@ const nextConfig = {
   transpilePackages: ['swagger-ui-react', 'swagger-client', 'react-syntax-highlighter']
 }
 
-export default withPWA(nextConfig)
+const withNextIntl = createNextIntlPlugin()
+export default withPWA(withNextIntl(nextConfig))

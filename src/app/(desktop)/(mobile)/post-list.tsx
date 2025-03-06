@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 import { useInView } from 'react-intersection-observer'
 
 import Title from '@/components/Title'
@@ -28,7 +29,6 @@ const Loading = () => {
 // 設定 Tabs 可以透過手勢滑動切換分頁
 const PostList = () => {
   const { ref, inView } = useInView()
-  const limit = 10
 
   const [position, setPosition] = React.useState({
     x: 0,
@@ -37,7 +37,8 @@ const PostList = () => {
 
   const [mode, setMode] = React.useState<'inside' | 'outside' | 'sticky'>('inside')
   const [exclude, setExclude] = React.useState<'sticky' | 'inside' | 'outside' | ''>('sticky')
-
+  const t = useTranslations('HomePage')
+  const limit = 10
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
     Announcement[]
   >({
@@ -98,13 +99,13 @@ const PostList = () => {
   }, [inView, fetchNextPage, hasNextPage])
 
   const TabsListData = [
-    { label: '校內公告', value: 'inside' },
-    { label: '校外公告', value: 'outside' },
-    { label: '置頂公告', value: 'sticky' }
+    { label: t('school-announcement'), value: 'inside' },
+    { label: t('outside-announcement'), value: 'outside' },
+    { label: t('sticky-announcement'), value: 'sticky' }
   ]
 
   const titleData = {
-    title: '學校公告',
+    title: t('title'),
     close: false,
     children: (
       <TabsList className='w-full'>

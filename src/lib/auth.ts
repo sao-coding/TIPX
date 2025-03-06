@@ -112,14 +112,9 @@ const authOptions: NextAuthOptions = {
               }
             })
             console.log('使用者新增成功', newUser)
-            userInfo = newUser
             // 新增使用者設定
-            await prisma.userSettings.create({
+            const userSettings = await prisma.userSettings.create({
               data: {
-                theme: 'system',
-                location: false,
-                avatar: '',
-                banner: '',
                 user: {
                   connect: {
                     id: newUser.id
@@ -127,6 +122,13 @@ const authOptions: NextAuthOptions = {
                 }
               }
             })
+            userInfo = {
+              ...newUser,
+              UserSettings: {
+                theme: userSettings.theme,
+                language: userSettings.language
+              }
+            }
             console.log('使用者設定新增成功')
           } else {
             console.log('使用者已存在', existUser)
@@ -137,6 +139,14 @@ const authOptions: NextAuthOptions = {
               },
               data: {
                 updatedAt: new Date()
+              },
+              include: {
+                UserSettings: {
+                  select: {
+                    theme: true,
+                    language: true
+                  }
+                }
               }
             })
           }
@@ -171,6 +181,10 @@ const authOptions: NextAuthOptions = {
 
           cookies().set('accessToken', accessToken, {
             maxAge: 7 * 24 * 60 * 60
+          })
+
+          cookies().set('language', userInfo.UserSettings?.language || 'zh-TW', {
+            maxAge: 999 * 24 * 60 * 60
           })
 
           // header set-cookie: refreshToken

@@ -1,0 +1,40 @@
+{
+  "LoginPage": {
+    "description": "學生資訊系統",
+    "login": "登入"
+  },
+  "HomePage": {
+    "title": "學校公告",
+    "school-announcement": "校內公告",
+    "outside-announcement": "校外公告",
+    "sticky-announcement": "置頂公告"
+  },
+  "Menu": {
+    "home": "首頁",
+    "timetable": "課表",
+    "course": "課程",
+    "box": "資源",
+    "takming-forum": "德明論壇",
+    "search": "查尋用戶",
+    "log": "日誌中心",
+    "about": "個人資料",
+    "leave": "線上請假",
+    "attendance-record": "缺曠紀錄",
+    "sem-grade": "科目成績",
+    "graduation-standard": "畢業標準",
+    "class-list": "班級名單",
+    "class-rank": "班級排名",
+    "dept-rank": "系排名",
+    "comment": "留言板",
+    "git-log": "更新日誌",
+    "history-info": "歷史資訊",
+    "credit": "學分資訊",
+    "final-grade": "學期-操行成績",
+    "site-analytics": "網站數據統計",
+    "uptime-monitor": "網站運行狀態",
+    "settings": "設定",
+    "info": "關於",
+    "report": "回報問題",
+    "logout": "登出"
+  }
+}

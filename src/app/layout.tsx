@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { getServerSession } from 'next-auth'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from 'react-hot-toast'
@@ -80,9 +82,14 @@ export default async function RootLayout({
   modal: React.ReactNode
 }>) {
   const session = await getServerSession(authOptions)
+  const locale = await getLocale()
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages()
   return (
     // ThemeProvider 需使用 suppressHydrationWarning
-    <html lang='zh-Hant-TW' suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {/* 正式環境 才用 */}
         {process.env.NODE_ENV === 'production' && <LogLib />}
@@ -90,10 +97,12 @@ export default async function RootLayout({
       <body>
         <ThemeProvider attribute='class' disableTransitionOnChange>
           <NuqsAdapter>
-            <Providers session={session}>
-              {children}
-              {modal}
-            </Providers>
+            <NextIntlClientProvider messages={messages}>
+              <Providers session={session}>
+                {children}
+                {modal}
+              </Providers>
+            </NextIntlClientProvider>
           </NuqsAdapter>
         </ThemeProvider>
         <Toaster />

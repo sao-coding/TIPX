@@ -1,0 +1,40 @@
+{
+  "LoginPage": {
+    "description": "学生情報システム",
+    "login": "ログイン"
+  },
+  "HomePage": {
+    "title": "お知らせ",
+    "school-announcement": "校内",
+    "outside-announcement": "校外",
+    "sticky-announcement": "固定"
+  },
+  "Menu": {
+    "home": "ホームページ",
+    "timetable": "時間割",
+    "course": "コース",
+    "box": "リソース",
+    "takming-forum": "Takmingフォーラム",
+    "search": "ユーザー検索",
+    "log": "ログセンター",
+    "about": "プロフィール",
+    "leave": "オンライン休暇申請",
+    "attendance-record": "出欠記録",
+    "sem-grade": "科目成績",
+    "graduation-standard": "卒業基準",
+    "class-list": "クラス名簿",
+    "class-rank": "クラス順位",
+    "dept-rank": "学科順位",
+    "comment": "掲示板",
+    "git-log": "更新ログ",
+    "history-info": "履歴情報",
+    "credit": "単位情報",
+    "final-grade": "学期-行動成績",
+    "site-analytics": "サイト統計",
+    "uptime-monitor": "サイト稼働状況",
+    "settings": "設定",
+    "info": "当サイトについて",
+    "report": "問題を報告",
+    "logout": "ログアウト"
+  }
+}

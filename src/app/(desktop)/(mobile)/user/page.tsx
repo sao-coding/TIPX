@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import clsx from 'clsx'
 
 import Switch from '@/components/LeftSidebar/switch'
@@ -41,6 +42,7 @@ const getUserData = async () => {
 }
 
 const UserPage = async () => {
+  const t = await getTranslations('Menu')
   const { user, color, userClassName, role, settings } = await getUserData()
 
   return (
@@ -54,6 +56,7 @@ const UserPage = async () => {
             id: '',
             theme: 'system',
             location: false,
+            language: '',
             avatar: '',
             banner: '',
             userId: ''
@@ -69,8 +72,8 @@ const UserPage = async () => {
               // 跳過 index 0 的一般資訊
               index > 0 &&
               group.links.map((link, _) =>
-                (link.text === '查詢用戶' && role === 'USER') ||
-                (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
+                (link.key === 'search' && role === 'USER') ||
+                (link.key === 'log' && role !== 'SUPER_ADMIN') ? null : (
                   <li key={_}>
                     <Link
                       href={link.href}
@@ -78,7 +81,7 @@ const UserPage = async () => {
                     >
                       <div className='flex items-center gap-2'>
                         <link.icon className={clsx(link.color, link.className)} />
-                        <span>{link.text}</span>
+                        <span>{t(link.key)}</span>
                       </div>
                     </Link>
                   </li>

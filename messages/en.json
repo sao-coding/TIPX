@@ -1,0 +1,34 @@
+{
+  "LoginPage": {
+    "description": "Student Information System",
+    "login": "Login"
+  },
+  "Menu": {
+    "home": "Home",
+    "timetable": "Timetable",
+    "course": "Course",
+    "box": "Resource",
+    "takming-forum": "Takming Forum",
+    "search": "Search User",
+    "log": "Log Center",
+    "about": "Profile",
+    "leave": "Online Leave",
+    "attendance-record": "Attendance Record",
+    "sem-grade": "Semester Grade",
+    "graduation-standard": "Graduation Standard",
+    "class-list": "Class List",
+    "class-rank": "Class Rank",
+    "dept-rank": "Department Rank",
+    "comment": "Comment",
+    "git-log": "Update Log",
+    "history-info": "History Info",
+    "credit": "Credit Info",
+    "final-grade": "Grades",
+    "site-analytics": "Site Analytics",
+    "uptime-monitor": "Uptime Monitor",
+    "settings": "Settings",
+    "info": "About",
+    "report": "Report Issue",
+    "logout": "Logout"
+  }
+}
