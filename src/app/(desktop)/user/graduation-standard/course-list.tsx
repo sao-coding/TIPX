@@ -216,8 +216,8 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
         </div>
 
         <div className='mt-4 flex items-center gap-2'>
-          <div className='relative flex-1'>
-            <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
+          <div className='relative flex flex-1 items-center'>
+            <Search className='absolute left-2.5 h-4 w-4 text-muted-foreground' />
             <Input
               placeholder='搜尋課程名稱或類別...'
               value={searchTerm}
