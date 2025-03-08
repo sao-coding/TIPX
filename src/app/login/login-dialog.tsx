@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import {
   Dialog,
   DialogContent,
@@ -10,15 +12,19 @@ import {
 import LoginForm from './login-form'
 
 const LoginDialog = () => {
+  const t = useTranslations('LoginPage.login-dialog')
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='w-full rounded-full bg-primary px-2 py-1 text-white'>登入</button>
+        <button className='w-full rounded-full bg-primary px-2 py-1 text-white'>
+          {t('login')}
+        </button>
       </DialogTrigger>
       <DialogContent className='w-11/12 max-w-[425px] rounded-lg md:w-full'>
         <DialogHeader>
           <DialogTitle>TIPX</DialogTitle>
-          <DialogDescription>登入以繼續使用TIPX</DialogDescription>
+          <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
         <LoginForm />
       </DialogContent>

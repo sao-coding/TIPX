@@ -3,6 +3,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import isUaWebView from 'is-ua-webview'
 import Cookies from 'js-cookie'
 import toast, { useToasterStore } from 'react-hot-toast'
@@ -22,6 +23,8 @@ const LoginForm = () => {
   const [loading, setLoading] = React.useState(false)
   const [isWebView, setIsWebView] = React.useState<boolean | null>(null)
   const pathname = searchParams.get('redirect') || '/'
+
+  const t = useTranslations('LoginPage.login-dialog')
 
   const { toasts } = useToasterStore()
   const TOAST_LIMIT = 2
@@ -57,16 +60,16 @@ const LoginForm = () => {
     const authCode = (document.querySelector('#auth-code') as HTMLInputElement)?.value
 
     if (userId === '') {
-      toast.error('請輸入學號')
+      toast.error(t('toast.student-id-required'))
       return
     }
 
     if (authCode === '') {
-      toast.error('請輸入授權碼')
+      toast.error(t('toast.auth-code-required'))
       return
     }
 
-    const toastId = toast.loading('登入中...')
+    const toastId = toast.loading(t('toast.login-loading'))
     const status = await signIn('credentials', {
       redirect: false,
       userId,
@@ -74,12 +77,12 @@ const LoginForm = () => {
     })
 
     if (status?.error) {
-      toast.error('授權碼錯誤', { id: toastId })
+      toast.error(t('toast.auth-code-wrong'), { id: toastId })
     } else {
       const userSettings = await login(Cookies.get('accessToken') || '')
       console.log('userSettings', userSettings)
       localStorage.setItem('theme', userSettings?.theme || 'system')
-      toast.success('登入成功', { id: toastId })
+      toast.success(t('toast.login-success'), { id: toastId })
       // 延遲1秒跳轉
       setTimeout(() => {
         window.location.href = pathname
@@ -92,14 +95,14 @@ const LoginForm = () => {
       <div className='grid gap-4'>
         <form onSubmit={fetchLogin} className='grid gap-4'>
           <div className='grid gap-3'>
-            <Label htmlFor='user-id'>學號</Label>
+            <Label htmlFor='user-id'>{t('student-id')}</Label>
             <Input id='user-id' />
           </div>
           <div className='grid gap-3'>
             <Label htmlFor='auth-code' className='flex items-center gap-2'>
-              授權碼
+              {t('auth-code')}
               <span className='line-clamp-1 flex-1 text-xs text-muted-foreground'>
-                一般人 請使用學校提供的 Google 帳號登入
+                {t('auth-code-description')}
               </span>
             </Label>
             <Input id='auth-code' />
@@ -114,11 +117,11 @@ const LoginForm = () => {
               }}
             />
             <Label htmlFor='keep-login' className='text-xs text-gray-400'>
-              保持登入
+              {t('keep-login')}
             </Label>
           </div>
           <Button type='submit' className='w-full'>
-            登入
+            {t('login')}
           </Button>
         </form>
         {isWebView === null ? (
@@ -129,9 +132,9 @@ const LoginForm = () => {
           <>
             {isWebView ? (
               <p className='text-center text-gray-500'>
-                Google 登入無法在 WebView 中使用
+                {t('not-support-webview')}
                 <br />
-                <span className='text-red-500'>請開啟 Chrome 或 Safari 進行登入</span>
+                <span className='text-red-500'>{t('not-support-webview-warning')}</span>
               </p>
             ) : (
               <Button
@@ -151,7 +154,7 @@ const LoginForm = () => {
                 ) : (
                   <IconBrandGoogle size={20} className='mx-1' />
                 )}
-                使用 Google 登入
+                {t('login-with-google')}
               </Button>
             )}
           </>

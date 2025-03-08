@@ -114,7 +114,7 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
         <div className='flex space-x-4'>
           <Card className='w-1/2'>
             <CardHeader>
-              <CardDescription>使用者</CardDescription>
+              <CardDescription>{t('user-count')}</CardDescription>
               <CardTitle>
                 <UserCount />
               </CardTitle>
@@ -122,7 +122,7 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
           </Card>
           <Card className='w-1/2'>
             <CardHeader>
-              <CardDescription>今日活躍</CardDescription>
+              <CardDescription>{t('today-count')}</CardDescription>
               <CardTitle>
                 <TodayCount />
               </CardTitle>
@@ -138,7 +138,7 @@ const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } 
       <div className='relative bottom-0 right-0 top-0 mx-auto mb-4 w-11/12 sm:w-[400px] lg:fixed lg:right-16 lg:w-[450px] lg:py-36 dpi-125:pb-2'>
         <div className='flex h-96 flex-col rounded-lg bg-card md:h-[50vh] lg:h-full'>
           <div className='border-b p-6 text-2xl font-semibold leading-none tracking-tight'>
-            學校公告
+            {t('school-announcement')}
           </div>
           <Announcement />
         </div>

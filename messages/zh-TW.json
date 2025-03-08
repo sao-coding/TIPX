@@ -1,7 +1,28 @@
 {
   "LoginPage": {
     "description": "學生資訊系統",
-    "login": "登入"
+    "login": "登入",
+    "login-dialog": {
+      "description": "登入以繼續使用TIPX",
+      "student-id": "學號",
+      "auth-code": "授權碼",
+      "auth-code-description": "一般人 請使用學校提供的 Google 帳號登入",
+      "keep-login": "保持登入",
+      "login": "登入",
+      "login-with-google": "使用 Google 登入",
+      "not-support-webview": "Google 登入無法在 WebView 中使用",
+      "not-support-webview-warning": "請開啟 Chrome 或 Safari 進行登入",
+      "toast": {
+        "student-id-required": "請輸入學號",
+        "auth-code-required": "請輸入授權碼",
+        "login-loading": "登入中...",
+        "login-success": "登入成功",
+        "auth-code-wrong": "授權碼錯誤"
+      }
+    },
+    "user-count": "使用者",
+    "today-count": "今日活躍",
+    "school-announcement": "學校公告"
   },
   "HomePage": {
     "title": "學校公告",

@@ -1,7 +1,28 @@
 {
   "LoginPage": {
     "description": "学生情報システム",
-    "login": "ログイン"
+    "login": "ログイン",
+    "login-dialog": {
+      "description": "TIPXの使用を続けるにはログインしてください",
+      "student-id": "学生番号",
+      "auth-code": "認証コード",
+      "auth-code-description": "一般の方は、学校が提供する Google アカウントでログインしてください",
+      "keep-login": "ログイン状態を保持",
+      "login": "ログイン",
+      "login-with-google": "Google でログイン",
+      "not-support-webview": "WebViewではGoogleログインはサポートされていません",
+      "not-support-webview-warning": "Chrome または Safari を開いてログインしてください",
+      "toast": {
+        "student-id-required": "学生番号を入力してください",
+        "auth-code-required": "認証コードを入力してください",
+        "login-loading": "ログイン中...",
+        "login-success": "ログイン成功",
+        "auth-code-wrong": "認証コードが間違っています"
+      }
+    },
+    "user-count": "ユーザー",
+    "today-count": "今日のアクティブ",
+    "school-announcement": "学校のお知らせ"
   },
   "HomePage": {
     "title": "お知らせ",
