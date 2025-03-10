@@ -10,16 +10,7 @@ const Close = ({ className, children }: { className?: string; children?: React.R
   const router = useRouter()
 
   const handleBack = () => {
-    console.log(
-      'window.判斷是否用google的返回',
-      window.history.state.__PRIVATE_NEXTJS_INTERNALS_TREE[1].children[1].children[1].children[1]
-        .children[3]
-    )
-    if (
-      window.history.length < 2 ||
-      window.history.state.__PRIVATE_NEXTJS_INTERNALS_TREE[1].children[1].children[1].children[1]
-        .children[3] === 'refresh'
-    ) {
+    if (window.history.length < 2) {
       router.push('/')
     } else {
       router.back()
