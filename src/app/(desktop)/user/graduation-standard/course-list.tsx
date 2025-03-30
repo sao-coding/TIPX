@@ -8,7 +8,7 @@ import {
   Calendar,
   Filter,
   Layers,
-  Search,
+  SearchIcon,
   Tag,
   X
 } from 'lucide-react'
@@ -217,7 +217,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
 
         <div className='mt-4 flex items-center gap-2'>
           <div className='relative flex flex-1 items-center'>
-            <Search className='absolute left-2.5 h-4 w-4 text-muted-foreground' />
+            <SearchIcon className='absolute left-2.5 h-4 w-4 text-muted-foreground' />
             <Input
               placeholder='搜尋課程名稱或類別...'
               value={searchTerm}
