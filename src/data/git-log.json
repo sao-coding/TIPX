@@ -1,5 +1,53 @@
 [
   {
+    "subject": "⬆️ 更新 package.json 中多個依賴的版本",
+    "date": "2025-03-31T15:41:07.000Z",
+    "hash": "0278c3f91fcd4ccfae900b4daf8245b1ef08699e",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復 package.json 中 prisma 依賴的版本",
+    "date": "2025-03-30T15:10:17.000Z",
+    "hash": "589b873fd5fd52e796cf426b1bafa601a6c73c0e",
+    "body": ""
+  },
+  {
+    "subject": "💩 修改 SearchIcon 命名",
+    "date": "2025-03-30T15:10:10.000Z",
+    "hash": "7ec744c1d0b4b52e845a01f4c4934cc2aa7bd477",
+    "body": ""
+  },
+  {
+    "subject": "🐛 復原返回按鈕邏輯",
+    "date": "2025-03-10T14:18:20.000Z",
+    "hash": "f0cb75f5b59f542b108a31fd69c5d3488a8b8d8e",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正返回按鈕的歷史判斷邏輯",
+    "date": "2025-03-10T14:00:58.000Z",
+    "hash": "be9bf0a28aaf8d19443eeb804378b3dce58f23c5",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復課程搜尋欄位的樣式",
+    "date": "2025-03-06T17:30:23.000Z",
+    "hash": "8442c4133066295f5ac28168cf977cb1e04cab51",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復課程搜尋欄位的樣式",
+    "date": "2025-03-06T17:28:08.000Z",
+    "hash": "ec226974c70784a6c92555284e5b3b7f028cf4dd",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-03-03T14:36:13.000Z",
+    "hash": "d5924df83121b0a7227ecac681f2d2651f8eb0c1",
+    "body": ""
+  },
+  {
     "subject": "✨ 新增「僅顯示不及格課程」篩選功能，更新課程列表篩選邏輯",
     "date": "2025-03-03T14:35:19.000Z",
     "hash": "918cb29f502a83ef3c3e72ddd886e836dfd1d566",
