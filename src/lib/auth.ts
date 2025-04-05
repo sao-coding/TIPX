@@ -99,6 +99,30 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === 'google') {
         if (profile) {
           let userInfo
+          // 使用正則表達式來檢查
+          // # 部別	代碼
+          // # 日四技	D
+          // # 日二技	C
+          // # 進二技	M
+          // # 進四技	N
+          // # 日四技外籍專班 K
+          // # 日四技春季專班 S
+          // # 推廣教育系 Y
+          // D9919139
+          // D11019139
+
+          // 英文字後面至少要有 7 碼數字
+          const studentIdRegex = /^[A-Z]{1}[0-9]{7,}$/
+
+          // 判斷 userId 是否符合學號格式
+          const isStudentId = studentIdRegex.test(userId)
+          // console.log('isStudentId', userId, isStudentId)
+
+          if (!isStudentId) {
+            // 如果不是學生，則不允許登入
+            // console.log('不是學生，無法登入')
+            return false
+          }
 
           if (!existUser) {
             const newUser = await prisma.user.create({
