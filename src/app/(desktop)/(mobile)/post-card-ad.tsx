@@ -22,7 +22,7 @@ const PostCardAd = () => {
   }, [])
 
   return (
-    <div className='my-4 flex justify-center border-b border-background3' ref={adRef}>
+    <div className='flex justify-center border-b border-background3' ref={adRef}>
       <div className='min-w-full'>
         <ins
           className='adsbygoogle'
