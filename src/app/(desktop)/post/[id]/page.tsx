@@ -4,7 +4,13 @@ import Ads from '@/components/Ads'
 import Close from '@/components/Close'
 import { Post } from '@/types'
 import getPost from '@/utils/post'
-import { IconCalendarOff, IconCalendarTime } from '@tabler/icons-react'
+import {
+  IconCalendarOff,
+  IconCalendarTime,
+  IconDownload,
+  IconLink,
+  IconPaperclip
+} from '@tabler/icons-react'
 
 const PostPage = async ({ params }: { params: { id: string } }) => {
   const post = (await getPost('one', Number(params.id))) as Post
@@ -55,6 +61,39 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
             >
               來源: <span className='text-blue-500'>德明 TIP</span>
             </a>
+          </div>
+          <div className='mt-1 rounded-xl border-2 border-dashed p-1 md:h-[10vh] md:overflow-y-auto md:border md:border-solid'>
+            {(post.file?.length ?? 0 > 0) ? (
+              <>
+                {post.file.map((item) => (
+                  <div key={item.title} className='flex items-center'>
+                    <IconPaperclip size={20} />
+                    <div className='pl-1'>{item.title}</div>
+                    <a href={item.link} target='_blank' rel='noreferrer' className='p-1'>
+                      <IconDownload className='bg-main-color-1 rounded-md p-1' />
+                    </a>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className='flex items-center'>
+                <IconPaperclip size={20} />
+                <div className='pl-1 text-gray-500'>沒有附件</div>
+              </div>
+            )}
+            {post.link ? (
+              <div className='flex items-center'>
+                <IconLink size={20} />
+                <a href={post.link} target='_blank' rel='noreferrer' className='pl-1 text-blue-500'>
+                  點及此處前往
+                </a>
+              </div>
+            ) : (
+              <div className='flex items-center'>
+                <IconLink size={20} />
+                <div className='pl-1 text-gray-500'>沒有連結</div>
+              </div>
+            )}
           </div>
         </>
       )}
