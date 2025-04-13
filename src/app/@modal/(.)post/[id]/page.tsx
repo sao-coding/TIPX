@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
+import Ads from '@/components/Ads'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
@@ -100,6 +101,12 @@ const PostModal = ({ params }: { params: { id: string } }) => {
                   </div>
                 </div>
                 <div className='whitespace-pre-line break-words md:p-1'>{data?.content}</div>
+                <Ads
+                  dataAdFormat='fluid'
+                  dataAdLayoutKey='-fb+5w+4e-db+86'
+                  dataAdClient='ca-pub-2271001084588765'
+                  dataAdSlot='9510191337'
+                />
                 <div className='flex w-full justify-end gap-2'>
                   <a
                     href={`https://netinfo.takming.edu.tw/tip/post/post_OneShow.php?SerialItem=${data?.id}`}

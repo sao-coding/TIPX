@@ -11,7 +11,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDrag } from '@use-gesture/react'
 
 import PostCard from './post-card'
-import AdComponent from './post-card-ad'
+import PostCardAd from './post-card-ad'
 
 const Loading = () => {
   return (
@@ -138,7 +138,7 @@ const PostList = () => {
       if ((index + 1) % 5 === 0 && index !== posts.length - 1) {
         postsWithAds.push(
           <React.Fragment key={`ad-${index}`}>
-            <AdComponent />
+            <PostCardAd />
           </React.Fragment>
         )
       }

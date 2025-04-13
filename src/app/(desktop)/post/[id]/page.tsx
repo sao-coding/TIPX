@@ -1,5 +1,6 @@
 import { X } from 'lucide-react'
 
+import Ads from '@/components/Ads'
 import Close from '@/components/Close'
 import { Post } from '@/types'
 import getPost from '@/utils/post'
@@ -39,7 +40,13 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
           </div>
-          <p className='whitespace-pre-line break-words'>{post.content}</p>
+          <div className='whitespace-pre-line break-words'>{post.content}</div>
+          <Ads
+            dataAdFormat='fluid'
+            dataAdLayoutKey='-fb+5w+4e-db+86'
+            dataAdClient='ca-pub-2271001084588765'
+            dataAdSlot='9510191337'
+          />
           <div className='flex w-full justify-end'>
             <a
               href={`https://netinfo.takming.edu.tw/tip/post/post_OneShow.php?SerialItem=${post.id}`}
