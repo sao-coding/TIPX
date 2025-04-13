@@ -11,7 +11,7 @@ declare global {
 type AdsProps = {
   className?: string
   dataAdFormat: string
-  dataAdLayoutKey: string
+  dataAdLayoutKey?: string
   dataAdClient: string
   dataAdSlot: string
 }
