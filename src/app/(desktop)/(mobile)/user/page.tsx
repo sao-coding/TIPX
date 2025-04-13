@@ -91,6 +91,7 @@ const UserPage = async () => {
           </li>
         </ul>
         <Ads
+          className='mt-2'
           dataAdFormat='autorelaxed'
           dataAdClient='ca-pub-2271001084588765'
           dataAdSlot='6194124244'
