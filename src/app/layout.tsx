@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { getServerSession } from 'next-auth'
 import { ThemeProvider } from 'next-themes'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
@@ -86,6 +87,11 @@ export default async function RootLayout({
       <head>
         {/* 正式環境 才用 */}
         {process.env.NODE_ENV === 'production' && <LogLib />}
+        <Script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2271001084588765'
+          crossOrigin='anonymous'
+        />
       </head>
       <body>
         <ThemeProvider attribute='class' disableTransitionOnChange>
