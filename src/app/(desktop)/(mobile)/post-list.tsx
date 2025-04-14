@@ -135,7 +135,7 @@ const PostList = () => {
       )
 
       // 每五篇文章後添加一個廣告
-      if ((index + 1) % 5 === 0 && index !== posts.length - 1) {
+      if ((index + 1) % 5 === 0) {
         postsWithAds.push(
           <React.Fragment key={`ad-${index}`}>
             <PostCardAd />
