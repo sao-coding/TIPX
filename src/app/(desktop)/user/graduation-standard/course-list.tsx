@@ -228,7 +228,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
               <Button
                 variant='ghost'
                 size='sm'
-                className='absolute right-0 top-0 h-9 w-9 p-0'
+                className='absolute right-0 h-9 w-9 p-0'
                 onClick={() => setSearchTerm('')}
               >
                 <X className='h-4 w-4' />
