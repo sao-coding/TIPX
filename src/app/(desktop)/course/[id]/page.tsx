@@ -3,6 +3,7 @@
 import React from 'react'
 import { parseAsString, useQueryState } from 'nuqs'
 
+import Ads from '@/components/Ads'
 import Close from '@/components/Close'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -76,6 +77,12 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         {TabsListData.map((item) => (
           <TabsContent key={item.value} value={item.value}>
             {item.component}
+            <Ads
+              className='mt-2'
+              dataAdFormat='autorelaxed'
+              dataAdClient='ca-pub-2271001084588765'
+              dataAdSlot='6194124244'
+            />
           </TabsContent>
         ))}
       </Tabs>
