@@ -5,6 +5,7 @@ import Link from 'next/link'
 // import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 
+import Ads from '@/components/Ads'
 // import api from '@/lib/api'
 import { TimeTable } from '@/types'
 import { useToPng } from '@hugocxl/react-to-image'
@@ -152,6 +153,12 @@ const MobileTimeTable = ({ timetable }: { timetable: TimeTable[] }) => {
             </div>
           </div>
         </div>
+        <Ads
+          className='mt-2'
+          dataAdFormat='autorelaxed'
+          dataAdClient='ca-pub-2271001084588765'
+          dataAdSlot='6194124244'
+        />
       </div>
     </>
   )
