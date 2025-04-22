@@ -1,8 +1,0 @@
-onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - esbuild
-  - prisma
-  - protobufjs
-  - sharp
-  - ttf2woff2
