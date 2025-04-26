@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import Cookies from 'js-cookie'
 
+import Ads from '@/components/Ads'
 import Title from '@/components/Title'
 import { Skeleton } from '@/components/ui/skeleton'
 import api from '@/lib/api'
@@ -66,6 +67,12 @@ const CourseListPage = () => {
                 //   </ScaleTransitionView>
               ))}
         </div>
+        <Ads
+          className='mt-2'
+          dataAdFormat='autorelaxed'
+          dataAdClient='ca-pub-2271001084588765'
+          dataAdSlot='6194124244'
+        />
       </div>
     </>
   )

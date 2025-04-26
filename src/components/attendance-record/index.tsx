@@ -10,6 +10,8 @@ import api from '@/lib/api'
 import { CourseAttendanceRecord } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
+import Ads from '../Ads'
+
 import Card from './card'
 
 // 參數 params: { id: string } 可以不用有 沒有就是全部
@@ -108,6 +110,11 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
             .map((item, index) => <Card key={index} data={item} />)}
         </div>
       )}
+      <Ads
+        dataAdFormat='autorelaxed'
+        dataAdClient='ca-pub-2271001084588765'
+        dataAdSlot='6194124244'
+      />
     </div>
   )
 }

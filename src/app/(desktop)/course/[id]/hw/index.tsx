@@ -1,7 +1,10 @@
 'use client'
 
+import React from 'react'
 import Cookies from 'js-cookie'
 
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import Loading from '@/components/ui/Loading'
 import api from '@/lib/api'
 import { Hw } from '@/types'
@@ -11,12 +14,13 @@ import { useQuery } from '@tanstack/react-query'
 import Card from './card'
 
 const HwPage = ({ params }: { params: { id: string } }) => {
-  console.log(params.id)
+  const [status, setStatus] = React.useState(false)
 
   const { data, isLoading } = useQuery({
     queryKey: ['hw', params.id],
     queryFn: async () => {
       const { data } = await api.get(`hw?course=${params.id}`)
+      setStatus(data.status === '段考期間')
       return data
     },
     refetchOnWindowFocus: false
@@ -38,7 +42,23 @@ const HwPage = ({ params }: { params: { id: string } }) => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className='overflow-hidden md:rounded-lg md:bg-background1'>
+        <div className='relative overflow-hidden rounded-lg md:bg-background1'>
+          {status && (
+            <div className='absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-white/20 backdrop-blur-sm dark:bg-black/50'>
+              <Badge className='text-base' variant='secondary'>
+                {data.msg}
+              </Badge>
+              <Button
+                variant='outline'
+                className='h-auto px-3 py-1'
+                onClick={() => {
+                  setStatus(false)
+                }}
+              >
+                關閉
+              </Button>
+            </div>
+          )}
           {data.data.length > 0 && (
             <>
               {data.data.map((item: Hw, index: number) => (

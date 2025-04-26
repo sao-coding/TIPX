@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import clsx from 'clsx'
 
+import Ads from '@/components/Ads'
 import Switch from '@/components/LeftSidebar/switch'
 import { USER_LINKS } from '@/config/links'
 import { prisma } from '@/lib/prisma'
@@ -92,6 +93,12 @@ const UserPage = async () => {
             <Logout />
           </li>
         </ul>
+        <Ads
+          className='mt-2'
+          dataAdFormat='autorelaxed'
+          dataAdClient='ca-pub-2271001084588765'
+          dataAdSlot='6194124244'
+        />
       </div>
     </div>
   )

@@ -12,6 +12,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDrag } from '@use-gesture/react'
 
 import PostCard from './post-card'
+import PostCardAd from './post-card-ad'
 
 const Loading = () => {
   return (
@@ -118,6 +119,35 @@ const PostList = () => {
     )
   }
 
+  // 新增一個渲染帖子列表的函數，包含廣告
+  const renderPostsWithAds = (posts: Announcement[]) => {
+    const postsWithAds: JSX.Element[] = []
+
+    posts.forEach((post, index) => {
+      // 添加文章
+      postsWithAds.push(
+        <React.Fragment key={post.id}>
+          {index === posts.length - 1 ? (
+            <PostCard ref={ref} post={post} />
+          ) : (
+            <PostCard post={post} />
+          )}
+        </React.Fragment>
+      )
+
+      // 每五篇文章後添加一個廣告
+      if ((index + 1) % 5 === 0) {
+        postsWithAds.push(
+          <React.Fragment key={`ad-${index}`}>
+            <PostCardAd />
+          </React.Fragment>
+        )
+      }
+    })
+
+    return postsWithAds
+  }
+
   return (
     <>
       <div className='sticky top-0 z-10 hidden items-center gap-2'>
@@ -131,35 +161,11 @@ const PostList = () => {
           setExclude(value === 'inside' ? 'sticky' : value === 'outside' ? 'sticky' : '')
         }}
       >
-        {/* <div className='mb-2 flex flex-col items-center gap-3 md:flex-row'>
-          <h1 className='w-full text-center text-2xl font-bold md:text-left'>學校公告</h1>
-          <TabsList className='w-full'>
-            {TabsListData.map((item) => (
-              <TabsTrigger key={item.value} value={item.value} className='w-full'>
-                {item.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </div> */}
         <Title {...titleData} />
         <div className='touch-manipulation' {...bind()}>
           <TabsContent value='inside'>
             <div className='overflow-hidden md:rounded-lg md:bg-background1'>
-              {isSuccess &&
-                data.pages.map((page: Announcement[]) =>
-                  page.map((data, i) => {
-                    return (
-                      <React.Fragment key={data.id}>
-                        {/* <hr className='block md:hidden' /> */}
-                        {page.length === i + 1 ? (
-                          <PostCard ref={ref} post={data} />
-                        ) : (
-                          <PostCard post={data} />
-                        )}
-                      </React.Fragment>
-                    )
-                  })
-                )}
+              {isSuccess && data.pages.map((page: Announcement[]) => renderPostsWithAds(page))}
               {isFetchingNextPage || !data
                 ? Array.from(Array(10).keys()).map((index) => <Loading key={index} />)
                 : !hasNextPage && (
@@ -169,21 +175,7 @@ const PostList = () => {
           </TabsContent>
           <TabsContent value='outside'>
             <div className='overflow-hidden md:rounded-lg md:bg-background1'>
-              {isSuccess &&
-                data.pages.map((page: Announcement[]) =>
-                  page.map((data, i) => {
-                    return (
-                      <React.Fragment key={data.id}>
-                        {/* <hr className='block md:hidden' /> */}
-                        {page.length === i + 1 ? (
-                          <PostCard ref={ref} post={data} />
-                        ) : (
-                          <PostCard post={data} />
-                        )}
-                      </React.Fragment>
-                    )
-                  })
-                )}
+              {isSuccess && data.pages.map((page: Announcement[]) => renderPostsWithAds(page))}
               {isFetchingNextPage || !data
                 ? Array.from(Array(10).keys()).map((index) => <Loading key={index} />)
                 : !hasNextPage && (
@@ -193,21 +185,7 @@ const PostList = () => {
           </TabsContent>
           <TabsContent value='sticky'>
             <div className='overflow-hidden md:rounded-lg md:bg-background1'>
-              {isSuccess &&
-                data.pages.map((page: Announcement[]) =>
-                  page.map((data, i) => {
-                    return (
-                      <React.Fragment key={data.id}>
-                        {/* <hr className='block md:hidden' /> */}
-                        {page.length === i + 1 ? (
-                          <PostCard ref={ref} post={data} />
-                        ) : (
-                          <PostCard post={data} />
-                        )}
-                      </React.Fragment>
-                    )
-                  })
-                )}
+              {isSuccess && data.pages.map((page: Announcement[]) => renderPostsWithAds(page))}
               {isFetchingNextPage || !data
                 ? Array.from(Array(10).keys()).map((index) => <Loading key={index} />)
                 : !hasNextPage && (

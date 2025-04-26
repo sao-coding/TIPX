@@ -1,3 +1,4 @@
+import Ads from '@/components/Ads'
 import { Calendar } from '@/components/ui/calendar'
 
 import HwTool from './hw-tool'
@@ -20,6 +21,11 @@ const RightTool = () => {
           }}
         />
       </div>
+      <Ads
+        dataAdFormat='autorelaxed'
+        dataAdClient='ca-pub-2271001084588765'
+        dataAdSlot='6194124244'
+      />
     </div>
   )
 }
