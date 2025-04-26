@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/drawer'
 import Dropzone from '@/components/ui/dropzone'
 import { useMediaQuery } from '@/hooks/use-media-query'
+import api from '@/lib/api'
 import { Hw } from '@/types'
 import {
   IconCalendarOff,
@@ -33,12 +34,13 @@ import {
   IconSlash,
   IconUpload
 } from '@tabler/icons-react'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
   const [file, setFile] = useState<File | null>(null)
-  const [onDrop, setOnDrop] = useState(false)
   const { toasts } = useToasterStore()
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const queryClient = useQueryClient()
 
   const TOAST_LIMIT = 2
   // Enforce Limit
@@ -77,33 +79,37 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
     window.location.href = hw
   }
   // TODO: 上傳功能實作
-  const upload = async (event: React.FormEvent<HTMLFormElement>, id: string) => {
-    event.preventDefault()
+  const upload = async (id: string) => {
     const toastId = toast.loading('上傳中...')
     const bodyContent = new FormData()
     bodyContent.append('id', id)
     bodyContent.append('userfile', file as Blob)
 
-    const res = await fetch('/api/hw', {
-      method: 'POST',
-      body: bodyContent
-    })
-
-    const json = await res.json()
-    if (json.status === 'success') {
-      toast.success('上傳成功', { id: toastId })
-      // umami.track('作業上傳', {
-      //   data: trackUploadHw(course, data.title)
-      // })
-    } else if (json.status === 'error') {
-      toast.error(json.message, { id: toastId })
-    } else {
+    // const res = await fetch('/api/hw', {
+    //   method: 'POST',
+    //   body: bodyContent
+    // })
+    try {
+      const { data } = await api.post('hw', bodyContent, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      if (data.status === 'success') {
+        toast.success('上傳成功', { id: toastId })
+        // umami.track('作業上傳', {
+        //   data: trackUploadHw(course, data.title)
+        // })
+        queryClient.invalidateQueries({ queryKey: ['hw'] })
+      } else if (data.status === 'error') {
+        toast.error(data.message, { id: toastId })
+      } else {
+        toast.error('上傳失敗', { id: toastId })
+      }
+    } catch (error) {
+      console.error(error)
       toast.error('上傳失敗', { id: toastId })
     }
-  }
-
-  const handleFileChange = (file: File) => {
-    setFile(file)
   }
 
   return (
@@ -189,7 +195,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                       }
                     }}
                   />
-                  <Button>上傳檔案</Button>
+                  <Button onClick={() => upload(data.upload)}>上傳檔案</Button>
                 </DialogContent>
               </Dialog>
             ) : (
@@ -233,7 +239,7 @@ const Card = ({ data, studentID }: { data: Hw; studentID: string }) => {
                     />
                   </div>
                   <DrawerFooter>
-                    <Button>上傳檔案</Button>
+                    <Button onClick={() => upload(data.upload)}>上傳檔案</Button>
                     <DrawerClose asChild>
                       <Button variant='outline'>取消</Button>
                     </DrawerClose>

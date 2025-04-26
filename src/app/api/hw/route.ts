@@ -103,14 +103,14 @@ export const GET = async (req: NextRequest) => {
             start: hwdata1[i][2],
             end: hwdata1[i][3],
             upload: hwdata1[i][4],
-            download: '考試期間不開放本功能',
-            size: '考試期間不開放本功能',
+            download: '段考期間不開放本功能',
+            size: '段考期間不開放本功能',
             status: hwdata1[i][5],
             course: courseName,
             courseId: courseId
           })
         }
-        console.log('於期中考/期末考期間不提供下載功能')
+        console.log('段考期間不提供下載功能')
         // return NextResponse.json({
         //   status: '段考期間',
         //   msg: '於期中考/期末考期間\n不提供下載功能',
@@ -196,7 +196,7 @@ export const GET = async (req: NextRequest) => {
     if (status === 'exam') {
       return NextResponse.json({
         status: '段考期間',
-        msg: '於期中考/期末考期間\n不提供下載功能',
+        msg: '段考期間不提供下載功能',
         data: hwlist
       })
     }
@@ -210,44 +210,119 @@ export const GET = async (req: NextRequest) => {
 }
 
 export const POST = async (req: NextRequest) => {
-  const formData = await req.formData()
-  const id = formData.get('id')
-  const file = formData.get('userfile')
-  // const submit = formData.get("Submit")
+  try {
+    const searchParams = req.nextUrl.searchParams
+    const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
+    const auth = await getAuth(accessToken)
 
-  let bodyContent = new FormData()
-  if (id) {
-    bodyContent.append('id', id)
-  } else {
-    // TODO:使用 fetch status 來判斷是否成功
-    return NextResponse.json({ status: 'error', message: '沒有作業ID' })
-  }
+    // 獲取用戶基本資訊
+    const userid = searchParams.get('userid') ?? auth?.userId
+    const year = searchParams.get('year') ?? cookies().get('year')?.value
+    const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
 
-  if (file && file !== 'null') {
+    if (!userid || !year || !sem) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: '缺少必要的用戶資訊'
+        },
+        { status: 400 }
+      )
+    }
+
+    // 解析表單數據
+    const formData = await req.formData()
+    const id = formData.get('id')
+    const file = formData.get('userfile')
+
+    // 驗證作業ID
+    if (!id) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: '沒有作業ID'
+        },
+        { status: 400 }
+      )
+    }
+
+    // 驗證檔案
+    if (!file || file === 'null' || !(file instanceof File)) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: '沒有檔案或檔案格式錯誤'
+        },
+        { status: 400 }
+      )
+    }
+
+    // 準備要發送的表單數據
+    const bodyContent = new FormData()
+    bodyContent.append('id', id.toString())
     bodyContent.append('userfile', file)
-  } else {
-    // TODO:使用 fetch status 來判斷是否成功
-    return NextResponse.json({ status: 'error', message: '沒有檔案' })
-  }
 
-  const res = await fetch('https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php', {
-    method: 'POST',
-    headers: {
-      cookie: cookies().toString()
-    },
-    body: bodyContent
-  })
+    console.log('上傳資訊:', { userid, year, sem, fileName: file.name })
 
-  if (!res.ok) {
-    // TODO:使用 fetch status 來判斷是否成功
-    return NextResponse.json({ status: 'error', message: '上傳失敗' })
-  }
+    // 發送請求到遠端伺服器
+    const res = await fetch('https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php', {
+      method: 'POST',
+      headers: {
+        cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem};`,
+        Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
+      },
+      body: bodyContent
+    })
 
-  const data = await res.text()
+    // 檢查 HTTP 狀態碼
+    if (!res.ok) {
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: `上傳失敗: HTTP ${res.status}`
+        },
+        { status: res.status }
+      )
+    }
 
-  if (data.includes('File Upload Successful')) {
-    return NextResponse.json({ status: 'success' })
-  } else {
-    return NextResponse.json({ status: 'fail' })
+    // 解析回應內容
+    const data = await res.text()
+
+    // 判斷上傳結果
+    if (data.includes('File Upload Successful')) {
+      return NextResponse.json(
+        {
+          status: 'success',
+          message: '上傳成功',
+          data: {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            lastModified: file.lastModified
+          }
+        },
+        { status: 200 }
+      )
+    } else {
+      // 返回更詳細的失敗信息
+      return NextResponse.json(
+        {
+          status: 'fail',
+          message: '上傳被伺服器拒絕',
+          serverResponse: data
+        },
+        { status: 400 }
+      )
+    }
+  } catch (error) {
+    console.error('作業上傳錯誤:', error)
+    return NextResponse.json(
+      {
+        status: 'error',
+        message: '處理上傳時發生錯誤',
+        error: error instanceof Error ? error.message : '未知錯誤'
+      },
+      { status: 500 }
+    )
   }
 }
