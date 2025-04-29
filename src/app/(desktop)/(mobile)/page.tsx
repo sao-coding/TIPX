@@ -1,4 +1,5 @@
 import PostList from './post-list'
+
 const HomePage = async () => {
   return (
     <>
