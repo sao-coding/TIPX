@@ -29,7 +29,7 @@ api.interceptors.response.use(
         // 附帶 cookie
         const { data } = await axios.get(`${site.url}/api/refresh-token`, {
           headers: {
-            Cookie: cookies().toString()
+            Cookie: (await cookies()).toString()
           }
         })
 

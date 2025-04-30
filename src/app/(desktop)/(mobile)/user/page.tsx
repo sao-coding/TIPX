@@ -17,7 +17,7 @@ import Logout from './logout'
 const getUserData = async () => {
   const { data: user } = await api.get<User>('user', {
     headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value || ''}`
+      Authorization: `Bearer ${(await cookies()).get('accessToken')?.value || ''}`
     }
   })
   const color = await getImgColor(user.img)

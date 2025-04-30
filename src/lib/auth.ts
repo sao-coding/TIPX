@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers'
+import { cookies as cookieStore } from 'next/headers'
 import { NextAuthOptions } from 'next-auth'
 // import type { Adapter } from 'next-auth/adapters'
 import CredentialsProvider from 'next-auth/providers/credentials'
@@ -55,6 +55,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, profile, user }) {
       console.log('account', account, 'profile', profile, 'user', user)
+      const cookies = await cookieStore()
       const userId = user.email?.split('@')[0].toUpperCase() as string
 
       // 檢查使用者是否存在
@@ -79,7 +80,7 @@ const authOptions: NextAuthOptions = {
         )
 
         // set-cookie: refreshToken
-        cookies().set('refreshToken', refreshToken, {
+        cookies.set('refreshToken', refreshToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
@@ -93,7 +94,7 @@ const authOptions: NextAuthOptions = {
           role: existUser?.role || 'USER'
         })
 
-        cookies().set('accessToken', accessToken)
+        cookies.set('accessToken', accessToken)
       }
 
       if (account?.provider === 'google') {
@@ -166,7 +167,7 @@ const authOptions: NextAuthOptions = {
           }
 
           // 從 cookies 取得 no_logout true
-          const keepLogin = cookies().get('cookie_keep_login')?.value === 'true'
+          const keepLogin = cookies.get('cookie_keep_login')?.value === 'true'
 
           const refreshToken = await signJwtToken(
             {
@@ -179,7 +180,7 @@ const authOptions: NextAuthOptions = {
             }
           )
 
-          cookies().set('refreshToken', refreshToken, {
+          cookies.set('refreshToken', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
@@ -193,7 +194,7 @@ const authOptions: NextAuthOptions = {
             role: userInfo.role
           })
 
-          cookies().set('accessToken', accessToken, {
+          cookies.set('accessToken', accessToken, {
             maxAge: 7 * 24 * 60 * 60
           })
 

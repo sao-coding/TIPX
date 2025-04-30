@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers'
+import { cookies as cookieStore } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { signJwtToken, verifyJwt } from '@/lib/jwt'
@@ -34,7 +34,8 @@ export const GET = async (req: NextRequest) => {
       }
     )
 
-    cookies().set('accessToken', accessToken)
+    const cookies = await cookieStore()
+    cookies.set('accessToken', accessToken)
 
     return NextResponse.json({ accessToken })
   } else {

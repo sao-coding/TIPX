@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const accessToken = cookies().get('accessToken')?.value.split('.')[1] || ''
+  const accessToken = (await cookies()).get('accessToken')?.value.split('.')[1] || ''
   const jwtData = JSON.parse(atob(accessToken))
 
   // 取得用戶資料

@@ -24,7 +24,7 @@ import {
 const getUserData = async () => {
   const { data: user } = await api.get<User>('user?type=about', {
     headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value || ''}`
+      Authorization: `Bearer ${(await cookies()).get('accessToken')?.value || ''}`
     }
   })
   const color = await getImgColor(user.img)

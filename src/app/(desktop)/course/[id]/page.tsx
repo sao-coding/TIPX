@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { use } from 'react'
 import { parseAsString, useQueryState } from 'nuqs'
 
 import Ads from '@/components/Ads'
@@ -16,7 +16,8 @@ import CourseInfoPage from './course-info'
 import CourseStuListPage from './course-stu-list'
 import HwPage from './hw'
 
-const CoursePage = ({ params }: { params: { id: string } }) => {
+const CoursePage = (props: { params: Promise<{ id: string }> }) => {
+  const params = use(props.params)
   const { isLoading, data } = useQuery<Course>({
     queryKey: ['course', params.id],
     queryFn: async () => {

@@ -12,7 +12,7 @@ import 'artalk/dist/Artalk.css'
 const ArtalkComment = () => {
   const [Loading, setLoading] = React.useState(true)
   const container = React.useRef<HTMLDivElement>(null)
-  const artalk = React.useRef<Artalk>()
+  const artalk = React.useRef<Artalk | null>(null)
   const pathname = usePathname()
 
   React.useEffect(() => {

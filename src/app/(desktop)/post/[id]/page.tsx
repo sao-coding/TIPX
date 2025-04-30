@@ -12,7 +12,8 @@ import {
   IconPaperclip
 } from '@tabler/icons-react'
 
-const PostPage = async ({ params }: { params: { id: string } }) => {
+const PostPage = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params
   const post = (await getPost('one', Number(params.id))) as Post
 
   return (

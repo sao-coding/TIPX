@@ -14,11 +14,16 @@ import TodayCount from './today-count'
 import UserCount from './user-count'
 
 // layout.tsx 沒辦法接收到 searchParams，所以要在這裡接收
+// export async function generateMetadata(props: {
+//   searchParams: Promise<{ redirect: string }>
+// }): Promise<Metadata> {
 export async function generateMetadata({
   searchParams
 }: {
-  searchParams: { redirect: string }
+  searchParams: Promise<{ redirect: string }>
 }): Promise<Metadata> {
+  const searchParamsx = await searchParams
+  console.log(searchParamsx)
   let data = {
     title: '登入',
     openGraph: {
@@ -33,7 +38,7 @@ export async function generateMetadata({
     }
   }
 
-  switch (searchParams.redirect) {
+  switch (searchParamsx.redirect) {
     case '/':
       data.title = '首頁'
       data.openGraph.images[0].url = 'og.png'
@@ -68,7 +73,7 @@ export async function generateMetadata({
     openGraph: {
       title: data.title,
       description: '學生資訊系統',
-      url: `${site.url}/login?redirect=${searchParams.redirect}`,
+      url: `${site.url}/login?redirect=${searchParamsx.redirect}`,
       images: [
         {
           url: `${site.url}/img/${data.openGraph.images[0].url}`,
@@ -81,7 +86,8 @@ export async function generateMetadata({
   }
 }
 
-const LoginPage = async ({ searchParams }: { searchParams: { redirect: string } }) => {
+const LoginPage = async (props: { searchParams: Promise<{ redirect: string }> }) => {
+  const searchParams = await props.searchParams
   const auth = await loginWithRedirect()
   if (auth) redirect(searchParams.redirect || '/')
 

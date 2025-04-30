@@ -35,8 +35,8 @@ export const GET = async (req: NextRequest) => {
 
   const searchParams = req.nextUrl.searchParams
 
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
 
   const userid = (
     await getTeacher(
@@ -158,8 +158,8 @@ export const POST = async (req: NextRequest) => {
 
   const searchParams = req.nextUrl.searchParams
 
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
 
   const { course, date, count, list } = (await req.json()) as PostRollCall
 
