@@ -1,5 +1,4 @@
-/** @type {import('next').NextConfig} */
-
+import type { NextConfig } from 'next'
 import withPWAInit from '@ducanh2912/next-pwa'
 import createNextIntlPlugin from 'next-intl/plugin'
 
@@ -7,7 +6,7 @@ const withPWA = withPWAInit({
   dest: 'public'
 })
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -15,10 +14,7 @@ const nextConfig = {
       }
     ]
   },
-  experimental: {
-    serverComponentsExternalPackages: ['fontmin']
-  },
-  transpilePackages: ['swagger-ui-react', 'swagger-client', 'react-syntax-highlighter']
+  serverExternalPackages: ['fontmin']
 }
 
 const withNextIntl = createNextIntlPlugin()

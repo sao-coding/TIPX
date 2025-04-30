@@ -10,8 +10,8 @@ export const GET = async (req: NextRequest) => {
 
   const searchParams = req.nextUrl.searchParams
 
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
   const userid = searchParams.get('userid') ?? auth?.userId
 
   const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_setmail.php', {
@@ -78,7 +78,7 @@ export const POST = async (req: NextRequest) => {
   const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_setmail_x.php', {
     method: 'POST',
     headers: {
-      cookie: cookies().toString()
+      cookie: (await cookies()).toString()
     },
     body: bodyContent
   })

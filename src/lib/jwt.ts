@@ -60,7 +60,7 @@ export const verifyJwt = async (token: string, options: JWTVerifyOptions = {}) =
 
     return payload
   } catch (error) {
-    console.error(`verifyJwt 錯誤: ${error}`)
+    // console.error(`verifyJwt 錯誤: ${error}`)
     return null
   }
 }

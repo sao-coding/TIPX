@@ -38,8 +38,8 @@ export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
 
   const userid = searchParams.get('userid') ?? auth?.userId
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
 
   const leaveDate: Leave = {
     start: '',
@@ -233,8 +233,8 @@ export const POST = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
 
   const userid = searchParams.get('userid') ?? auth?.userId
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
 
   const TypeList: { [key: string]: string } = {
     病假: '2',
@@ -300,8 +300,8 @@ export const DELETE = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
 
   const userid = searchParams.get('userid') ?? auth?.userId
-  const year = searchParams.get('year') ?? cookies().get('year')?.value
-  const sem = searchParams.get('sem') ?? cookies().get('sem')?.value
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
+  const sem = searchParams.get('sem') ?? (await cookies()).get('sem')?.value
 
   const { id } = await req.json()
   const res = await fetch(

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, use } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
@@ -19,7 +19,8 @@ import {
 } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 
-const PostModal = ({ params }: { params: { id: string } }) => {
+const PostModal = (props: { params: Promise<{ id: string }> }) => {
+  const params = use(props.params)
   const id = params.id
   const router = useRouter()
   const path = usePathname()

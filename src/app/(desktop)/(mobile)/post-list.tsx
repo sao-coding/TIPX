@@ -121,7 +121,7 @@ const PostList = () => {
 
   // 新增一個渲染帖子列表的函數，包含廣告
   const renderPostsWithAds = (posts: Announcement[]) => {
-    const postsWithAds: JSX.Element[] = []
+    const postsWithAds: React.JSX.Element[] = []
 
     posts.forEach((post, index) => {
       // 添加文章

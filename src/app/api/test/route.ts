@@ -1,16 +1,17 @@
-import { cookies } from 'next/headers'
+import { cookies as cookieStore } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { signJwtToken, verifyJwt } from '@/lib/jwt'
 
 export const GET = async (req: NextRequest) => {
+  const cookies = await cookieStore()
   const refreshToken = await signJwtToken({ userId: 'D11019139' }, { expiresIn: '1d' })
 
-  cookies().set('refreshToken', refreshToken)
+  cookies.set('refreshToken', refreshToken)
 
   const accessToken = await signJwtToken({ userId: 'D11019139' }, { expiresIn: '9999d' })
 
-  cookies().set('accessToken', accessToken)
+  cookies.set('accessToken', accessToken)
 
   return NextResponse.json({ message: '給予token成功', refreshToken, accessToken })
 }

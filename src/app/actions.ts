@@ -1,6 +1,6 @@
 'use server'
 
-import { cookies } from 'next/headers'
+import { cookies as cookieStore } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { defaultLocale } from '@/i18n/config'
@@ -18,19 +18,20 @@ export const login = async (accessToken: string) => {
 }
 
 export const loginWithRedirect = async () => {
-  const refreshToken = await getAuth(cookies().get('refreshToken')?.value ?? '')
-  const accessToken = await getAuth(cookies().get('accessToken')?.value ?? '')
+  const cookies = await cookieStore()
+  const refreshToken = await getAuth(cookies.get('refreshToken')?.value ?? '')
+  const accessToken = await getAuth(cookies.get('accessToken')?.value ?? '')
   console.log('loginWithRedirect', refreshToken, accessToken, refreshToken || accessToken)
   return refreshToken || accessToken ? true : false
 }
 
 export const logout = async () => {
   // 移除所有Cookies
-
-  for (const cookie of cookies().getAll()) {
-    cookies().delete(cookie.name)
+  const cookies = await cookieStore()
+  for (const cookie of cookies.getAll()) {
+    cookies.delete(cookie.name)
+    redirect('/login')
   }
-  redirect('/login')
 }
 
 // export async function getUserLocale() {
