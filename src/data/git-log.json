@@ -1,5 +1,59 @@
 [
   {
+    "subject": "🐛 修復 eslint",
+    "date": "2025-05-01T07:53:27.000Z",
+    "hash": "1c8de79092fdd11b849eb163afcd29ef0fb62e44",
+    "body": ""
+  },
+  {
+    "subject": "⬆️ 升級 nextjs15 & React19",
+    "date": "2025-04-30T17:00:12.000Z",
+    "hash": "b5eebc28ae4ebf6b95020915f1e2831094258ff6",
+    "body": ""
+  },
+  {
+    "subject": "🔥 移除未使用的導入和註解",
+    "date": "2025-04-29T15:56:38.000Z",
+    "hash": "a63b581fbb1d9df46e99d51f29ca5a88b327fd36",
+    "body": ""
+  },
+  {
+    "subject": "🔥 移除未使用的導入和註解",
+    "date": "2025-04-29T15:56:19.000Z",
+    "hash": "4e7cebd3834d6935d9ca06d0da37db3294e297a2",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增 RootLayout 組件，整合廣告元件",
+    "date": "2025-04-26T18:13:52.000Z",
+    "hash": "12167f008f916a6dd4ee4b26fe78c85af66f17e4",
+    "body": ""
+  },
+  {
+    "subject": "✨ 在 RightTool 組件中新增廣告元件",
+    "date": "2025-04-26T16:25:12.000Z",
+    "hash": "40227cfaa54008f43ce0efda44ed329ce8be78a7",
+    "body": ""
+  },
+  {
+    "subject": "📝 更新 README.md",
+    "date": "2025-04-26T16:18:26.000Z",
+    "hash": "25ae5fbda108e85415ed5e32f9b5d71537020ee4",
+    "body": ""
+  },
+  {
+    "subject": "✨ 新增作業上傳功能，並改善錯誤處理邏輯",
+    "date": "2025-04-26T16:18:08.000Z",
+    "hash": "d90d026e169b5471b3dde56465829b7cbe9af3f0",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-04-22T16:46:18.000Z",
+    "hash": "108ea3d6b89aa451d20a4c85b182f36888b75a56",
+    "body": ""
+  },
+  {
     "subject": "✨ 更新 package.json，新增引擎和包管理器配置，移除 pnpm-workspace.yaml",
     "date": "2025-04-22T16:45:48.000Z",
     "hash": "c301818ce4a90724edc76e95d7051d9c4ace7c6a",
