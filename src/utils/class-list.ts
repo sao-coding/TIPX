@@ -43,7 +43,7 @@ const getClassList = async (userid: string) => {
       Class: classID ?? ''
     })
 
-    let classListRows = Array.from(
+    const classListRows = Array.from(
       $(
         'body > form > table > tbody > tr:nth-child(1) > td > font > table > tbody > tr:not(:first-child)'
       )

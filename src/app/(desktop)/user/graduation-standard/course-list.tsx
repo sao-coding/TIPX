@@ -101,7 +101,7 @@ export default function CourseList({ data }: { data: GraduationStandard }) {
 
   // Filter and sort courses based on selected criteria
   const filteredCourses = useMemo(() => {
-    let result = courses.flatMap((semesterData) => {
+    const result = courses.flatMap((semesterData) => {
       const semesterKey = `${semesterData.year}-${semesterData.sem}`
 
       if (selectedSemester !== 'all' && semesterKey !== selectedSemester) {

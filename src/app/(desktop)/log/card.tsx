@@ -82,7 +82,7 @@ const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, re
             alt='大頭貼'
             fallback={
               <div className='flex h-[100px] w-[75px] items-center justify-center overflow-hidden rounded-sm shadow-md'>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {}
                 <img
                   src={student.user.picture}
                   alt='avatar'

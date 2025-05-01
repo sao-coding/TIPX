@@ -21,7 +21,6 @@ const UserBanner = ({
       <div className='relative h-32 md:h-40' style={{ backgroundColor: color }}>
         {/* object-position: 50% 25%; */}
         {settings.banner !== '' && (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={settings.banner} className='h-full w-full object-cover' alt='cover' />
         )}
         <div className='bottom-0 hidden h-16 w-full bg-gradient-to-t from-[#171717]/50 to-transparent md:absolute md:block md:h-16'></div>

@@ -10,6 +10,7 @@ import getTeacher from '@/utils/teacher'
 const formatDate = (type: string, date: string) => {
   // 112.09.11(一) to 2023-09-11
   if (type === 'TIPX') {
+    // eslint-disable-next-line prefer-const
     let [year, month, day] = date.split('.')
     // 去除 (X)
     try {
@@ -22,7 +23,7 @@ const formatDate = (type: string, date: string) => {
   if (type === 'TIP') {
     // 2023-09-11 to 1120911
     console.log(date)
-    let [year, month, day] = date.split('-')
+    const [year, month, day] = date.split('-')
     // 2023 - 1911
     return `${Number(year) - 1911}${month}${day}`
   }

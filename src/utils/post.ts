@@ -45,7 +45,7 @@ const getPost = async (
       })
 
       const buffer = await res.arrayBuffer()
-      let html = new TextDecoder('big5').decode(buffer)
+      const html = new TextDecoder('big5').decode(buffer)
 
       const $ = cheerio.load(html)
       $("table[bordercolor='#FFFFFF' ] tr:not(:first-child)").map((_, row) => {
@@ -159,7 +159,7 @@ const getPost = async (
       `https://netinfo.takming.edu.tw/tip/post/post_OneShow.php?SerialItem=${id}`
     )
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
 
     const $ = cheerio.load(html)
     $('.newstd').map((index, row) => {

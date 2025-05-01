@@ -30,7 +30,7 @@ export const GET = async (req: NextRequest) => {
     // 若包含有 + 就是詳細搜尋 格式 學號+性別+姓名
 
     // studentList 預設 三個空字串
-    let studentList: string[] = ['', '', '']
+    const studentList: string[] = ['', '', '']
     console.log(search)
     if (search.includes('+')) {
       searchType = 'complex'

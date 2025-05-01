@@ -8,7 +8,7 @@ const getUserDesc = async (userid: string) => {
     }
   })
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
 
   const $ = cheerio.load(html)
   return $('body').text().split('姓名:  ')[1].replace('\n\n', '') ?? ''

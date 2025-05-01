@@ -18,7 +18,7 @@ const getCredit = async (userid: string, year: string, sem: string) => {
       }
     })
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
 
     const $ = cheerio.load(html)
     const rows = Array.from(

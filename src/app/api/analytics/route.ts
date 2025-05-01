@@ -6,7 +6,7 @@ export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
   const type = searchParams.get('type')
   switch (type) {
-    case 'chart':
+    case 'chart': {
       const chart = (await prisma.$queryRaw`
         -- 生成過去7天的日期範圍
         WITH DateRange AS (
@@ -52,7 +52,8 @@ export const GET = async (req: NextRequest) => {
       })
 
       return NextResponse.json(chart)
-    case 'today':
+    }
+    case 'today': {
       // 今日人數
       // 相同 user 只算一次 不可重複計算
       // const today = (await prisma.$queryRaw`
@@ -88,12 +89,13 @@ export const GET = async (req: NextRequest) => {
       })
 
       return NextResponse.json(today[0])
-    case 'user':
+    }
+    case 'user': {
       const user = await prisma.user.count()
       return NextResponse.json({
         count: user
       })
-
+    }
     default:
       return NextResponse.json({ message: '錯誤的查詢類型' }, { status: 400 })
   }

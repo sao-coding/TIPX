@@ -39,7 +39,7 @@ const getUser = async (userid: string, type?: string) => {
       }
     })
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
     const $ = cheerio.load(html)
     let noImg = 0
 

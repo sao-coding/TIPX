@@ -38,7 +38,7 @@ const Avatar = (props: AvatarProps) => {
         fallback
       ) : (
         <div className={cn(loading && 'animate-pulse')}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {}
           <img
             ref={imageRef}
             src={src}

@@ -12,7 +12,7 @@ import { IconShare2 } from '@tabler/icons-react'
 
 const DesktopTimeTable = ({ timetable }: { timetable: TimeTable[] }) => {
   const week = ['一', '二', '三', '四', '五', '六', '日']
-  let timeTable: OutTimeTable = {
+  const timeTable: OutTimeTable = {
     week: [],
     timetable: []
   }

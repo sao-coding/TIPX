@@ -88,7 +88,7 @@ const getGraduationStandard = async (userid: string) => {
         let electiveCredits = 0
         let generalCredits = 0
 
-        for (let grade of semGrade.grades) {
+        for (const grade of semGrade.grades) {
           switch (grade.type) {
             case '必修':
               requiredCredits += grade.credit

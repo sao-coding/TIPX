@@ -18,7 +18,7 @@ const getCourseAttendanceRecord = async (
     total: []
   }
 
-  let courseAttendanceRecordList: CourseAttendanceRecordList[] = []
+  const courseAttendanceRecordList: CourseAttendanceRecordList[] = []
   let total: CourseAttendanceRecordCount[] = []
 
   const resUrl = async (page_num?: number) => {
@@ -32,7 +32,7 @@ const getCourseAttendanceRecord = async (
       }
     )
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
 
     return cheerio.load(html)
   }

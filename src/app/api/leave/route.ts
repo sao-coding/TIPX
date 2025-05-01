@@ -13,6 +13,7 @@ import getGender from '@/utils/gender'
 const formatDate = (type: string, date: string) => {
   // 112.09.11(一) to 2023-09-11
   if (type === 'TIPX') {
+    // eslint-disable-next-line prefer-const
     let [year, month, day] = date.split('.')
     // 去除 (X)
     try {
@@ -24,7 +25,7 @@ const formatDate = (type: string, date: string) => {
   }
   if (type === 'TIP') {
     // 2023-09-11 to 1120911
-    let [year, month, day] = date.split('-')
+    const [year, month, day] = date.split('-')
     // 2023 - 1911
     return `${Number(year) - 1911}${month}${day}`
   }
@@ -70,7 +71,7 @@ export const GET = async (req: NextRequest) => {
       )
     }
 
-    let bodyContent = `TDate=${formatDate('TIP', req.nextUrl.searchParams.get('date') ?? '')}`
+    const bodyContent = `TDate=${formatDate('TIP', req.nextUrl.searchParams.get('date') ?? '')}`
     const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_absrec.php', {
       method: 'POST',
       headers: {
@@ -108,7 +109,7 @@ export const GET = async (req: NextRequest) => {
     leaveDate.leave.date = req.nextUrl.searchParams.get('date') ?? ''
 
     // 快取 課堂資訊和老師名稱 減少請求次數
-    let cacheCourseTeacher = {
+    const cacheCourseTeacher = {
       courseId: '',
       courseName: '',
       teacher: ''

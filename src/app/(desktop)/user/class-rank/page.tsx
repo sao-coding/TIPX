@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const ClassRankPage = () => {
   const { data, isLoading, isError } = useQuery<FinalGradeRankClass[]>({
-    queryKey: ['class-rank', , Cookies.get('year'), Cookies.get('sem')],
+    queryKey: ['class-rank', Cookies.get('year'), Cookies.get('sem')],
     queryFn: async () => {
       toast.dismiss()
       const toastId = toast.loading('資料量大，請稍等')

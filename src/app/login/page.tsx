@@ -24,7 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const searchParamsx = await searchParams
   console.log(searchParamsx)
-  let data = {
+  const data = {
     title: '登入',
     openGraph: {
       images: [

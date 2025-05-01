@@ -25,7 +25,7 @@ export const GET = async (req: NextRequest) => {
   })
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
   const dom = new JSDOM(html)
   const document = dom.window.document
 
@@ -46,7 +46,7 @@ export const POST = async (req: NextRequest) => {
   const phone = formData.get('phone')
   // const submit = formData.get("Submit")
 
-  let bodyContent = new FormData()
+  const bodyContent = new FormData()
   if (phone) {
     bodyContent.append('NPhone', phone)
   } else {

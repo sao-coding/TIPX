@@ -17,7 +17,7 @@ const getCourse = async (
   // 生成html 傳入 res 並回傳 document
   const generateHtml = async (res: Response) => {
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
 
     return cheerio.load(html)
   }

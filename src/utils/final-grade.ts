@@ -6,7 +6,7 @@ import getConduct from '@/utils/conduct'
 const getFinalGrade = async (userid: string, year: string, sem: string) => {
   const finalGradeRankList: FinalGradeRank[] = []
 
-  let finalGradeRank: FinalGradeRank = {
+  const finalGradeRank: FinalGradeRank = {
     year: '',
     sem: '',
     conduct: {
@@ -42,7 +42,7 @@ const getFinalGrade = async (userid: string, year: string, sem: string) => {
   }
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
   const $ = cheerio.load(html)
 
   const rows = $("table[bgcolor='#CCCCCC' ] tr:not(:first-child)")

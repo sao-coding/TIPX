@@ -9,7 +9,7 @@ const getClassName = async (userid: string) => {
   })
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
 
   return {
     class: cheerio.load(html)('#form1 > table > tbody > tr:nth-child(6) > td:nth-child(4)').text()

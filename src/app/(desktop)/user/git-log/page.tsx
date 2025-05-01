@@ -6,7 +6,7 @@ import getGitLog from '@/utils/git-log'
 const GitLogPage = async () => {
   const data: Commit[] = await getGitLog()
 
-  let lastYear = new Date(data[0].date).getFullYear()
+  const lastYear = new Date(data[0].date).getFullYear()
   let lastMonth =
     new Date(
       new Date(data[0].date).toLocaleString('en-US', {

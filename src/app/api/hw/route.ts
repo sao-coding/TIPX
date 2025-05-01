@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
 
   const fetchURL = async (type: string, course?: string) => {
     const url = `https://netinfo.takming.edu.tw/tip/list_course_${type}.php?opno=${course}`
-    let res = await fetch(url, {
+    const res = await fetch(url, {
       headers: {
         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
         Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
@@ -51,17 +51,18 @@ export const GET = async (req: NextRequest) => {
         let text = $(cell).text().trim()
         console.log(i + ' ' + text)
         switch (i) {
-          case 0:
+          case 0: {
             const file =
               $(cell)
                 .find('input')
                 .attr('onclick')
-                ?.replace(/DownDoc\(\"|\"\)/g, '') ?? ''
+                ?.replace(/DownDoc\("|"\)/g, '') ?? ''
             // console.log(i + " " + text + "\n" + file)
             hw.push(text)
             hw.push(file)
             break
-          case 3:
+          }
+          case 3: {
             const upload =
               $(cell)
                 .find('input')
@@ -70,6 +71,7 @@ export const GET = async (req: NextRequest) => {
             // console.log(i + " " + upload)
             hw.push(upload)
             break
+          }
           case 4:
             if (text === '已上傳本作業') {
               text = '已繳交'
@@ -125,16 +127,17 @@ export const GET = async (req: NextRequest) => {
       const hw: string[] = []
       cells.each((i, cell) => {
         switch (i) {
-          case 3:
+          case 3: {
             const link =
               $(cell)
                 .find('input')
                 .attr('onclick')
-                ?.replace(/DownDoc\(\"|\"\)/g, '') ?? ''
+                ?.replace(/DownDoc\("|"\)/g, '') ?? ''
             // console.log(i + " " + link)
             hw.push(link)
             break
-          case 4:
+          }
+          case 4: {
             // const text = $(cell).text().replace(/bytes/g, "").trim()
             const text = $(cell).text().split('bytes')[0].trim()
             // console.log(i + " " + text)
@@ -150,6 +153,7 @@ export const GET = async (req: NextRequest) => {
             //   hw.push(text)
             // }
             break
+          }
           default:
             // console.log(i + " " + $(cell).text().trim())
             break

@@ -47,6 +47,7 @@ export const withAuthorization: MiddlewareFactory = (next) => {
       }
     }
 
+    // eslint-disable-next-line prefer-const
     verifyRefreshToken = await verifyJwt(refreshToken)
     verifyAccessToken = await verifyJwt(req.cookies.get('accessToken')?.value || '')
 

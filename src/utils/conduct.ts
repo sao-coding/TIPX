@@ -19,7 +19,7 @@ const getConduct = async (userid: string, year: string, sem: string, type: strin
   })
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
 
   const $ = cheerio.load(html)
 

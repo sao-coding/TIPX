@@ -9,7 +9,7 @@ const getLineID = async (userid: string) => {
   })
 
   const buffer = await res.arrayBuffer()
-  let html = new TextDecoder('big5').decode(buffer)
+  const html = new TextDecoder('big5').decode(buffer)
   const $ = cheerio.load(html)
 
   return {

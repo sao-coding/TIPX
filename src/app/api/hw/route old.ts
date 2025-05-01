@@ -17,8 +17,8 @@ export const GET = async (req: NextRequest) => {
   const userid = searchParams.get('userid') ?? auth?.userId
 
   let status = true
-  let hwdata1: string[][] = []
-  let hwdata2: string[][] = []
+  const hwdata1: string[][] = []
+  const hwdata2: string[][] = []
 
   const hwlist: Hw[] = []
 
@@ -26,7 +26,7 @@ export const GET = async (req: NextRequest) => {
     const url = `https://netinfo.takming.edu.tw/tip/list_course_${id}.php?opno=${req.nextUrl.searchParams.get(
       'course'
     )}`
-    let res = fetch(url, {
+    const res = fetch(url, {
       headers: {
         cookie: `cookie_userid=${userid}; cookie_rgno=${userid}; cookie_year=${year}; cookie_sem=${sem}; `,
         Referer: 'https://netinfo.takming.edu.tw/tip/list_fun.php'
@@ -36,7 +36,7 @@ export const GET = async (req: NextRequest) => {
   }
 
   const rules = (id: string, cells: Element[]) => {
-    let hw: string[] = []
+    const hw: string[] = []
     if (id === 'uploadhw') {
       cells.forEach((cell, index) => {
         let list = cell.textContent
@@ -61,7 +61,7 @@ export const GET = async (req: NextRequest) => {
           let link = cell.querySelector('input')?.getAttribute('onclick') ?? ''
           // <input type="button" value="下載" onclick="DownDoc("teach_n/1112/T11120000162.docx")">
           // 取得下載連結
-          link = link.replace(/DownDoc\(\"|\"\)/g, '')
+          link = link.replace(/DownDoc\("|"\)/g, '')
           hw.push(link)
         }
         if (index === 3) {
@@ -82,7 +82,7 @@ export const GET = async (req: NextRequest) => {
         if (list) {
           if (index === 3) {
             let link = cell.querySelector('input')?.getAttribute('onclick') ?? ''
-            link = link.replace(/DownDoc\(\"|\"\)/g, '')
+            link = link.replace(/DownDoc\("|"\)/g, '')
             list = link
             hw.push(link)
           }
@@ -99,7 +99,7 @@ export const GET = async (req: NextRequest) => {
   const crawler = async (res: Response, id: string) => {
     let hw: string[] = []
     const buffer = await res.arrayBuffer()
-    let html = new TextDecoder('big5').decode(buffer)
+    const html = new TextDecoder('big5').decode(buffer)
     const dom = new JSDOM(html)
     const document = dom.window.document
 
@@ -175,7 +175,7 @@ export const POST = async (req: NextRequest) => {
   const file = formData.get('userfile')
   // const submit = formData.get("Submit")
 
-  let bodyContent = new FormData()
+  const bodyContent = new FormData()
   if (id) {
     bodyContent.append('id', id)
   } else {
