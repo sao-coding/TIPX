@@ -29,6 +29,6 @@ export const logout = async () => {
   const cookies = await cookieStore()
   for (const cookie of cookies.getAll()) {
     cookies.delete(cookie.name)
-    redirect('/login')
   }
+  redirect('/login')
 }
