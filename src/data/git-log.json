@@ -1,5 +1,23 @@
 [
   {
+    "subject": "🐛 更新 Redis 快取鍵的格式，使用冒號分隔以提高可讀性",
+    "date": "2025-05-03T16:41:58.000Z",
+    "hash": "0cbbbf2dc9905defee258003d4ddc005bbfe26e1",
+    "body": ""
+  },
+  {
+    "subject": "🐛 移除不必要的 redis 鍵清除條件",
+    "date": "2025-05-03T16:33:46.000Z",
+    "hash": "6d4e6018a86a400034585284b7afdc96b26a8dee",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復登出按鈕無法正常清除 Cookies 並重定向",
+    "date": "2025-05-02T14:46:01.000Z",
+    "hash": "eb8e5d4c88d984d3c06a469cf651990527516fa3",
+    "body": ""
+  },
+  {
     "subject": "✅ 更新日誌",
     "date": "2025-05-01T07:54:28.000Z",
     "hash": "39c0eaf564a9db96fbda9de8b95e82ad7ab7899c",
