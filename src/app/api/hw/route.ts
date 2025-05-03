@@ -49,7 +49,7 @@ export const GET = async (req: NextRequest) => {
       const hw: string[] = []
       cells.each((i, cell) => {
         let text = $(cell).text().trim()
-        console.log(i + ' ' + text)
+        // console.log(i + ' ' + text)
         switch (i) {
           case 0: {
             const file =
@@ -93,7 +93,7 @@ export const GET = async (req: NextRequest) => {
 
     $ = await fetchURL('downhw', courseId)
     // 剔除前兩行 跟 最後一行
-    console.log('hwdata1', hwdata1)
+    // console.log('hwdata1', hwdata1)
     const rows2 = $('body > form > table > tbody > tr > td > table > tbody > tr').slice(2, -1)
     if (rows2.length === 0) {
       // 於期中考/期末考期間不提供下載功能
@@ -266,7 +266,7 @@ export const POST = async (req: NextRequest) => {
     bodyContent.append('id', id.toString())
     bodyContent.append('userfile', file)
 
-    console.log('上傳資訊:', { userid, year, sem, fileName: file.name })
+    // console.log('上傳資訊:', { userid, year, sem, fileName: file.name })
 
     // 發送請求到遠端伺服器
     const res = await fetch('https://netinfo.takming.edu.tw/tip/list_course_uploadhw_file_x.php', {
