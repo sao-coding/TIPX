@@ -52,10 +52,12 @@ const GitLogPage = async () => {
       {data && (
         <div className='pl-2'>
           <ul className='flex flex-col space-y-2 border-l-4 border-primary p-2 md:pr-0'>
-            {data.map((item, index) => (
-              // 依照年分月份分類
-              <>
-                {/* {new Date(item.date).getFullYear() !==
+            {data
+              .filter((item) => item.subject !== '✅ 更新日誌')
+              .map((item, index) => (
+                // 依照年分月份分類
+                <>
+                  {/* {new Date(item.date).getFullYear() !==
                                     new Date(data[0].date).getFullYear() && (
                                     <>
                                         <li className='text-center text-xl font-bold'>
@@ -66,8 +68,8 @@ const GitLogPage = async () => {
                                         </li>
                                     </>
                                 )} */}
-                {/* 轉 utc+8 在判斷月份 */}
-                {/* {console.log(
+                  {/* 轉 utc+8 在判斷月份 */}
+                  {/* {console.log(
                                     "###",
                                     item.subject,
                                     "lastMonth:",
@@ -75,45 +77,45 @@ const GitLogPage = async () => {
                                     new Date(item.date).getMonth() + 1,
                                     new Date(item.date).getHours()
                                 )} */}
-                {new Date(
-                  new Date(item.date).toLocaleString('en-US', {
-                    timeZone: 'Asia/Taipei'
-                  })
-                ).getMonth() +
-                  1 !==
-                  lastMonth &&
-                  ((lastMonth =
-                    new Date(
-                      new Date(item.date).toLocaleString('en-US', {
-                        timeZone: 'Asia/Taipei'
-                      })
-                    ).getMonth() + 1),
-                  (
-                    <li
-                      key={index}
-                      className='relative ml-1 px-1 py-2 after:absolute after:-left-[23px] after:top-1/2 after:block after:h-4 after:w-4 after:-translate-y-1/2 after:transform after:rounded-full after:border-4 after:border-orange-900 after:bg-orange-300 after:shadow-lg after:content-[""]'
-                    >
-                      <div className='relative flex justify-center text-center text-xl font-bold before:absolute before:top-1/2 before:block before:h-0 before:w-full before:border before:content-[""]'>
-                        <div className='relative bg-background px-2'>
-                          {new Date(item.date).getMonth() + 1} 月
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-
-                <li
-                  key={item.hash}
-                  className='relative ml-1 rounded-xl border p-2 after:absolute after:-left-[23px] after:top-1/2 after:block after:h-4 after:w-4 after:-translate-y-1/2 after:transform after:rounded-full after:border-4 after:border-orange-900 after:bg-orange-300 after:shadow-lg after:content-[""]'
-                >
-                  <h2>{item.subject}</h2>
-                  <p>
-                    {new Date(item.date).toLocaleString('zh-TW', {
+                  {new Date(
+                    new Date(item.date).toLocaleString('en-US', {
                       timeZone: 'Asia/Taipei'
-                    })}
-                  </p>
-                </li>
-              </>
-            ))}
+                    })
+                  ).getMonth() +
+                    1 !==
+                    lastMonth &&
+                    ((lastMonth =
+                      new Date(
+                        new Date(item.date).toLocaleString('en-US', {
+                          timeZone: 'Asia/Taipei'
+                        })
+                      ).getMonth() + 1),
+                    (
+                      <li
+                        key={index}
+                        className='relative ml-1 px-1 py-2 after:absolute after:-left-[23px] after:top-1/2 after:block after:h-4 after:w-4 after:-translate-y-1/2 after:transform after:rounded-full after:border-4 after:border-orange-900 after:bg-orange-300 after:shadow-lg after:content-[""]'
+                      >
+                        <div className='relative flex justify-center text-center text-xl font-bold before:absolute before:top-1/2 before:block before:h-0 before:w-full before:border before:content-[""]'>
+                          <div className='relative bg-background px-2'>
+                            {new Date(item.date).getMonth() + 1} 月
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+
+                  <li
+                    key={item.hash}
+                    className='relative ml-1 rounded-xl border p-2 after:absolute after:-left-[23px] after:top-1/2 after:block after:h-4 after:w-4 after:-translate-y-1/2 after:transform after:rounded-full after:border-4 after:border-orange-900 after:bg-orange-300 after:shadow-lg after:content-[""]'
+                  >
+                    <h2>{item.subject}</h2>
+                    <p>
+                      {new Date(item.date).toLocaleString('zh-TW', {
+                        timeZone: 'Asia/Taipei'
+                      })}
+                    </p>
+                  </li>
+                </>
+              ))}
           </ul>
         </div>
       )}
