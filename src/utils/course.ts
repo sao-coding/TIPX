@@ -50,7 +50,7 @@ const getCourse = async (
 
     // 查詢課程清單 cache
 
-    const cache = (await redis.call(`JSON.GET`, `courselist_${year}_${sem}_${userid}`)) as
+    const cache = (await redis.call(`JSON.GET`, `${userid}:${year}:${sem}:courselist`)) as
       | string
       | null
     if (!cache) {
@@ -58,7 +58,7 @@ const getCourse = async (
       await getData()
       await redis.call(
         'JSON.SET',
-        `courselist_${year}_${sem}_${userid}`,
+        `${userid}:${year}:${sem}:courselist`,
         '$',
         JSON.stringify(courselist)
       )
@@ -66,7 +66,7 @@ const getCourse = async (
       const month = new Date().getMonth() + 1
       const expire =
         month === 5 || month === 6 || month === 12 || month === 1 ? 60 * 60 : 60 * 60 * 24
-      await redis.expire(`courselist_${year}_${sem}_${userid}`, expire)
+      await redis.expire(`${userid}:${year}:${sem}:courselist`, expire)
     } else {
       console.log('use cache')
       courselist.push(...JSON.parse(cache))

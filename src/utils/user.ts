@@ -121,13 +121,13 @@ const getUser = async (userid: string, type?: string) => {
   }
 
   // 查詢用戶快取
-  const cache = (await redis.call('JSON.GET', `user_${userid}`)) as string | null
+  const cache = (await redis.call('JSON.GET', `${userid}:user`)) as string | null
   if (!cache) {
     console.log('no cache')
     await getData()
-    await redis.call('JSON.SET', `user_${userid}`, '$', JSON.stringify(infolist))
+    await redis.call('JSON.SET', `${userid}:user`, '$', JSON.stringify(infolist))
     // 設定快取時間為 4 個月
-    await redis.call('EXPIRE', `user_${userid}`, 10368000)
+    await redis.call('EXPIRE', `${userid}:user`, 10368000)
   } else {
     console.log('use cache')
     infolist = JSON.parse(cache)

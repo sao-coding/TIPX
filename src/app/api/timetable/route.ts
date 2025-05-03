@@ -140,7 +140,7 @@ export const GET = async (req: NextRequest) => {
 
   // 若有快取則使用快取
   // 若沒有則發送請求
-  const cache = (await redis.call('JSON.GET', `timetable_${year}_${sem}_${userid}`)) as
+  const cache = (await redis.call('JSON.GET', `${userid}:${year}:${sem}:timetable`)) as
     | string
     | null
   if (!cache) {
@@ -152,11 +152,11 @@ export const GET = async (req: NextRequest) => {
     const expire = month === 5 || month === 6 || month === 11 || month === 0 ? 3600 : 86400
     await redis.call(
       'JSON.SET',
-      `timetable_${year}_${sem}_${userid}`,
+      `${userid}:${year}:${sem}:timetable`,
       '$',
       JSON.stringify(timeTable)
     )
-    await redis.call('EXPIRE', `timetable_${year}_${sem}_${userid}`, expire)
+    await redis.call('EXPIRE', `${userid}:${year}:${sem}:timetable`, expire)
   } else {
     console.log('use cache')
     // 把快取的資料轉換成 JSON 格式

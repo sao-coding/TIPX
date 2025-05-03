@@ -77,7 +77,7 @@ const getClassList = async (userid: string) => {
 
   const cache = (await redis.call(
     'JSON.GET',
-    `classlist_${currentYear}_${currentSem}_${userid}`
+    `${userid}:${currentYear}:${currentSem}:classlist`
   )) as string | null
 
   if (!cache) {
@@ -85,7 +85,7 @@ const getClassList = async (userid: string) => {
     await getData()
     await redis.call(
       'JSON.SET',
-      `classlist_${currentYear}_${currentSem}_${userid}`,
+      `${userid}:${currentYear}:${currentSem}:classlist`,
       '$',
       JSON.stringify(classList)
     )
@@ -93,7 +93,7 @@ const getClassList = async (userid: string) => {
     const month = new Date().getMonth() + 1
     const expire =
       month === 5 || month === 6 || month === 12 || month === 1 ? 60 * 60 : 60 * 60 * 24 * 30 * 4
-    await redis.expire(`classlist_${currentYear}_${currentSem}_${userid}`, expire)
+    await redis.expire(`${userid}:${currentYear}:${currentSem}:classlist`, expire)
   } else {
     console.log('use cache')
     classList.push(...JSON.parse(cache))

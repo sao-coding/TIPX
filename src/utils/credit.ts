@@ -53,13 +53,13 @@ const getCredit = async (userid: string, year: string, sem: string) => {
     }
   }
 
-  const cache = (await redis.call('JSON.GET', `credit_${userid}_${year}_${sem}`)) as string | null
+  const cache = (await redis.call('JSON.GET', `${userid}:${year}:${sem}:credit`)) as string | null
   if (!cache) {
     console.log('no cache')
     await getData()
     // 設定快取時間為 1 個月
-    await redis.call('JSON.SET', `credit_${userid}_${year}_${sem}`, '$', JSON.stringify(credit))
-    await redis.call('EXPIRE', `credit_${userid}_${year}_${sem}`, 2592000)
+    await redis.call('JSON.SET', `${userid}:${year}:${sem}:credit`, '$', JSON.stringify(credit))
+    await redis.call('EXPIRE', `${userid}:${year}:${sem}:credit`, 2592000)
   } else {
     console.log('use cache')
     credit.push(...JSON.parse(cache))
