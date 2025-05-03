@@ -1,6 +1,42 @@
 [
   {
     "subject": "✅ 更新日誌",
+    "date": "2025-05-03T17:18:34.000Z",
+    "hash": "22ce31fdebb127728970f4c33b4bd05d5ef9e549",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正獲取班級名稱的邏輯，確保正確比對系所與班級",
+    "date": "2025-05-03T17:17:58.000Z",
+    "hash": "b858602c8f4e8d3b202962d1c14c64f7116d64f2",
+    "body": ""
+  },
+  {
+    "subject": "🗑️ 移除不必要的 console.log 語句以清理代碼",
+    "date": "2025-05-03T17:17:53.000Z",
+    "hash": "bc2b07490bb670e6bd78cfdef056a239517fbcdb",
+    "body": ""
+  },
+  {
+    "subject": "🐛 更新 Redis 快取鍵的格式，使用冒號分隔以提高可讀性",
+    "date": "2025-05-03T16:41:58.000Z",
+    "hash": "0cbbbf2dc9905defee258003d4ddc005bbfe26e1",
+    "body": ""
+  },
+  {
+    "subject": "🐛 移除不必要的 redis 鍵清除條件",
+    "date": "2025-05-03T16:33:46.000Z",
+    "hash": "6d4e6018a86a400034585284b7afdc96b26a8dee",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修復登出按鈕無法正常清除 Cookies 並重定向",
+    "date": "2025-05-02T14:46:01.000Z",
+    "hash": "eb8e5d4c88d984d3c06a469cf651990527516fa3",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
     "date": "2025-05-01T07:54:28.000Z",
     "hash": "39c0eaf564a9db96fbda9de8b95e82ad7ab7899c",
     "body": ""
