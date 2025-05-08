@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
 
   // 取得courseID的請假數
   if (req.nextUrl.searchParams.get('course')) {
-    const courseAttendanceRecord: CourseAttendanceRecord = (await getCourseAttendanceRecord(
+    const courseAttendanceRecord = (await getCourseAttendanceRecord(
       userid ?? '',
       year ?? '',
       sem ?? '',

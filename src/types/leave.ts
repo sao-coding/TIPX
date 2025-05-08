@@ -15,6 +15,7 @@ export type LeaveItem = {
   teacher: string
   name: string
   value: string
+  absence: boolean
 }
 
 export type LeaveItemCheck = {

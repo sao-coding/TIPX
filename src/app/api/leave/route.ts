@@ -4,8 +4,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import * as cheerio from 'cheerio'
 
 import getAuth from '@/lib/get-auth'
-import { Course, Leave, LeaveItem, LeaveItemCheck } from '@/types'
+import { Course, CourseAttendanceRecord, Leave, LeaveItem, LeaveItemCheck } from '@/types'
 import getCourse from '@/utils/course'
+import getCourseAttendanceRecord from '@/utils/course-attendance-record'
 import getCourseTeacher from '@/utils/course-teacher'
 import getCurrentYearSem from '@/utils/current-year-sem'
 import getGender from '@/utils/gender'
@@ -159,7 +160,8 @@ export const GET = async (req: NextRequest) => {
         courseID: value,
         teacher: cacheCourseTeacher.teacher ?? '',
         name: cacheCourseTeacher.courseName ?? '',
-        value: name
+        value: name,
+        absence: false
       })
     }
 
@@ -168,6 +170,34 @@ export const GET = async (req: NextRequest) => {
       if (item.courseID === '') {
         item.teacher = ''
         item.name = ''
+      }
+    })
+
+    const courseAttendanceRecordAll = (await getCourseAttendanceRecord(
+      userid ?? '',
+      year ?? '',
+      sem ?? '',
+      ''
+    )) as CourseAttendanceRecord
+
+    // absence: boolean = false
+    // 取得課程的曠課狀態
+    // 把對應的 courseID 的的課程 courseAttendanceRecordAll.list type 若是 '曠課' 則設為 true
+    leaveDate.leave.list.forEach((item) => {
+      const courseAttendanceRecord = courseAttendanceRecordAll.list.find(
+        (course) =>
+          course.date === formatDate('TIP', leaveDate.leave.date) &&
+          course.courseID === item.courseID &&
+          Number(course.period) === item.id
+      )
+      if (courseAttendanceRecord) {
+        console.log(
+          'courseAttendanceRecord.type',
+          courseAttendanceRecord.type,
+          'item.name',
+          item.name
+        )
+        item.absence = courseAttendanceRecord.type === '曠課'
       }
     })
 
