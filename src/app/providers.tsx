@@ -27,15 +27,17 @@ const Providers = ({
       const userAgent = navigator.userAgent
       const parser = new UAParser(userAgent)
       const ua = parser.getResult()
+      // 獲取 正確的系統名稱跟版本號
+      const { device, os } = await ua.withClientHints()
       api.post('logs', {
         ip: await getIP(),
-        deviceType: ua.device.type ?? '未知',
-        deviceVendor: ua.device.vendor ?? '未知',
-        deviceModel: ua.device.model ?? '未知',
+        deviceType: device.type ?? '未知',
+        deviceVendor: device.vendor ?? '未知',
+        deviceModel: device.model ?? '未知',
         browserName: ua.browser.name ?? '未知',
         browserVersion: ua.browser.version ?? '0.0.0',
-        osName: ua.os.name ?? '未知',
-        osVersion: ua.os.version ?? '0.0.0',
+        osName: os.name ?? '未知',
+        osVersion: os.version ?? '0.0.0',
         referer: document.referrer ?? '',
         path: pathname
       })
