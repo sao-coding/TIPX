@@ -26,7 +26,7 @@ const UserBanner = ({
         <div className='bottom-0 hidden h-16 w-full bg-gradient-to-t from-[#171717]/50 to-transparent md:absolute md:block md:h-16'></div>
       </div>
       {/* <IconUser className='absolute left-0 right-0 top-20 mx-auto h-24 w-24 rounded-full bg-secondary p-1' /> */}
-      <div className='absolute left-0 right-0 top-20 md:top-24'>
+      <div className='absolute inset-x-0 top-20 flex justify-center md:top-24 md:ml-4 md:block'>
         <Fancybox
           options={{
             Carousel: {
@@ -42,12 +42,12 @@ const UserBanner = ({
             <Avatar
               src={settings.avatar !== '' ? settings.avatar : user.img}
               alt={user.name}
-              className='mx-auto h-24 w-24 rounded-full bg-secondary object-cover p-1 md:ml-4'
+              className='h-24 w-24 rounded-full bg-secondary object-cover p-1'
               width={96}
               height={96}
               fallback={
-                <div className='relative mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-white md:ml-4'>
-                  <IconUserCircle className='absolute h-20 w-20' />
+                <div className='relative flex h-24 w-24 items-center justify-center rounded-full bg-secondary'>
+                  <IconUserCircle className='absolute h-20 w-20 text-foreground' />
                 </div>
               }
             />
