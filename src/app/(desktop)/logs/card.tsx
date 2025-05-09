@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import Avatar from '@/components/ui/avatar'
 import Fancybox from '@/components/ui/fancybox'
-import { Log } from '@/types'
+import { Logs } from '@/types'
 import {
   IconBrandAndroid,
   IconBrandApple,
@@ -18,7 +18,7 @@ import {
   IconWorld
 } from '@tabler/icons-react'
 
-const Card = React.forwardRef<HTMLDivElement, { student: Log }>(({ student }, ref) => {
+const Card = React.forwardRef<HTMLDivElement, { student: Logs }>(({ student }, ref) => {
   const browserIcon = (browser: string) => {
     switch (browser) {
       case 'Chrome':

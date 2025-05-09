@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import redis from '@/lib/redis'
 import getUser from '@/utils/user'
 // import getClassName from '@/utils/class-name'
-import { Log } from '@prisma/client'
+import { Logs } from '@prisma/client'
 
 export const GET = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest) => {
   // 權限要是 SUPER_ADMIN
 
   if (auth?.role === 'SUPER_ADMIN') {
-    const allLog = await prisma.log.findMany({
+    const allLog = await prisma.logs.findMany({
       orderBy: {
         createdAt: 'desc'
       },
@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
   const accessToken = req.headers.get('authorization')?.replace('Bearer ', '') || ''
   const auth = await getAuth(accessToken)
 
-  const res: Log = await req.json()
+  const res: Logs = await req.json()
 
   if (
     process.env.NODE_ENV === 'production' &&
@@ -49,7 +49,7 @@ export const POST = async (req: NextRequest) => {
   ) {
     try {
       const { img } = await getUser(auth.userId)
-      await prisma.log.create({
+      await prisma.logs.create({
         data: {
           ip: res.ip,
           avatar: img.replace('https://tipfile.takming.edu.tw/stuphoto/', ''),
@@ -69,7 +69,7 @@ export const POST = async (req: NextRequest) => {
           }
         }
       })
-      const allLog = await prisma.log.findMany({
+      const allLog = await prisma.logs.findMany({
         orderBy: {
           createdAt: 'desc'
         },
@@ -78,8 +78,8 @@ export const POST = async (req: NextRequest) => {
         }
       })
       // 刪除原本的快取重新寫入
-      await redis.del('log')
-      await redis.call('JSON.SET', 'log', '$', JSON.stringify(allLog))
+      await redis.del('logs')
+      await redis.call('JSON.SET', 'logs', '$', JSON.stringify(allLog))
       return NextResponse.json({ status: 'success', message: 'Log created' })
     } catch (error) {
       console.log('error', error)

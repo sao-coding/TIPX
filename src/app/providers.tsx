@@ -27,7 +27,7 @@ const Providers = ({
       const userAgent = navigator.userAgent
       const parser = new UAParser(userAgent)
       const ua = parser.getResult()
-      api.post('log', {
+      api.post('logs', {
         ip: await getIP(),
         deviceType: ua.device.type ?? '未知',
         deviceVendor: ua.device.vendor ?? '未知',

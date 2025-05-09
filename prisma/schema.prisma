@@ -18,18 +18,18 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   Download     Download[]
-  Log          Log[]
+  Logs         Logs[]
   UserSettings UserSettings?
 }
 
 model UserSettings {
-  id       String  @id @default(nanoid())
-  theme    String
-  location Boolean
-  avatar   String
-  banner   String
-  userId   String  @unique
-  user     User    @relation(fields: [userId], references: [id])
+  id       String             @id @default(nanoid())
+  theme    UserSettings_theme @default(system)
+  location Boolean            @default(false)
+  avatar   String             @default("")
+  banner   String             @default("")
+  userId   String             @unique
+  user     User               @relation(fields: [userId], references: [id])
 }
 
 model Student {
@@ -58,7 +58,7 @@ model Student {
   desc              String @db.Text
 }
 
-model Log {
+model Logs {
   id             String   @id @default(nanoid())
   ip             String
   userId         String
@@ -73,7 +73,7 @@ model Log {
   referer        String
   path           String
   createdAt      DateTime @default(now())
-  user           User     @relation(fields: [userId], references: [id])
+  user           User     @relation(fields: [userId], references: [id], map: "Log_userId_fkey")
 
   @@index([userId], map: "Log_userId_fkey")
 }
@@ -91,4 +91,10 @@ enum UserRole {
   SUPER_ADMIN
   ADMIN
   USER
+}
+
+enum UserSettings_theme {
+  system
+  light
+  dark
 }

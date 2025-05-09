@@ -133,7 +133,7 @@ export const USER_LINKS: GroupedUserLinks[] = [
       {
         icon: IconNotes,
         color: 'stroke-pink-500',
-        href: '/log',
+        href: '/logs',
         text: '日誌中心'
       },
       {

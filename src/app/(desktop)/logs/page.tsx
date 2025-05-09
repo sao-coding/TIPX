@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 
 import Title from '@/components/Title'
 import api from '@/lib/api'
-import { Log } from '@/types'
+import { Logs } from '@/types'
 import { IconUserCircle } from '@tabler/icons-react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -30,28 +30,30 @@ const Loading = () => {
 
 const LogPage = () => {
   const { ref, inView } = useInView()
-  const { status, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<Log[]>({
-    queryKey: ['log'],
-    queryFn: async ({ pageParam = 0 }) => {
-      try {
-        const { data } = await api.get('/log', {
-          params: {
-            page: pageParam,
-            limit: 10
-          }
-        })
+  const { status, data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<Logs[]>(
+    {
+      queryKey: ['logs'],
+      queryFn: async ({ pageParam = 0 }) => {
+        try {
+          const { data } = await api.get('logs', {
+            params: {
+              page: pageParam,
+              limit: 10
+            }
+          })
 
-        return data
-      } catch (error) {
-        console.error('log error', error)
-        throw new Error()
+          return data
+        } catch (error) {
+          console.error('log error', error)
+          throw new Error()
+        }
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === 10 ? allPages.length + 1 : undefined
       }
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length === 10 ? allPages.length + 1 : undefined
     }
-  })
+  )
 
   React.useEffect(() => {
     if (inView && hasNextPage) {
@@ -74,12 +76,12 @@ const LogPage = () => {
       <Title {...titleData} />
       <div className='space-y-2'>
         {isSuccess
-          ? data.pages.map((page: Log[], i) =>
+          ? data.pages.map((page: Logs[], i) =>
               page.map((item, i) => {
                 if (page.length === i + 1) {
-                  return <Card key={item.userId} ref={ref} student={item} />
+                  return <Card key={item.id} ref={ref} student={item} />
                 }
-                return <Card key={item.userId} student={item} />
+                return <Card key={item.id} student={item} />
               })
             )
           : null}

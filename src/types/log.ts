@@ -1,5 +1,5 @@
-import { Log as LogType, User } from '@prisma/client'
+import { Logs as LogType, User } from '@prisma/client'
 
-export type Log = LogType & {
+export type Logs = LogType & {
   user: User
 }
