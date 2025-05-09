@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 import getAuth from '@/lib/get-auth'
@@ -11,8 +12,9 @@ export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams
 
   const userid = searchParams.get('userid') ?? auth?.userId
+  const year = searchParams.get('year') ?? (await cookies()).get('year')?.value
 
-  const className: ClassName = await getClassName(userid ?? '')
+  const className: ClassName = await getClassName(userid ?? '', year ?? '')
 
   return NextResponse.json(className)
 }
