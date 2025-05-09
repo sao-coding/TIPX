@@ -26,7 +26,7 @@ export const GET = async (req: NextRequest) => {
                 DATE_FORMAT(CONVERT_TZ(createdAt, '+00:00', '+08:00'), '%Y-%m-%d') AS day,
                 COUNT(DISTINCT userId) AS user_active
             FROM
-                Log
+                Logs
             WHERE
                 createdAt >= CONVERT_TZ(CURDATE() - INTERVAL 6 DAY, '+08:00', '+00:00')
             GROUP BY
@@ -78,7 +78,7 @@ export const GET = async (req: NextRequest) => {
       // 台北今天日期
       const today = (await prisma.$queryRaw`
         SELECT COUNT(*) AS count
-        FROM Log
+        FROM Logs
         WHERE createdAt >= CONVERT_TZ(CURDATE(), '+08:00', '+00:00')
           AND createdAt < CONVERT_TZ(CURDATE() + INTERVAL 1 DAY, '+08:00', '+00:00');
       `) as { count: number }[]
