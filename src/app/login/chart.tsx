@@ -1,6 +1,6 @@
 'use client'
 
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+import { Bar, CartesianGrid, ComposedChart, Line, XAxis } from 'recharts'
 
 import {
   ChartConfig,
@@ -13,8 +13,14 @@ import { useQuery } from '@tanstack/react-query'
 
 const Chart = () => {
   type ChartData = {
-    day: string
-    user_active: number
+    userActive: {
+      day: string
+      user_active: number
+    }[]
+    userView: {
+      day: string
+      user_view: number
+    }[]
   }
 
   const {
@@ -28,14 +34,25 @@ const Chart = () => {
       const data = await res.json()
       // error
       if (!res.ok) throw new Error('沒有這篇公告')
-      return data
+      return data.data
     }
   })
 
+  // const chartConfig = {
+  //   user_active: {
+  //     label: '活躍人數',
+  //     color: 'hsl(var(--chart-1))'
+  //   }
+  // } satisfies ChartConfig
+
   const chartConfig = {
+    user_view: {
+      label: '瀏覽次數',
+      color: 'hsl(var(--chart-1))'
+    },
     user_active: {
       label: '活躍人數',
-      color: 'hsl(var(--chart-1))'
+      color: 'hsl(var(--chart-2))'
     }
   } satisfies ChartConfig
 
@@ -51,7 +68,7 @@ const Chart = () => {
           </div>
         ) : (
           <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={chartData}>
+            <ComposedChart accessibilityLayer data={chartData}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey='day'
@@ -61,8 +78,17 @@ const Chart = () => {
                 tickFormatter={(value) => value.slice(0, 5)}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey='user_active' fill='var(--color-user_active)' radius={4} />
-            </BarChart>
+              <Bar dataKey='user_view' fill='var(--color-user_view)' radius={4} />
+              <Line
+                type='monotone'
+                dataKey='user_active'
+                stroke='var(--color-user_active)'
+                strokeWidth={2}
+                dot={true}
+                activeDot={{ stroke: 'var(--color-user_active)', strokeWidth: 2, r: 4 }}
+                isAnimationActive={false}
+              />
+            </ComposedChart>
           </ChartContainer>
         )}
       </div>

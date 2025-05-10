@@ -7,88 +7,87 @@ export const GET = async (req: NextRequest) => {
   const type = searchParams.get('type')
   switch (type) {
     case 'chart': {
-      const chart = (await prisma.$queryRaw`
-        -- 生成過去7天的日期範圍
-        WITH DateRange AS (
-            SELECT
-                CURDATE() - INTERVAL (n - 1) DAY AS day
-            FROM
-                (SELECT 1 AS n UNION ALL
-                SELECT 2 UNION ALL
-                SELECT 3 UNION ALL
-                SELECT 4 UNION ALL
-                SELECT 5 UNION ALL
-                SELECT 6 UNION ALL
-                SELECT 7) AS numbers
+      const analytics = (await prisma.$queryRaw`
+        WITH RECURSIVE DateRange AS (
+            SELECT CURDATE() - INTERVAL 6 DAY AS day
+            UNION ALL
+            SELECT day + INTERVAL 1 DAY
+            FROM DateRange
+            WHERE day + INTERVAL 1 DAY <= CURDATE()
         ),
-        ActiveUsers AS (
+        LogData AS (
             SELECT
-                DATE_FORMAT(CONVERT_TZ(createdAt, '+00:00', '+08:00'), '%Y-%m-%d') AS day,
+                DATE(CONVERT_TZ(createdAt, '+00:00', '+08:00')) AS local_day,
+                userId
+            FROM Logs
+            WHERE createdAt >= CONVERT_TZ(CURDATE() - INTERVAL 6 DAY, '+08:00', '+00:00')
+              AND createdAt < CONVERT_TZ(CURDATE() + INTERVAL 1 DAY, '+08:00', '+00:00')
+        ),
+        Aggregated AS (
+            SELECT
+                local_day,
+                COUNT(*) AS user_view,
                 COUNT(DISTINCT userId) AS user_active
-            FROM
-                Logs
-            WHERE
-                createdAt >= CONVERT_TZ(CURDATE() - INTERVAL 6 DAY, '+08:00', '+00:00')
-            GROUP BY
-                DATE_FORMAT(CONVERT_TZ(createdAt, '+00:00', '+08:00'), '%Y-%m-%d')
+            FROM LogData
+            GROUP BY local_day
         )
         SELECT
             DATE_FORMAT(dr.day, '%c/%e') AS day,
-            COALESCE(au.user_active, 0) AS user_active
-        FROM
-            DateRange dr
-        LEFT JOIN
-            ActiveUsers au
-        ON
-            DATE_FORMAT(dr.day, '%Y-%m-%d') = au.day
-        ORDER BY
-            dr.day ASC
-        LIMIT 7;
-      `) as { day: string; user_active: number }[]
+            COALESCE(ag.user_active, 0) AS user_active,
+            COALESCE(ag.user_view, 0) AS user_view
+        FROM DateRange dr
+        LEFT JOIN Aggregated ag ON dr.day = ag.local_day
+        ORDER BY dr.day ASC;
+    `) as { day: string; user_active: number; user_view: number }[]
 
       // 處理 BigInt
-      chart.forEach((item) => {
+      analytics.forEach((item) => {
         item.user_active = Number(item.user_active)
+        item.user_view = Number(item.user_view)
       })
 
-      return NextResponse.json(chart)
+      return NextResponse.json({
+        status: 'success',
+        message: '獲取成功',
+        data: analytics
+      })
     }
     case 'today': {
       // 今日人數
       // 相同 user 只算一次 不可重複計算
-      // const today = (await prisma.$queryRaw`
-      // -- 計算台北時間今天的唯一活躍用戶數量
-      //   SELECT
-      //       COUNT(DISTINCT userId) AS count
-      //   FROM
-      //       Log
-      //   WHERE
-      //       CONVERT_TZ(createdAt, '+00:00', '+08:00') >= CURDATE() -- 台北時間今天的開始時間
-      //       AND CONVERT_TZ(createdAt, '+00:00', '+08:00') < CURDATE() + INTERVAL 1 DAY; -- 台北時間明天的開始時間
-      // `) as { count: number }[]
-
-      // // 處理 BigInt
-      // today.forEach((item) => {
-      //   item.count = Number(item.count)
-      // })
-      // return NextResponse.json({
-      //   count: today[0].count
-      // })
-
-      // 台北今天日期
       const today = (await prisma.$queryRaw`
-        SELECT COUNT(*) AS count
-        FROM Logs
-        WHERE createdAt >= CONVERT_TZ(CURDATE(), '+08:00', '+00:00')
-          AND createdAt < CONVERT_TZ(CURDATE() + INTERVAL 1 DAY, '+08:00', '+00:00');
+      -- 計算台北時間今天的唯一活躍用戶數量
+        SELECT
+            COUNT(DISTINCT userId) AS count
+        FROM
+            Logs
+        WHERE
+            CONVERT_TZ(createdAt, '+00:00', '+08:00') >= CURDATE() -- 台北時間今天的開始時間
+            AND CONVERT_TZ(createdAt, '+00:00', '+08:00') < CURDATE() + INTERVAL 1 DAY; -- 台北時間明天的開始時間
       `) as { count: number }[]
 
       // 處理 BigInt
       today.forEach((item) => {
         item.count = Number(item.count)
       })
+      return NextResponse.json({
+        count: today[0].count
+      })
 
-      return NextResponse.json(today[0])
+      // 台北今天日期
+      // const today = (await prisma.$queryRaw`
+      //   SELECT COUNT(*) AS count
+      //   FROM Logs
+      //   WHERE createdAt >= CONVERT_TZ(CURDATE(), '+08:00', '+00:00')
+      //     AND createdAt < CONVERT_TZ(CURDATE() + INTERVAL 1 DAY, '+08:00', '+00:00');
+      // `) as { count: number }[]
+
+      // // 處理 BigInt
+      // today.forEach((item) => {
+      //   item.count = Number(item.count)
+      // })
+
+      // return NextResponse.json(today[0])
     }
     case 'user': {
       const user = await prisma.user.count()
