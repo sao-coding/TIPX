@@ -48,7 +48,7 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "firebase": "^10.13.1",
     "firebase-admin": "^12.4.0",
-    "fontmin": "^2.0.0",
+    "fontmin": "^1.1.0",
     "framer-motion": "^12.9.2",
     "git-log": "1.0.0-rc.3",
     "iconv-lite": "^0.6.3",
