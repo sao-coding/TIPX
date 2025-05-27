@@ -79,7 +79,7 @@ const UserPage = async () => {
                     >
                       <div className='flex items-center gap-2'>
                         <link.icon className={clsx(link.color, link.className)} />
-                        <span>{link.text}</span>
+                        <span className='line-clamp-1'>{link.text}</span>
                       </div>
                     </Link>
                   </li>
