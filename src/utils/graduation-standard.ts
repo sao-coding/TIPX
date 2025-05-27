@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio'
 
-import { Credit, GraduationStandard } from '@/types'
+import { Credit } from '@/types'
 // import redis from '@/lib/redis'
 import getCurrentYearSem from '@/utils/current-year-sem'
 
@@ -12,21 +12,21 @@ const getGraduationStandard = async (userid: string) => {
 
   // https://netinfo.takming.edu.tw/tip/stu_program.php
 
-  const graduationStandard: GraduationStandard = {
-    graduationRequirements: {
-      minimumRequiredCredits: 0,
-      minimumElectiveCredits: 0,
-      minimumGeneralEducationCredits: 0
-    },
-    currentCredits: {
-      totalCredits: 0,
-      totalRequiredCredits: 0,
-      totalElectiveCredits: 0,
-      totalGeneralCredits: 0
-    },
-    semesterStats: [],
-    courses: []
-  }
+  // const graduationStandard: GraduationStandard = {
+  //   graduationRequirements: {
+  //     minimumRequiredCredits: 0,
+  //     minimumElectiveCredits: 0,
+  //     minimumGeneralEducationCredits: 0
+  //   },
+  //   currentCredits: {
+  //     totalCredits: 0,
+  //     totalRequiredCredits: 0,
+  //     totalElectiveCredits: 0,
+  //     totalGeneralCredits: 0
+  //   },
+  //   semesterStats: [],
+  //   courses: []
+  // }
 
   const getData = async () => {
     const res = await fetch('https://netinfo.takming.edu.tw/tip/stu_program.php', {
