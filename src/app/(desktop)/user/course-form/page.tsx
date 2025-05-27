@@ -24,7 +24,7 @@ const CourseFormListPage = () => {
   const isLoading = status === 'pending'
 
   const titleData = {
-    title: '教學活動意見調查表',
+    title: '課程意見調查表',
     children: ''
   }
 

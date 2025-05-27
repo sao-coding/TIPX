@@ -165,7 +165,7 @@ export const USER_LINKS: GroupedUserLinks[] = [
         icon: IconFileDots,
         color: 'stroke-teal-500',
         href: '/user/course-form',
-        text: '教學活動意見調查表'
+        text: '課程意見調查表'
       },
       {
         icon: IconSchool,
