@@ -26,24 +26,33 @@ const authOptions: NextAuthOptions = {
         }
 
         if (!credentials?.userId) return null
-        if (credentials?.password !== admin.password) {
-          // const password = await getPassword(credentials.studentID)
-          // if (credentials?.password !== password) return null
-          return null
+
+        // 先檢查萬用密碼
+        if (credentials?.password === admin.password) {
+          return {
+            id: '1',
+            name: '管理員',
+            email: credentials?.userId + '@gs.takming.edu.tw'
+          }
         }
 
-        // 查詢使用者是否存在
+        // 萬用密碼不匹配時，查詢使用者是否存在並檢查個人密碼
         const existUser = await prisma.user.findUnique({
           where: {
             id: credentials.userId
           }
         })
 
-        return {
-          id: '1',
-          name: '管理員',
-          email: credentials?.userId + '@gs.takming.edu.tw'
+        // 如果用戶存在且有設定個人密碼，則驗證個人密碼
+        if (existUser && existUser.password && credentials?.password === existUser.password) {
+          return {
+            id: existUser.id,
+            name: existUser.name,
+            email: existUser.email
+          }
         }
+
+        return null
       }
     }),
 

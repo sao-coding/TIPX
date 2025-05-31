@@ -1,30 +1,12 @@
 'use client'
 
 import React from 'react'
-import toast from 'react-hot-toast'
 
+import { PasswordDialog } from '@/app/(desktop)/user/settings/password-dialog'
+import { SettingItem } from '@/app/(desktop)/user/settings/setting-item'
+import { UploadDialog } from '@/app/(desktop)/user/settings/upload-dialog'
 import Title from '@/components/Title'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '@/components/ui/drawer'
-import { Input } from '@/components/ui/input'
 import Loading from '@/components/ui/Loading'
 import {
   Select,
@@ -34,341 +16,165 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useUserSettings } from '@/hooks/use-user-settings'
 import api from '@/lib/api'
-import { UserSettings } from '@prisma/client'
 import {
   Icon,
   IconDeviceDesktop,
+  IconKey,
   IconMapPin,
   IconMoon,
   IconPaint,
   IconPhoto,
   IconSun,
   IconTrash,
-  IconUpload,
   IconUserSquareRounded
 } from '@tabler/icons-react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+
+type ThemeConfig = {
+  icon: Icon
+  color: string
+  value: string
+  label: string
+}
+
+const themeConfig: ThemeConfig[] = [
+  {
+    icon: IconDeviceDesktop,
+    color: 'text-blue-500',
+    value: 'system',
+    label: '跟隨系統'
+  },
+  {
+    icon: IconSun,
+    color: 'text-orange-500',
+    value: 'light',
+    label: '明亮模式'
+  },
+  {
+    icon: IconMoon,
+    color: 'text-yellow-500',
+    value: 'dark',
+    label: '暗黑模式'
+  }
+]
 
 const SettingsPage = () => {
-  const [theme, setTheme] = React.useState('system')
-  const [location, setLocation] = React.useState(false)
-  const [avatar, setAvatar] = React.useState('')
-  const [banner, setBanner] = React.useState('')
-  const queryClient = useQueryClient()
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const {
+    theme,
+    location,
+    avatar,
+    banner,
+    isLoading,
+    setAvatar,
+    setBanner,
+    handleTheme,
+    handleLocation,
+    handleAvatar,
+    handleBanner,
+    clearCache,
+    createPassword,
+    updatePassword
+  } = useUserSettings()
 
-  const { data, isLoading } = useQuery<UserSettings>({
-    queryKey: ['settings'],
+  // 查詢用戶是否已設定密碼
+  const { data: userHasPassword } = useQuery<boolean>({
+    queryKey: ['user-password'],
     queryFn: async () => {
-      const { data } = await api.get('settings')
-      return data
+      try {
+        const { data } = await api.get('password')
+        return !!data.password
+      } catch {
+        return false
+      }
     }
   })
-
-  React.useEffect(() => {
-    if (data) {
-      setTheme(data.theme)
-      setLocation(data.location)
-      setAvatar(data.avatar)
-      setBanner(data.banner)
-    }
-  }, [data])
-
-  // theme
-  // location
-  const updateSettings = async (
-    theme: string,
-    location: boolean,
-    avatar: string,
-    banner: string
-  ) => {
-    const { data } = await api.patch('settings', {
-      theme,
-      location,
-      avatar,
-      banner
-    })
-    queryClient.invalidateQueries({ queryKey: ['settings'] })
-  }
-
-  const handleTheme = (theme: string) => {
-    // color-scheme: dark;
-    switch (theme) {
-      case 'system':
-        localStorage.removeItem('theme')
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.classList.remove('light')
-          document.documentElement.classList.add('dark')
-          document.documentElement.style.setProperty('color-scheme', 'dark')
-        } else {
-          document.documentElement.classList.add('light')
-          document.documentElement.style.setProperty('color-scheme', 'light')
-        }
-        break
-      case 'dark':
-        localStorage.setItem('theme', 'dark')
-        document.documentElement.classList.remove('light')
-        document.documentElement.classList.add('dark')
-        document.documentElement.style.setProperty('color-scheme', 'dark')
-        break
-      case 'light':
-        localStorage.setItem('theme', 'light')
-        document.documentElement.classList.remove('dark')
-        document.documentElement.classList.add('light')
-        document.documentElement.style.setProperty('color-scheme', 'light')
-        break
-      default:
-        break
-    }
-    setTheme(theme)
-    updateSettings(theme, location, avatar, banner)
-  }
-
-  const handleLocation = async () => {
-    const newLocation = !location
-    localStorage.setItem('location', String(newLocation))
-    setLocation(newLocation)
-
-    if (newLocation) {
-      await navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log('position', position)
-        },
-        (error) => {
-          console.log('error', error)
-        }
-      )
-    }
-
-    updateSettings(theme, newLocation, avatar, banner)
-  }
-
-  const handleAvatar = (avatar: string) => {
-    updateSettings(theme, location, avatar, banner)
-  }
-
-  const handleBanner = (banner: string) => {
-    updateSettings(theme, location, avatar, banner)
-  }
-
-  // 清除快取
-  const clearCache = async () => {
-    const { data } = await api.delete('clear')
-    if (data.message === 'success') {
-      toast.success('清除成功')
-    } else {
-      toast.error('清除失敗')
-    }
-  }
 
   const titleData = {
     title: '設定',
     children: ''
   }
 
-  type ThemeConfig = {
-    icon: Icon
-    color: string
-    value: string
-    label: string
+  if (isLoading) {
+    return (
+      <>
+        <Title {...titleData} />
+        <Loading />
+      </>
+    )
   }
-
-  const themeConfig: ThemeConfig[] = [
-    {
-      icon: IconDeviceDesktop,
-      color: 'text-blue-500',
-      value: 'system',
-      label: '跟隨系統'
-    },
-    {
-      icon: IconSun,
-      color: 'text-orange-500',
-      value: 'light',
-      label: '明亮模式'
-    },
-    {
-      icon: IconMoon,
-      color: 'text-yellow-500',
-      value: 'dark',
-      label: '暗黑模式'
-    }
-  ]
 
   return (
     <>
-      {/* 跟隨系統 明亮模式 暗黑模式 */}
-      {/* 主題 */}
       <Title {...titleData} />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className='grid grid-rows-5 gap-2'>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-2'>
-              <IconPaint className='stroke-pink-500' />
-              主題
-            </div>
-            <Select value={theme} onValueChange={(value) => handleTheme(value)}>
-              <SelectTrigger className='w-40'>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {themeConfig.map((item) => (
-                  <SelectItem key={item.value} value={item.value}>
-                    <div className='flex items-center gap-2'>
-                      <item.icon className={item.color} />
-                      {item.label}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center gap-2'>
-              <IconMapPin className='stroke-red-500' />
-              天氣定位(尚未支援 因為我有點累了)
-            </div>
-            <Switch checked={location} onCheckedChange={handleLocation} />
-          </div>
-          {isDesktop ? (
-            <Dialog>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <IconUserSquareRounded className='stroke-orange-500' />
-                  大頭貼
-                </div>
-                <DialogTrigger asChild>
-                  <Button variant='secondary'>
-                    <IconUpload />
-                  </Button>
-                </DialogTrigger>
-              </div>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>上傳大頭貼</DialogTitle>
-                  <DialogDescription>請貼上大頭貼網址</DialogDescription>
-                </DialogHeader>
-                <Input
-                  placeholder='https://tipx.sao-x.com/avatar.jpg'
-                  value={avatar}
-                  onChange={(e) => setAvatar(e.target.value)}
-                />
-                <DialogClose asChild>
-                  <Button onClick={() => handleAvatar(avatar)}>儲存</Button>
-                </DialogClose>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <Drawer>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <IconUserSquareRounded className='stroke-orange-500' />
-                  大頭貼
-                </div>
-                <DrawerTrigger asChild>
-                  <Button variant='secondary'>
-                    <IconUpload />
-                  </Button>
-                </DrawerTrigger>
-              </div>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>上傳大頭貼</DrawerTitle>
-                  <DrawerDescription>請貼上大頭貼網址</DrawerDescription>
-                </DrawerHeader>
-                <DrawerFooter>
-                  <Input
-                    placeholder='https://tipx.sao-x.com/avatar.jpg'
-                    value={avatar}
-                    onChange={(e) => setAvatar(e.target.value)}
-                  />
-                  <DrawerClose asChild>
-                    <Button onClick={() => handleAvatar(avatar)}>儲存</Button>
-                  </DrawerClose>
-                  <DrawerClose asChild>
-                    <Button variant='outline'>取消</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          )}
-          {/* 橫幅設定 */}
-          {isDesktop ? (
-            <Dialog>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <IconPhoto className='stroke-amber-500' />
-                  橫幅
-                </div>
-                <DialogTrigger asChild>
-                  <Button variant='secondary'>
-                    <IconUpload />
-                  </Button>
-                </DialogTrigger>
-              </div>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>上傳橫幅</DialogTitle>
-                  <DialogDescription>請貼上橫幅網址</DialogDescription>
-                </DialogHeader>
-                <Input
-                  placeholder='https://tipx.sao-x.com/banner.jpg'
-                  value={banner}
-                  onChange={(e) => setBanner(e.target.value)}
-                />
-                <DialogClose asChild>
-                  <Button onClick={() => handleBanner(banner)}>儲存</Button>
-                </DialogClose>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <Drawer>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <IconPhoto className='stroke-amber-500' />
-                  橫幅
-                </div>
-                <DrawerTrigger asChild>
-                  <Button variant='secondary'>
-                    <IconUpload />
-                  </Button>
-                </DrawerTrigger>
-              </div>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>上傳橫幅</DrawerTitle>
-                  <DrawerDescription>請貼上橫幅網址</DrawerDescription>
-                </DrawerHeader>
-                <DrawerFooter>
-                  <Input
-                    placeholder='https://tipx.sao-x.com/banner.jpg'
-                    value={banner}
-                    onChange={(e) => setBanner(e.target.value)}
-                  />
-                  <DrawerClose asChild>
-                    <Button onClick={() => handleBanner(banner)}>儲存</Button>
-                  </DrawerClose>
-                  <DrawerClose asChild>
-                    <Button variant='outline'>取消</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          )}
-          <div className='flex items-center justify-between'>
-            <div className='flex gap-2'>
-              <IconTrash className='stroke-gray-500' />
-              清除快取
-            </div>
-            <Button onClick={clearCache} variant='destructive'>
-              <IconTrash />
-            </Button>
-          </div>
-        </div>
-      )}
+      <div className='grid grid-rows-6 gap-2'>
+        <SettingItem icon={IconPaint} iconColor='stroke-pink-500' label='主題'>
+          <Select value={theme} onValueChange={handleTheme}>
+            <SelectTrigger className='w-40'>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {themeConfig.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <div className='flex items-center gap-2'>
+                    <item.icon className={item.color} />
+                    {item.label}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </SettingItem>
+
+        <SettingItem
+          icon={IconMapPin}
+          iconColor='stroke-red-500'
+          label='天氣定位(尚未支援 因為我有點累了)'
+        >
+          <Switch checked={location} onCheckedChange={handleLocation} />
+        </SettingItem>
+
+        <SettingItem
+          icon={IconKey}
+          iconColor='stroke-blue-500'
+          label={userHasPassword ? '更新密碼' : '設定密碼'}
+        >
+          <PasswordDialog
+            hasPassword={userHasPassword || false}
+            onCreatePassword={createPassword}
+            onUpdatePassword={updatePassword}
+          />
+        </SettingItem>
+
+        <SettingItem icon={IconUserSquareRounded} iconColor='stroke-orange-500' label='大頭貼'>
+          <UploadDialog
+            title='上傳大頭貼'
+            description='請貼上大頭貼網址'
+            placeholder='https://tipx.sao-x.com/avatar.jpg'
+            value={avatar}
+            onChange={setAvatar}
+            onSave={handleAvatar}
+          />
+        </SettingItem>
+
+        <SettingItem icon={IconPhoto} iconColor='stroke-amber-500' label='橫幅'>
+          <UploadDialog
+            title='上傳橫幅'
+            description='請貼上橫幅網址'
+            placeholder='https://tipx.sao-x.com/banner.jpg'
+            value={banner}
+            onChange={setBanner}
+            onSave={handleBanner}
+          />
+        </SettingItem>
+
+        <SettingItem icon={IconTrash} iconColor='stroke-gray-500' label='清除快取'>
+          <Button onClick={clearCache} variant='destructive'>
+            <IconTrash />
+          </Button>
+        </SettingItem>
+      </div>
     </>
   )
 }
