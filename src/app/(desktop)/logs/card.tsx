@@ -101,7 +101,10 @@ const Card = React.forwardRef<HTMLDivElement, { student: Logs }>(({ student }, r
         <div className='flex h-12 flex-col justify-between'>
           <div className='flex w-full items-center gap-1 text-sm'>
             {browserIcon(student.browserName)}
-            {student.browserName} {student.browserVersion}
+            {student.browserName}{' '}
+            <span className='w-10 overflow-hidden truncate text-ellipsis whitespace-nowrap'>
+              {student.browserVersion}
+            </span>
           </div>
           <div className='flex w-full items-center gap-1'>
             {osIcon(student.osName)}
