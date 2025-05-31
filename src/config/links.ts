@@ -2,8 +2,6 @@ import {
   Icon,
   IconActivity,
   IconAntennaBars5,
-  IconArrowBadgeDown,
-  IconBadges,
   IconBook2,
   IconBox,
   IconBrandGoogleAnalytics,
@@ -178,21 +176,21 @@ export const USER_LINKS: GroupedUserLinks[] = [
         color: 'stroke-pink-500',
         href: '/user/class-list',
         text: '班級名單'
-      },
-      {
-        icon: IconArrowBadgeDown,
-        color: 'stroke-emerald-500',
-        className: 'rotate-180',
-        href: '/user/class-rank',
-        text: '班級排名'
-      },
-      {
-        icon: IconBadges,
-        color: 'stroke-teal-500',
-        className: 'rotate-180',
-        href: '/user/dept-rank',
-        text: '系排名'
       }
+      // {
+      //   icon: IconArrowBadgeDown,
+      //   color: 'stroke-emerald-500',
+      //   className: 'rotate-180',
+      //   href: '/user/class-rank',
+      //   text: '班級排名'
+      // },
+      // {
+      //   icon: IconBadges,
+      //   color: 'stroke-teal-500',
+      //   className: 'rotate-180',
+      //   href: '/user/dept-rank',
+      //   text: '系排名'
+      // }
     ]
   },
   {
