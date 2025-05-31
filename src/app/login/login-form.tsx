@@ -54,15 +54,15 @@ const LoginForm = () => {
     e.preventDefault()
 
     const userId = (document.querySelector('#user-id') as HTMLInputElement)?.value
-    const authCode = (document.querySelector('#auth-code') as HTMLInputElement)?.value
+    const password = (document.querySelector('#password') as HTMLInputElement)?.value
 
     if (userId === '') {
       toast.error('請輸入學號')
       return
     }
 
-    if (authCode === '') {
-      toast.error('請輸入授權碼')
+    if (password === '') {
+      toast.error('請輸入密碼')
       return
     }
 
@@ -70,11 +70,11 @@ const LoginForm = () => {
     const status = await signIn('credentials', {
       redirect: false,
       userId,
-      password: authCode
+      password
     })
 
     if (status?.error) {
-      toast.error('授權碼錯誤', { id: toastId })
+      toast.error('密碼錯誤', { id: toastId })
     } else {
       const userSettings = await login(Cookies.get('accessToken') || '')
       console.log('userSettings', userSettings)
@@ -96,13 +96,13 @@ const LoginForm = () => {
             <Input id='user-id' />
           </div>
           <div className='grid gap-3'>
-            <Label htmlFor='auth-code' className='flex items-center gap-2'>
-              授權碼
+            <Label htmlFor='password' className='flex items-center gap-2'>
+              密碼
               <span className='line-clamp-1 flex-1 text-xs text-muted-foreground'>
-                一般人 請使用學校提供的 Google 帳號登入
+                請使用 Google 帳號登入，後設定密碼
               </span>
             </Label>
-            <Input id='auth-code' />
+            <Input id='password' />
           </div>
           <div className='flex items-center gap-2'>
             {/* 保持登入 */}
