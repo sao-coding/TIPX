@@ -21,7 +21,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         // 驗證授權碼
         const admin = {
-          id: '1',
+          id: 'x',
           password: process.env.AUTHORIZATION
         }
 
@@ -30,7 +30,7 @@ const authOptions: NextAuthOptions = {
         // 先檢查萬用密碼
         if (credentials?.password === admin.password) {
           return {
-            id: '1',
+            id: 'x',
             name: '管理員',
             email: credentials?.userId + '@gs.takming.edu.tw'
           }
@@ -80,7 +80,8 @@ const authOptions: NextAuthOptions = {
         const refreshToken = await signJwtToken(
           {
             type: 'refresh',
-            userId
+            userId,
+            provider: user.id === 'x' ? 'admin' : 'credentials'
           },
           {
             // 設定到期時間 半年
@@ -98,7 +99,7 @@ const authOptions: NextAuthOptions = {
 
         const accessToken = await signJwtToken({
           type: 'access',
-          provider: 'credentials',
+          provider: user.id === 'x' ? 'admin' : 'credentials',
           userId,
           role: existUser?.role || 'USER'
         })
@@ -181,7 +182,8 @@ const authOptions: NextAuthOptions = {
           const refreshToken = await signJwtToken(
             {
               type: 'refresh',
-              userId: userInfo.id
+              userId: userInfo.id,
+              provider: 'google'
             },
             {
               // 設定到期時間 半年

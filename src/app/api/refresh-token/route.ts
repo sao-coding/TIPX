@@ -7,6 +7,7 @@ import { prisma } from '@/lib/prisma'
 export const GET = async (req: NextRequest) => {
   type RefreshToken = {
     type: 'refresh'
+    provider: string
     userId: string
   }
   // 驗證 refresh token 是否有效
@@ -26,6 +27,7 @@ export const GET = async (req: NextRequest) => {
     const accessToken = await signJwtToken(
       {
         type: 'access',
+        provider: refreshToken.provider,
         userId: refreshToken.userId,
         role: user?.role || 'USER'
       },

@@ -45,7 +45,7 @@ export const POST = async (req: NextRequest) => {
     process.env.NODE_ENV === 'production' &&
     auth?.userId &&
     auth.userId !== process.env.ADMINSTUDENTID &&
-    auth.provider !== 'credentials'
+    auth.provider !== 'admin'
   ) {
     try {
       const { img } = await getUser(auth.userId)
