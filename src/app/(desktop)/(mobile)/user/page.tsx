@@ -4,12 +4,14 @@ import clsx from 'clsx'
 
 import Ads from '@/components/Ads'
 import Switch from '@/components/LeftSidebar/switch'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { USER_LINKS } from '@/config/links'
 import { prisma } from '@/lib/prisma'
 import api from '@/lib/server-api'
 import { User } from '@/types'
 import getClassName from '@/utils/class-name'
 import getImgColor from '@/utils/img-color'
+import { IconInfoCircle } from '@tabler/icons-react'
 
 import Info from './info'
 import Logout from './logout'
@@ -62,6 +64,15 @@ const UserPage = async () => {
         }
       />
       <Switch mobile />
+      <Alert className='mt-2 bg-blue-50 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200'>
+        <IconInfoCircle className='size-4 !text-blue-500' />
+        <AlertTitle>我畢業啦 🎉🎊</AlertTitle>
+        <AlertDescription>
+          <Link href='/graduation-message' className='text-blue-600 underline dark:text-blue-400'>
+            點擊這裡查看畢業留言
+          </Link>
+        </AlertDescription>
+      </Alert>
       <div className='mt-2 md:hidden'>
         {/* 功能清單 */}
         <ul className='grid grid-cols-2 gap-2'>

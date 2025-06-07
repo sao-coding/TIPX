@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id           String        @id
-  password     String?
-  name         String
-  givenName    String
-  familyName   String
-  picture      String
-  email        String        @unique
-  role         UserRole      @default(USER)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  Download     Download[]
-  Logs         Logs[]
-  UserSettings UserSettings?
+  id                String              @id
+  password          String?
+  name              String
+  givenName         String
+  familyName        String
+  picture           String
+  email             String              @unique
+  role              UserRole            @default(USER)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Download          Download[]
+  Logs              Logs[]
+  UserSettings      UserSettings?
+  GraduationMessage GraduationMessage[]
 }
 
 model UserSettings {
@@ -86,6 +87,16 @@ model Download {
   user      User     @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "Download_userId_fkey")
+}
+
+model GraduationMessage {
+  id        String   @id @default(nanoid())
+  userId    String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "GraduationMessage_userId_fkey")
 }
 
 enum UserRole {
