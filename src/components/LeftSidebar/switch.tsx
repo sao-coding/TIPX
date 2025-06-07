@@ -36,14 +36,15 @@ type Sem = {
 }
 
 const Switch = ({ mobile }: { mobile?: boolean }) => {
+  const [mounted, setMounted] = React.useState(false)
   const [year, setYear] = React.useState(Cookies.get('year'))
   const [sem, setSem] = React.useState(Cookies.get('sem'))
   const router = useRouter()
   const isDesktop = useMediaQuery('(min-width: 1280px)')
 
   React.useEffect(() => {
-    console.log('isDesktop', isDesktop)
-  }, [isDesktop])
+    setMounted(true)
+  }, [])
 
   const { isLoading, isError, data } = useQuery<Sem[]>({
     queryKey: ['credit'],
@@ -52,7 +53,8 @@ const Switch = ({ mobile }: { mobile?: boolean }) => {
 
       const { data } = await api.get(`credit?year=${currentYear}&sem=${currentSem}`)
       return data
-    }
+    },
+    enabled: mounted
   })
 
   const ChangeYearSem = (value: string) => {
@@ -67,6 +69,9 @@ const Switch = ({ mobile }: { mobile?: boolean }) => {
     console.log('重新整理')
     router.refresh()
   }
+
+  // 確保初始渲染一致 - 總是顯示 loading 狀態直到完全掛載
+  const shouldShowLoading = !mounted || isLoading
 
   return (
     <>
@@ -86,7 +91,7 @@ const Switch = ({ mobile }: { mobile?: boolean }) => {
             )}
           >
             <SelectValue>
-              {isLoading ? (
+              {shouldShowLoading ? (
                 <IconLoader2 className='mx-1 animate-spin' />
               ) : (
                 <>
