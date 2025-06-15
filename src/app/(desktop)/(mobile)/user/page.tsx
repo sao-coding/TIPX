@@ -11,7 +11,7 @@ import api from '@/lib/server-api'
 import { User } from '@/types'
 import getClassName from '@/utils/class-name'
 import getImgColor from '@/utils/img-color'
-import { IconInfoCircle } from '@tabler/icons-react'
+import { IconAlertTriangle, IconInfoCircle } from '@tabler/icons-react'
 
 import Info from './info'
 import Logout from './logout'
@@ -64,6 +64,17 @@ const UserPage = async () => {
         }
       />
       <Switch mobile />
+      <Alert className='mt-2' variant='destructive'>
+        <IconAlertTriangle className='size-4' />
+        <AlertTitle>畢業帳號注意事項</AlertTitle>
+        <AlertDescription>
+          畢業<span className='font-mono'> Google </span>帳號會被學校刪除，若想保留帳號資料，請設定
+          <Link href='/user/settings' className='text-blue-600 underline dark:text-blue-400'>
+            密碼
+          </Link>
+          ，以便日後登入。
+        </AlertDescription>
+      </Alert>
       <Alert className='mt-2 bg-blue-50 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200'>
         <IconInfoCircle className='size-4 !text-blue-500' />
         <AlertTitle>我畢業啦 🎉🎊</AlertTitle>

@@ -147,7 +147,11 @@ const SettingsPage = () => {
           />
         </SettingItem>
 
-        <SettingItem icon={IconUserSquareRounded} iconColor='stroke-orange-500' label='大頭貼'>
+        <SettingItem
+          icon={IconUserSquareRounded}
+          iconColor='stroke-orange-500'
+          label='大頭貼(如果不想一直看到自己的臉)'
+        >
           <UploadDialog
             title='上傳大頭貼'
             description='請貼上大頭貼網址'
