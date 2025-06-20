@@ -68,7 +68,8 @@ const UserPage = async () => {
         <IconAlertTriangle className='size-4' />
         <AlertTitle>畢業帳號注意事項</AlertTitle>
         <AlertDescription>
-          畢業<span className='font-mono'> Google </span>帳號會被學校刪除，若想保留帳號資料，請設定
+          畢業<span className='font-mono'> Google </span>帳號會被學校刪除，若想畢業後也能登入
+          <span className='font-mono'> TIPX </span>，請設定
           <Link href='/user/settings' className='text-blue-600 underline dark:text-blue-400'>
             密碼
           </Link>
