@@ -21,8 +21,11 @@ const getDeptRank = async (userid: string, year: string, sem: string, classid: s
     const userid = deptID + classid + j.toString().padStart(2, '0')
     const { major } = await getUser(userid)
     const { class: className } = await getClassName(userid ?? '')
-    // console.log({ majorOwn, major, userid, className })
-    if (majorOwn === major && classNameOwn === className) {
+    console.log(
+      `系排: 目前使用者的系所: ${majorOwn} 班級: ${classNameOwn.slice(0, -1)}\n正在比對學號: ${userid} 的系所: ${major} 班級: ${className.slice(0, -1)}`
+    )
+
+    if (majorOwn === major && classNameOwn.slice(0, -1) === className.slice(0, -1)) {
       finalGradeRankClass = await getClassRank(userid, year, sem)
       break
     }

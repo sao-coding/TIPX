@@ -57,7 +57,7 @@ const getClassRank = async (userid: string, year: string, sem: string) => {
     )
   )
 
-  console.log('此班', classRankList.length, '人')
+  console.log(`系排: ${className}的成績排名有 ${classRankList.length} 人`)
 
   const finalGradeRankClass = await Promise.all(
     Array.from(classRankList).map(async (element) => {
