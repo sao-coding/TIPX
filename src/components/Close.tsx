@@ -1,16 +1,18 @@
 'use client'
 
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 import { IconArrowLeft } from '@tabler/icons-react'
 
 const Close = ({ className, children }: { className?: string; children?: React.ReactNode }) => {
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleBack = () => {
-    if (window.history.length < 2) {
+    // console.log('handleBack', { pathname, historyLength: window.history.length })
+    if (pathname.startsWith('/post/')) {
       router.push('/')
     } else {
       router.back()
