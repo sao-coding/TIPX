@@ -1,3 +1,4 @@
+import React from 'react'
 import { Commit } from 'git-log'
 
 import Title from '@/components/Title'
@@ -56,7 +57,7 @@ const GitLogPage = async () => {
               .filter((item) => item.subject !== '✅ 更新日誌')
               .map((item, index) => (
                 // 依照年分月份分類
-                <>
+                <React.Fragment key={item.hash}>
                   {/* {new Date(item.date).getFullYear() !==
                                     new Date(data[0].date).getFullYear() && (
                                     <>
@@ -114,7 +115,7 @@ const GitLogPage = async () => {
                       })}
                     </p>
                   </li>
-                </>
+                </React.Fragment>
               ))}
           </ul>
         </div>
