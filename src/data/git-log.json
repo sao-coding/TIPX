@@ -1,5 +1,35 @@
 [
   {
+    "subject": "✨ 替換 LogLib 為 UmamiAnalytics，並更新網站數據統計連結",
+    "date": "2025-09-01T17:54:47.000Z",
+    "hash": "ef58919fc5976eab698e9cbc7055daf92edd5d1b",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正 GitLogPage 中的 Fragment map 未加上 key",
+    "date": "2025-09-01T17:54:30.000Z",
+    "hash": "fe9704c60fa218c3ac6fa1dcbb71fe2c339834d1",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 調整 PostPage 標題樣式，修正邊框顯示邏輯",
+    "date": "2025-09-01T16:57:22.000Z",
+    "hash": "54220efa323c69fc882775daf86e07ba0ceb6390",
+    "body": ""
+  },
+  {
+    "subject": "♻️ 重構 Close 組件，新增 pathname 變數以改善返回邏輯，解決直接進入文章卻無法回到首頁",
+    "date": "2025-09-01T16:57:15.000Z",
+    "hash": "984ce4dc81b583f4c2c6fcec38c8639fee310a16",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-07-11T17:58:39.000Z",
+    "hash": "28ec5b8c51e7ec5661257928cb1ba8680e5e189c",
+    "body": ""
+  },
+  {
     "subject": "♻️ 重構 getSemGrade 函數，優化資料獲取流程並增加快取管理",
     "date": "2025-07-11T17:58:13.000Z",
     "hash": "8bfa9246fccc402c7f1747105c5cd81f4c0805d0",
