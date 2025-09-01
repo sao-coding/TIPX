@@ -221,7 +221,7 @@ export const USER_LINKS: GroupedUserLinks[] = [
       {
         icon: IconBrandGoogleAnalytics,
         color: 'stroke-sky-400',
-        href: 'https://umami.sao-x.com/share/AACCNyiPSOrqzGZC/tipx.sao-x.com',
+        href: 'https://umami.sao-x.com/share/vQSZjeVV84AYruI5/tipx.sao-x.com',
         text: '網站數據統計'
       },
       {

@@ -8,8 +8,8 @@ import { Toaster } from 'react-hot-toast'
 import { site } from '@/config/site'
 import authOptions from '@/lib/auth'
 
-import LogLib from './loglib'
 import Providers from './providers'
+import UmamiAnalytics from './umami-analytics'
 
 import './custom.css'
 import './globals.css'
@@ -86,7 +86,7 @@ export default async function RootLayout({
     <html lang='zh-Hant-TW' suppressHydrationWarning>
       <head>
         {/* 正式環境 才用 */}
-        {process.env.NODE_ENV === 'production' && <LogLib />}
+        {process.env.NODE_ENV === 'production' && <UmamiAnalytics />}
         <Script
           async
           src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2271001084588765'
