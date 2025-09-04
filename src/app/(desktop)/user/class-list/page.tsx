@@ -1,4 +1,5 @@
 'use client'
+
 import Title from '@/components/Title'
 import Avatar from '@/components/ui/avatar'
 import Fancybox from '@/components/ui/fancybox'
