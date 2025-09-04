@@ -29,7 +29,7 @@ export const GET = async (req: NextRequest) => {
   // 请根据实际结构调整获取数据的方式
   if (fontFile && fontFile.contents) {
     const buffer = fontFile.contents
-    const response = new NextResponse(buffer, {
+    const response = new NextResponse(new Uint8Array(buffer), {
       headers: {
         'Content-Type': 'font/ttf', // 根据实际字体类型设置
         'Content-Disposition': 'attachment; filename="font.ttf"' // 设置文件名
