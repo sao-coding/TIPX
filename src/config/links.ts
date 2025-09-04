@@ -7,6 +7,7 @@ import {
   IconBrandGoogleAnalytics,
   IconBrowser,
   IconCalendarEvent,
+  IconCalendarWeek,
   IconCircleDot,
   IconClipboardList,
   IconClipboardPlus,
@@ -112,18 +113,6 @@ export const USER_LINKS: GroupedUserLinks[] = [
     group: '一般資訊',
     links: [
       {
-        icon: IconBox,
-        color: 'stroke-green-500',
-        href: '/box',
-        text: '資源'
-      },
-      {
-        icon: IconBrowser,
-        color: 'stroke-red-500',
-        href: 'https://takming-forum.sao-x.com',
-        text: '德明課程評價'
-      },
-      {
         icon: IconUserSearch,
         color: 'stroke-red-500',
         href: '/search',
@@ -134,6 +123,18 @@ export const USER_LINKS: GroupedUserLinks[] = [
         color: 'stroke-pink-500',
         href: '/logs',
         text: '日誌中心'
+      },
+      {
+        icon: IconBox,
+        color: 'stroke-green-500',
+        href: '/box',
+        text: '資源'
+      },
+      {
+        icon: IconBrowser,
+        color: 'stroke-red-500',
+        href: 'https://takming-forum.sao-x.com',
+        text: '德明課程評價'
       },
       {
         icon: IconUser,
@@ -160,10 +161,10 @@ export const USER_LINKS: GroupedUserLinks[] = [
         text: '科目成績'
       },
       {
-        icon: IconFileDots,
-        color: 'stroke-teal-500',
-        href: '/user/course-form',
-        text: '課程意見調查表'
+        icon: IconCalendarWeek,
+        color: 'stroke-violet-500',
+        href: '/user/calendar',
+        text: '行事曆'
       },
       {
         icon: IconSchool,
@@ -176,6 +177,12 @@ export const USER_LINKS: GroupedUserLinks[] = [
         color: 'stroke-pink-500',
         href: '/user/class-list',
         text: '班級名單'
+      },
+      {
+        icon: IconFileDots,
+        color: 'stroke-teal-500',
+        href: '/user/course-form',
+        text: '課程意見調查表'
       }
       // {
       //   icon: IconArrowBadgeDown,
