@@ -1,5 +1,29 @@
 [
   {
+    "subject": "✨ 新增行事曆頁面及 API，並更新相關類型與連結",
+    "date": "2025-09-04T17:17:15.000Z",
+    "hash": "8c030798e18051035ba8be2bb0697b8c10547e02",
+    "body": ""
+  },
+  {
+    "subject": "✨ 在 ClassListPage 中新增空行以改善代碼可讀性",
+    "date": "2025-09-04T17:17:01.000Z",
+    "hash": "db741f51bdb8f5f6fc5929ace7177b832dfaa1d0",
+    "body": ""
+  },
+  {
+    "subject": "🐛 修正字型回應的緩衝區處理，將其轉換為 Uint8Array",
+    "date": "2025-09-04T16:35:08.000Z",
+    "hash": "82fa765f7e1279c66dae34b02402ebaab6f79cba",
+    "body": ""
+  },
+  {
+    "subject": "✅ 更新日誌",
+    "date": "2025-09-01T17:55:52.000Z",
+    "hash": "ede8d2d8f2e7abfca68cf94299c1f3b061264de6",
+    "body": ""
+  },
+  {
     "subject": "✨ 替換 LogLib 為 UmamiAnalytics，並更新網站數據統計連結",
     "date": "2025-09-01T17:54:47.000Z",
     "hash": "ef58919fc5976eab698e9cbc7055daf92edd5d1b",
