@@ -15,6 +15,7 @@ interface FormSectionProps {
   isCompleted: boolean
   formData: Record<string, string>
   onValueChange: (key: string, value: string) => void
+  validationErrors: Record<string, boolean>
 }
 
 export function FormSection({
@@ -22,7 +23,8 @@ export function FormSection({
   sectionIndex,
   isCompleted,
   formData,
-  onValueChange
+  onValueChange,
+  validationErrors,
 }: FormSectionProps) {
   // Skip empty sections (like section1 in the data)
   if (!section.title || section.questions.length === 0) {
@@ -30,7 +32,7 @@ export function FormSection({
   }
 
   return (
-    <AccordionItem value={section.id}>
+    <AccordionItem value={section.id} className='border-0'>
       <Card>
         <AccordionTrigger className='px-6 py-4 hover:no-underline'>
           <div className='flex items-center gap-3'>
@@ -55,6 +57,7 @@ export function FormSection({
                   suggestionId={section.suggestion}
                   formData={formData}
                   onValueChange={onValueChange}
+                  isInvalid={validationErrors[section.suggestion]}
                 />
               )}
             </div>
