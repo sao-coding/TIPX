@@ -27,8 +27,7 @@ export const POST = async (req: NextRequest) => {
   const auth = await getAuth(accessToken)
 
   const body = await req.json()
-
-  // https://netinfo.takming.edu.tw/tip/grade/ans_save.php
+  // https://netinfo.takming.edu.tw/tip/grade/grade_course_ans.php
   // body = {
   //     "CLASS_NO": "D1231",
   //     "STAFF_ID": "0003059",
@@ -49,7 +48,7 @@ export const POST = async (req: NextRequest) => {
   body.DIVCODE = 1
 
   console.log('body', new URLSearchParams(body).toString())
-  const res = await fetch('https://netinfo.takming.edu.tw/tip/grade/ans_save.php', {
+  const res = await fetch('https://netinfo.takming.edu.tw/tip/grade/grade_course_ans.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -57,7 +56,7 @@ export const POST = async (req: NextRequest) => {
     // body 迴圈輸出
     body: new URLSearchParams(body)
   })
-
+  console.log('course-form res', await res.text())
   if (!res.ok) {
     return NextResponse.json(
       {

@@ -33,7 +33,7 @@ import getCurrentYearSem from '@/utils/current-year-sem'
 // const getGraduationStandard = async (userid: string) => {
 const getCourseForm = async (userid: string, coursePk?: string) => {
   const { currentYear, currentSem } = getCurrentYearSem()
-
+  // https://netinfo.takming.edu.tw/tip/grade/grade_course_ask.php?ver=c&flg=stu&rowid=3100015
   if (coursePk) {
     const res = await fetch(
       `https://netinfo.takming.edu.tw/tip/grade/grade_course_ask.php?ver=c&flg=stu&rowid=${coursePk}`,
@@ -48,9 +48,9 @@ const getCourseForm = async (userid: string, coursePk?: string) => {
     const buffer = await res.arrayBuffer()
     const html = new TextDecoder('utf-8').decode(buffer)
     const $ = cheerio.load(html)
-
     // 獲取課程基本信息
-    const courseDetailsTable = $('center').eq(1).find('table')
+    // /html/body/table/tbody/tr/td/table[1]
+    const courseDetailsTable = $('body > table > tbody > tr > td > table').first()
     const courseHiddenInputs = $('form[name="GcpaForm"]')
     const courseId = courseDetailsTable.find('td').eq(0).text().trim()
     const courseName = courseDetailsTable.find('td').eq(1).text().trim()
@@ -73,55 +73,52 @@ const getCourseForm = async (userid: string, coursePk?: string) => {
 
     // 選擇所有包含問卷部分的表格
     const formTables = $(
-      'table[cellspacing="0"][cellpadding="0"][width="90%"][border="0"][align="center"]'
-    ).slice(1)
-
+      'fieldset'
+    )
     formTables.each((sectionIndex, sectionElement) => {
       const sectionTable = $(sectionElement)
-      const titleRow = sectionTable.find('tr').first()
-      const titleText = titleRow.find('strong font').text().trim()
+      const titleText = sectionTable.find('legend span').text().trim()
 
       // 創建部分對象
       const section: CourseFormSection = {
         id: `section${sectionIndex + 1}`,
         title: titleText,
         questions: [],
-        suggestion: `textarea${sectionIndex + 1}`
+        suggestion: `sec${sectionIndex + 1}_opinion`
       }
 
       // 查找所有行
       const rows = sectionTable.find('tr')
 
-      for (let i = 1; i < rows.length; i++) {
+      for (let i = 0; i < rows.length; i++) {
         // 跳過標題行
         const row = $(rows[i])
         const cells = row.find('td')
-
         // 檢查第一個單元格是否包含問題編號
         const firstCellText = cells.first().text().trim()
         if (firstCellText.match(/^\d+\.$/)) {
           const questionNumber = firstCellText.replace('.', '')
           const questionText = cells.eq(1).text().trim()
           const questionId = `q${questionNumber}`
-
           const options = []
+          const questionOptions = cells.eq(2)
+          // 在該單元格內查找所有的 label 元素
+          const labels = questionOptions.find('label.qlabel')
 
-          // 從第3個單元格開始查找選項
-          for (let j = 2; j < cells.length; j++) {
-            const cell = cells.eq(j)
-            const input = cell.find('input[type="radio"]')
+          // 遍歷每個 label
+          for (let j = 0; j < labels.length; j++) {
+            const label = $(labels[j])
+            const input = label.find('input[type="radio"]')
 
             if (input.length > 0) {
               const value = input.attr('value')
-              const fontElement = cell.find('font')
+              let labelText = label.text().trim()
 
-              if (fontElement.length > 0 && value) {
-                let label = fontElement.text().trim()
+              // 移除標籤前的選項標識（如"A."）和多餘空白
+              labelText = labelText.replace(/^[A-E]\.\s*/, '').trim()
 
-                // 移除標籤前的選項標識（如"A."）
-                label = label.replace(/^[A-E]\./, '')
-
-                options.push({ value, label })
+              if (value && labelText) {
+                options.push({ value, label: labelText })
               }
             }
           }
@@ -169,7 +166,6 @@ const getCourseForm = async (userid: string, coursePk?: string) => {
     // 從第二個tr開始遍歷
     // body > center > p:nth-child(2) > table > tbody > tr:nth-child(2)
     const rows = $('body > center > p:nth-child(2) > table > tbody > tr').slice(1)
-    console.log('rows', rows.length)
     rows.each((index, element) => {
       const cells = $(element).find('td')
       if (cells.length >= 4) {
