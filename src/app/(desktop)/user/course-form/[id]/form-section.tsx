@@ -24,7 +24,7 @@ export function FormSection({
   isCompleted,
   formData,
   onValueChange,
-  validationErrors,
+  validationErrors
 }: FormSectionProps) {
   // Skip empty sections (like section1 in the data)
   if (!section.title || section.questions.length === 0) {

@@ -72,9 +72,7 @@ const getCourseForm = async (userid: string, coursePk?: string) => {
     }
 
     // 選擇所有包含問卷部分的表格
-    const formTables = $(
-      'fieldset'
-    )
+    const formTables = $('fieldset')
     formTables.each((sectionIndex, sectionElement) => {
       const sectionTable = $(sectionElement)
       const titleText = sectionTable.find('legend span').text().trim()

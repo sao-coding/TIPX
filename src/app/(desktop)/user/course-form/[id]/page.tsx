@@ -1,7 +1,6 @@
 'use client'
 
-import { use, useState, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { use, useMemo, useState } from 'react'
 
 import Title from '@/components/Title'
 import { Accordion } from '@/components/ui/accordion'
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { useCourseForm } from '@/hooks/use-course-form'
 import api from '@/lib/api'
 import { CourseForm, CourseFormSection } from '@/types'
+import { useQuery } from '@tanstack/react-query'
 
 const calculateTotalQuestions = (form: CourseFormSection[]): number => {
   return form.reduce((total, section) => total + section.questions.length, 0)
