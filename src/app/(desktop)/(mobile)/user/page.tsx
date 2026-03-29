@@ -64,7 +64,7 @@ const UserPage = async () => {
         }
       />
       <Switch mobile />
-      {/* <Alert className='mt-2' variant='destructive'>
+      <Alert className='mt-2' variant='destructive'>
         <IconAlertTriangle className='size-4' />
         <AlertTitle>畢業帳號注意事項</AlertTitle>
         <AlertDescription>
@@ -74,25 +74,6 @@ const UserPage = async () => {
             密碼
           </Link>
           ，以便日後登入。
-        </AlertDescription>
-      </Alert> */}
-      {/* 課程意見調查表已經修復 */}
-      <Alert className='mt-2 bg-yellow-50 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200'>
-        <IconAlertTriangle className='size-4 !text-yellow-500' />
-        <AlertTitle>
-          課程意見調查表已經修復
-          <Link
-            href='/user/git-log'
-            className='ml-1 text-yellow-600 underline dark:text-yellow-400'
-          >
-            (更新紀錄)
-          </Link>
-        </AlertTitle>
-        <AlertDescription>
-          若之前無法填寫課程意見調查表，現在已經可以正常使用，請重新嘗試填寫。
-          <Link href='/user/course-form' className='text-yellow-600 underline dark:text-yellow-400'>
-            點擊這裡前往課程意見調查表
-          </Link>
         </AlertDescription>
       </Alert>
       {/* 畢業留言 */}
@@ -114,7 +95,7 @@ const UserPage = async () => {
               index > 0 &&
               group.links.map((link, _) =>
                 (link.text === '查詢用戶' && role === 'USER') ||
-                (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
+                  (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
                   <li key={_}>
                     <Link
                       href={link.href}
