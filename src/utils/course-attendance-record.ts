@@ -84,6 +84,7 @@ const getCourseAttendanceRecord = async (
     '病假',
     '事假',
     '公假',
+    '心理假',
     '朝會不到',
     '朝會遲到',
     '遲到',

@@ -56,6 +56,10 @@ const AttendanceRecordPage = ({ id }: { id?: string }) => {
     喪假: {
       bg: 'bg-stone-500/80',
       border: 'border-stone-500'
+    },
+    心理假: {
+      bg: 'bg-green-500',
+      border: 'border-green-500'
     }
   }
 
