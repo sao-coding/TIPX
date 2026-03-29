@@ -95,7 +95,7 @@ const UserPage = async () => {
               index > 0 &&
               group.links.map((link, _) =>
                 (link.text === '查詢用戶' && role === 'USER') ||
-                  (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
+                (link.text === '日誌中心' && role !== 'SUPER_ADMIN') ? null : (
                   <li key={_}>
                     <Link
                       href={link.href}
