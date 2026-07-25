@@ -34,7 +34,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
           <div className='text-2xl font-bold'>發生錯誤</div>
           <div className='text-xl font-bold'>{errorMessages(error.digest ?? '')}</div>
           <a
-            href='https://tk-tipx.github.io/upptime/'
+            href='https://status.sao-x.com/status/tipx'
             className='border-b border-blue-500 text-blue-500'
           >
             查看系統狀態
