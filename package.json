@@ -1,0 +1,48 @@
+{
+  "name": "tipx",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check-types": "turbo run check-types",
+    "dev:native": "turbo run dev -F native",
+    "dev:web": "turbo run dev -F web",
+    "dev:server": "turbo run dev -F server",
+    "db:push": "turbo run db:push -F @tipx/db",
+    "db:studio": "turbo run db:studio -F @tipx/db",
+    "db:generate": "turbo run db:generate -F @tipx/db",
+    "db:migrate": "turbo run db:migrate -F @tipx/db",
+    "db:start": "docker compose up -d mysql",
+    "db:watch": "docker compose up mysql",
+    "db:stop": "docker compose stop mysql",
+    "db:down": "docker compose down mysql",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@tipx/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@tipx/config": "workspace:*",
+    "@types/node": "^22.20.1",
+    "husky": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "turbo": "^2.10.7",
+    "typescript": "^6.0.3",
+    "ultracite": "7.9.4"
+  },
+  "packageManager": "pnpm@10.30.3"
+}

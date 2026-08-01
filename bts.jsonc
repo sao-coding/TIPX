@@ -1,0 +1,38 @@
+// Better-T-Stack project metadata
+//
+// Keep this file to use the `add` command.
+// Add addons: pnpm dlx create-better-t-stack@latest add
+//
+// Docs: https://better-t-stack.dev/docs
+// Stack Builder: https://better-t-stack.dev/new
+
+{
+  "$schema": "https://r2.better-t-stack.dev/schema.json",
+  "version": "3.38.0",
+  "createdAt": "2026-08-01T18:28:31.947Z",
+  "reproducibleCommand": "pnpm create better-t-stack@latest tipx --frontend tanstack-router native-uniwind --backend hono --runtime node --database mysql --orm prisma --api orpc --auth better-auth --payments none --addons turborepo oxlint husky fumadocs pwa evlog skills mcp ultracite --examples todo --db-setup docker --web-deploy docker --server-deploy docker --no-git --package-manager pnpm --no-install",
+  "database": "mysql",
+  "orm": "prisma",
+  "backend": "hono",
+  "runtime": "node",
+  "frontend": ["tanstack-router", "native-uniwind"],
+  "addons": [
+    "turborepo",
+    "oxlint",
+    "husky",
+    "fumadocs",
+    "pwa",
+    "evlog",
+    "skills",
+    "mcp",
+    "ultracite",
+  ],
+  "examples": ["todo"],
+  "auth": "better-auth",
+  "payments": "none",
+  "packageManager": "pnpm",
+  "dbSetup": "docker",
+  "api": "orpc",
+  "webDeploy": "docker",
+  "serverDeploy": "docker",
+}

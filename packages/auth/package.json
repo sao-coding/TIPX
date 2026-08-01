@@ -1,0 +1,25 @@
+{
+  "name": "@tipx/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@better-auth/expo": "catalog:",
+    "@tipx/db": "workspace:*",
+    "@tipx/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@tipx/config": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}
