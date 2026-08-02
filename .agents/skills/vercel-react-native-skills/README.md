@@ -1,6 +1,7 @@
 # React Native Guidelines
 
-A structured repository for creating and maintaining React Native Best Practices optimized for agents and LLMs.
+A structured repository for creating and maintaining React Native Best Practices
+optimized for agents and LLMs.
 
 ## Structure
 
@@ -20,7 +21,8 @@ A structured repository for creating and maintaining React Native Best Practices
 
 ### List Performance (HIGH)
 
-- `list-performance-virtualize.md` - Use virtualized lists (LegendList, FlashList)
+- `list-performance-virtualize.md` - Use virtualized lists (LegendList,
+  FlashList)
 - `list-performance-function-references.md` - Keep stable object references
 - `list-performance-callbacks.md` - Hoist callbacks to list root
 - `list-performance-inline-objects.md` - Avoid inline objects in renderItem
@@ -32,7 +34,8 @@ A structured repository for creating and maintaining React Native Best Practices
 ### Animation (HIGH)
 
 - `animation-gpu-properties.md` - Animate transform/opacity instead of layout
-- `animation-gesture-detector-press.md` - Use GestureDetector for press animations
+- `animation-gesture-detector-press.md` - Use GestureDetector for press
+  animations
 - `animation-derived-value.md` - Prefer useDerivedValue over useAnimatedReaction
 
 ### Scroll Performance (HIGH)
@@ -56,7 +59,8 @@ A structured repository for creating and maintaining React Native Best Practices
 ### React Compiler (MEDIUM)
 
 - `react-compiler-destructure-functions.md` - Destructure functions early
-- `react-compiler-reanimated-shared-values.md` - Use .get()/.set() for shared values
+- `react-compiler-reanimated-shared-values.md` - Use .get()/.set() for shared
+  values
 
 ### User Interface (MEDIUM)
 

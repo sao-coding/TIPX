@@ -7,7 +7,8 @@ tags: fonts, expo, performance, config-plugin
 
 ## Use Expo Config Plugin for Font Loading
 
-Use the `expo-font` config plugin to embed fonts at build time instead of `useFonts` or `Font.loadAsync`. Embedded fonts are more efficient.
+Use the `expo-font` config plugin to embed fonts at build time instead of
+`useFonts` or `Font.loadAsync`. Embedded fonts are more efficient.
 
 **Incorrect (async font loading):**
 
@@ -63,6 +64,8 @@ function App() {
 }
 ```
 
-After adding fonts to the config plugin, run `npx expo prebuild` and rebuild the native app.
+After adding fonts to the config plugin, run `npx expo prebuild` and rebuild the
+native app.
 
-Reference: [Expo Font Documentation](https://docs.expo.dev/versions/latest/sdk/font/)
+Reference:
+[Expo Font Documentation](https://docs.expo.dev/versions/latest/sdk/font/)

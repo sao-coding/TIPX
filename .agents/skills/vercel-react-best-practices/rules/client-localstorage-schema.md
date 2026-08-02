@@ -45,10 +45,7 @@ function migrate() {
     const v1 = localStorage.getItem("userConfig:v1");
     if (v1) {
       const old = JSON.parse(v1);
-      saveConfig({
-        theme: old.darkMode ? "dark" : "light",
-        language: old.lang,
-      });
+      saveConfig({ theme: old.darkMode ? "dark" : "light", language: old.lang });
       localStorage.removeItem("userConfig:v1");
     }
   } catch {}
@@ -66,7 +63,7 @@ function cachePrefs(user: FullUser) {
       JSON.stringify({
         theme: user.preferences.theme,
         notifications: user.preferences.notifications,
-      })
+      }),
     );
   } catch {}
 }

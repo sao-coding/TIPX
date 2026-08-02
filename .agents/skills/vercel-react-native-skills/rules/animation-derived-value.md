@@ -7,7 +7,10 @@ tags: animation, reanimated, derived-value
 
 ## Prefer useDerivedValue Over useAnimatedReaction
 
-When deriving a shared value from another, use `useDerivedValue` instead of `useAnimatedReaction`. Derived values are declarative, automatically track dependencies, and return a value you can use directly. Animated reactions are for side effects, not derivations.
+When deriving a shared value from another, use `useDerivedValue` instead of
+`useAnimatedReaction`. Derived values are declarative, automatically track
+dependencies, and return a value you can use directly. Animated reactions are
+for side effects, not derivations.
 
 **Incorrect (useAnimatedReaction for derivation):**
 
@@ -22,7 +25,7 @@ function MyComponent() {
     () => progress.value,
     (current) => {
       opacity.value = 1 - current;
-    }
+    },
   );
 
   // ...
@@ -43,6 +46,8 @@ function MyComponent() {
 }
 ```
 
-Use `useAnimatedReaction` only for side effects that don't produce a value (e.g., triggering haptics, logging, calling `runOnJS`).
+Use `useAnimatedReaction` only for side effects that don't produce a value
+(e.g., triggering haptics, logging, calling `runOnJS`).
 
-Reference: [Reanimated useDerivedValue](https://docs.swmansion.com/react-native-reanimated/docs/core/useDerivedValue)
+Reference:
+[Reanimated useDerivedValue](https://docs.swmansion.com/react-native-reanimated/docs/core/useDerivedValue)

@@ -13,14 +13,14 @@ npx @evlog/cli map <file> --no-write   # suggested shape for one entry point
 
 Map rule ids (requirements that move the score) map to the anti-patterns below:
 
-| Map rule id | What it expects | Related anti-pattern |
-| --- | --- | --- |
-| `wide-event` | `useLogger()` / request logger | No logging in handlers |
-| `context` | `log.set(...)` | Flat / missing request context |
-| `structured-errors` | `createError({ why, fix })` | `throw new Error('...')` |
-| `error-handling` | log or rethrow in `catch` | `console.error(e); throw e` |
-| `audit` | `log.audit(...)` on sensitive routes | Missing audit on auth/billing |
-| `page-error-handling` | fetch error handling on pages | Unhandled page fetches |
+| Map rule id           | What it expects                      | Related anti-pattern           |
+| --------------------- | ------------------------------------ | ------------------------------ |
+| `wide-event`          | `useLogger()` / request logger       | No logging in handlers         |
+| `context`             | `log.set(...)`                       | Flat / missing request context |
+| `structured-errors`   | `createError({ why, fix })`          | `throw new Error('...')`       |
+| `error-handling`      | log or rethrow in `catch`            | `console.error(e); throw e`    |
+| `audit`               | `log.audit(...)` on sensitive routes | Missing audit on auth/billing  |
+| `page-error-handling` | fetch error handling on pages        | Unhandled page fetches         |
 
 Full rule reference: https://www.evlog.dev/cli/rules
 
@@ -303,14 +303,14 @@ export default defineEventHandler(async (event) => {
 
 ## Anti-Pattern Summary
 
-| Anti-Pattern | Fix |
-| --- | --- |
-| Multiple `console.log` in one function | Single wide event with `useLogger(event).set()` |
-| `throw new Error('...')` | `throw createError({ message, status, why, fix })` |
-| `console.error(e); throw e` | `log.error(e); throw createError(...)` |
-| No logging in request handlers | Add `useLogger(event)` (Nuxt/Nitro) or `createRequestLogger()` (standalone) |
-| Flat log data | Grouped objects: `{ user: {...}, cart: {...} }` |
-| Abbreviated field names | Descriptive names: `userId` not `uid` |
+| Anti-Pattern                           | Fix                                                                         |
+| -------------------------------------- | --------------------------------------------------------------------------- |
+| Multiple `console.log` in one function | Single wide event with `useLogger(event).set()`                             |
+| `throw new Error('...')`               | `throw createError({ message, status, why, fix })`                          |
+| `console.error(e); throw e`            | `log.error(e); throw createError(...)`                                      |
+| No logging in request handlers         | Add `useLogger(event)` (Nuxt/Nitro) or `createRequestLogger()` (standalone) |
+| Flat log data                          | Grouped objects: `{ user: {...}, cart: {...} }`                             |
+| Abbreviated field names                | Descriptive names: `userId` not `uid`                                       |
 
 ## Suggested Review Comments
 

@@ -42,7 +42,8 @@ For tasks like `lint` and `check-types` that can run in parallel but need depend
 }
 ```
 
-**DO NOT use `dependsOn: ["^lint"]`** - this forces sequential execution. **DO NOT use `dependsOn: []`** - this breaks cache invalidation.
+**DO NOT use `dependsOn: ["^lint"]`** - this forces sequential execution.
+**DO NOT use `dependsOn: []`** - this breaks cache invalidation.
 
 The `transit` task creates dependency relationships without running anything (no matching script), so tasks run in parallel with correct caching.
 
@@ -103,11 +104,7 @@ Files considered when calculating task hash. Defaults to all tracked files in pa
 {
   "tasks": {
     "build": {
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "!README.md",
-        "$TURBO_ROOT$/tsconfig.base.json"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "!README.md", "$TURBO_ROOT$/tsconfig.base.json"]
     }
   }
 }
@@ -318,7 +315,7 @@ Control task inheritance in Package Configurations.
 }
 ```
 
-| Value | Behavior |
-| --- | --- |
-| `true` (default) | Inherit from root turbo.json |
-| `false` | Exclude task from package, or define fresh without inheritance |
+| Value            | Behavior                                                       |
+| ---------------- | -------------------------------------------------------------- |
+| `true` (default) | Inherit from root turbo.json                                   |
+| `false`          | Exclude task from package, or define fresh without inheritance |

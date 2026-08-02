@@ -35,13 +35,19 @@ Returns registry names from `components.json`. Errors if no `components.json` ex
 
 ### `shadcn:list_items_in_registries`
 
-Lists all items from one or more registries. Registries can be configured namespaces such as `@acme`, public GitHub sources such as `owner/repo`, or registry catalog URLs. Omit `registries` to list from every registry configured in `components.json`.
+Lists all items from one or more registries. Registries can be configured
+namespaces such as `@acme`, public GitHub sources such as `owner/repo`, or
+registry catalog URLs. Omit `registries` to list from every registry configured
+in `components.json`.
 
 **Input:** `registries` (string[], optional — omit for all configured), `types` (string[], optional — e.g. `["ui", "block"]`), `limit` (number, optional, defaults to 100), `offset` (number, optional)
 
 ### `shadcn:search_items_in_registries`
 
-Fuzzy search across registries. Registries can be configured namespaces, public GitHub sources, or registry catalog URLs. Omit `registries` to search every registry configured in `components.json` — e.g. "find me a hero" across all configured registries.
+Fuzzy search across registries. Registries can be configured namespaces, public
+GitHub sources, or registry catalog URLs. Omit `registries` to search every
+registry configured in `components.json` — e.g. "find me a hero" across all
+configured registries.
 
 **Input:** `registries` (string[], optional — omit for all configured), `query` (string), `types` (string[], optional — e.g. `["ui", "block"]`), `limit` (number, optional, defaults to 100), `offset` (number, optional)
 
@@ -49,11 +55,13 @@ Fuzzy search across registries. Registries can be configured namespaces, public 
 
 View item details including full file contents.
 
-**Input:** `items` (string[]) — e.g. `["@shadcn/button", "@shadcn/card", "owner/repo/item"]`
+**Input:** `items` (string[]) — e.g.
+`["@shadcn/button", "@shadcn/card", "owner/repo/item"]`
 
 ### `shadcn:get_item_examples_from_registries`
 
-Find usage examples and demos with source code. Omit `registries` to search every registry configured in `components.json`.
+Find usage examples and demos with source code. Omit `registries` to search
+every registry configured in `components.json`.
 
 **Input:** `registries` (string[], optional — omit for all configured), `query` (string) — e.g. `"accordion-demo"`, `"button example"`
 
@@ -73,7 +81,10 @@ Returns a checklist for verifying components (imports, deps, lint, TypeScript).
 
 ## Configuring Registries
 
-Namespaced and authenticated registries are set in `components.json`. The `@shadcn` registry is always built-in. Public GitHub registries can also be used directly as `owner/repo` registry sources when the repository has a root `registry.json`; they do not need `components.json` configuration.
+Namespaced and authenticated registries are set in `components.json`. The
+`@shadcn` registry is always built-in. Public GitHub registries can also be used
+directly as `owner/repo` registry sources when the repository has a root
+`registry.json`; they do not need `components.json` configuration.
 
 ```json
 {
