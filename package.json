@@ -38,11 +38,17 @@
     "@tipx/config": "workspace:*",
     "@types/node": "^22.20.1",
     "husky": "latest",
+    "lint-staged": "^17.3.0",
     "oxfmt": "latest",
     "oxlint": "latest",
     "turbo": "^2.10.7",
     "typescript": "^6.0.3",
     "ultracite": "7.9.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css}": [
+      "ultracite fix"
+    ]
   },
   "packageManager": "pnpm@10.30.3"
 }
