@@ -4,7 +4,7 @@ const UmamiAnalytics = () => {
   return (
     <Script
       src='https://umami.sao-x.com/script.js'
-      data-website-id='49cc153b-b5be-4133-9596-c6a864e8635a'
+      data-website-id='a7e2fd43-949b-45ed-b9a9-853f2260615a'
     />
   )
 }
