@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
+import { readFile } from 'fs/promises'
+import path from 'path'
 import { ImageResponse } from 'takumi-js/response'
-
-export const runtime = 'edge'
 
 export const GET = async (req: Request) => {
   try {
@@ -23,15 +23,10 @@ export const GET = async (req: Request) => {
     const titleFontSize =
       title.length > 50 ? 'text-4xl' : title.length > 40 ? 'text-5xl' : 'text-7xl'
 
-    const OGLittleBlod = fetch(
-      new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer())
-
-    const ZhuXiMaru = fetch(
-      new URL('../../../../public/fonts/筑紫A丸by_宁静之雨.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer())
-
-    const [fontOGLittleBlod, fontZhuXiMaru] = await Promise.all([OGLittleBlod, ZhuXiMaru])
+    const [fontOGLittleBlod, fontZhuXiMaru] = await Promise.all([
+      readFile(path.join(process.cwd(), 'public/fonts/ShortStack-Regular.ttf')),
+      readFile(path.join(process.cwd(), 'public/fonts/筑紫A丸by_宁静之雨.ttf'))
+    ])
 
     return new ImageResponse(
       (
