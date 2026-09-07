@@ -1,16 +1,7 @@
-import { ImageResponse } from 'next/og'
 import { NextResponse } from 'next/server'
-
-import { site } from '@/config/site'
+import { ImageResponse } from 'takumi-js/response'
 
 export const runtime = 'edge'
-
-async function fetchFont(text: string): Promise<ArrayBuffer | null> {
-  const res = await fetch(`${site.url}/api/fonts?text=${encodeURIComponent(text)}`)
-  const buffer = await res.arrayBuffer()
-
-  return buffer
-}
 
 export const GET = async (req: Request) => {
   try {
@@ -34,11 +25,13 @@ export const GET = async (req: Request) => {
 
     const OGLittleBlod = fetch(
       new URL('../../../../public/fonts/ShortStack-Regular.ttf', import.meta.url)
-    ).then((res) => {
-      return res.arrayBuffer()
-    })
+    ).then((res) => res.arrayBuffer())
 
-    const [fontOGLittleBlod] = await Promise.all([OGLittleBlod])
+    const ZhuXiMaru = fetch(
+      new URL('../../../../public/fonts/筑紫A丸by_宁静之雨.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer())
+
+    const [fontOGLittleBlod, fontZhuXiMaru] = await Promise.all([OGLittleBlod, ZhuXiMaru])
 
     return new ImageResponse(
       (
@@ -51,7 +44,7 @@ export const GET = async (req: Request) => {
           <div tw='text-5xl font-semibold' style={{ fontFamily: 'OG Little' }}>
             {date}
           </div>
-          <div tw={`${titleFontSize} mx-auto`} style={{ fontFamily: 'Microsoft JhengHei' }}>
+          <div tw={`${titleFontSize} mx-auto`} style={{ fontFamily: 'Zhu Xi Maru' }}>
             {title}
           </div>
           <div tw='flex items-center justify-between'>
@@ -81,8 +74,8 @@ export const GET = async (req: Request) => {
         height: 630,
         fonts: [
           {
-            name: 'Noto Sans TC',
-            data: (await fetchFont(title)) as ArrayBuffer
+            name: 'Zhu Xi Maru',
+            data: fontZhuXiMaru
           },
           {
             name: 'OG Little',

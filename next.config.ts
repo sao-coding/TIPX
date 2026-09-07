@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  serverExternalPackages: ['fontmin']
+  serverExternalPackages: ['@takumi-rs/core']
 }
 
 export default withPWA(nextConfig)
