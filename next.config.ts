@@ -15,7 +15,13 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  serverExternalPackages: ['@takumi-rs/core']
+  serverExternalPackages: ['@takumi-rs/core'],
+  outputFileTracingIncludes: {
+    '/api/og/**': [
+      './node_modules/@takumi-rs/core-linux-x64-gnu/*.node',
+      './node_modules/@takumi-rs/core-linux-x64-musl/*.node'
+    ]
+  }
 }
 
 export default withPWA(nextConfig)
