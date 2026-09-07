@@ -1,2 +1,2 @@
 publicHoistPattern:
-  - '@takumi-rs/core-*'
+  - '@takumi-rs/*'
