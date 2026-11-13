@@ -1,6 +1,3 @@
-
-# syntax=docker/dockerfile:1
-
 FROM node:26.12.1-trixie-slim
 
 ENV NODE_ENV=production \
@@ -9,7 +6,7 @@ ENV NODE_ENV=production \
 
 WORKDIR /app
 
-# Update OS packages and install runtime requirements for Prisma
+# Install system dependencies
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
@@ -18,17 +15,25 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && chown node:node /app
 
-# Install pinned pnpm version
+# Install pnpm
 RUN npm install --global pnpm@10.10.0
 
 USER node
 
-# Install dependencies
+# Copy package files
 COPY --chown=node:node package.json pnpm-lock.yaml ./
+
+# Copy Prisma schema before installing dependencies.
+# Prisma may run generate during installation.
+COPY --chown=node:node prisma ./prisma
+
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copy source and build
+# Copy remaining application files
 COPY --chown=node:node . .
+
+# Build Next.js application
 RUN pnpm build
 
 # Remove development dependencies
