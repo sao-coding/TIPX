@@ -1,3 +1,6 @@
+
+# syntax=docker/dockerfile:1
+
 FROM node:26.12.1-trixie-slim
 
 ENV NODE_ENV=production \
@@ -23,21 +26,17 @@ USER node
 # Copy package files
 COPY --chown=node:node package.json pnpm-lock.yaml ./
 
-# Copy Prisma schema before installing dependencies.
-# Prisma may run generate during installation.
+# Copy Prisma schema before installing dependencies
 COPY --chown=node:node prisma ./prisma
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copy remaining application files
+# Copy application source
 COPY --chown=node:node . .
 
-# Build Next.js application
+# Build application
 RUN pnpm build
-
-# Remove development dependencies
-RUN pnpm prune --prod
 
 EXPOSE 3000
 
