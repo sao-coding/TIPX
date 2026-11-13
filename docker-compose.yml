@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tipx-app
+    restart: unless-stopped
+    ports:
+      - "5801:3000"
+    env_file:
+      - .env
